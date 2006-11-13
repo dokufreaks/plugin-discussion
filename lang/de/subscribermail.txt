@@ -1,0 +1,18 @@
+Hallo!
+
+Ein neuer Kommentar wurde zur Seite @PAGE@ im @TITLE@ Wiki hinzugefügt.
+
+Datum:  @DATE@
+Name:   @NAME@
+
+Kommentar:
+--------------------------------------------------------
+@TEXT@
+--------------------------------------------------------
+
+Um das Abonnement für diese Seite aufzulösen, melde dich im Wiki an und klicke dann diesen Link:
+@UNSUBSCRIBE@
+
+-- 
+Diese Mail kommt vom DokuWiki auf
+@DOKUWIKIURL@

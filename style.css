@@ -1,0 +1,79 @@
+div.dokuwiki div.comment_form {
+  margin-top: 2em;
+  clear: both;
+}
+
+div.dokuwiki #discussion__comment_form label input.edit {
+  width: 75%;
+}
+
+div.dokuwiki .comment_head {
+  font-size: 80%;
+  color: __text_neu__;
+  padding-top: 0.5em;
+  margin-top: 1em;
+}
+
+div.dokuwiki .comment_body {
+  margin-left: 54px;
+  padding-top: 0.5em;
+  border-bottom: 1px solid __border__;
+}
+
+div.dokuwiki div.comment_replies {
+  margin-left: 54px;
+}
+
+div.dokuwiki div.comment_hidden {
+  opacity: 0.5;
+}
+
+div.dokuwiki div.comment_buttons {
+  float: right;
+  font-size: 10px;
+  cursor: pointer;
+  display: inline;
+}
+
+div.dokuwiki div.comment_buttons input.button {
+  border: 1px solid __border__;
+  color: __text__;
+  background-color: __background__;
+  vertical-align: middle;
+  text-decoration: none;
+  padding: 0;
+  margin: 0 0 0 0.5em;
+}
+
+div.dokuwiki table.threads {
+  border: 0;
+  padding: 0;
+  border-spacing: 0;
+  margin-bottom: 1em;
+  border-collapse: collapse;
+}
+
+div.dokuwiki table.threads td {
+  padding: 1px 2em 1px 0;
+  border-top: 1px solid __border__;
+  border-bottom: 1px solid __border__;
+}
+
+div.dokuwiki table.threads td.date, div.dokuwiki table.threads td.user, div.dokuwiki table.threads td.num {
+  color: __text_neu__;
+  font-size: 80%;
+}
+
+div.dokuwiki div.newthread_form {
+  clear: both;
+  text-align: center;
+}
+
+div.dokuwiki #discussion__newthread_form label input.edit {
+  width: 75%;
+}
+
+div.dokuwiki a.feed {
+  background: transparent url(images/rss_icon.png) 0px 1px no-repeat;
+  padding: 1px 0px 1px 16px;
+}
