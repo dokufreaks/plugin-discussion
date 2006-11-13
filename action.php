@@ -5,9 +5,9 @@
  */
 
 // must be run within Dokuwiki
-if(!defined('DOKU_INC')) die();
+if (!defined('DOKU_INC')) die();
 
-if(!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
+if (!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
 require_once(DOKU_PLUGIN.'action.php');
 
 if (!defined('NL')) define('NL',"\n");
@@ -21,7 +21,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     return array(
       'author' => 'Esther Brunner',
       'email'  => 'wikidesign@gmail.com',
-      'date'   => '2006-11-06',
+      'date'   => '2006-11-13',
       'name'   => 'Discussion Plugin',
       'desc'   => 'Enables discussion features',
       'url'    => 'http://wiki:splitbrain.org/plugin:discussion',
@@ -80,6 +80,9 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         $raw  = cleanText($_REQUEST['text']);
         $this->_save($cid, $raw);
         break;
+        
+      case 'delete':
+        $this->_save($cid, '');
         
       case 'toogle':
         $this->_save($cid, '', true);
@@ -336,12 +339,14 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
           
       // show reply button?
       if (($data['status'] == 1) && !$reply && $comment['show'])
-        $this->_button($cid, $this->getLang('btn_reply'), 'reply');
+        $this->_button($cid, $this->getLang('btn_reply'), 'reply', true);
       
-      // show edit button?
+      // show edit and delete button?
       if ((($comment['user'] == $_SERVER['REMOTE_USER']) && ($comment['user'] != ''))
         || ($INFO['perm'] == AUTH_ADMIN))
-        $this->_button($cid, $lang['btn_secedit'], 'edit');
+        $this->_button($cid, $lang['btn_secedit'], 'edit', true);
+      if ($INFO['perm'] == AUTH_ADMIN)
+        $this->_button($cid, $lang['btn_delete'], 'delete');
       echo '</div>'.NL; // class="comment_buttons"
     }
 
@@ -513,11 +518,12 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
   /**
    * General button function
    */
-  function _button($cid, $label, $act){
+  function _button($cid, $label, $act, $jump = false){
     global $ID;
+    $anchor = ($jump ? '#discussion__comment_form' : '' );
         
     ?>
-    <form class="button" method="post" action="<?php echo script() ?>">
+    <form class="button" method="post" action="<?php echo script().$anchor ?>">
       <div class="no">
         <input type="hidden" name="id" value="<?php echo $ID ?>" />
         <input type="hidden" name="do" value="show" />
@@ -584,7 +590,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
           return true;
       }
 
-      io_saveFile($changelog.'_tmp', '');          // presave tmp as 2nd lock
+      io_saveFile($changelog.'_tmp', '');                  // presave tmp as 2nd lock
       $trim_time = time() - $conf['recent_days']*86400;
       $out_lines = array();
 
