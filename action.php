@@ -305,6 +305,9 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
       $title = ($comment['name'] ? $comment['name'] : obfuscate($comment['mail']));
       echo '<img src="'.$src.'" class="medialeft" title="'.$title.'"'.
         ' alt="'.$title.'" width="'.$size.'" height="'.$size.'" />'.NL;
+      $style = ' style="margin-left: '.($size + 14).'px;"';
+    } else {
+      $style = ' style="margin-left: 20px;"';
     }
     
     echo '</a>'.NL;
@@ -322,7 +325,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     echo '</div>'.NL; // class="comment_head"
     
     // main comment content
-    echo '<div class="comment_body">'.NL;
+    echo '<div class="comment_body"'.($this->getConf('usegravatar') ? $style : '').'>'.NL;
     echo $comment['xhtml'].NL;
     echo '</div>'.NL; // class="comment_body"
     
@@ -352,7 +355,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
 
     // replies to this comment entry?
     if (count($comment['replies'])){
-      echo '<div class="comment_replies">'.NL;
+      echo '<div class="comment_replies"'.$style.'>'.NL;
       $visible = ($comment['show'] && $visible);
       foreach ($comment['replies'] as $rid){
         $this->_print($rid, $data, $cid, $reply, $visible);

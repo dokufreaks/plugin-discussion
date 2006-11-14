@@ -12,16 +12,15 @@ div.dokuwiki .comment_head {
   color: __text_neu__;
   padding-top: 0.5em;
   margin-top: 1em;
+  clear: both;
 }
 
 div.dokuwiki .comment_body {
-  margin-left: 54px;
   padding-top: 0.5em;
   border-bottom: 1px solid __border__;
 }
 
 div.dokuwiki div.comment_replies {
-  margin-left: 54px;
 }
 
 div.dokuwiki div.comment_hidden {
