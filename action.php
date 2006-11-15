@@ -21,7 +21,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     return array(
       'author' => 'Esther Brunner',
       'email'  => 'wikidesign@gmail.com',
-      'date'   => '2006-11-13',
+      'date'   => '2006-11-15',
       'name'   => 'Discussion Plugin',
       'desc'   => 'Enables discussion features',
       'url'    => 'http://wiki:splitbrain.org/plugin:discussion',
@@ -341,7 +341,8 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
       }
           
       // show reply button?
-      if (($data['status'] == 1) && !$reply && $comment['show'])
+      if (($data['status'] == 1) && !$reply && $comment['show']
+        && ($this->getConf('allowguests') || $_SERVER['REMOTE_USER']))
         $this->_button($cid, $this->getLang('btn_reply'), 'reply', true);
       
       // show edit and delete button?
