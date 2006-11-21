@@ -1,0 +1,18 @@
+Olá!
+
+Um novo comentário foi adicionado à página @PAGE@ no wiki @TITLE@.
+
+Data:   @DATE@
+Nome:   @NAME@
+
+Comentário:
+--------------------------------------------------------
+@TEXT@
+--------------------------------------------------------
+
+Para se desinscrever desta página "log-se" no wiki e então clique neste link:
+@UNSUBSCRIBE@
+
+--
+Esta mensagem foi gerada pelo DokuWiki em
+@DOKUWIKIURL@
