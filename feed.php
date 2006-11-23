@@ -22,6 +22,7 @@ session_write_close();
 $num   = $_REQUEST['num'];
 $type  = $_REQUEST['type'];
 $ns    = $_REQUEST['ns'];
+$title = $_REQUEST['title'];
 
 if($type == '')
   $type = $conf['rss_type'];
@@ -70,7 +71,7 @@ if ($cmod &&
 
 // create new feed
 $rss = new DokuWikiFeedCreator();
-$rss->title = $conf['title'].(($ns) ? ' '.ucwords($ns) : '');
+$rss->title = $title.' '.(($ns) ? ' '.ucwords($ns) : '').' · '.$conf['title'];
 $rss->link  = DOKU_URL;
 $rss->syndicationURL = DOKU_URL.'lib/plugins/discussion/feed.php';
 $rss->cssStyleSheet  = DOKU_URL.'lib/styles/feed.css';
