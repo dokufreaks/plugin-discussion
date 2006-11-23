@@ -7,6 +7,7 @@
  */
 
 $lang['discussion']      = 'Discussie';
+$lang['comments']        = 'Commentaar';
 $lang['btn_reply']       = 'Reageer';
 $lang['btn_hide']        = 'Verberg';
 $lang['btn_show']        = 'Laat zien';
@@ -15,7 +16,6 @@ $lang['mail_newcomment'] = 'Nieuw commentaar';
 
 $lang['reply']           = 'Reactie';
 $lang['replies']         = 'Reacties';
-
 $lang['newthread']       = 'New thread';
 
 //Setup VIM: ex: et ts=2 enc=utf-8 :

@@ -7,6 +7,7 @@
  */
 
 $lang['discussion']      = 'Дискуссия';
+$lang['comments']        = 'Комментариев';
 $lang['url']             = 'Вебсайт';
 $lang['address']         = 'Адрес';
 $lang['date']            = 'Дата';

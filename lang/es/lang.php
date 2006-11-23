@@ -7,6 +7,7 @@
  * @author     Juan José 'Peco' San Martín <peco@microbotica.es>
  */
 $lang['discussion']      = 'Discusión';
+$lang['comments']        = 'Comentarios';
 $lang['btn_reply']       = 'Responder';
 $lang['btn_hide']        = 'Ocultar';
 $lang['btn_show']        = 'Mostrar';

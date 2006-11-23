@@ -59,6 +59,7 @@ class syntax_plugin_discussion_feed extends DokuWiki_Syntax_Plugin {
     if($mode == 'xhtml'){
       $url   = DOKU_BASE.'lib/plugins/discussion/feed.php?ns='.cleanID($ns);
       if ($data[1]) $url .= '&num='.$data[1];
+      $url .= '&title='.urlencode($this->getLang('comments'));
       $title = $renderer->_xmlEntities($title);
       
       $renderer->doc .= '<a href="'.$url.'" class="feed" rel="nofollow"'.
