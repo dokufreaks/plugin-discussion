@@ -1,3 +1,10 @@
+div.dokuwiki div.comment_wrapper {
+  background-color: __background_neu__;
+  margin: 1em -1em;
+  padding: 0.5em 1em;
+  clear: both;
+}
+
 div.dokuwiki div.comment_form {
   margin-top: 2em;
   clear: both;
@@ -17,7 +24,6 @@ div.dokuwiki .comment_head {
 
 div.dokuwiki .comment_body {
   padding-top: 0.5em;
-  border-bottom: 1px solid __border__;
 }
 
 div.dokuwiki div.comment_replies {
@@ -44,6 +50,11 @@ div.dokuwiki div.comment_buttons input.button {
   margin: 0 0 0 0.5em;
 }
 
+div.dokuwiki div.comment_line {
+  padding-top: 0.5em;
+  border-bottom: 1px solid __border__;
+}
+
 div.dokuwiki table.threads {
   border: 0;
   padding: 0;
@@ -58,7 +69,9 @@ div.dokuwiki table.threads td {
   border-bottom: 1px solid __border__;
 }
 
-div.dokuwiki table.threads td.date, div.dokuwiki table.threads td.user, div.dokuwiki table.threads td.num {
+div.dokuwiki table.threads td.date,
+div.dokuwiki table.threads td.user,
+div.dokuwiki table.threads td.num {
   color: __text_neu__;
   font-size: 80%;
 }

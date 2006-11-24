@@ -21,10 +21,10 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     return array(
       'author' => 'Esther Brunner',
       'email'  => 'wikidesign@gmail.com',
-      'date'   => '2006-11-15',
+      'date'   => '2006-11-24',
       'name'   => 'Discussion Plugin',
       'desc'   => 'Enables discussion features',
-      'url'    => 'http://wiki:splitbrain.org/plugin:discussion',
+      'url'    => 'http://www.wikidesign.ch/en/plugin/discussion/start',
     );
   }
 
@@ -111,6 +111,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     // section title
     $title = $this->getLang('discussion');
     $secid = cleanID($title);
+    echo '<div class="comment_wrapper">';
     echo '<h2><a name="'.$secid.'" id="'.$secid.'">'.$title.'</a></h2>';
     echo '<div class="level2">';
         
@@ -125,7 +126,8 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     // comment form
     if (($data['status'] == 1) && !$reply && !$edit) $this->_form('');
     
-    echo '</div>';
+    echo '</div>'; // level2
+    echo '</div>'; // comment_wrapper
     
     return true;
   }
@@ -352,6 +354,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
       if ($INFO['perm'] == AUTH_ADMIN)
         $this->_button($cid, $lang['btn_delete'], 'delete');
       echo '</div>'.NL; // class="comment_buttons"
+      echo '<div class="comment_line" '.($this->getConf('usegravatar') ? $style : '').'>&nbsp;</div>'.NL; 
     }
 
     // replies to this comment entry?
