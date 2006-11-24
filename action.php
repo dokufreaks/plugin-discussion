@@ -386,6 +386,9 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     // not for unregistered users when guest comments aren't allowed
     if (!$_SERVER['REMOTE_USER'] && !$this->getConf('allowguests')) return false;
     
+    // fill $raw with $_REQUEST['text'] if it's empty
+    if (!$raw) $raw = hsc($_REQUEST['text']);
+    
     ?>
     <div class="comment_form">
       <form id="discussion__comment_form" method="post" action="<?php echo script() ?>" accept-charset="<?php echo $lang['encoding'] ?>" onsubmit="return validate(this);">
@@ -414,13 +417,13 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
           <div class="comment_name">
             <label class="block" for="discussion__comment_name">
               <span><?php echo $lang['fullname'] ?>:</span>
-              <input type="text" class="edit" name="name" id="discussion__comment_name" size="50" tabindex="1" />
+              <input type="text" class="edit" name="name" id="discussion__comment_name" size="50" tabindex="1" value="<?php echo hsc($_REQUEST['name'])?>" />
             </label>
           </div>
           <div class="comment_mail">
             <label class="block" for="discussion__comment_mail">
               <span><?php echo $lang['email'] ?>:</span>
-              <input type="text" class="edit" name="mail" id="discussion__comment_mail" size="50" tabindex="2" />
+              <input type="text" class="edit" name="mail" id="discussion__comment_mail" size="50" tabindex="2" value="<?php echo hsc($_REQUEST['email'])?>" />
             </label>
           </div>
       <?php
@@ -432,7 +435,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
           <div class="comment_url">
             <label class="block" for="discussion__comment_url">
               <span><?php echo $this->getLang('url') ?>:</span>
-              <input type="text" class="edit" name="url" id="discussion__comment_url" size="50" tabindex="3" />
+              <input type="text" class="edit" name="url" id="discussion__comment_url" size="50" tabindex="3" value="<?php echo hsc($_REQUEST['url'])?>" />
             </label>
           </div>
       <?php
@@ -444,7 +447,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
           <div class="comment_address">
             <label class="block" for="discussion__comment_address">
               <span><?php echo $this->getLang('address') ?>:</span>
-              <input type="text" class="edit" name="address" id="discussion__comment_address" size="50" tabindex="4" />
+              <input type="text" class="edit" name="address" id="discussion__comment_address" size="50" tabindex="4" value="<?php echo hsc($_REQUEST['address'])?>" />
             </label>
           </div>
       <?php
@@ -472,6 +475,10 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
           <div class="comment_text">
             <textarea class="edit" name="text" cols="80" rows="10" id="discussion__comment_text" tabindex="5"><?php echo $raw ?></textarea>
           </div>
+    <?php //bad and dirty event insert hook
+    $evdata = array('writable' => true);
+    trigger_event('HTML_EDITFORM_INJECTION', $evdata);
+    ?>
           <input class="button" type="submit" name="submit" value="<?php echo $lang['btn_save'] ?>" tabindex="6" />
         </div>
       </form>
@@ -702,12 +709,22 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
   }
     
   /**
-   * Checks if 'newthread' was given as action, if so we
-   * do handle the event our self and no further checking takes place
+   * Checks if 'newthread' was given as action or the comment form was submitted
    */
   function handle_act_preprocess(&$event, $param){
-    if ($event->data != 'newthread') return; // nothing to do for us
-    
+    if ($event->data == 'newthread'){
+      $this->_handle_newThread($event);
+    }
+    if ((in_array($_REQUEST['comment'], array('add', 'save')))
+      && (@file_exists(DOKU_PLUGIN.'captcha/action.php'))){
+      $this->_handle_captchaCheck();
+    }
+  }
+  
+  /**
+   * Creates a new thread page
+   */
+  function _handle_newThread(&$event){
     global $ACT;
     global $ID;
 
@@ -751,6 +768,34 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     } else {
       $ACT = 'show';
     }
+  }
+  
+  /**
+   * Checks if the CAPTCHA string submitted is valid
+   *
+   * @author     Andreas Gohr <gohr@cosmocode.de>
+   * @adaption   Esther Brunner <wikidesign@gmail.com>
+   */
+  function _handle_captchaCheck(){
+    if (@file_exists(DOKU_PLUGIN.'captcha/disabled')) return; // CAPTCHA is disabled
+    
+    require_once(DOKU_PLUGIN.'captcha/action.php');
+    $captcha = new action_plugin_captcha;
+    
+    // compare provided string with decrypted captcha
+    $rand = PMA_blowfish_decrypt($_REQUEST['plugin__captcha_secret'], auth_cookiesalt());
+    $code = $captcha->_generateCAPTCHA($captcha->_fixedIdent(), $rand);
+
+    if (!$_REQUEST['plugin__captcha_secret'] ||
+      !$_REQUEST['plugin__captcha'] ||
+      strtoupper($_REQUEST['plugin__captcha']) != $code){
+      
+      // CAPTCHA test failed! Continue to edit instead of saving
+      msg($captcha->getLang('testfailed'),-1);
+      if ($_REQUEST['comment'] == 'save') $_REQUEST['comment'] = 'edit';
+      elseif ($_REQUEST['comment'] == 'add') $_REQUEST['comment'] = 'show';
+    }
+    // if we arrive here it was a valid save
   }
 
 }
