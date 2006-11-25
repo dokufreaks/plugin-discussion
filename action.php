@@ -83,6 +83,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         
       case 'delete':
         $this->_save($cid, '');
+        break;
         
       case 'toogle':
         $this->_save($cid, '', true);
@@ -211,20 +212,23 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
    */
   function _save($cid, $raw, $toogle = false){
     global $ID;
-    global $TEXT;
     global $INFO;
 
-    $otxt = $TEXT; // set $TEXT to comment text for wordblock check
-    $TEXT = $raw;
-    
-    // spamcheck against the DokuWiki blacklist
-    if (checkwordblock()){
-      msg($this->getLang('wordblock'), -1);
-      $this->_show();
-      return false;
+    if ($raw){
+      global $TEXT;
+          
+      $otxt = $TEXT; // set $TEXT to comment text for wordblock check
+      $TEXT = $raw;
+      
+      // spamcheck against the DokuWiki blacklist
+      if (checkwordblock()){
+        msg($this->getLang('wordblock'), -1);
+        $this->_show();
+        return false;
+      }
+      
+      $TEXT = $otxt; // restore global $TEXT
     }
-    
-    $TEXT = $otxt; // restore global $TEXT
     
     // get discussion meta file name
     $file = metaFN($ID, '.comments');
@@ -279,6 +283,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     global $ID;
     global $INFO;
     
+    if (!isset($data['comments'][$cid])) return false; // comment was removed
     $comment = $data['comments'][$cid];
     
     if (!is_array($comment)) return false;          // corrupt datatype
@@ -691,6 +696,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
   function _countReplies(&$data, $rids){
     $number = 0;
     foreach ($rids as $rid){
+      if (!isset($data['comments'][$rid])) continue; // reply was removed
       if (!$data['comments'][$rid]['show']) continue;
       $number++;
       $rids = $data['comments'][$rid]['replies'];
