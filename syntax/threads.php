@@ -25,10 +25,10 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
     return array(
       'author' => 'Esther Brunner',
       'email'  => 'wikidesign@gmail.com',
-      'date'   => '2006-10-05',
+      'date'   => '2006-11-25',
       'name'   => 'Discussion Plugin (threads component)',
       'desc'   => 'Displays a list of recently active discussions',
-      'url'    => 'http://wiki.splitbrain.org/plugin:discussion',
+      'url'    => 'http://www.wikidesign.ch/en/plugin/discussion/start',
     );
   }
 
@@ -124,18 +124,19 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
     
     $dir = $conf['datadir'].($ns ? '/'.str_replace(':', '/', $ns): '');
         
-    // returns the list of pages in the given namespace, acl checked
+    // returns the list of pages in the given namespace and it's subspaces
     $items = array();
-    search($items, $dir, 'search_list', '');
+    search($items, $dir, 'search_allpages', '');
             
     // add pages with comments to result
     $result = array();
     foreach ($items as $item){
       $id   = ($ns ? $ns.':' : '').$item['id'];
+      if (auth_quickaclcheck($id) < AUTH_READ) continue; // skip if no permission
       $file = metaFN($id, '.comments');
-      if (!@file_exists($file)) continue; // skip if no comments file
+      if (!@file_exists($file)) continue;                // skip if no comments file
       $data = unserialize(io_readFile($file, false));
-      if ($data['status'] == 0) continue; // skip if comments are off
+      if ($data['status'] == 0) continue;                // skip if comments are off
       $date = filemtime($file);
       $meta = p_get_metadata($id);
       $result[$date] = array(
