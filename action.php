@@ -659,10 +659,10 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     global $conf;
     global $ID;
   
-    if (!$conf['subscribers']) return; //subscribers enabled?
+    if ((!$conf['subscribers']) && (!$conf['notify'])) return; //subscribers enabled?
     $bcc  = subscriber_addresslist($ID);
-    if (empty($bcc)) return;
-    $to   = '';
+    if ((empty($bcc)) && (!$conf['notify'])) return;
+    $to   = $conf['notify'];
     $text = io_readFile($this->localFN('subscribermail'));
   
     $text = str_replace('@PAGE@', $ID, $text);
