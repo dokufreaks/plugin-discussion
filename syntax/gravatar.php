@@ -26,10 +26,10 @@ class syntax_plugin_discussion_gravatar extends DokuWiki_Syntax_Plugin {
     return array(
       'author' => 'Esther Brunner',
       'email'  => 'wikidesign@gmail.com',
-      'date'   => '2006-10-05',
+      'date'   => '2006-11-27',
       'name'   => 'Discussion Plugin (gravatar component)',
       'desc'   => 'Displays Gravatar images',
-      'url'    => 'http://wiki.splitbrain.org/plugin:discussion',
+      'url'    => 'http://www.wikidesign.ch/en/plugin/discussion/start',
     );
   }
 
@@ -78,7 +78,7 @@ class syntax_plugin_discussion_gravatar extends DokuWiki_Syntax_Plugin {
     // see http://gravatar.com/implement.php#section_1_1
   
     if($mode == 'xhtml'){
-      $default = DOKU_URL.'lib/plugins/blog/images/default.gif';
+      $default = DOKU_URL.'lib/plugins/discussion/images/default.gif';
       $size    = (is_int($data[3]) ? $data[3] : $this->getConf('gravatar_size'));
       $email   = $data[0];
       // Do not pass invalid or empty emails to gravatar site...
@@ -87,7 +87,8 @@ class syntax_plugin_discussion_gravatar extends DokuWiki_Syntax_Plugin {
           'gravatar_id='.md5($email).
           '&default='.urlencode($default).
           '&size='.$size.
-          '&rating='.$this->getConf('gravatar_rating'));
+          '&rating='.$this->getConf('gravatar_rating').
+          '&.jpg', 'cache=recache');
       // Show only default image if invalid or empty email given
       } else {
         $src = $default;

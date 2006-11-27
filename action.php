@@ -21,7 +21,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     return array(
       'author' => 'Esther Brunner',
       'email'  => 'wikidesign@gmail.com',
-      'date'   => '2006-11-24',
+      'date'   => '2006-11-27',
       'name'   => 'Discussion Plugin',
       'desc'   => 'Enables discussion features',
       'url'    => 'http://www.wikidesign.ch/en/plugin/discussion/start',
@@ -307,7 +307,8 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         'gravatar_id='.md5($comment['mail']).
         '&default='.urlencode($default).
         '&size='.$size.
-        '&rating='.$this->getConf('gravatar_rating'));
+        '&rating='.$this->getConf('gravatar_rating').
+        '&.jpg', 'cache=recache');
       else $src = $default;
       $title = ($comment['name'] ? $comment['name'] : obfuscate($comment['mail']));
       echo '<img src="'.$src.'" class="medialeft" title="'.$title.'"'.
