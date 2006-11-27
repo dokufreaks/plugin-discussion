@@ -25,7 +25,7 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
     return array(
       'author' => 'Esther Brunner',
       'email'  => 'wikidesign@gmail.com',
-      'date'   => '2006-11-25',
+      'date'   => '2006-11-27',
       'name'   => 'Discussion Plugin (threads component)',
       'desc'   => 'Displays a list of recently active discussions',
       'url'    => 'http://www.wikidesign.ch/en/plugin/discussion/start',
