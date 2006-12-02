@@ -25,7 +25,7 @@ class syntax_plugin_discussion_feed extends DokuWiki_Syntax_Plugin {
     return array(
       'author' => 'Esther Brunner',
       'email'  => 'wikidesign@gmail.com',
-      'date'   => '2006-11-27',
+      'date'   => '2006-12-02',
       'name'   => 'Discussion Plugin (feed component)',
       'desc'   => 'Displays a feed link for recent comments',
       'url'    => 'http://www.wikidesign.ch/en/plugin/discussion/start',
