@@ -766,11 +766,12 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         global $conf;
         
         $TEXT = pageTemplate(array($ns.':'.$title));
-        if (!$TEXT) $TEXT = "<- [[:$back]]\n\n====== $title ======\n\n".
-                            "{{gravatar>".$INFO['userinfo']['mail']." }} ".
-                            "//".$INFO['userinfo']['name'].", ".
-                            date($conf['dformat']).": //\n\n\n\n".
-                            "~~DISCUSSION~~\n";
+        if (!$TEXT){
+          $TEXT = "<- [[:$back]]\n\n====== $title ======\n\n";
+          if ($this->getConf('usegravatar'))
+            $TEXT .= '{{gravatar>'.$INFO['userinfo']['mail'].' }} ';
+          $TEXT .= "//".$INFO['userinfo']['name'].", ".date($conf['dformat']).": //".
+                   "\n\n\n\n~~DISCUSSION~~\n";
         $ACT = 'preview';
       } else {
         $ACT = 'edit';
