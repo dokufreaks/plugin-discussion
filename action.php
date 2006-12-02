@@ -723,7 +723,11 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
    */
   function handle_act_preprocess(&$event, $param){
     if ($event->data == 'newthread'){
-      $this->_handle_newThread($event);
+      // we can handle it -> prevent others
+      // $event->stopPropagation();
+      $event->preventDefault();
+      
+      $event->data = $this->_handle_newThread();
     }
     if ((in_array($_REQUEST['comment'], array('add', 'save')))
       && (@file_exists(DOKU_PLUGIN.'captcha/action.php'))){
@@ -734,50 +738,42 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
   /**
    * Creates a new thread page
    */
-  function _handle_newThread(&$event){
-    global $ACT;
+  function _handle_newThread(){
     global $ID;
-
-    // we can handle it -> prevent others
-    $event->stopPropagation();
-    $event->preventDefault();
+    global $INFO;
     
     $ns    = $_REQUEST['ns'];
     $title = str_replace(':', '', $_REQUEST['title']);
-    $id    = ($ns ? $ns.':' : '').cleanID($title);
+    $back  = $ID;
+    $ID    = ($ns ? $ns.':' : '').cleanID($title);
+    $INFO  = pageinfo();
     
     // check if we are allowed to create this file
-    if (auth_quickaclcheck($id) >= AUTH_CREATE){
-      $back = $ID;
-      $ID   = $id;
-      $file = wikiFN($ID);
-      
+    if ($INFO['perm'] >= AUTH_CREATE){
+            
       //check if locked by anyone - if not lock for my self      
-      if (checklock($ID)){
-        $ACT = 'locked';
-      } else {
-        lock($ID);
-      }
+      if ($INFO['locked']) return 'locked';
+      else lock($ID);
 
       // prepare the new thread file with default stuff
-      if (!@file_exists($file)){
+      if (!@file_exists($INFO['filepath'])){
         global $TEXT;
-        global $INFO;
         global $conf;
         
-        $TEXT = pageTemplate(array($ns.':'.$title));
+        $TEXT = pageTemplate(array(($ns ? $ns.':' : '').$title));
         if (!$TEXT){
           $TEXT = "<- [[:$back]]\n\n====== $title ======\n\n";
           if ($this->getConf('usegravatar'))
             $TEXT .= '{{gravatar>'.$INFO['userinfo']['mail'].' }} ';
           $TEXT .= "//".$INFO['userinfo']['name'].", ".date($conf['dformat']).": //".
                    "\n\n\n\n~~DISCUSSION~~\n";
-        $ACT = 'preview';
+        }
+        return 'preview';
       } else {
-        $ACT = 'edit';
+        return 'edit';
       }
     } else {
-      $ACT = 'show';
+      return 'show';
     }
   }
   
