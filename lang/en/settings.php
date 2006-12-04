@@ -21,7 +21,6 @@ $lang['wikisyntaxok']    = 'allow wiki syntax in comments';
 $lang['threads_formposition']          = 'position of the new thread form';
 $lang['threads_formposition_o_top']    = 'top';
 $lang['threads_formposition_o_bottom'] = 'bottom';
-$lang['threads_formposition_o_both']   = 'both';
 
 $lang['threads_showdate'] = 'show date of latest answer in thread list';
 $lang['threads_showuser'] = 'show name of user who started the thread';

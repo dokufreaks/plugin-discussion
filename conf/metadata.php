@@ -19,7 +19,7 @@ $meta['wikisyntaxok']    = array('onoff');
 
 $meta['threads_formposition'] = array(
                                   'multichoice',
-                                  '_choices' => array('top', 'bottom', 'both')
+                                  '_choices' => array('top', 'bottom')
                                 );
 $meta['threads_showdate']     = array('onoff');
 $meta['threads_showuser']     = array('onoff');

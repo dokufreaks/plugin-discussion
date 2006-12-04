@@ -66,7 +66,7 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
       
       // show form to start a new discussion thread?
       $perm_create = (auth_quickaclcheck($ns.':*') >= AUTH_CREATE);
-      if ($perm_create && ($this->getConf('threads_formposition') != 'bottom'))
+      if ($perm_create && ($this->getConf('threads_formposition') == 'top'))
         $renderer->doc .= $this->_newThreadForm($ns);
             
       // main table
@@ -103,7 +103,7 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
       $renderer->doc .= '</table>';
       
       // show form to start a new discussion thread?
-      if ($perm_create && ($this->getConf('threads_formposition') != 'top'))
+      if ($perm_create && ($this->getConf('threads_formposition') == 'bottom'))
         $renderer->doc .= $this->_newThreadForm($ns);
 
       return true;
