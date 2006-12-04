@@ -75,6 +75,12 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
         if (!$title) $title = str_replace('_', ' ', noNS($id));
         $renderer->doc .= $renderer->internallink(':'.$id, $title).'</td>';
         
+        // last comment date
+        if ($this->getConf('threads_showdate')){
+          $renderer->doc .= '<td class="date">'.date($conf['dformat'], $page['date']).
+            '</td>';
+        }
+        
         // topic starter
         if ($this->getConf('threads_showuser')){
           if ($page['user']) $renderer->doc .= '<td class="user">'.$page['user'].'</td>';
@@ -87,11 +93,6 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
         else $repl = $page['num'].' '.$this->getLang('replies');
         $renderer->doc .= '<td class="num">'.$repl.'</td>';
         
-        // last comment date
-        if ($this->getConf('threads_showdate')){
-          $renderer->doc .= '<td class="date">'.date($conf['dformat'], $page['date']).
-            '</td>';
-        }
         $renderer->doc .= '</tr>';
       }
       $renderer->doc .= '</table>';

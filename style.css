@@ -76,6 +76,10 @@ div.dokuwiki table.threads td.num {
   font-size: 80%;
 }
 
+div.dokuwiki table.threads td.date {
+  text-align: right;
+}
+
 div.dokuwiki div.newthread_form {
   clear: both;
   text-align: center;
