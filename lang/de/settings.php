@@ -18,6 +18,11 @@ $lang['datefield']       = 'Admins können das Datum eines Kommentars setzen (f�
 $lang['usecocomment']    = 'Kommentare mit coComment verfolgen';
 $lang['wikisyntaxok']    = 'Wiki-Syntax in Kommentaren erlauben';
 
+$lang['threads_formposition']          = 'Position des Formulars für neue Themen';
+$lang['threads_formposition_o_top']    = 'oben';
+$lang['threads_formposition_o_bottom'] = 'unten';
+$lang['threads_formposition_o_both']   = 'beides';
+
 $lang['threads_showdate'] = 'Datum der letzten Antwort in Themenliste anzeigen';
 $lang['threads_showuser'] = 'Name des Themenstarters in Themenliste anzeigen';
 

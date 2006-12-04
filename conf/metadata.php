@@ -17,7 +17,11 @@ $meta['datefield']       = array('onoff');
 $meta['usecocomment']    = array('onoff');
 $meta['wikisyntaxok']    = array('onoff');
 
-$meta['threads_showdate'] = array('onoff');
-$meta['threads_showuser'] = array('onoff');
+$meta['threads_formposition'] = array(
+                                  'multichoice',
+                                  '_choices' => array('top', 'bottom', 'both')
+                                );
+$meta['threads_showdate']     = array('onoff');
+$meta['threads_showuser']     = array('onoff');
 
 //Setup VIM: ex: et ts=2 enc=utf-8 :

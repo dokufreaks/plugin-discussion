@@ -25,7 +25,7 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
     return array(
       'author' => 'Esther Brunner',
       'email'  => 'wikidesign@gmail.com',
-      'date'   => '2006-12-02',
+      'date'   => '2006-12-04',
       'name'   => 'Discussion Plugin (threads component)',
       'desc'   => 'Displays a list of recently active discussions',
       'url'    => 'http://www.wikidesign.ch/en/plugin/discussion/start',
@@ -64,6 +64,11 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
       // prevent caching to ensure content is always fresh
       $renderer->info['cache'] = false;
       
+      // show form to start a new discussion thread?
+      $perm_create = (auth_quickaclcheck($ns.':*') >= AUTH_CREATE);
+      if ($perm_create && ($this->getConf('threads_formposition') != 'bottom'))
+        $renderer->doc .= $this->_newThreadForm($ns);
+            
       // main table
       $renderer->doc .= '<table class="threads">';
       foreach ($pages as $page){
@@ -98,9 +103,9 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
       $renderer->doc .= '</table>';
       
       // show form to start a new discussion thread?
-      if (auth_quickaclcheck($ns.':*') >= AUTH_CREATE)
-        $renderer->doc .= $this->_newthreadForm($ns);
-      
+      if ($perm_create && ($this->getConf('threads_formposition') != 'top'))
+        $renderer->doc .= $this->_newThreadForm($ns);
+
       return true;
       
     // for metadata renderer
@@ -158,7 +163,7 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
   /**
    * Show the form to start a new discussion thread
    */
-  function _newthreadForm($ns){
+  function _newThreadForm($ns){
     global $ID;
     global $lang;
     
