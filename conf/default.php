@@ -15,7 +15,5 @@ $conf['usecocomment']    = 1;   // use coComment comment tracking
 $conf['wikisyntaxok']    = 1;   // allow wiki syntax in comments
 
 $conf['threads_formposition'] = 'bottom'; // position of new thread form
-$conf['threads_showdate']     = 1;        // show date of last answer in thread list
-$conf['threads_showuser']     = 1;        // show name of user who started the thread
 
 //Setup VIM: ex: et ts=2 enc=utf-8 :

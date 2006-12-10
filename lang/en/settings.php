@@ -22,7 +22,4 @@ $lang['threads_formposition']          = 'position of the new thread form';
 $lang['threads_formposition_o_top']    = 'top';
 $lang['threads_formposition_o_bottom'] = 'bottom';
 
-$lang['threads_showdate'] = 'show date of latest answer in thread list';
-$lang['threads_showuser'] = 'show name of user who started the thread';
-
 //Setup VIM: ex: et ts=2 enc=utf-8 :

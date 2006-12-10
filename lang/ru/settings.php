@@ -18,7 +18,4 @@ $lang['datefield']       = 'Позволять админам устанавли
 $lang['usecocomment']    = 'Использовать coComment-отслеживание комментов';
 $lang['wikisyntaxok']    = 'Позволять синтаксис вики в комментах';
 
-$lang['threads_showdate'] = 'Показывать дату последнего ответа в списке обсуждений';
-$lang['threads_showuser'] = 'Показывать имя начавшего обсуждение';
-
 //Setup VIM: ex: et ts=2 enc=utf-8 :

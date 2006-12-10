@@ -22,7 +22,4 @@ $lang['threads_formposition']          = 'Position des Formulars für neue Theme
 $lang['threads_formposition_o_top']    = 'oben';
 $lang['threads_formposition_o_bottom'] = 'unten';
 
-$lang['threads_showdate'] = 'Datum der letzten Antwort in Themenliste anzeigen';
-$lang['threads_showuser'] = 'Name des Themenstarters in Themenliste anzeigen';
-
 //Setup VIM: ex: et ts=2 enc=utf-8 :

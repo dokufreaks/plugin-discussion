@@ -9,6 +9,7 @@
  */
 
 $lang['discussion']      = 'Discussion';
+$lang['comment']         = 'Commentaire';
 $lang['comments']        = 'Commentaires';
 $lang['btn_reply']       = 'Répondre';
 $lang['btn_hide']        = 'Cacher';

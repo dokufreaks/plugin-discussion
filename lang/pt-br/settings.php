@@ -15,7 +15,4 @@ $lang['usegravatar']     = 'usar imagens de gravatar dos usuários nos comentár
 $lang['gravatar_size']   = 'tamanho padrão do gravatar';
 $lang['gravatar_rating'] = 'rating mínimo para os gravatars';
 
-$lang['threads_showdate'] = 'exibir data da última resposta na lista de tópicos';
-$lang['threads_showuser'] = 'exibir nome do usuário que iniciou o tópico';
-
 //Setup VIM: ex: et ts=2 enc=utf-8 :

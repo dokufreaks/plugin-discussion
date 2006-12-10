@@ -21,7 +21,5 @@ $meta['threads_formposition'] = array(
                                   'multichoice',
                                   '_choices' => array('top', 'bottom')
                                 );
-$meta['threads_showdate']     = array('onoff');
-$meta['threads_showuser']     = array('onoff');
 
 //Setup VIM: ex: et ts=2 enc=utf-8 :

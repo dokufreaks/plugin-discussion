@@ -17,7 +17,5 @@ $lang['addressfield']    = '允许用户输入通信地址';
 $lang['datefield']       = '允许管理员设置评论日期（方便导出）';
 $lang['usecocomment']    = '使用 coComment 评论跟踪服务';
 $lang['wikisyntaxok']    = '在评论中允许使用维基语法';
-$lang['threads_showdate'] = '在讨论主题列表中显示最后回复时间';
-$lang['threads_showuser'] = '在讨论主题列表中显示创建者的用户名';
 
 //Setup VIM: ex: et ts=2 enc=utf-8 :

@@ -7,6 +7,7 @@
  */
 
 $lang['discussion']      = 'Discussion';
+$lang['comment']         = 'Comment';
 $lang['comments']        = 'Comments';
 $lang['url']             = 'Website';
 $lang['address']         = 'Address';
@@ -20,5 +21,6 @@ $lang['mail_newcomment'] = 'New Comment';
 $lang['reply']           = 'Reply';
 $lang['replies']         = 'Replies';
 $lang['newthread']       = 'New thread';
+$lang['threads']         = 'Threads';
 
 //Setup VIM: ex: et ts=2 enc=utf-8 :

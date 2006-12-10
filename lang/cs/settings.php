@@ -14,7 +14,5 @@ $lang['usegravatar']     = 'použit obrázky gavatar';
 $lang['gravatar_size']   = 'implicitní velikost gavataru';
 $lang['gravatar_rating'] = 'minimální hodnocení gavataru';
 
-$lang['threads_showdate'] = 'zobrazit datum nejnovější odpovědi v seznamu vláken';
-$lang['threads_showuser'] = 'zobrazit jméno uživatele, který založil vlákno';
 
 //Setup VIM: ex: et ts=2 enc=utf-8 :

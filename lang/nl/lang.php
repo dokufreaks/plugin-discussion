@@ -7,6 +7,7 @@
  */
 
 $lang['discussion']      = 'Discussie';
+$lang['comment']         = 'Commentaar';
 $lang['comments']        = 'Commentaar';
 $lang['btn_reply']       = 'Reageer';
 $lang['btn_hide']        = 'Verberg';

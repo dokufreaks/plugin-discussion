@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Polish language file v0.9 by Zbyszekk <zbypan@gmail.com>
  *
@@ -13,8 +13,5 @@ $lang['usegravatar']     = 'Wyświetlaj gravatar\'y obok nazwy komentującego';
 
 $lang['gravatar_size']   = 'Domyślny rozmiar gravatar\'a';
 $lang['gravatar_rating'] = 'minimum rating for gravatars (???)';
-
-$lang['threads_showdate'] = 'Pokazuj datę ostatniej odpowiedzi na liście wątyków';
-$lang['threads_showuser'] = 'Pokazuj nazwę urzytkownika który rozpoczą wątek';
 
 //Setup VIM: ex: et ts=2 enc=utf-8 :

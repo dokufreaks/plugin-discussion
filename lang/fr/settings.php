@@ -16,7 +16,4 @@ $lang['usegravatar']      = 'Utiliser les gravatars pour les commentaires';
 $lang['gravatar_size']    = 'Taille par défaut des gravatars';
 $lang['gravatar_rating']  = 'Niveau minimal des gravatars';
 
-$lang['threads_showdate'] = 'Montrer la date du dernier commentaire dans la liste des discussions';
-$lang['threads_showuser'] = 'Montrer le nom de l\'utilisateur qui a commencé la discussion';
-
 //Setup VIM: ex: et ts=2 enc=utf-8 :

@@ -7,6 +7,7 @@
  */
 
 $lang['discussion']      = 'Discussão';
+$lang['comment']         = 'Comentário';
 $lang['comments']        = 'Comentários';
 $lang['btn_reply']       = 'Responder';
 $lang['btn_hide']        = 'Ocultar';
@@ -14,7 +15,7 @@ $lang['btn_show']        = 'Exibir';
 $lang['wordblock']       = 'Seu comentário foi bloqueado como spam.';
 $lang['mail_newcomment'] = 'Novo Comentário';
 
-$lang['reply']           = 'Responder';
+$lang['reply']           = 'Resposta';
 $lang['replies']         = 'Respostas';
 $lang['newthread']       = 'Novo tópico';
 

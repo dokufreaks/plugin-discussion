@@ -18,7 +18,4 @@ $lang['datefield']       = '允許管理者設定發表評論日期(方便匯入
 $lang['usecocomment']    = '使用 coComment 評論追蹤功能';
 $lang['wikisyntaxok']    = '評論意見允許使用 wiki 語法';
 
-$lang['threads_showdate'] = '顯示在主題清單內最後回覆者的日期';
-$lang['threads_showuser'] = '顯示發起該主題的使用者姓名';
-
 //Setup VIM: ex: et ts=2 enc=utf-8 :
