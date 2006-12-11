@@ -158,7 +158,7 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
    
     // handle lines
     for ($i = count($lines)-1; $i >= 0; $i--){
-      $rec = _handleRecentComment($lines[$i], $ns);
+      $rec = $this->_handleRecentComment($lines[$i], $ns);
       if ($rec !== false) {
         if (--$first >= 0) continue; // skip first entries
         $result[$rec['date']] = $rec;
@@ -224,7 +224,7 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
     if ($recent['type'] === 'dc') return false;
     
     // get discussion meta file name
-    $data = unserialize(io_readFile(metaFN($ID, '.comments'), false));
+    $data = unserialize(io_readFile(metaFN($recent['id'], '.comments'), false));
     
     // check if discussion is turned off
     if ($data['status'] === 0) return false;
