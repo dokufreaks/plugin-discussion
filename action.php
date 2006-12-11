@@ -21,7 +21,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     return array(
       'author' => 'Esther Brunner',
       'email'  => 'wikidesign@gmail.com',
-      'date'   => '2006-12-02',
+      'date'   => '2006-12-12',
       'name'   => 'Discussion Plugin',
       'desc'   => 'Enables discussion features',
       'url'    => 'http://www.wikidesign.ch/en/plugin/discussion/start',
@@ -788,6 +788,9 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     
     require_once(DOKU_PLUGIN.'captcha/action.php');
     $captcha = new action_plugin_captcha;
+    
+    // do nothing if logged in user and no CAPTCHA required
+    if (!$captcha->getConf('forusers') && $_SERVER['REMOTE_USER']) return;
     
     // compare provided string with decrypted captcha
     $rand = PMA_blowfish_decrypt($_REQUEST['plugin__captcha_secret'], auth_cookiesalt());
