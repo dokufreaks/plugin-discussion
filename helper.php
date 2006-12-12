@@ -16,7 +16,7 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
     return array(
       'author' => 'Esther Brunner',
       'email'  => 'wikidesign@gmail.com',
-      'date'   => '2006-12-10',
+      'date'   => '2006-12-12',
       'name'   => 'Discussion Plugin (helper class)',
       'desc'   => 'Functions to get info about comments to a wiki page',
       'url'    => 'http://www.wikidesign/en/plugin/discussion/start',
@@ -78,9 +78,9 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
       if ((!$comments['status']) || (($comments['status'] == 2) && (!$num))) return '';
     }
     
-    if ($num == 0) $comment = '0 '.$this->getLang('comments');
-    elseif ($num == 1) $comment = '1 '.$this->getLang('comment');
-    else $comment = $num.' '.$this->getLang('comments');
+    if ($num == 0) $comment = '0&nbsp;'.$this->getLang('comments');
+    elseif ($num == 1) $comment = '1&nbsp;'.$this->getLang('comment');
+    else $comment = $num.'&nbsp;'.$this->getLang('comments');
     
     return '<a href="'.wl($discuss).'" class="wikilink1" title="'.$discuss.'">'.
       $comment.'</a>';

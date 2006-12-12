@@ -78,6 +78,7 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
         msg('The Pagelist Plugin must be installed for threads lists to work.', -1);
         return false;
       }
+      $pagelist->column['comments'] = true;
       $pagelist->startList();
       foreach ($pages as $page){
         $pagelist->addPage($page);
