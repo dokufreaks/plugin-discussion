@@ -14,7 +14,7 @@ $lang['gravatar_size']   = '預設 gravatar 圖像大小';
 $lang['gravatar_rating'] = '最低 gravatars 的圖像分級';
 $lang['urlfield']        = '允許使用者輸入自己的網站網址';
 $lang['addressfield']    = '允許使用者輸入自己的通信地址';
-$lang['datefield']       = '允許管理者設定發表評論日期(方便匯入使用)';
+$lang['adminimport']     = '允許管理者設定發表評論日期(方便匯入使用)';
 $lang['usecocomment']    = '使用 coComment 評論追蹤功能';
 $lang['wikisyntaxok']    = '評論意見允許使用 wiki 語法';
 

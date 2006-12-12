@@ -14,7 +14,7 @@ $lang['gravatar_size']   = 'Standard-Grösse für Gravatare';
 $lang['gravatar_rating'] = 'Min. Einstufung von Gravataren';
 $lang['urlfield']        = 'Eingabefeld für URL anbieten';
 $lang['addressfield']    = 'Eingabefeld für Adresse anbieten';
-$lang['datefield']       = 'Admins können das Datum eines Kommentars setzen (für Import)';
+$lang['adminimport']     = 'Admins können alle Felder eingeben (für Import)';
 $lang['usecocomment']    = 'Kommentare mit coComment verfolgen';
 $lang['wikisyntaxok']    = 'Wiki-Syntax in Kommentaren erlauben';
 

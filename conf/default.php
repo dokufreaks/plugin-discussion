@@ -10,7 +10,7 @@ $conf['gravatar_size']   = 40;  // default size of gravatar: 20, 40 or 80 pixel
 $conf['gravatar_rating'] = 'R'; // max rating of gravatar images: G, PG, R or X - see http://gravatar.com/rating.php
 $conf['urlfield']        = 0;   // allow entering an URL
 $conf['addressfield']    = 0;   // allow entering an address
-$conf['datefield']       = 0;   // allow admins to set the date (for import)
+$conf['adminimport']     = 0;   // allow admins to set all the fields for import
 $conf['usecocomment']    = 1;   // use coComment comment tracking
 $conf['wikisyntaxok']    = 1;   // allow wiki syntax in comments
 

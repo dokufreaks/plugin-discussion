@@ -395,8 +395,8 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     // not for unregistered users when guest comments aren't allowed
     if (!$_SERVER['REMOTE_USER'] && !$this->getConf('allowguests')) return false;
     
-    // fill $raw with $_REQUEST['text'] if it's empty
-    if (!$raw) $raw = hsc($_REQUEST['text']);
+    // fill $raw with $_REQUEST['text'] if it's empty (for failed CAPTCHA check)
+    if (!$raw && ($_REQUEST['comment'] == 'show')) $raw = $_REQUEST['text'];
     
     ?>
     <div class="comment_form">
@@ -412,8 +412,9 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
       ?>
           <input type="hidden" name="reply" value="<?php echo $cid ?>" />
       <?php
-      // for registered user
-      if ($conf['useacl'] && $_SERVER['REMOTE_USER']){
+      // for registered user (and we're not in admin import mode)
+      if ($conf['useacl'] && $_SERVER['REMOTE_USER']
+        && (!($this->getConf('adminimport') && ($INFO['perm'] == AUTH_ADMIN)))){
       ?>
           <input type="hidden" name="user" value="<?php echo $_SERVER['REMOTE_USER'] ?>" />
           <input type="hidden" name="name" value="<?php echo $INFO['userinfo']['name'] ?>" />
@@ -432,7 +433,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
           <div class="comment_mail">
             <label class="block" for="discussion__comment_mail">
               <span><?php echo $lang['email'] ?>:</span>
-              <input type="text" class="edit" name="mail" id="discussion__comment_mail" size="50" tabindex="2" value="<?php echo hsc($_REQUEST['email'])?>" />
+              <input type="text" class="edit" name="mail" id="discussion__comment_mail" size="50" tabindex="2" value="<?php echo hsc($_REQUEST['mail'])?>" />
             </label>
           </div>
       <?php
@@ -463,7 +464,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
       }
       
       // allow setting the comment date
-      if ($this->getConf('datefield') && ($INFO['perm'] == AUTH_ADMIN)){
+      if ($this->getConf('adminimport') && ($INFO['perm'] == AUTH_ADMIN)){
       ?>
           <div class="comment_date">
             <label class="block" for="discussion__comment_date">
@@ -482,7 +483,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     }
     ?>
           <div class="comment_text">
-            <textarea class="edit" name="text" cols="80" rows="10" id="discussion__comment_text" tabindex="5"><?php echo $raw ?></textarea>
+            <textarea class="edit" name="text" cols="80" rows="10" id="discussion__comment_text" tabindex="5"><?php echo hsc($raw) ?></textarea>
           </div>
     <?php //bad and dirty event insert hook
     $evdata = array('writable' => true);
@@ -801,7 +802,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
       strtoupper($_REQUEST['plugin__captcha']) != $code){
       
       // CAPTCHA test failed! Continue to edit instead of saving
-      msg($captcha->getLang('testfailed'),-1);
+      msg($captcha->getLang('testfailed'), -1);
       if ($_REQUEST['comment'] == 'save') $_REQUEST['comment'] = 'edit';
       elseif ($_REQUEST['comment'] == 'add') $_REQUEST['comment'] = 'show';
     }
