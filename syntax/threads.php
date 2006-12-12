@@ -24,7 +24,7 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
     return array(
       'author' => 'Esther Brunner',
       'email'  => 'wikidesign@gmail.com',
-      'date'   => '2006-12-10',
+      'date'   => '2006-12-12',
       'name'   => 'Discussion Plugin (threads component)',
       'desc'   => 'Displays a list of recently active discussions',
       'url'    => 'http://www.wikidesign.ch/en/plugin/discussion/start',
@@ -57,7 +57,11 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
     elseif ($ns == '.') $ns = getNS($ID);
 
     if ($my =& plugin_load('helper', 'discussion')) $pages = $my->getThreads($ns);
-    if (!$pages) return true; // nothing to display
+    if (!$pages){
+      if ((auth_quickaclcheck($ns.':*') >= AUTH_CREATE) && ($mode == 'xhtml'))
+        $renderer->doc .= $this->_newThreadForm($ns);
+      return true; // nothing to display
+    } 
         
     if ($mode == 'xhtml'){
       
@@ -109,7 +113,7 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
     return '<div class="newthread_form">'.DOKU_LF.
       '<form id="discussion__newthread_form"  method="post" action="'.script().'" accept-charset="'.$lang['encoding'].'">'.DOKU_LF.
       DOKU_TAB.'<fieldset>'.DOKU_LF.
-      DOKU_TAB.DOKU_TAB.'<legend>'.$this->getLang('newthread').'</legend>'.DOKU_LF.
+      DOKU_TAB.DOKU_TAB.'<legend> '.$this->getLang('newthread').': </legend>'.DOKU_LF.
       DOKU_TAB.DOKU_TAB.'<input type="hidden" name="id" value="'.$ID.'" />'.DOKU_LF.
       DOKU_TAB.DOKU_TAB.'<input type="hidden" name="do" value="newthread" />'.DOKU_LF.
       DOKU_TAB.DOKU_TAB.'<input type="hidden" name="ns" value="'.$ns.'" />'.DOKU_LF.
