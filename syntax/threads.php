@@ -58,8 +58,10 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
 
     if ($my =& plugin_load('helper', 'discussion')) $pages = $my->getThreads($ns);
     if (!$pages){
-      if ((auth_quickaclcheck($ns.':*') >= AUTH_CREATE) && ($mode == 'xhtml'))
+      if ((auth_quickaclcheck($ns.':*') >= AUTH_CREATE) && ($mode == 'xhtml')){
+        $renderer->info['cache'] = false;
         $renderer->doc .= $this->_newThreadForm($ns);
+      }
       return true; // nothing to display
     } 
         
