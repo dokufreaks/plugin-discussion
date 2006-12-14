@@ -58,6 +58,7 @@ div.dokuwiki div.comment_line {
 div.dokuwiki div.newthread_form {
   clear: both;
   text-align: center;
+  margin-bottom: 1em;
 }
 
 div.dokuwiki #discussion__newthread_form input.edit {
