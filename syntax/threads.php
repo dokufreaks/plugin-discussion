@@ -76,7 +76,8 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
         $renderer->doc .= $this->_newThreadForm($ns);
             
       // let Pagelist Plugin do the work for us
-      if (!$pagelist =& plugin_load('helper', 'pagelist')){
+      if (plugin_isdisabled('pagelist')
+        || (!$pagelist =& plugin_load('helper', 'pagelist'))){
         msg('The Pagelist Plugin must be installed for threads lists to work.', -1);
         return false;
       }
