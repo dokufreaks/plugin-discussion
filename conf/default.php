@@ -3,6 +3,7 @@
  * Options for the discussion plugin
  */
 
+$conf['automatic']       = 0;   // discussion section on every page by default
 $conf['allowguests']     = 1;   // should unregistred users be able to comment?
 $conf['linkemail']       = 0;   // link usernames with e-mail addresses
 $conf['usegravatar']     = 1;   // use gravatars in comments

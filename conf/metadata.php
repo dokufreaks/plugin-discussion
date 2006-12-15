@@ -6,6 +6,7 @@
  * @author    Esther Brunner <wikidesign@gmail.com>
  */
 
+$meta['automatic']       = array('onoff');
 $meta['allowguests']     = array('onoff');
 $meta['linkemail']       = array('onoff');
 $meta['usegravatar']     = array('onoff');

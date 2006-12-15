@@ -7,6 +7,7 @@
  */
 
 // for the configuration manager
+$lang['automatic']       = 'Standardmässig Diskussionen auf allen Seiten';
 $lang['allowguests']     = 'Gast-Kommentare erlauben';
 $lang['linkemail']       = 'Name mit E-Mail verlinken';
 $lang['usegravatar']     = 'Gravatar in Kommentaren verwenden';

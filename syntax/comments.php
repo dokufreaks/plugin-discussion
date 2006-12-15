@@ -76,24 +76,8 @@ class syntax_plugin_discussion_comments extends DokuWiki_Syntax_Plugin {
     return $status;
   }
 
-  /**
-   * Add discussion TOC item
-   */
   function render($mode, &$renderer, $status){
-    if ($status){
-      global $conf;
-      
-      $title = $this->getLang('discussion');
-      $hid   = $renderer->_headerToLink($title, 'true');
-      $renderer->toc[] = array(
-        'hid'   => $hid,
-        'title' => $title,
-        'type'  => 'ul',
-        'level' => 3 - $conf['toptoclevel']
-      );
-      return true;
-    }
-    return false;
+    return true; // do nothing -> everything is handled in action component
   }
 
 }

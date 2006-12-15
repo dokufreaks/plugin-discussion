@@ -21,7 +21,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     return array(
       'author' => 'Esther Brunner',
       'email'  => 'wikidesign@gmail.com',
-      'date'   => '2006-12-12',
+      'date'   => '2006-12-15',
       'name'   => 'Discussion Plugin',
       'desc'   => 'Enables discussion features',
       'url'    => 'http://www.wikidesign.ch/en/plugin/discussion/start',
@@ -46,8 +46,15 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
       'comments',
       array()
     );
+    $contr->register_hook(
+      'RENDERER_CONTENT_POSTPROCESS',
+      'AFTER',
+      $this,
+      'add_toc_item',
+      array()
+    );
   }
-  
+    
   /**
    * Main function; dispatches the comment actions
    */
@@ -100,20 +107,25 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
   function _show($reply = NULL, $edit = NULL){
     global $ID;
     
-    // get discussion meta file name
+    // get .comments meta file name
     $file = metaFN($ID, '.comments');
     
-    if (!file_exists($file)) return true;  // no comments at all
-    
-    $data = unserialize(io_readFile($file, false));
-    
-    if ($data['status'] == 0) return true; // comments are off
-    
+    if (!@file_exists($file)){
+      // create .comments meta file if automatic setting is switched on
+      if ($this->getConf('automatic')){
+        $data = array('status' => 1, 'number' => 0);
+        io_saveFile($file, serialize($data));
+      }
+    } else { // load data
+      $data = unserialize(io_readFile($file, false));
+    }
+        
+    if (!$data['status']) return false; // comments are turned off
+        
     // section title
     $title = $this->getLang('discussion');
-    $secid = cleanID($title);
     echo '<div class="comment_wrapper">';
-    echo '<h2><a name="'.$secid.'" id="'.$secid.'">'.$title.'</a></h2>';
+    echo '<h2><a name="discussion__section" id="discussion__section">'.$title.'</a></h2>';
     echo '<div class="level2">';
         
     // now display the comments
@@ -718,7 +730,54 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     }
     return $xhtml;
   }
+  
+  /**
+   * Adds a TOC item for the discussion section
+   */
+  function add_toc_item(&$event, $param){
+    if ($event->data[0] != 'xhtml') return; // nothing to do for us
+    if (!$this->_hasDiscussion()) return;   // no discussion section
+        
+    $pattern = '/<div id="toc__inside">(.*?)<\/div>\s<\/div>/s';
+    if (!preg_match($pattern, $event->data[1], $match)) return; // no TOC on this page
     
+    // ok, then let's do it!
+    global $conf;
+        
+    $title   = $this->getLang('discussion');
+    $section = '#discussion__section';
+    $level   = 3 - $conf['toptoclevel'];
+    
+    $item = '<li class="level'.$level.'"><div class="li"><span class="li"><a href="'.
+      $section.'" class="toc">'.$title.'</a></span></div></li>';
+      
+    if ($level == 1) $search = "</ul>\n</div>";
+    else $search = "</ul>\n</li></ul>\n</div>";
+    
+    $new = str_replace($search, $item.$search, $match[0]);
+    $event->data[1] = preg_replace($pattern, $new, $event->data[1]);
+  }
+  
+  /**
+   * Finds out whether there is a discussion section for the current page
+   */
+  function _hasDiscussion(){
+    global $ID;
+    
+    $cfile = metaFN($ID, '.comments');
+    
+    if (!@file_exists($cfile)){
+      if ($this->getConf('automatic')) return true;
+      else return false;
+    }
+    
+    $comments = unserialize(io_readFile($cfile, false));
+    
+    $num = $comments['number'];
+    if ((!$comments['status']) || (($comments['status'] == 2) && (!$num))) return false;
+    else return true;
+  }
+  
   /**
    * Checks if 'newthread' was given as action or the comment form was submitted
    */

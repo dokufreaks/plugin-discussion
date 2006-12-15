@@ -7,6 +7,7 @@
  */
  
 // for the configuration manager
+$lang['automatic']       = 'discussion section on every page by default';
 $lang['allowguests']     = 'allow comments by unregistered users';
 $lang['linkemail']       = 'link commenters name with e-mail';
 $lang['usegravatar']     = 'use gravatar user images for comments';
