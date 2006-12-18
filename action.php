@@ -105,14 +105,14 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
    * Shows all comments of the current page
    */
   function _show($reply = NULL, $edit = NULL){
-    global $ID;
+    global $ID, $INFO;
     
     // get .comments meta file name
     $file = metaFN($ID, '.comments');
     
     if (!@file_exists($file)){
       // create .comments meta file if automatic setting is switched on
-      if ($this->getConf('automatic')){
+      if ($this->getConf('automatic') && $INFO['exists']){
         $data = array('status' => 1, 'number' => 0);
         io_saveFile($file, serialize($data));
       }
