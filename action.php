@@ -21,7 +21,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     return array(
       'author' => 'Esther Brunner',
       'email'  => 'wikidesign@gmail.com',
-      'date'   => '2006-12-15',
+      'date'   => '2006-12-18',
       'name'   => 'Discussion Plugin',
       'desc'   => 'Enables discussion features',
       'url'    => 'http://www.wikidesign.ch/en/plugin/discussion/start',
@@ -802,7 +802,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     global $ID;
     global $INFO;
     
-    $ns    = $_REQUEST['ns'];
+    $ns    = cleanID($_REQUEST['ns']);
     $title = str_replace(':', '', $_REQUEST['title']);
     $back  = $ID;
     $ID    = ($ns ? $ns.':' : '').cleanID($title);
