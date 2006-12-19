@@ -428,9 +428,9 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
       if ($conf['useacl'] && $_SERVER['REMOTE_USER']
         && (!($this->getConf('adminimport') && ($INFO['perm'] == AUTH_ADMIN)))){
       ?>
-          <input type="hidden" name="user" value="<?php echo $_SERVER['REMOTE_USER'] ?>" />
-          <input type="hidden" name="name" value="<?php echo $INFO['userinfo']['name'] ?>" />
-          <input type="hidden" name="mail" value="<?php echo $INFO['userinfo']['mail'] ?>" />
+          <input type="hidden" name="user" value="<?php echo hsc($_SERVER['REMOTE_USER']) ?>" />
+          <input type="hidden" name="name" value="<?php echo hsc($INFO['userinfo']['name']) ?>" />
+          <input type="hidden" name="mail" value="<?php echo hsc($INFO['userinfo']['mail']) ?>" />
       <?php
       // for guest: show name and e-mail entry fields
       } else {
@@ -495,7 +495,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     }
     ?>
           <div class="comment_text">
-            <textarea class="edit" name="text" cols="80" rows="10" id="discussion__comment_text" tabindex="5"><?php echo hsc($raw) ?></textarea>
+            <textarea class="edit" name="text" cols="80" rows="10" id="discussion__comment_text" tabindex="5"><?php echo formText($raw) ?></textarea>
           </div>
     <?php //bad and dirty event insert hook
     $evdata = array('writable' => true);
