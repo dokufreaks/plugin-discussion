@@ -827,6 +827,9 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             $TEXT .= '{{gravatar>'.$INFO['userinfo']['mail'].' }} ';
           $TEXT .= "//".$INFO['userinfo']['name'].", ".date($conf['dformat']).": //".
                    "\n\n\n\n~~DISCUSSION~~\n";
+          if ((@file_exists(DOKU_PLUGIN.'tag/syntax/tag.php'))
+            && (!plugin_isdisabled('tag')))
+            $TEXT .= "\n~~{{tag>}}~~\n";
         }
         return 'preview';
       } else {
