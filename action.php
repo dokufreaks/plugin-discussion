@@ -21,7 +21,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     return array(
       'author' => 'Esther Brunner',
       'email'  => 'wikidesign@gmail.com',
-      'date'   => '2006-12-18',
+      'date'   => '2006-12-20',
       'name'   => 'Discussion Plugin',
       'desc'   => 'Enables discussion features',
       'url'    => 'http://www.wikidesign.ch/en/plugin/discussion/start',
@@ -825,11 +825,11 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
           $TEXT = "<- [[:$back]]\n\n====== $title ======\n\n";
           if ($this->getConf('usegravatar'))
             $TEXT .= '{{gravatar>'.$INFO['userinfo']['mail'].' }} ';
-          $TEXT .= "//".$INFO['userinfo']['name'].", ".date($conf['dformat']).": //".
-                   "\n\n\n\n~~DISCUSSION~~\n";
+          $TEXT .= "//".$INFO['userinfo']['name'].", ".date($conf['dformat']).": //\n\n";
           if ((@file_exists(DOKU_PLUGIN.'tag/syntax/tag.php'))
             && (!plugin_isdisabled('tag')))
-            $TEXT .= "\n~~{{tag>}}~~\n";
+            $TEXT .= "\n\n{{tag>}}";
+          $TEXT .= "\n\n~~DISCUSSION~~";
         }
         return 'preview';
       } else {
