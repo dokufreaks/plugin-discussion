@@ -26,7 +26,7 @@ class syntax_plugin_discussion_gravatar extends DokuWiki_Syntax_Plugin {
     return array(
       'author' => 'Esther Brunner',
       'email'  => 'wikidesign@gmail.com',
-      'date'   => '2006-12-02',
+      'date'   => '2007-01-05',
       'name'   => 'Discussion Plugin (gravatar component)',
       'desc'   => 'Displays Gravatar images',
       'url'    => 'http://www.wikidesign.ch/en/plugin/discussion/start',
@@ -93,11 +93,13 @@ class syntax_plugin_discussion_gravatar extends DokuWiki_Syntax_Plugin {
       } else {
         $src = $default;
       }
-      $title = ($data[1] ? htmlspecialchars($data[1]) : obfuscate($email));
+      $title = ($data[1] ? hsc($data[1]) : obfuscate($email));
       
-      $renderer->doc .= '<img src="'.$src.'" class="media'.$data[2].'"'.
+      $renderer->doc .= '<span class="vcard">'.
+        '<img src="'.$src.'" class="media'.$data[2].' photo fn"'.
         ' title="'.$title.'" alt="'.$title.'"'.
-        ' width="'.$size.'" height="'.$size.'" />';
+        ' width="'.$size.'" height="'.$size.'" />'.
+        '</span>';
       return true;
     }
     return false;
