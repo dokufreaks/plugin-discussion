@@ -21,7 +21,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     return array(
       'author' => 'Esther Brunner',
       'email'  => 'wikidesign@gmail.com',
-      'date'   => '2006-12-20',
+      'date'   => '2007-01-05',
       'name'   => 'Discussion Plugin',
       'desc'   => 'Enables discussion features',
       'url'    => 'http://www.wikidesign.ch/en/plugin/discussion/start',
@@ -126,7 +126,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     $title = $this->getLang('discussion');
     echo '<div class="comment_wrapper">';
     echo '<h2><a name="discussion__section" id="discussion__section">'.$title.'</a></h2>';
-    echo '<div class="level2">';
+    echo '<div class="level2 hfeed">';
         
     // now display the comments
     if (isset($data['comments'])){
@@ -187,9 +187,9 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     
     // fill in the new comment
     $data['comments'][$cid] = array(
-      'user'    => htmlspecialchars($comment['user']),
-      'name'    => htmlspecialchars($comment['name']),
-      'mail'    => htmlspecialchars($comment['mail']),
+      'user'    => hsc($comment['user']),
+      'name'    => hsc($comment['name']),
+      'mail'    => hsc($comment['mail']),
       'date'    => $date,
       'show'    => true,
       'raw'     => trim($comment['raw']),
@@ -198,9 +198,9 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
       'replies' => array()
     );
     if ($comment['url'])
-      $data['comments'][$cid]['url'] = htmlspecialchars($comment['url']);
+      $data['comments'][$cid]['url'] = hsc($comment['url']);
     if ($comment['address'])
-      $data['comments'][$cid]['address'] = htmlspecialchars($comment['address']);
+      $data['comments'][$cid]['address'] = hsc($comment['address']);
     
     // update parent comment
     if ($parent) $data['comments'][$parent]['replies'][] = $cid;
@@ -298,18 +298,19 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     if (!isset($data['comments'][$cid])) return false; // comment was removed
     $comment = $data['comments'][$cid];
     
-    if (!is_array($comment)) return false;          // corrupt datatype
+    if (!is_array($comment)) return false;             // corrupt datatype
     
-    if ($comment['parent'] != $parent) return true; // reply to an other comment
+    if ($comment['parent'] != $parent) return true;    // reply to an other comment
     
-    if (!$comment['show']){                         // comment hidden
+    if (!$comment['show']){                            // comment hidden
       if ($INFO['perm'] == AUTH_ADMIN) echo '<div class="comment_hidden">'.NL;
       else return true;
     }
         
     // comment head with date and user data
-    echo '<div class="comment_head">'.NL;
-    echo '<a name="comment__'.$cid.'" id="comment__'.$cid.'">'.NL;
+    echo '<div class="hentry"><div class="comment_head">'.NL.
+      '<a name="comment__'.$cid.'" id="comment__'.$cid.'"></a>'.NL.
+      '<span class="vcard author">';
     
     // show gravatar image
     if ($this->getConf('usegravatar')){
@@ -323,31 +324,36 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         '&.jpg', 'cache=recache');
       else $src = $default;
       $title = ($comment['name'] ? $comment['name'] : obfuscate($comment['mail']));
-      echo '<img src="'.$src.'" class="medialeft" title="'.$title.'"'.
+      echo '<img src="'.$src.'" class="medialeft photo" title="'.$title.'"'.
         ' alt="'.$title.'" width="'.$size.'" height="'.$size.'" />'.NL;
       $style = ' style="margin-left: '.($size + 14).'px;"';
     } else {
       $style = ' style="margin-left: 20px;"';
     }
     
-    echo '</a>'.NL;
     if ($this->getConf('linkemail') && $comment['mail']){
-      echo $this->email($comment['email'], $comment['name']);
+      echo $this->email($comment['email'], $comment['name'], 'email fn');
     } elseif ($comment['url']){
-      echo $this->external_link($comment['url'], $comment['name'], 'urlextern');
+      echo $this->external_link($comment['url'], $comment['name'], 'urlextern url fn');
     } else {
-      echo $comment['name'];
+      echo '<span class="fn">'.$comment['name'].'</span>';
     }
-    if ($comment['address']) echo ', '.htmlentities($comment['address']);
-    echo ', '.date($conf['dformat'], $comment['date']);
-    if ($comment['edited']) echo ' ('.date($conf['dformat'], $comment['edited']).')';
-    echo ':'.NL;
-    echo '</div>'.NL; // class="comment_head"
+    if ($comment['address'])
+      echo ', <span class="adr">'.$comment['address'].'</span>';
+    echo '</span>, <abbr class="published" title="'.gmdate('Y-m-d\TH:i:s\Z',
+      $comment['date']).'">'.date($conf['dformat'], $comment['date']).'</abbr>';
+    if ($comment['edited']) echo ' (<abbr class="updated" title="'.
+      gmdate('Y-m-d\TH:i:s\Z', $comment['edited']).'">'.date($conf['dformat'],
+      $comment['edited']).'</abbr>)';
+    echo ':'.NL.
+      '</div>'.NL; // class="comment_head"
     
     // main comment content
-    echo '<div class="comment_body"'.($this->getConf('usegravatar') ? $style : '').'>'.NL;
-    echo $comment['xhtml'].NL;
-    echo '</div>'.NL; // class="comment_body"
+    echo '<div class="comment_body entry-content"'.
+      ($this->getConf('usegravatar') ? $style : '').'>'.NL.
+      $comment['xhtml'].NL.
+      '</div>'.NL.
+      '</div>'.NL; // class="comment_body" and class="hentry"
     
     
     if ($visible){

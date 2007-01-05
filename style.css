@@ -22,6 +22,20 @@ div.dokuwiki .comment_head {
   clear: both;
 }
 
+div.dokuwiki .comment_head abbr {
+  border-bottom: 0;
+}
+
+div.dokuwiki .comment_head span.author {
+  background: transparent url(images/user.gif) 0px 1px no-repeat;
+  padding: 1px 0px 1px 16px;
+}
+
+div.dokuwiki .comment_head abbr.published {
+  background: transparent url(images/date.gif) 0px 1px no-repeat;
+  padding: 1px 0px 1px 16px;
+}
+
 div.dokuwiki .comment_body {
   padding-top: 0.5em;
 }
