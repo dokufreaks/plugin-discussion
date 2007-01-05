@@ -132,10 +132,10 @@ function convertDiscussionPage($file){
     
     // fill in the converted comment
     $comments['comments'][$cid] = array(
-      'user'    => '',
-      'name'    => htmlspecialchars($name),
-      'mail'    => htmlspecialchars($mail),
-      'date'    => $date,
+      'user'    => array(
+        'name' => hsc($name),
+        'mail' => hsc($mail)),
+      'date'    => array('created' => $date),
       'show'    => true,
       'raw'     => $raw,
       'xhtml'   => $xhtml,

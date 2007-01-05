@@ -16,7 +16,7 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
     return array(
       'author' => 'Esther Brunner',
       'email'  => 'wikidesign@gmail.com',
-      'date'   => '2006-12-12',
+      'date'   => '2007-01-05',
       'name'   => 'Discussion Plugin (helper class)',
       'desc'   => 'Functions to get info about comments to a wiki page',
       'url'    => 'http://www.wikidesign/en/plugin/discussion/start',
@@ -230,7 +230,9 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
     if ($data['status'] === 0) return false;
     
     // okay, then add some additional info
-    $recent['name'] = $data['comments'][$cid]['name'];
+    if (is_array($data['comments'][$cid]['user']))
+      $recent['name'] = $data['comments'][$cid]['user']['name'];
+    else $recent['name'] = $data['comments'][$cid]['name'];
     $recent['desc'] = strip_tags($data['comments'][$cid]['xhtml']);
    
     return $recent;

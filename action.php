@@ -67,12 +67,13 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
       
       case 'add':
         $comment = array(
-          'user'    => $_REQUEST['user'],
-          'name'    => $_REQUEST['name'],
-          'mail'    => $_REQUEST['mail'],
-          'url'     => $_REQUEST['url'],
-          'address' => $_REQUEST['address'],
-          'date'    => $_REQUEST['date'],
+          'user'    => array(
+            'id'      => hsc($_REQUEST['user']),
+            'name'    => hsc($_REQUEST['name']),
+            'mail'    => hsc($_REQUEST['mail']),
+            'url'     => hsc($_REQUEST['url']),
+            'address' => hsc($_REQUEST['address'])),
+          'date'    => array('created' => $_REQUEST['date']),
           'raw'     => cleanText($_REQUEST['text'])
         );
         $repl = $_REQUEST['reply'];
@@ -172,13 +173,13 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     
     if ($data['status'] != 1) return false;                // comments off or closed
     if ((!$this->getConf('allowguests'))
-      && ($comment['user'] != $_SERVER['REMOTE_USER']))
+      && ($comment['user']['id'] != $_SERVER['REMOTE_USER']))
       return false;                                        // guest comments not allowed 
     
-    if ($comment['date']) $date = strtotime($comment['date']);
+    if ($comment['date']['created']) $date = strtotime($comment['date']['created']);
     else $date = time();
     if ($date == -1) $date = time();
-    $cid  = md5($comment['user'].$date);                   // create a unique id
+    $cid  = md5($comment['user']['id'].$date);             // create a unique id
     
     if (!is_array($data['comments'][$parent])) $parent = NULL; // invalid parent comment
     
@@ -187,20 +188,14 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     
     // fill in the new comment
     $data['comments'][$cid] = array(
-      'user'    => hsc($comment['user']),
-      'name'    => hsc($comment['name']),
-      'mail'    => hsc($comment['mail']),
-      'date'    => $date,
+      'user'    => $comment['user'],
+      'date'    => array('created' => $date),
       'show'    => true,
-      'raw'     => trim($comment['raw']),
+      'raw'     => $comment['raw'],
       'xhtml'   => $xhtml,
       'parent'  => $parent,
       'replies' => array()
     );
-    if ($comment['url'])
-      $data['comments'][$cid]['url'] = hsc($comment['url']);
-    if ($comment['address'])
-      $data['comments'][$cid]['address'] = hsc($comment['address']);
     
     // update parent comment
     if ($parent) $data['comments'][$parent]['replies'][] = $cid;
@@ -247,12 +242,33 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     
     $data = array();
     $data = unserialize(io_readFile($file, false));
+    
+    if (is_array($data['comments'][$cid]['user'])){
+      $user    = $data['comments'][$cid]['user']['id'];
+      $convert = false;
+    } else {
+      $user    = $data['comments'][$cid]['user'];
+      $convert = true;
+    }
         
     // someone else was trying to edit our comment -> abort
-    if (($data['comments'][$cid]['user'] != $_SERVER['REMOTE_USER'])
-      && ($INFO['perm'] != AUTH_ADMIN)) return false;
+    if (($user != $_SERVER['REMOTE_USER']) && ($INFO['perm'] != AUTH_ADMIN)) return false;
       
     $date = time();
+    
+    // need to convert to new format?
+    if ($convert){
+      $data['comments'][$cid]['user'] = array(
+        'id'      => $user,
+        'name'    => $data['comments'][$cid]['name'],
+        'mail'    => $data['comments'][$cid]['mail'],
+        'url'     => $data['comments'][$cid]['url'],
+        'address' => $data['comments'][$cid]['address'],
+      );
+      $data['comments'][$cid]['date'] = array(
+        'created' => $data['comments'][$cid]['date']
+      );
+    }
     
     if ($toogle){     // toogle visibility
       $now = $data['comments'][$cid]['show'];
@@ -271,9 +287,9 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
       $xhtml = $this->_render($raw);
       
       // now change the comment's content
-      $data['comments'][$cid]['edited'] = $date;
-      $data['comments'][$cid]['raw']    = trim($raw);
-      $data['comments'][$cid]['xhtml']  = $xhtml;
+      $data['comments'][$cid]['date']['modified'] = $date;
+      $data['comments'][$cid]['raw']              = $raw;
+      $data['comments'][$cid]['xhtml']            = $xhtml;
       
       $type = 'ec';
     }
@@ -311,19 +327,41 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     echo '<div class="hentry"><div class="comment_head">'.NL.
       '<a name="comment__'.$cid.'" id="comment__'.$cid.'"></a>'.NL.
       '<span class="vcard author">';
+      
+    // prepare variables
+    if (is_array($comment['user'])){ // new format
+      $user    = $comment['user']['id'];
+      $name    = $comment['user']['name'];
+      $mail    = $comment['user']['mail'];
+      $url     = $comment['user']['url'];
+      $address = $comment['user']['address'];
+    } else {                         // old format
+      $user    = $comment['user'];
+      $name    = $comment['name'];
+      $mail    = $comment['mail'];
+      $url     = $comment['url'];
+      $address = $comment['address'];
+    }
+    if (is_array($comment['date'])){ // new format
+      $created  = $comment['date']['created'];
+      $modified = $comment['date']['modified'];
+    } else {                         // old format
+      $created  = $comment['date'];
+      $modified = $comment['edited'];
+    }
     
     // show gravatar image
     if ($this->getConf('usegravatar')){
       $default = DOKU_URL.'lib/plugins/discussion/images/default.gif';
       $size    = $this->getConf('gravatar_size');
-      if ($comment['mail']) $src = ml('http://www.gravatar.com/avatar.php?'.
-        'gravatar_id='.md5($comment['mail']).
+      if ($mail) $src = ml('http://www.gravatar.com/avatar.php?'.
+        'gravatar_id='.md5($mail).
         '&default='.urlencode($default).
         '&size='.$size.
         '&rating='.$this->getConf('gravatar_rating').
         '&.jpg', 'cache=recache');
       else $src = $default;
-      $title = ($comment['name'] ? $comment['name'] : obfuscate($comment['mail']));
+      $title = ($name ? $name : obfuscate($mail));
       echo '<img src="'.$src.'" class="medialeft photo" title="'.$title.'"'.
         ' alt="'.$title.'" width="'.$size.'" height="'.$size.'" />'.NL;
       $style = ' style="margin-left: '.($size + 14).'px;"';
@@ -331,30 +369,26 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
       $style = ' style="margin-left: 20px;"';
     }
     
-    if ($this->getConf('linkemail') && $comment['mail']){
-      echo $this->email($comment['email'], $comment['name'], 'email fn');
-    } elseif ($comment['url']){
-      echo $this->external_link($comment['url'], $comment['name'], 'urlextern url fn');
+    if ($this->getConf('linkemail') && $mail){
+      echo $this->email($mail, $name, 'email fn');
+    } elseif ($url){
+      echo $this->external_link($url, $name, 'urlextern url fn');
     } else {
-      echo '<span class="fn">'.$comment['name'].'</span>';
+      echo '<span class="fn">'.$name.'</span>';
     }
-    if ($comment['address'])
-      echo ', <span class="adr">'.$comment['address'].'</span>';
-    echo '</span>, <abbr class="published" title="'.gmdate('Y-m-d\TH:i:s\Z',
-      $comment['date']).'">'.date($conf['dformat'], $comment['date']).'</abbr>';
+    if ($address) echo ', <span class="adr">'.$address.'</span>';
+    echo '</span>, <abbr class="published" title="'.gmdate('Y-m-d\TH:i:s\Z', $created).
+      '">'.date($conf['dformat'], $created).'</abbr>';
     if ($comment['edited']) echo ' (<abbr class="updated" title="'.
-      gmdate('Y-m-d\TH:i:s\Z', $comment['edited']).'">'.date($conf['dformat'],
-      $comment['edited']).'</abbr>)';
-    echo ':'.NL.
-      '</div>'.NL; // class="comment_head"
+      gmdate('Y-m-d\TH:i:s\Z', $modified).'">'.date($conf['dformat'], $modified).
+      '</abbr>)';
+    echo ':'.NL.'</div>'.NL; // class="comment_head"
     
     // main comment content
     echo '<div class="comment_body entry-content"'.
       ($this->getConf('usegravatar') ? $style : '').'>'.NL.
       $comment['xhtml'].NL.
-      '</div>'.NL.
-      '</div>'.NL; // class="comment_body" and class="hentry"
-    
+      '</div>'.NL.'</div>'.NL; // class="comment_body" and class="hentry"
     
     if ($visible){
       // show hide/show toogle button?
@@ -372,13 +406,14 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         $this->_button($cid, $this->getLang('btn_reply'), 'reply', true);
       
       // show edit and delete button?
-      if ((($comment['user'] == $_SERVER['REMOTE_USER']) && ($comment['user'] != ''))
+      if ((($user == $_SERVER['REMOTE_USER']) && ($user != ''))
         || ($INFO['perm'] == AUTH_ADMIN))
         $this->_button($cid, $lang['btn_secedit'], 'edit', true);
       if ($INFO['perm'] == AUTH_ADMIN)
         $this->_button($cid, $lang['btn_delete'], 'delete');
       echo '</div>'.NL; // class="comment_buttons"
-      echo '<div class="comment_line" '.($this->getConf('usegravatar') ? $style : '').'>&nbsp;</div>'.NL; 
+      echo '<div class="comment_line" '.
+        ($this->getConf('usegravatar') ? $style : '').'>&nbsp;</div>'.NL; 
     }
 
     // replies to this comment entry?
@@ -684,14 +719,26 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     if ((empty($bcc)) && (!$conf['notify'])) return;
     $to   = $conf['notify'];
     $text = io_readFile($this->localFN('subscribermail'));
-  
-    $text = str_replace('@PAGE@', $ID, $text);
-    $text = str_replace('@TITLE@', $conf['title'], $text);
-    $text = str_replace('@DATE@', date($conf['dformat'], $comment['date']), $text);
-    $text = str_replace('@NAME@', $comment['name'], $text);
-    $text = str_replace('@TEXT@', $comment['raw'], $text);
-    $text = str_replace('@UNSUBSCRIBE@', wl($ID, 'do=unsubscribe', true, '&'), $text);
-    $text = str_replace('@DOKUWIKIURL@', DOKU_URL, $text);
+    
+    $search = array(
+      '@PAGE@',
+      '@TITLE@',
+      '@DATE@',
+      '@NAME@',
+      '@TEXT@',
+      '@UNSUBSCRIBE@',
+      '@DOKUWIKIURL@',
+    );
+    $replace = array(
+      $ID,
+      $conf['title'],
+      date($conf['dformat'], $comment['date']['created']),
+      $comment['user']['name'],
+      $comment['raw'],
+      wl($ID, 'do=unsubscribe', true, '&'),
+      DOKU_URL,
+    );
+    $text = str_replace($search, $replace, $text);
   
     $subject = '['.$conf['title'].'] '.$this->getLang('mail_newcomment');
   
@@ -793,18 +840,18 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
       // $event->stopPropagation();
       $event->preventDefault();
       
-      $event->data = $this->_handle_newThread();
+      $event->data = $this->_newThread();
     }
     if ((in_array($_REQUEST['comment'], array('add', 'save')))
       && (@file_exists(DOKU_PLUGIN.'captcha/action.php'))){
-      $this->_handle_captchaCheck();
+      $this->_captchaCheck();
     }
   }
   
   /**
    * Creates a new thread page
    */
-  function _handle_newThread(){
+  function _newThread(){
     global $ID;
     global $INFO;
     
@@ -852,7 +899,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
    * @author     Andreas Gohr <gohr@cosmocode.de>
    * @adaption   Esther Brunner <wikidesign@gmail.com>
    */
-  function _handle_captchaCheck(){
+  function _captchaCheck(){
     if (@file_exists(DOKU_PLUGIN.'captcha/disabled')) return; // CAPTCHA is disabled
     
     require_once(DOKU_PLUGIN.'captcha/action.php');
