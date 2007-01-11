@@ -17,14 +17,11 @@ require_once(DOKU_PLUGIN.'syntax.php');
 
 class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
 
-  /**
-   * return some info
-   */
   function getInfo(){
     return array(
       'author' => 'Esther Brunner',
       'email'  => 'wikidesign@gmail.com',
-      'date'   => '2006-12-12',
+      'date'   => '2007-01-11',
       'name'   => 'Discussion Plugin (threads component)',
       'desc'   => 'Displays a list of recently active discussions',
       'url'    => 'http://www.wikidesign.ch/en/plugin/discussion/start',
@@ -39,23 +36,19 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
     $this->Lexer->addSpecialPattern('\{\{threads>.+?\}\}', $mode, 'plugin_discussion_threads');
   }
 
-  /**
-   * Handle the match
-   */
   function handle($match, $state, $pos, &$handler){
-    return cleanID(substr($match, 10, -2)); // strip {{threads> from start and }} from end
-  }
-
-  /**
-   * Create output
-   */
-  function render($mode, &$renderer, $ns) {
     global $ID;
-    global $conf;
     
+    $ns = substr($match, 10, -2); // strip {{threads> from start and }} from end
+  
     if (($ns == '*') || ($ns == ':')) $ns = '';
     elseif ($ns == '.') $ns = getNS($ID);
+    else $ns = cleanID($ns);
+  
+    return $ns;
+  }
 
+  function render($mode, &$renderer, $ns) {
     if ($my =& plugin_load('helper', 'discussion')) $pages = $my->getThreads($ns);
     if (!$pages){
       if ((auth_quickaclcheck($ns.':*') >= AUTH_CREATE) && ($mode == 'xhtml')){
