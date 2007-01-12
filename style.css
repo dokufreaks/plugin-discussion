@@ -78,3 +78,16 @@ div.dokuwiki div.newthread_form {
 div.dokuwiki #discussion__newthread_form input.edit {
   width: 95%;
 }
+
+div.dokuwiki .cPage {
+	background-color:__background_alt__
+}
+
+div.dokuwiki .cDate {
+	font-style:italic;
+	font-size:.8em;
+}
+
+div.dokuwiki .cName {
+	font-weight:bold
+}
