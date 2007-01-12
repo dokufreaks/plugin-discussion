@@ -40,47 +40,26 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
      * output appropriate html
      */
     function html() {
+    	require_once(DOKU_PLUGIN.'action.php');
+		$actionDiscussion= new action_plugin_discussion();
+    
 		global $conf;
+		global $INFO;
+		global $ID;
+		global $ADMDISCUSSION;
+		
 		$chem=DOKU_INC.$conf['savedir']."/meta/";
 		$arr=$this->globr($chem,"*.comments");
 		$com =array();
 		foreach ($arr as $v) {
 			$ap=unserialize(io_readFile($v, false));
-			//si ya des commentaire
-			if (isset($ap['comments'])) {
-				//pour chaque commentaire
-				foreach ($ap['comments'] as $vv) {
-					$page=str_replace(array($chem,".comments"),array("",""),$v);
-					$com[$page][$vv['date']]=array("name"=>$vv['name'],"com"=>$vv['xhtml']);
-					//old method
-					//$com[$vv['date']]=array("name"=>$vv['name'],"com"=>$vv['xhtml'],"page"=>wl($page,''));
-				}
+			if (isset($ap['comments'])){
+				$ID=substr(str_replace(array($chem,".comments",'/'),array("","",':'),$v),1);
+				$ADMDISCUSSION['page']=' : <a href="'.wl($ID,'').'">'.str_replace("/doku.php/","",wl($ID,'')).'</a>';
+				$actionDiscussion->_show();
 			}
 		}
-		
-		if (count($com > 1)) {
-			//sort discussion	for all page	
-			foreach ($com as $k => $v)
-				krsort($com[$k],SORT_NUMERIC);
-								
-				
-			//for all page with discussion thread
-			echo "<ul>";
-			foreach ($com as $page => $thread) {
-				echo "<li>";
-				echo '<div class="cPage"><a href="'.wl($page,'').'">'.str_replace("/doku.php//","",wl($page,'')).'</a></div><div class="cComBlock">';
-				
-				foreach ($thread as $dte => $coments) {
-					echo '<div class="cComSolo">';
-					echo '<div class="cDate">'.date("d/m/Y H:i:s",$dte).'</div>';
-					echo '<span class="cName">'.$coments['name'].'</span>';
-					echo '<span class="cCom">'.$coments['com'].'</span>';
-					echo "</div>";
-				}
-				echo "</div></li>";				
-			}
-			echo "</ul>";
-		}
+	
     }
 	
 	/**
@@ -109,6 +88,7 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
 	  // files all of our children found.
 	  return $aFiles;
 	}
+	
 	
  
 }

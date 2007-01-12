@@ -106,7 +106,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
    * Shows all comments of the current page
    */
   function _show($reply = NULL, $edit = NULL){
-    global $ID, $INFO;
+    global $ID, $INFO , $ADMDISCUSSION;
     
     // get .comments meta file name
     $file = metaFN($ID, '.comments');
@@ -124,7 +124,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     if (!$data['status']) return false; // comments are turned off
         
     // section title
-    $title = $this->getLang('discussion');
+    $title = $this->getLang('discussion').((isset($ADMDISCUSSION['page']))?$ADMDISCUSSION['page']:'');
     echo '<div class="comment_wrapper">';
     echo '<h2><a name="discussion__section" id="discussion__section">'.$title.'</a></h2>';
     echo '<div class="level2 hfeed">';
@@ -362,7 +362,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         '&.jpg', 'cache=recache');
       else $src = $default;
       $title = ($name ? $name : obfuscate($mail));
-      echo '<img src="'.$src.'" class="medialeft photo" title="'.$title.'"'.
+      echo '<ADMDISCUSSIONimg src="'.$src.'" class="medialeft photo" title="'.$title.'"'.
         ' alt="'.$title.'" width="'.$size.'" height="'.$size.'" />'.NL;
       $style = ' style="margin-left: '.($size + 14).'px;"';
     } else {
