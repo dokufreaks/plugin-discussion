@@ -21,7 +21,7 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
     return array(
       'author' => 'Esther Brunner',
       'email'  => 'wikidesign@gmail.com',
-      'date'   => '2007-01-11',
+      'date'   => '2007-01-12',
       'name'   => 'Discussion Plugin (threads component)',
       'desc'   => 'Displays a list of recently active discussions',
       'url'    => 'http://www.wikidesign.ch/en/plugin/discussion/start',
@@ -39,16 +39,20 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
   function handle($match, $state, $pos, &$handler){
     global $ID;
     
-    $ns = substr($match, 10, -2); // strip {{threads> from start and }} from end
+    $match = substr($match, 10, -2); // strip {{threads> from start and }} from end
+    list($ns, $flags) = explode('&', $match, 2);
+    $flags = explode('&', $flags);
   
     if (($ns == '*') || ($ns == ':')) $ns = '';
     elseif ($ns == '.') $ns = getNS($ID);
     else $ns = cleanID($ns);
   
-    return $ns;
+    return array($ns, $flags);
   }
 
-  function render($mode, &$renderer, $ns) {
+  function render($mode, &$renderer, $data){
+    list($ns, $flags) = $data;
+    
     if ($my =& plugin_load('helper', 'discussion')) $pages = $my->getThreads($ns);
     if (!$pages){
       if ((auth_quickaclcheck($ns.':*') >= AUTH_CREATE) && ($mode == 'xhtml')){
@@ -75,6 +79,7 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
         return false;
       }
       $pagelist->column['comments'] = true;
+      $pagelist->setFlags($flags);
       $pagelist->startList();
       foreach ($pages as $page){
         $pagelist->addPage($page);
