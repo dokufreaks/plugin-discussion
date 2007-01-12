@@ -48,6 +48,21 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
 		global $ID;
 		global $ADMDISCUSSION;
 		
+		$oID=$ID;
+		$ADMDISCUSSION['page']="adm";
+		//Execute action for page
+		if (isset($_REQUEST['comment'])) {
+			if ($_REQUEST['comment']!='edit') {
+
+				if (($_REQUEST['comment']=='add') && (isset($_REQUEST['cid']))) {
+
+				} else {
+					$obj=new unusedclass();
+					$actionDiscussion->comments($obj, null);
+				}
+			}
+		}
+
 		$chem=DOKU_INC.$conf['savedir']."/meta/";
 		$arr=$this->globr($chem,"*.comments");
 		$com =array();
@@ -56,10 +71,16 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
 			if (isset($ap['comments'])){
 				$ID=substr(str_replace(array($chem,".comments",'/'),array("","",':'),$v),1);
 				$ADMDISCUSSION['page']=' : <a href="'.wl($ID,'').'">'.str_replace("/doku.php/","",wl($ID,'')).'</a>';
-				$actionDiscussion->_show();
+
+				if ((isset($_REQUEST['comment'])) && ($_REQUEST['comment']=='edit'))
+					$actionDiscussion->_show(NULL, $_REQUEST['cid']);
+				else
+					$actionDiscussion->_show((($oID==$ID)?@$_REQUEST['cid']:null));
+				
 			}
 		}
-	
+		$ID = $oID;
+		$ADMDISCUSSION['breakaction']=true;
     }
 	
 	/**
@@ -88,8 +109,9 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
 	  // files all of our children found.
 	  return $aFiles;
 	}
-	
-	
- 
+
+}
+class unusedclass {
+	function unusedclass(){	$this->data='admin';}
 }
 ?>

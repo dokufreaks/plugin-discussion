@@ -59,8 +59,12 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
    * Main function; dispatches the comment actions
    */
   function comments(&$event, $param){
-    if ($event->data != 'show') return; // nothing to do for us
-    
+    global $ADMDISCUSSION;
+
+    if (($event->data != 'admin') && ($event->data != 'show')) return; // nothing to do for us
+
+    if(isset($ADMDISCUSSION['breakaction'])) return;
+
     $cid  = $_REQUEST['cid'];
     
     switch ($_REQUEST['comment']){
@@ -152,7 +156,8 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
   function _add($comment, $parent){
     global $ID;
     global $TEXT;
-    
+    global $ADMDISCUSSION;
+
     $otxt = $TEXT; // set $TEXT to comment text for wordblock check
     $TEXT = $comment['raw'];
     
@@ -185,7 +190,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     
     // render the comment
     $xhtml = $this->_render($comment['raw']);
-    
+   
     // fill in the new comment
     $data['comments'][$cid] = array(
       'user'    => $comment['user'],
@@ -209,8 +214,9 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     
     // notify subscribers of the page
     $this->_notify($data['comments'][$cid]);
-    
-    $this->_show();
+  
+    if (!isset($ADMDISCUSSION['page']))
+    	$this->_show();
     return true;
   }
     
@@ -220,6 +226,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
   function _save($cid, $raw, $toogle = false){
     global $ID;
     global $INFO;
+    global $ADMDISCUSSION;
 
     if ($raw){
       global $TEXT;
@@ -295,10 +302,12 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     }
     
     // save the comment metadata file
+
     io_saveFile($file, serialize($data));
     $this->_addLogEntry($date, $ID, $type, '', $cid);
     
-    $this->_show();
+    if (!isset($ADMDISCUSSION['page']))
+    	$this->_show();
     return true;
   }
     
@@ -444,7 +453,8 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     global $conf;
     global $ID;
     global $INFO;
-  
+    global $ADMDISCUSSION;  
+
     // not for unregistered users when guest comments aren't allowed
     if (!$_SERVER['REMOTE_USER'] && !$this->getConf('allowguests')) return false;
     
@@ -452,11 +462,19 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     if (!$raw && ($_REQUEST['comment'] == 'show')) $raw = $_REQUEST['text'];
     
     ?>
+
+
     <div class="comment_form">
-      <form id="discussion__comment_form" method="post" action="<?php echo script() ?>" accept-charset="<?php echo $lang['encoding'] ?>" onsubmit="return validate(this);">
+      <form id="discussion__comment_form" method="post" action="<?php echo ((isset($ADMDISCUSSION['page']))?'':script()) ?>" accept-charset="<?php echo $lang['encoding'] ?>" onsubmit="return validate(this);">
         <div class="no">
+	<?php if (isset($ADMDISCUSSION['page'])) {
+	?>
+		<input type="hidden" name="page" value="<?php echo @$_GET['page'] ?>" />
+	<?php
+	}
+	?>
           <input type="hidden" name="id" value="<?php echo $ID ?>" />
-          <input type="hidden" name="do" value="show" />
+          <input type="hidden" name="do" value="<?php echo ((isset($ADMDISCUSSION['page']))?'admin':'show') ?>" />
           <input type="hidden" name="comment" value="<?php echo $act ?>" />
     <?php
     
@@ -557,6 +575,8 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     global $ID;
     global $conf;
     global $INFO;
+	 global  $ADMDISCUSSION;
+	if (isset($ADMDISCUSSION['page'])) return;
     
     $user = $_SERVER['REMOTE_USER'];
     
@@ -594,13 +614,21 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
    */
   function _button($cid, $label, $act, $jump = false){
     global $ID;
+    global $ADMDISCUSSION;
+
     $anchor = ($jump ? '#discussion__comment_form' : '' );
         
     ?>
-    <form class="button" method="post" action="<?php echo script().$anchor ?>">
+    <form class="button" method="post" action="<?php echo ((isset($ADMDISCUSSION['page']))?'':script().$anchor) ?>">
       <div class="no">
+	<?php if (isset($ADMDISCUSSION['page'])) {
+	?>
+		<input type="hidden" name="page" value="<?php echo @$_GET['page'] ?>" />
+	<?php
+	}
+	?>
         <input type="hidden" name="id" value="<?php echo $ID ?>" />
-        <input type="hidden" name="do" value="show" />
+        <input type="hidden" name="do" value="<?php echo ((isset($ADMDISCUSSION['page']))?'admin':'show') ?>" />
         <input type="hidden" name="comment" value="<?php echo $act ?>" />
         <input type="hidden" name="cid" value="<?php echo $cid ?>" />
         <input type="submit" value="<?php echo $label ?>" class="button" title="<?php echo $label ?>" />
