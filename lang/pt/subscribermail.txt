@@ -1,0 +1,18 @@
+Olá!
+
+Um novo comentário foi adicionado à página @PAGE@ no wiki @TITLE@.
+
+Data:   @DATE@
+Nome:   @NAME@
+
+Comentário:
+--------------------------------------------------------
+@TEXT@
+--------------------------------------------------------
+
+Para cancelar o seu registo nesta página entre no wiki e clique no link:
+@UNSUBSCRIBE@
+
+--
+Esta mensagem foi criada pelo DokuWiki em
+@DOKUWIKIURL@
