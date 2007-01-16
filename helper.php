@@ -111,8 +111,8 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
       $file = metaFN($id, '.comments');
       if (!@file_exists($file)) continue; // skip if no comments file
       $data = unserialize(io_readFile($file, false));
-      $num = $data['number']; // skip if comments are off or closed without comments
-      if ((!$data['status']) || (($data['status'] == 2) && (!$num))) continue;
+      $number = $data['number']; // skip if comments are off or closed without comments
+      if ((!$data['status']) || (($data['status'] == 2) && (!$number))) continue;
       
       $date = filemtime($file);
       $meta = p_get_metadata($id);
@@ -122,8 +122,8 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
         'date'     => $date,
         'user'     => $meta['creator'],
         'desc'     => $meta['description']['abstract'],
-        'num'      => $num,
-        'comments' => $this->td($id, $num),
+        'num'      => $number,
+        'comments' => $this->td($id, $number),
         'perm'     => $perm,
         'exists'   => true,
       );
