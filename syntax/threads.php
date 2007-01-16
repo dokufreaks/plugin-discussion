@@ -21,7 +21,7 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
     return array(
       'author' => 'Esther Brunner',
       'email'  => 'wikidesign@gmail.com',
-      'date'   => '2007-01-12',
+      'date'   => '2007-01-16',
       'name'   => 'Discussion Plugin (threads component)',
       'desc'   => 'Displays a list of recently active discussions',
       'url'    => 'http://www.wikidesign.ch/en/plugin/discussion/start',
@@ -40,20 +40,31 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
     global $ID;
     
     $match = substr($match, 10, -2); // strip {{threads> from start and }} from end
-    list($ns, $flags) = explode('&', $match, 2);
+    list($match, $flags) = explode('&', $match, 2);
     $flags = explode('&', $flags);
+    list($ns, $refine) = explode(' ', $match, 2);
   
     if (($ns == '*') || ($ns == ':')) $ns = '';
     elseif ($ns == '.') $ns = getNS($ID);
     else $ns = cleanID($ns);
   
-    return array($ns, $flags);
+    return array($ns, $flags, $refine);
   }
 
   function render($mode, &$renderer, $data){
-    list($ns, $flags) = $data;
+    list($ns, $flags, $refine) = $data;
     
     if ($my =& plugin_load('helper', 'discussion')) $pages = $my->getThreads($ns);
+    
+    // use tag refinements?
+    if ($refine){
+      if (plugin_isdisabled('tag') || (!$tag = plugin_load('helper', 'tag'))){
+        msg('The Tag Plugin must be installed to use tag refinements.', -1);
+      } else {
+        $pages = $tag->tagRefine($pages, $refine);
+      }
+    }
+    
     if (!$pages){
       if ((auth_quickaclcheck($ns.':*') >= AUTH_CREATE) && ($mode == 'xhtml')){
         $renderer->info['cache'] = false;
