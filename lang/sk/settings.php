@@ -7,11 +7,8 @@
  */
  
 // for the configuration manager
-$lang['allowguests']     = 'povoliť komentáre neregistrovaným';
-$lang['linkemail']       = 'linkovať mená komentujúcich s e-mailami';
-$lang['usegravatar']     = 'použiť obrázky gavatar';
-
-$lang['gravatar_size']   = 'implicitná veľkosť gavataru';
-$lang['gravatar_rating'] = 'minimálne hodnotenie gavataru';
+$lang['allowguests'] = 'povoliť komentáre neregistrovaným';
+$lang['linkemail']   = 'linkovať mená komentujúcich s e-mailami';
+$lang['useavatar']   = 'použiť obrázky gavatar';
 
 //Setup VIM: ex: et ts=2 enc=utf-8 :

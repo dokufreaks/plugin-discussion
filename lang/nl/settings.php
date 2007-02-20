@@ -7,13 +7,8 @@
  */
 
 // for the configuration manager
-$lang['allowguests']     = 'ongeregistreerde gebruikers mogen commentaar geven';
-$lang['linkemail']       = 'hyperlink de naam van degene die commentaar geeft naar hun email';
-$lang['usegravatar']     = 'gebruik gravatar afbeeldingen van gebruikers';
-
-$lang['gravatar_size']   = 'standaard afbeeldinggrootte van de gravatars';
-
-// Hi Esther, again I leave an english word 'rating' becuase it the best choice.
-$lang['gravatar_rating'] = 'minimale rating voor de gravatars';
+$lang['allowguests'] = 'ongeregistreerde gebruikers mogen commentaar geven';
+$lang['linkemail']   = 'hyperlink de naam van degene die commentaar geeft naar hun email';
+$lang['useavatar']   = 'gebruik avatar afbeeldingen van gebruikers';
 
 //Setup VIM: ex: et ts=2 enc=utf-8 :

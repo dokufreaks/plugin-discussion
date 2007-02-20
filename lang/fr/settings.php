@@ -9,11 +9,8 @@
  */
  
 // for the configuration manager
-$lang['allowguests']      = 'Permettre les commentaires des utilisateurs non-enregistrés';
-$lang['linkemail']        = 'Mettre un lien vers l\'email de la personne qui commente';
-$lang['usegravatar']      = 'Utiliser les gravatars pour les commentaires';
-
-$lang['gravatar_size']    = 'Taille par défaut des gravatars';
-$lang['gravatar_rating']  = 'Niveau minimal des gravatars';
+$lang['allowguests'] = 'Permettre les commentaires des utilisateurs non-enregistrés';
+$lang['linkemail']   = 'Mettre un lien vers l\'email de la personne qui commente';
+$lang['useavatar']   = 'Utiliser les avatars pour les commentaires';
 
 //Setup VIM: ex: et ts=2 enc=utf-8 :

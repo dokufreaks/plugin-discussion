@@ -7,11 +7,7 @@
  */
  
 // for the configuration manager
-$lang['allowguests']     = 'allow comments by unregistered users'; // @todo!
-$lang['linkemail']       = 'legyen hivatkozás a hozzászóló e-mail címével a néven';
-$lang['usegravatar']     = 'használjon gravatar képeket a hozzászólásoknál';
-
-$lang['gravatar_size']   = 'a gravatar kép alapértelmezett mérete';
-$lang['gravatar_rating'] = 'minimum osztályzat a gravatorokhoz';
+$lang['linkemail']   = 'legyen hivatkozás a hozzászóló e-mail címével a néven';
+$lang['useavatar']   = 'használjon avatar képeket a hozzászólásoknál';
 
 //Setup VIM: ex: et ts=2 enc=utf-8 :

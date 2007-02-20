@@ -7,11 +7,8 @@
  */
  
 // for the configuration manager
-$lang['allowguests']     = 'Niezarejestrowani mogą komentować';
-$lang['linkemail']       = 'Nazwa urzytkownika podlinkowana jego adresem e-mail';
-$lang['usegravatar']     = 'Wyświetlaj gravatar\'y obok nazwy komentującego';
-
-$lang['gravatar_size']   = 'Domyślny rozmiar gravatar\'a';
-$lang['gravatar_rating'] = 'minimum rating for gravatars (???)';
+$lang['allowguests'] = 'Niezarejestrowani mogą komentować';
+$lang['linkemail']   = 'Nazwa urzytkownika podlinkowana jego adresem e-mail';
+$lang['useavatar']   = 'Wyświetlaj avatar\'y obok nazwy komentującego';
 
 //Setup VIM: ex: et ts=2 enc=utf-8 :
