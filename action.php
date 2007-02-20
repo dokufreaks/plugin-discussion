@@ -21,7 +21,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     return array(
       'author' => 'Esther Brunner',
       'email'  => 'wikidesign@gmail.com',
-      'date'   => '2007-01-05',
+      'date'   => '2007-01-26',
       'name'   => 'Discussion Plugin',
       'desc'   => 'Enables discussion features',
       'url'    => 'http://www.wikidesign.ch/en/plugin/discussion/start',
@@ -51,6 +51,13 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
       'AFTER',
       $this,
       'add_toc_item',
+      array()
+    );
+    $contr->register_hook(
+      'INDEXER_PAGE_ADD',
+      'AFTER',
+      $this,
+      'idx_addDiscussion',
       array()
     );
   }
@@ -667,6 +674,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     // add changelog line
     $logline = implode("\t", $logline)."\n";
     io_saveFile($changelog, $logline, true); //global changelog cache
+    // io_saveFile($conf['metadir'].'/_dokuwiki.changes', $logline, true);
     $this->_trimRecentCommentsLog($changelog);
   }
   
@@ -950,6 +958,43 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
       elseif ($_REQUEST['comment'] == 'add') $_REQUEST['comment'] = 'show';
     }
     // if we arrive here it was a valid save
+  }
+  
+  /**
+   * Adds the comments to the index
+   */
+  function idx_addDiscussion(&$event, $param){
+  
+    // get .comments meta file name
+    $file = metaFN($event->data[0], '.comments');
+    
+    if (@file_exists($file)) $data = unserialize(io_readFile($file, false));
+    if ((!$data['status']) || ($data['number'] == 0)) return; // comments are turned off
+    
+    // now add the comments
+    if (isset($data['comments'])){
+      foreach ($data['comments'] as $key => $value){
+        $event->data[1] .= idx_getCommentWords($key, $data);
+      }
+    }
+  }
+  
+  /**
+   * Adds the wordsof a given comment to the index
+   */
+  function idx_addCommentWords($cid, &$data, $parent = '', $reply = '', $visible = true){
+  
+    if (!isset($data['comments'][$cid])) return false; // comment was removed
+    $comment = $data['comments'][$cid];
+    
+    if (!is_array($comment)) return false;             // corrupt datatype
+    
+    if ($comment['parent'] != $parent) return true;    // reply to an other comment
+    
+    if (!$comment['show']){                            // comment hidden
+      if ($INFO['perm'] == AUTH_ADMIN) echo '<div class="comment_hidden">'.NL;
+      else return true;
+    }
   }
 
 }
