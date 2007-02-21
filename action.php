@@ -21,7 +21,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     return array(
       'author' => 'Esther Brunner',
       'email'  => 'wikidesign@gmail.com',
-      'date'   => '2007-01-26',
+      'date'   => '2007-02-21',
       'name'   => 'Discussion Plugin',
       'desc'   => 'Enables discussion features',
       'url'    => 'http://www.wikidesign.ch/en/plugin/discussion/start',
@@ -57,7 +57,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
       'INDEXER_PAGE_ADD',
       'AFTER',
       $this,
-      'idx_addDiscussion',
+      'idx_add_discussion',
       array()
     );
   }
@@ -66,11 +66,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
    * Main function; dispatches the comment actions
    */
   function comments(&$event, $param){
-    global $ADMDISCUSSION;
-
     if (($event->data != 'admin') && ($event->data != 'show')) return; // nothing to do for us
-
-    if(isset($ADMDISCUSSION['breakaction'])) return;
 
     $cid  = $_REQUEST['cid'];
     
@@ -117,7 +113,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
    * Shows all comments of the current page
    */
   function _show($reply = NULL, $edit = NULL){
-    global $ID, $INFO , $ADMDISCUSSION;
+    global $ID, $INFO;
     
     // get .comments meta file name
     $file = metaFN($ID, '.comments');
@@ -135,7 +131,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     if (!$data['status']) return false; // comments are turned off
         
     // section title
-    $title = $this->getLang('discussion').((isset($ADMDISCUSSION['page']))?$ADMDISCUSSION['page']:'');
+    $title = $this->getLang('discussion');
     echo '<div class="comment_wrapper">';
     echo '<h2><a name="discussion__section" id="discussion__section">'.$title.'</a></h2>';
     echo '<div class="level2 hfeed">';
@@ -161,9 +157,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
    * Adds a new comment and then displays all comments
    */
   function _add($comment, $parent){
-    global $ID;
-    global $TEXT;
-    global $ADMDISCUSSION;
+    global $ID, $TEXT;
 
     $otxt = $TEXT; // set $TEXT to comment text for wordblock check
     $TEXT = $comment['raw'];
@@ -222,8 +216,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     // notify subscribers of the page
     $this->_notify($data['comments'][$cid]);
   
-    if (!isset($ADMDISCUSSION['page']))
-    	$this->_show();
+    $this->_show();
     return true;
   }
     
@@ -231,9 +224,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
    * Saves the comment with the given ID and then displays all comments
    */
   function _save($cid, $raw, $toogle = false){
-    global $ID;
-    global $INFO;
-    global $ADMDISCUSSION;
+    global $ID, $INFO;
 
     if ($raw){
       global $TEXT;
@@ -313,8 +304,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     io_saveFile($file, serialize($data));
     $this->_addLogEntry($date, $ID, $type, '', $cid);
     
-    if (!isset($ADMDISCUSSION['page']))
-    	$this->_show();
+    $this->_show();
     return true;
   }
     
@@ -378,7 +368,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         '&.jpg', 'cache=recache');
       else $src = $default;
       $title = ($name ? $name : obfuscate($mail));
-      echo '<ADMDISCUSSIONimg src="'.$src.'" class="medialeft photo" title="'.$title.'"'.
+      echo '<img src="'.$src.'" class="medialeft photo" title="'.$title.'"'.
         ' alt="'.$title.'" width="'.$size.'" height="'.$size.'" />'.NL;
       $style = ' style="margin-left: '.($size + 14).'px;"';
     } else {
@@ -456,11 +446,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
    * Outputs the comment form
    */
   function _form($raw = '', $act = 'add', $cid = NULL){
-    global $lang;
-    global $conf;
-    global $ID;
-    global $INFO;
-    global $ADMDISCUSSION;  
+    global $lang, $conf, $ID, $INFO;
 
     // not for unregistered users when guest comments aren't allowed
     if (!$_SERVER['REMOTE_USER'] && !$this->getConf('allowguests')) return false;
@@ -472,16 +458,10 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
 
 
     <div class="comment_form">
-      <form id="discussion__comment_form" method="post" action="<?php echo ((isset($ADMDISCUSSION['page']))?'':script()) ?>" accept-charset="<?php echo $lang['encoding'] ?>" onsubmit="return validate(this);">
+      <form id="discussion__comment_form" method="post" action="<?php echo script() ?>" accept-charset="<?php echo $lang['encoding'] ?>" onsubmit="return validate(this);">
         <div class="no">
-	<?php if (isset($ADMDISCUSSION['page'])) {
-	?>
-		<input type="hidden" name="page" value="<?php echo @$_GET['page'] ?>" />
-	<?php
-	}
-	?>
           <input type="hidden" name="id" value="<?php echo $ID ?>" />
-          <input type="hidden" name="do" value="<?php echo ((isset($ADMDISCUSSION['page']))?'admin':'show') ?>" />
+          <input type="hidden" name="do" value="show" />
           <input type="hidden" name="comment" value="<?php echo $act ?>" />
     <?php
     
@@ -579,11 +559,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
    * Adds a javascript to interact with coComments
    */
   function _coComment(){
-    global $ID;
-    global $conf;
-    global $INFO;
-	 global  $ADMDISCUSSION;
-	if (isset($ADMDISCUSSION['page'])) return;
+    global $ID, $conf, $INFO;
     
     $user = $_SERVER['REMOTE_USER'];
     
@@ -621,21 +597,14 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
    */
   function _button($cid, $label, $act, $jump = false){
     global $ID;
-    global $ADMDISCUSSION;
 
     $anchor = ($jump ? '#discussion__comment_form' : '' );
         
     ?>
-    <form class="button" method="post" action="<?php echo ((isset($ADMDISCUSSION['page']))?'':script().$anchor) ?>">
+    <form class="button" method="post" action="<?php echo script().$anchor ?>">
       <div class="no">
-	<?php if (isset($ADMDISCUSSION['page'])) {
-	?>
-		<input type="hidden" name="page" value="<?php echo @$_GET['page'] ?>" />
-	<?php
-	}
-	?>
         <input type="hidden" name="id" value="<?php echo $ID ?>" />
-        <input type="hidden" name="do" value="<?php echo ((isset($ADMDISCUSSION['page']))?'admin':'show') ?>" />
+        <input type="hidden" name="do" value="show" />
         <input type="hidden" name="comment" value="<?php echo $act ?>" />
         <input type="hidden" name="cid" value="<?php echo $cid ?>" />
         <input type="submit" value="<?php echo $label ?>" class="button" title="<?php echo $label ?>" />
@@ -888,8 +857,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
    * Creates a new thread page
    */
   function _newThread(){
-    global $ID;
-    global $INFO;
+    global $ID, $INFO;
     
     $ns    = cleanID($_REQUEST['ns']);
     $title = str_replace(':', '', $_REQUEST['title']);
@@ -907,18 +875,11 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
       // prepare the new thread file with default stuff
       if (!@file_exists($INFO['filepath'])){
         global $TEXT;
-        global $conf;
         
         $TEXT = pageTemplate(array(($ns ? $ns.':' : '').$title));
         if (!$TEXT){
-          $TEXT = "<- [[:$back]]\n\n====== $title ======\n\n";
-          if ($this->getConf('usegravatar'))
-            $TEXT .= '{{gravatar>'.$INFO['userinfo']['mail'].' }} ';
-          $TEXT .= "//".$INFO['userinfo']['name'].", ".date($conf['dformat']).": //\n\n";
-          if ((@file_exists(DOKU_PLUGIN.'tag/syntax/tag.php'))
-            && (!plugin_isdisabled('tag')))
-            $TEXT .= "\n\n{{tag>}}";
-          $TEXT .= "\n\n~~DISCUSSION~~";
+          $data = array('id' => $ID, 'ns' => $ns, 'title' => $title, 'back' => $back);
+          $TEXT = $this->_pageTemplate($data);
         }
         return 'preview';
       } else {
@@ -927,6 +888,53 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     } else {
       return 'show';
     }
+  }
+  
+  /**
+   * Adapted version of pageTemplate() function
+   */
+  function _pageTemplate($data){
+    global $conf, $INFO;
+    
+    $id   = $data['id'];
+    $user = $_SERVER['REMOTE_USER'];
+    $tpl  = io_readFile(DOKU_PLUGIN.'discussion/_template.txt');
+    
+    // standard replacements
+    $replace = array(
+      '@ID@'   => $id,
+      '@NS@'   => $data['ns'],
+      '@PAGE@' => strtr(noNS($id),'_',' '),
+      '@USER@' => $user,
+      '@NAME@' => $INFO['userinfo']['name'],
+      '@MAIL@' => $INFO['userinfo']['mail'],
+      '@DATE@' => date($conf['dformat']),
+    );
+    
+    // additional replacements
+    $replace['@BACK@']  = $data['back'];
+    $replace['@TITLE@'] = $data['title'];
+    
+    // avatar if useavatar and avatar plugin available
+    if ($this->getConf('useavatar')
+      && (@file_exists(DOKU_PLUGIN.'avatar/syntax.php'))
+      && (!plugin_isdisabled('avatar'))){
+      $replace['@AVATAR@'] = '{{avatar>'.$user.' }} ';
+    } else {
+      $replace['@AVATAR@'] = '';
+    }
+    
+    // tag if tag plugin is available
+    if ((@file_exists(DOKU_PLUGIN.'tag/syntax/tag.php'))
+      && (!plugin_isdisabled('tag'))){
+      $replace['@TAG@'] = "\n\n{{tag>}}";
+    } else {
+      $replace['@TAG@'] = '';
+    }
+    
+    // do the replace
+    $tpl = str_replace(array_keys($replace), array_values($replace), $tpl);
+    return $tpl;
   }
   
   /**
@@ -963,7 +971,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
   /**
    * Adds the comments to the index
    */
-  function idx_addDiscussion(&$event, $param){
+  function idx_add_discussion(&$event, $param){
   
     // get .comments meta file name
     $file = metaFN($event->data[0], '.comments');
@@ -974,7 +982,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     // now add the comments
     if (isset($data['comments'])){
       foreach ($data['comments'] as $key => $value){
-        $event->data[1] .= idx_getCommentWords($key, $data);
+        $event->data[1] .= _addCommentWords($key, $data);
       }
     }
   }
@@ -982,7 +990,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
   /**
    * Adds the wordsof a given comment to the index
    */
-  function idx_addCommentWords($cid, &$data, $parent = '', $reply = '', $visible = true){
+  function _addCommentWords($cid, &$data, $parent = '', $reply = '', $visible = true){
   
     if (!isset($data['comments'][$cid])) return false; // comment was removed
     $comment = $data['comments'][$cid];
