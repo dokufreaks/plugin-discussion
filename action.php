@@ -356,21 +356,13 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
       $modified = $comment['edited'];
     }
     
-    // show gravatar image
-    if ($this->getConf('usegravatar')){
-      $default = DOKU_URL.'lib/plugins/discussion/images/default.gif';
-      $size    = $this->getConf('gravatar_size');
-      if ($mail) $src = ml('http://www.gravatar.com/avatar.php?'.
-        'gravatar_id='.md5($mail).
-        '&default='.urlencode($default).
-        '&size='.$size.
-        '&rating='.$this->getConf('gravatar_rating').
-        '&.jpg', 'cache=recache');
-      else $src = $default;
-      $title = ($name ? $name : obfuscate($mail));
-      echo '<img src="'.$src.'" class="medialeft photo" title="'.$title.'"'.
-        ' alt="'.$title.'" width="'.$size.'" height="'.$size.'" />'.NL;
-      $style = ' style="margin-left: '.($size + 14).'px;"';
+    // show avatar image?
+    if ($this->getConf('useavatar'))
+      && (!plugin_isdisabled('tag')
+      && ($avatar = plugin_load('helper', 'avatar'))){
+      if ($user) echo $avatar->getXHTML($user);
+      else echo $avatar->getXHTML($mail);
+      $style = ' style="margin-left: '.($avatar->getConf('size') + 14).'px;"';
     } else {
       $style = ' style="margin-left: 20px;"';
     }
