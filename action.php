@@ -357,9 +357,9 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     }
     
     // show avatar image?
-    if ($this->getConf('useavatar'))
-      && (!plugin_isdisabled('tag')
-      && ($avatar = plugin_load('helper', 'avatar'))){
+    if ($this->getConf('useavatar')
+	&& (!plugin_isdisabled('tag'))
+	&& ($avatar = plugin_load('helper', 'avatar'))){
       if ($user) echo $avatar->getXHTML($user);
       else echo $avatar->getXHTML($mail);
       $style = ' style="margin-left: '.($avatar->getConf('size') + 14).'px;"';
