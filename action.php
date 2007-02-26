@@ -21,7 +21,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     return array(
       'author' => 'Esther Brunner',
       'email'  => 'wikidesign@gmail.com',
-      'date'   => '2007-02-21',
+      'date'   => '2007-02-26',
       'name'   => 'Discussion Plugin',
       'desc'   => 'Enables discussion features',
       'url'    => 'http://www.wikidesign.ch/en/plugin/discussion/start',
@@ -66,46 +66,65 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
    * Main function; dispatches the comment actions
    */
   function comments(&$event, $param){
-    if (($event->data != 'admin') && ($event->data != 'show')) return; // nothing to do for us
-
-    $cid  = $_REQUEST['cid'];
-    
-    switch ($_REQUEST['comment']){
+    if ($event->data == 'show'){
+      $cid  = $_REQUEST['cid'];
       
-      case 'add':
-        $comment = array(
-          'user'    => array(
-            'id'      => hsc($_REQUEST['user']),
-            'name'    => hsc($_REQUEST['name']),
-            'mail'    => hsc($_REQUEST['mail']),
-            'url'     => hsc($_REQUEST['url']),
-            'address' => hsc($_REQUEST['address'])),
-          'date'    => array('created' => $_REQUEST['date']),
-          'raw'     => cleanText($_REQUEST['text'])
-        );
-        $repl = $_REQUEST['reply'];
-        $this->_add($comment, $repl);
-        break;
-      
-      case 'edit':
-        $this->_show(NULL, $cid);
-        break;
-      
-      case 'save':
-        $raw  = cleanText($_REQUEST['text']);
-        $this->_save($cid, $raw);
-        break;
+      switch ($_REQUEST['comment']){
         
-      case 'delete':
-        $this->_save($cid, '');
-        break;
+        case 'add':
+          $comment = array(
+            'user'    => array(
+              'id'      => hsc($_REQUEST['user']),
+              'name'    => hsc($_REQUEST['name']),
+              'mail'    => hsc($_REQUEST['mail']),
+              'url'     => hsc($_REQUEST['url']),
+              'address' => hsc($_REQUEST['address'])),
+            'date'    => array('created' => $_REQUEST['date']),
+            'raw'     => cleanText($_REQUEST['text'])
+          );
+          $repl = $_REQUEST['reply'];
+          $this->_add($comment, $repl);
+          break;
         
-      case 'toogle':
-        $this->_save($cid, '', true);
-        break;
+        case 'edit':
+          $this->_show(NULL, $cid);
+          break;
+        
+        case 'save':
+          $raw  = cleanText($_REQUEST['text']);
+          $this->_save(array($cid), $raw);
+          break;
+          
+        case 'delete':
+          $this->_save(array($cid), '');
+          break;
+          
+        case 'toogle':
+          $this->_save(array($cid), '', 'toogle');
+          break;
+                        
+        default: // 'show' => $this->_show(), 'reply' => $this->_show($cid)
+          $this->_show($cid);
+      }
+    } elseif ($event->data == 'admin'){
+      global $lang;
             
-      default: // 'show' => $this->_show(), 'reply' => $this->_show($cid)
-        $this->_show($cid);
+      $cids = $_REQUEST['cid'];
+      
+      switch ($_REQUEST['comment']){
+        
+        case $lang['btn_delete']:
+          $this->_save($cid, '');
+          break;
+          
+        case $this->getLang('btn_show'):
+          $this->_save($cid, '', 'show');
+          break;
+          
+        case $this->getLang('btn_hide'):
+          $this->_save($cid, '', 'hide');
+          break;
+      }
     }
   }
   
@@ -223,7 +242,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
   /**
    * Saves the comment with the given ID and then displays all comments
    */
-  function _save($cid, $raw, $toogle = false){
+  function _save($cids, $raw, $act = NULL){
     global $ID, $INFO;
 
     if ($raw){
@@ -248,55 +267,72 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     $data = array();
     $data = unserialize(io_readFile($file, false));
     
-    if (is_array($data['comments'][$cid]['user'])){
-      $user    = $data['comments'][$cid]['user']['id'];
-      $convert = false;
-    } else {
-      $user    = $data['comments'][$cid]['user'];
-      $convert = true;
-    }
+    if (is_array($cids)) $cids = array($cids);
+    foreach ($cids as $cid){
+    
+      if (is_array($data['comments'][$cid]['user'])){
+        $user    = $data['comments'][$cid]['user']['id'];
+        $convert = false;
+      } else {
+        $user    = $data['comments'][$cid]['user'];
+        $convert = true;
+      }
+          
+      // someone else was trying to edit our comment -> abort
+      if (($user != $_SERVER['REMOTE_USER']) && ($INFO['perm'] != AUTH_ADMIN)) return false;
         
-    // someone else was trying to edit our comment -> abort
-    if (($user != $_SERVER['REMOTE_USER']) && ($INFO['perm'] != AUTH_ADMIN)) return false;
+      $date = time();
       
-    $date = time();
-    
-    // need to convert to new format?
-    if ($convert){
-      $data['comments'][$cid]['user'] = array(
-        'id'      => $user,
-        'name'    => $data['comments'][$cid]['name'],
-        'mail'    => $data['comments'][$cid]['mail'],
-        'url'     => $data['comments'][$cid]['url'],
-        'address' => $data['comments'][$cid]['address'],
-      );
-      $data['comments'][$cid]['date'] = array(
-        'created' => $data['comments'][$cid]['date']
-      );
-    }
-    
-    if ($toogle){     // toogle visibility
-      $now = $data['comments'][$cid]['show'];
-      $data['comments'][$cid]['show'] = !$now;
-      $data['number'] = $this->_count($data);
+      // need to convert to new format?
+      if ($convert){
+        $data['comments'][$cid]['user'] = array(
+          'id'      => $user,
+          'name'    => $data['comments'][$cid]['name'],
+          'mail'    => $data['comments'][$cid]['mail'],
+          'url'     => $data['comments'][$cid]['url'],
+          'address' => $data['comments'][$cid]['address'],
+        );
+        $data['comments'][$cid]['date'] = array(
+          'created' => $data['comments'][$cid]['date']
+        );
+      }
       
-      $type = ($data['comments'][$cid]['show'] ? 'sc' : 'hc');
+      if ($act == 'toogle'){     // toogle visibility
+        $now = $data['comments'][$cid]['show'];
+        $data['comments'][$cid]['show'] = !$now;
+        $data['number'] = $this->_count($data);
+        
+        $type = ($data['comments'][$cid]['show'] ? 'sc' : 'hc');
       
-    } elseif (!$raw){ // remove the comment
-      unset($data['comments'][$cid]);
-      $data['number'] = $this->_count($data);
+      } elseif ($act == 'show'){ // show comment
+        $data['comments'][$cid]['show'] = true;
+        $data['number'] = $this->_count($data);
+        
+        $type = 'sc';
       
-      $type = 'dc';
-            
-    } else {          // save changed comment
-      $xhtml = $this->_render($raw);
+      } elseif ($act == 'hide'){ // hide comment
+        $data['comments'][$cid]['show'] = false;
+        $data['number'] = $this->_count($data);
+        
+        $type = 'hc';
+        
+      } elseif (!$raw){          // remove the comment
+        unset($data['comments'][$cid]);
+        $data['number'] = $this->_count($data);
+        
+        $type = 'dc';
+              
+      } else {                   // save changed comment
+        $xhtml = $this->_render($raw);
+        
+        // now change the comment's content
+        $data['comments'][$cid]['date']['modified'] = $date;
+        $data['comments'][$cid]['raw']              = $raw;
+        $data['comments'][$cid]['xhtml']            = $xhtml;
+        
+        $type = 'ec';
+      }
       
-      // now change the comment's content
-      $data['comments'][$cid]['date']['modified'] = $date;
-      $data['comments'][$cid]['raw']              = $raw;
-      $data['comments'][$cid]['xhtml']            = $xhtml;
-      
-      $type = 'ec';
     }
     
     // save the comment metadata file
@@ -358,8 +394,8 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     
     // show avatar image?
     if ($this->getConf('useavatar')
-	&& (!plugin_isdisabled('tag'))
-	&& ($avatar = plugin_load('helper', 'avatar'))){
+	    && (!plugin_isdisabled('tag'))
+	    && ($avatar = plugin_load('helper', 'avatar'))){
       if ($user) echo $avatar->getXHTML($user);
       else echo $avatar->getXHTML($mail);
       $style = ' style="margin-left: '.($avatar->getConf('size') + 14).'px;"';
@@ -384,7 +420,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     
     // main comment content
     echo '<div class="comment_body entry-content"'.
-      ($this->getConf('usegravatar') ? $style : '').'>'.NL.
+      ($this->getConf('useavatar') ? $style : '').'>'.NL.
       $comment['xhtml'].NL.
       '</div>'.NL.'</div>'.NL; // class="comment_body" and class="hentry"
     

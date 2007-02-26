@@ -1,45 +1,136 @@
 <?php
-if(!defined('DOKU_INC')) define('DOKU_INC',realpath(dirname(__FILE__).'/../../').'/');
-if(!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
+/**
+ * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
+ * @author     Esther Brunner <wikidesign@gmail.com>
+ */
+
+// must be run within Dokuwiki
+if (!defined('DOKU_INC')) die();
+
+if (!defined('DOKU_INC')) define('DOKU_INC',realpath(dirname(__FILE__).'/../../').'/');
+if (!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
+if (!defined('DOKU_LF')) define('DOKU_LF', "\n");
+if (!defined('DOKU_TAB')) define('DOKU_TAB', "\t");
+
 require_once(DOKU_PLUGIN.'admin.php');
  
-/**
- * All DokuWiki plugins to extend the admin function
- * need to inherit from this class
- */
 class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
  
-    /**
-     * return some info
-     */
-    function getInfo(){
-      return array(
-        'author' => 'iDo',
-        'email'  => 'iDo@woow-fr.com',
-        'date'   => '2006-12-30',
-        'name'   => 'See all discussion',
-        'desc'   => '',
-        'url'    => '',
-      );
+  function getInfo(){
+    return array(
+      'author' => 'Esther Brunner',
+      'email'  => 'wikidesign@gmail.com',
+      'date'   => '2007-02-22',
+      'name'   => 'Discussion Plugin (admin component)',
+      'desc'   => 'Manage all discussions',
+      'url'    => 'http://www.wikidesign.ch/en/plugin/discussion/start',
+    );
+  }
+
+  function getMenuSort(){ return 200; }
+  function handle(){}
+  function forAdminOnly(){ return false; }
+
+  /**
+   * output appropriate html
+   */
+  function html(){
+    global $conf;
+    
+    echo '<h1>'.$this->getLang('menu').'</h1>';
+    
+    $my =& plugin_load('helper', 'discussion');
+    
+    $threads = $my->getThreads('', $conf['recent'], true);
+    foreach ($threads as $thread){
+      echo $this->_threadHead($thread);
+      if (($thread['status'] == 0) || ($thread['num'] == 0)){
+        echo '</div>';
+        continue;
+      }
+      $comments = $my->getFullComments($thread);
+      
+      echo '<form action="'.script().'">'.
+        '<div class="no">'.
+        '<input type="hidden" name="id" value="'.$thread['id'].'" />'.
+        '<input type="hidden" name="do" value="admin" />'.
+        '<input type="hidden" name="page" value="discussion" />';
+      echo html_buildlist($comments, 'admin_discussion', array($this, '_commentItem'), array($this, '_li_comment'));
+      echo $this->_actionButtons($thread['id']);
     }
- 
-    /**
-     * return sort order for position in admin menu
-     */
-    function getMenuSort() {
-      return 200;
+  }
+  
+  /**
+   * Header, page ID and status of a discussion thread
+   */
+  function _threadHead($thread){
+    $label = array(
+      $this->getLang('off'),
+      $this->getLang('open'),
+      $this->getLang('closed')
+    );
+    $status = $label[$thread['status']];
+    return '<h2>'.hsc($thread['title']).'</h2>'.
+      '<div class="rightalign">'.$this->getLang('status').': '.$status.
+      ' '.$this->getLang('btn_change').'</div>'.
+      '<div class="level2">'.
+      '<a href="'.wl($thread['id']).'" class="wikilinik1">'.$thread['id'].'</a> ';
+  }
+  
+  /**
+   * Checkbox and info about a comment item
+   */
+  function _commentItem($comment){
+    global $conf;
+  
+    // prepare variables
+    if (is_array($comment['user'])){ // new format
+      $name    = $comment['user']['name'];
+      $mail    = $comment['user']['mail'];
+    } else {                         // old format
+      $name    = $comment['name'];
+      $mail    = $comment['mail'];
     }
- 
-    /**
-     * handle user request
-     */
-    function handle() {
+    if (is_array($comment['date'])){ // new format
+      $created  = $comment['date']['created'];
+    } else {                         // old format
+      $created  = $comment['date'];
     }
- 
+    $abstract = strip_tags($comment['xhtml']);
+    if (utf8_strlen($abstract) > 160) $abstract = utf8_substr($abstract, 0, 160).'...';
+
+    return '<input type="checkbox" name="cid['.$comment['id'].']" value="'.$comment['id'].'" /> '.$this->email($mail, $name, 'email').', '.
+      date($conf['dformat'], $created).': <span class="abstract">'.$abstract.'</span>';
+  }
+  
+  /**
+   * list item tag
+   */
+  function _li_comment($comment){
+    $show = ($comment['show'] ? '' : ' hidden');
+    return '<li class="level'.$comment['level'].$show.'">';
+  }
+  
+  /**
+   * Show buttons to bulk remove, hide or show comments
+   */
+  function _actionButtons($id){
+    global $lang;
+    
+    return '<div class="comment_buttons">'.
+      '<input type="submit" name="comment" value="'.$this->getLang('btn_show').'" class="button" title="'.$this->getLang('btn_show').'" />'.
+      '<input type="submit" name="comment" value="'.$this->getLang('btn_hide').'" class="button" title="'.$this->getLang('btn_hide').'" />'.
+      '<input type="submit" name="comment" value="'.$lang['btn_delete'].'" class="button" title="'.$lang['btn_delete'].'" />'.
+      '</div>'.
+      '</div>'.
+      '</form>'.
+      '</div>'; // class="level2"
+  }
+  
     /**
-     * output appropriate html
+     * function by iDo
      */
-    function html() {
+    function _html() {
     	require_once(DOKU_PLUGIN.'action.php');
 		$actionDiscussion= new action_plugin_discussion();
     
@@ -109,9 +200,7 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
 	  // files all of our children found.
 	  return $aFiles;
 	}
+  	
+}
 
-}
-class unusedclass {
-	function unusedclass(){	$this->data='admin';}
-}
-?>
+//Setup VIM: ex: et ts=4 enc=utf-8 :

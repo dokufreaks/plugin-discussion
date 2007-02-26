@@ -13,7 +13,7 @@ $lang['direction']  = 'ltr';
  
 // for admin plugins, the menu prompt to be displayed in the admin menu
 // if set here, the plugin doesn't need to override the getMenuText() method
-$lang['menu']            = 'Alle Diskussionen anzeigen...'; 
+$lang['menu']            = 'Diskussionen moderieren'; 
 
 $lang['discussion']      = 'Diskussion';
 $lang['comment']         = 'Kommentar';
@@ -24,8 +24,14 @@ $lang['date']            = 'Datum';
 $lang['btn_reply']       = 'Antworten';
 $lang['btn_hide']        = 'Ausblenden';
 $lang['btn_show']        = 'Einblenden';
+$lang['btn_change']      = 'Ändern';
 $lang['wordblock']       = 'Ihr Kommentar wurde als Spam blockiert.';
 $lang['mail_newcomment'] = 'Neuer Kommentar';
+
+$lang['status']          = 'Status';
+$lang['off']             = 'aus';
+$lang['open']            = 'offen';
+$lang['closed']          = 'geschlossen';
 
 $lang['reply']           = 'Antwort';
 $lang['replies']         = 'Antworten';

@@ -78,3 +78,11 @@ div.dokuwiki div.newthread_form {
 div.dokuwiki #discussion__newthread_form input.edit {
   width: 95%;
 }
+
+div.dokuwiki ul.admin_discussion li.hidden {
+  opacity: 0.5;
+}
+
+div.dokuwiki ul.admin_discussion span.abstract {
+  color: __text_neu__;
+}
