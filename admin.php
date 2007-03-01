@@ -50,8 +50,7 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
         break;
         
       case $this->getLang('btn_change'):
-        $new = $_REQUEST['status'];
-        $this->_changeStatus($new);
+        $this->_changeStatus($_REQUEST['status']);
         break;
     }
   }
@@ -75,18 +74,19 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
       $comments = $this->_getComments($thread);
       $this->_threadHead($thread);
       if ($comments === false){
-        ptln('</div>'); // class="level2"
+        ptln('</div>', 6); // class="level2"
         continue;
       }
       
-      ptln('<form method="post" action="'.wl($thread['id']).'">', 2);
-      ptln('<div class="no">', 4);
-      ptln('<input type="hidden" name="do" value="admin" />', 6);
-      ptln('<input type="hidden" name="page" value="discussion" />', 6);
+      ptln('<form method="post" action="'.wl($thread['id']).'">', 8);
+      ptln('<div class="no">', 10);
+      ptln('<input type="hidden" name="do" value="admin" />', 10);
+      ptln('<input type="hidden" name="page" value="discussion" />', 10);
       echo html_buildlist($comments, 'admin_discussion', array($this, '_commentItem'), array($this, '_li_comment'));
       $this->_actionButtons($thread['id']);
     }
     $this->_browseDiscussionLinks($more, $first, $num);
+    
   }
   
   /**
@@ -135,22 +135,24 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
       1 => $this->getLang('open'),
       2 => $this->getLang('closed')
     );
-    ptln('<h2 name="'.$id.'" id="'.$id.'">'.hsc(p_get_metadata($id, 'title')).'</h2>');
-    ptln('<form method="post" action="'.wl($id).'">');
-    ptln('<div class="mediaright">', 2);
-    ptln('<input type="hidden" name="do" value="admin" />', 4);
-    ptln('<input type="hidden" name="page" value="discussion" />', 4);
-    ptln($this->getLang('status').': <select name="status" size="1">', 4);
+    $title = p_get_metadata($id, 'title');
+    if (!$title) $title = $id;
+    ptln('<h2 name="'.$id.'" id="'.$id.'">'.hsc($title).'</h2>', 6);
+    ptln('<form method="post" action="'.wl($id).'">', 6);
+    ptln('<div class="mediaright">', 8);
+    ptln('<input type="hidden" name="do" value="admin" />', 10);
+    ptln('<input type="hidden" name="page" value="discussion" />', 10);
+    ptln($this->getLang('status').': <select name="status" size="1">', 10);
     foreach ($labels as $key => $label){
       $selected = (($key == $thread['status']) ? ' selected="selected"' : '');
-      ptln('<option value="'.$key.'"'.$selected.'>'.$label.'</option>', 6);
+      ptln('<option value="'.$key.'"'.$selected.'>'.$label.'</option>', 12);
     }
-    ptln('</select> ', 4);
-    ptln('<input type="submit" value="'.$this->getLang('btn_change').'" />', 4);
-    ptln('</div>', 2);
-    ptln('</form>');
-    ptln('<div class="level2">');
-    ptln('<a href="'.wl($id).'" class="wikilink1">'.$id.'</a> ', 2);
+    ptln('</select> ', 10);
+    ptln('<input type="submit" name="comment" value="'.$this->getLang('btn_change').'" class"button" title="'.$this->getLang('btn_change').'" />', 10);
+    ptln('</div>', 8);
+    ptln('</form>', 6);
+    ptln('<div class="level2">', 6);
+    ptln('<a href="'.wl($id).'" class="wikilink1">'.$id.'</a> ', 8);
     return true;
   }
   
@@ -167,15 +169,16 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
     
     $thread['status'] = $data['status'];
     $thread['number'] = $data['number'];
-    if (!$data['status']) return false;               // comments are turned off
-    if (!isset($data['comments']) || !$data['number']) return false; // no comments
+    if (!$data['status']) return false;   // comments are turned off
+    if (!$data['comments']) return false; // no comments
     
     $result = array();
     foreach ($data['comments'] as $cid => $comment){
       $this->_addComment($cid, $data, $result);
     }
     
-    return $result;
+    if (empty($result)) return false;
+    else return $result;
   }
   
   /**
@@ -240,14 +243,14 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
   function _actionButtons($id){
     global $lang;
     
-    ptln('<div class="comment_buttons">', 6);
-    ptln('<input type="submit" name="comment" value="'.$this->getLang('btn_show').'" class="button" title="'.$this->getLang('btn_show').'" />', 8);
-    ptln('<input type="submit" name="comment" value="'.$this->getLang('btn_hide').'" class="button" title="'.$this->getLang('btn_hide').'" />', 8);
-    ptln('<input type="submit" name="comment" value="'.$lang['btn_delete'].'" class="button" title="'.$lang['btn_delete'].'" />', 8);
-    ptln('</div>', 6); // class="comment_buttons"
-    ptln('</div>', 4); // class="no"
-    ptln('</form>', 2);
-    ptln('</div>'); // class="level2"
+    ptln('<div class="comment_buttons">', 12);
+    ptln('<input type="submit" name="comment" value="'.$this->getLang('btn_show').'" class="button" title="'.$this->getLang('btn_show').'" />', 14);
+    ptln('<input type="submit" name="comment" value="'.$this->getLang('btn_hide').'" class="button" title="'.$this->getLang('btn_hide').'" />', 14);
+    ptln('<input type="submit" name="comment" value="'.$lang['btn_delete'].'" class="button" title="'.$lang['btn_delete'].'" />', 14);
+    ptln('</div>', 12); // class="comment_buttons"
+    ptln('</div>', 10); // class="no"
+    ptln('</form>', 8);
+    ptln('</div>', 6); // class="level2"
     return true;
   }
   
@@ -259,27 +262,29 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
     
     $params = array('do' => 'admin', 'page' => 'discussion');
     $last = $first+$num;
+    ptln('<div class="level1">', 8);
     if ($first > 0){
       $first -= $num;
       if ($first < 0) $first = 0;
       $params['first'] = $first;
-      ptln('<p class="centeralign">', 2);
+      ptln('<p class="centeralign">', 8);
       $ret = '<a href="'.wl($ID, $params).'" class="wikilink1">&lt;&lt; '.$this->getLang('newer').'</a>';
       if ($more){
         $ret .= ' | ';
       } else {
-        ptln($ret, 4);
-        ptln('</p>', 2);
+        ptln($ret, 10);
+        ptln('</p>', 8);
       }
     } else if ($more){
-      ptln('<p class="centeralign">', 2);
+      ptln('<p class="centeralign">', 8);
     }
     if ($more){
       $params['first'] = $last;
       $ret .= '<a href="'.wl($ID, $params).'" class="wikilink1">'.$this->getLang('older').' &gt;&gt;</a>';
-      ptln($ret, 4);
-      ptln('</p>', 2);
+      ptln($ret, 10);
+      ptln('</p>', 8);
     }
+    ptln('</div>', 6); // class="level1"
     return true;
   }
     
@@ -308,81 +313,7 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
     
     return true;
   }
-  
-    /**
-     * function by iDo
-     */
-    function _html() {
-    	require_once(DOKU_PLUGIN.'action.php');
-		$actionDiscussion= new action_plugin_discussion();
-    
-		global $conf;
-		global $INFO;
-		global $ID;
-		global $ADMDISCUSSION;
-		
-		$oID=$ID;
-		$ADMDISCUSSION['page']="adm";
-		//Execute action for page
-		if (isset($_REQUEST['comment'])) {
-			if ($_REQUEST['comment']!='edit') {
-
-				if (($_REQUEST['comment']=='add') && (isset($_REQUEST['cid']))) {
-
-				} else {
-					$obj=new unusedclass();
-					$actionDiscussion->comments($obj, null);
-				}
-			}
-		}
-
-		$chem=DOKU_INC.$conf['savedir']."/meta/";
-		$arr=$this->globr($chem,"*.comments");
-		$com =array();
-		foreach ($arr as $v) {
-			$ap=unserialize(io_readFile($v, false));
-			if (isset($ap['comments'])){
-				$ID=substr(str_replace(array($chem,".comments",'/'),array("","",':'),$v),1);
-				$ADMDISCUSSION['page']=' : <a href="'.wl($ID,'').'">'.str_replace("/doku.php/","",wl($ID,'')).'</a>';
-
-				if ((isset($_REQUEST['comment'])) && ($_REQUEST['comment']=='edit'))
-					$actionDiscussion->_show(NULL, $_REQUEST['cid']);
-				else
-					$actionDiscussion->_show((($oID==$ID)?@$_REQUEST['cid']:null));
-				
-			}
-		}
-		$ID = $oID;
-		$ADMDISCUSSION['breakaction']=true;
-    }
-	
-	/**
-	 * Recursive version of glob
-	 *
-	 * @return array containing all pattern-matched files.
-	 *
-	 * @param string $sDir      Directory to start with.
-	 * @param string $sPattern  Pattern to glob for.
-	 * @param int $nFlags      Flags sent to glob.
-	 */
-	function _globr($sDir, $sPattern, $nFlags = NULL) {
-	  $sDir = escapeshellcmd($sDir);
-	  // Get the list of all matching files currently in the
-	  // directory.
-	  $aFiles = glob("$sDir/$sPattern", $nFlags);
-	  // Then get a list of all directories in this directory, and
-	  // run ourselves on the resulting array.  This is the
-	  // recursion step, which will not execute if there are no
-	  // directories.
-	  foreach (glob("$sDir/*", GLOB_ONLYDIR) as $sSubDir)  {
-	   $aSubFiles = $this->globr($sSubDir, $sPattern, $nFlags);
-	   $aFiles = array_merge($aFiles, $aSubFiles);
-	  }
-	  // The array we return contains the files we found, and the
-	  // files all of our children found.
-	  return $aFiles;
-	}
-  	
+    	
 }
 
 //Setup VIM: ex: et ts=4 enc=utf-8 :
