@@ -21,10 +21,13 @@ $lang['comments']        = 'Comments';
 $lang['url']             = 'Website';
 $lang['address']         = 'Address';
 $lang['date']            = 'Date';
+$lang['older']           = 'Older discussions';
+$lang['newer']           = 'Newer discussions';
 $lang['btn_reply']       = 'Reply';
 $lang['btn_hide']        = 'Hide';
 $lang['btn_show']        = 'Show';
 $lang['btn_change']      = 'Change';
+$lang['statuschanged']   = 'Discussion status changed';
 $lang['wordblock']       = 'Your comment was blocked as spam.';
 $lang['mail_newcomment'] = 'New Comment';
 

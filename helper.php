@@ -16,7 +16,7 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
     return array(
       'author' => 'Esther Brunner',
       'email'  => 'wikidesign@gmail.com',
-      'date'   => '2007-01-05',
+      'date'   => '2007-02-28',
       'name'   => 'Discussion Plugin (helper class)',
       'desc'   => 'Functions to get info about comments to a wiki page',
       'url'    => 'http://www.wikidesign/en/plugin/discussion/start',
@@ -89,7 +89,7 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
   /**
    * Returns an array of pages with discussion sections, sorted by recent comments
    */
-  function getThreads($ns, $num = NULL, $all = false){
+  function getThreads($ns, $num = NULL){
     global $conf;
     
     require_once(DOKU_INC.'inc/search.php');
@@ -113,7 +113,7 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
       $data = unserialize(io_readFile($file, false));
       $status = $data['status'];
       $number = $data['number']; // skip if comments are off or closed without comments
-      if (!$all && (!$status || (($status == 2) && (!$number)))) continue;
+      if (!$status || (($status == 2) && (!$number))) continue;
       
       $date = filemtime($file);
       $meta = p_get_metadata($id);
@@ -176,51 +176,7 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
     
     return $result;
   }
-  
-  
-  /**
-   * Returns the full comments data for a given wiki page
-   */
-  function getFullComments($thread){
-    $id = $thread['id'];
     
-    if (!$thread['file']) $thread['file'] = metaFN($id, '.comments');
-    if (!@file_exists($thread['file'])) return false; // no discussion thread at all
-    
-    $data = unserialize(io_readFile($thread['file'], false));
-    
-    if (!$data['status']) return false;               // comments are turned off
-    if (!isset($data['comments']) || !$data['number']) return array(); // no comments
-    
-    $result = array();
-    foreach ($data['comments'] as $cid => $comment){
-      $this->_addComment($cid, $data, $result);
-    }
-    
-    return $result;
-  }
-  
-  /**
-   * Recursive function to add the comment hierarchy to the result
-   */
-  function _addComment($cid, &$data, &$result, $parent = '', $level = 1){
-    if (!is_array($data['comments'][$cid])) return; // corrupt datatype
-    $comment = $data['comments'][$cid];
-    if ($comment['parent'] != $parent) return;      // answer to another comment
-    
-    // okay, add the comment to the result
-    $comment['id'] = $cid;
-    $comment['level'] = $level;
-    $result[] = $comment;
-    
-    // check answers to this comment
-    if (count($comment['replies'])){
-      foreach ($comment['replies'] as $rid){
-        $this->_addComment($rid, $data, $result, $cid, $level + 1);
-      }
-    }
-  }
-  
 /* ---------- Changelog function adapted for the Discussion Plugin ---------- */
    
   /**
