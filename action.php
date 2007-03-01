@@ -640,7 +640,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     // add changelog line
     $logline = implode("\t", $logline)."\n";
     io_saveFile($changelog, $logline, true); //global changelog cache
-    // io_saveFile($conf['metadir'].'/_dokuwiki.changes', $logline, true);
+    io_saveFile($conf['metadir'].'/_dokuwiki.changes', $logline, true);
     $this->_trimRecentCommentsLog($changelog);
   }
   
