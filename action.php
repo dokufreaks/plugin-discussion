@@ -291,7 +291,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         $type = 'hc'; // hide comment
         
       } elseif (!$raw){          // remove the comment
-        unset($data['comments'][$cid]);
+        $data['comments'] = $this->_removeComment($cid, $data['comments']);
         $data['number'] = $this->_count($data);
         
         $type = 'dc'; // delete comment
@@ -314,6 +314,19 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     
     $this->_show();
     return true;
+  }
+  
+  /**
+   * Recursive function to remove a comment
+   */
+  function _removeComment($cid, $comments){
+    if (is_array($comments[$cid]['replies'])){
+      foreach ($comments[$cid]['replies'] as $rid){
+        $comments = $this->_removeComment($rid, $comments);
+      }
+    }
+    unset($comments[$cid]);
+    return $comments;
   }
       
   /**
@@ -985,21 +998,24 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
   }
   
   /**
-   * Adds the wordsof a given comment to the index
+   * Adds the words of a given comment to the index
    */
-  function _addCommentWords($cid, &$data, $parent = '', $reply = '', $visible = true){
+  function _addCommentWords($cid, &$data, $parent = ''){
   
-    if (!isset($data['comments'][$cid])) return false; // comment was removed
+    if (!isset($data['comments'][$cid])) return ''; // comment was removed
     $comment = $data['comments'][$cid];
     
-    if (!is_array($comment)) return false;             // corrupt datatype
+    if (!is_array($comment)) return '';             // corrupt datatype
+    if ($comment['parent'] != $parent) return '';   // reply to an other comment
+    if (!$comment['show']) return '';               // hidden comment
     
-    if ($comment['parent'] != $parent) return true;    // reply to an other comment
-    
-    if (!$comment['show']){                            // comment hidden
-      if ($INFO['perm'] == AUTH_ADMIN) echo '<div class="comment_hidden">'.DOKU_LF;
-      else return true;
+    $text = $comment['raw'];                        // we only add the raw comment text
+    if (is_array($comment['replies'])){             // and the replies
+      foreach ($comment['replies'] as $rid){
+        $text .= $this->_addCommentWords($rid, $data, $cid);
+      }
     }
+    return ' '.$text;
   }
 
 }
