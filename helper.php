@@ -129,6 +129,7 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
         'status'   => $status,
         'perm'     => $perm,
         'exists'   => true,
+        'anchor'   => 'discussion__section',
       );
     }
     
@@ -237,6 +238,7 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
       $recent['name'] = $data['comments'][$cid]['user']['name'];
     else $recent['name'] = $data['comments'][$cid]['name'];
     $recent['desc'] = strip_tags($data['comments'][$cid]['xhtml']);
+    $recent['anchor'] = 'comment__'.$cid;
    
     return $recent;
   }
