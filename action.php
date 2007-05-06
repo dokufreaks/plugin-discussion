@@ -378,8 +378,8 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     if ($this->getConf('useavatar')
 	    && (!plugin_isdisabled('avatar'))
 	    && ($avatar =& plugin_load('helper', 'avatar'))){
-      if ($user) echo $avatar->getXHTML($user);
-      else echo $avatar->getXHTML($mail);
+      if ($user) echo $avatar->getXHTML($user, $name, 'left');
+      else echo $avatar->getXHTML($mail, $name, 'left');
       $style = ' style="margin-left: '.($avatar->getConf('size') + 14).'px;"';
     } else {
       $style = ' style="margin-left: 20px;"';
