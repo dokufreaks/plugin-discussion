@@ -28,7 +28,7 @@ class syntax_plugin_discussion_comments extends DokuWiki_Syntax_Plugin {
     return array(
       'author' => 'Esther Brunner',
       'email'  => 'wikidesign@gmail.com',
-      'date'   => '2006-12-02',
+      'date'   => '2007-08-02',
       'name'   => 'Discussion Plugin (comments component)',
       'desc'   => 'Enables discussion features',
       'url'    => 'http://www.wikidesign.ch/en/plugin/discussion/start',
@@ -56,7 +56,7 @@ class syntax_plugin_discussion_comments extends DokuWiki_Syntax_Plugin {
     global $ACT;
     
     // don't show discussion section on blog mainpages
-    if (defined('IS_BLOG_MAINPAGE')) return false;
+    if (defined('PLUGIN_BLOG_MAINPAGE')) $status = 0;
     
     // assign discussion state
     if ($match == '~~DISCUSSION:off~~') $status = 0;
