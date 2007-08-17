@@ -38,6 +38,8 @@ div.dokuwiki .comment_head abbr.published {
 
 div.dokuwiki .comment_body {
   padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-bottom: 1px dotted __border__;
 }
 
 div.dokuwiki div.comment_replies {
@@ -51,7 +53,7 @@ div.dokuwiki div.comment_buttons {
   float: right;
   font-size: 10px;
   cursor: pointer;
-  display: inline;
+  margin-top: -21px;
 }
 
 div.dokuwiki div.comment_buttons input.button {
@@ -62,11 +64,6 @@ div.dokuwiki div.comment_buttons input.button {
   text-decoration: none;
   padding: 0;
   margin: 0 0 0 0.5em;
-}
-
-div.dokuwiki div.comment_line {
-  padding-top: 0.5em;
-  border-bottom: 1px solid __border__;
 }
 
 div.dokuwiki div.newthread_form {

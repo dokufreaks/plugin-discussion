@@ -19,7 +19,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     return array(
       'author' => 'Esther Brunner',
       'email'  => 'wikidesign@gmail.com',
-      'date'   => '2007-08-17',
+      'date'   => '2007-08-18',
       'name'   => 'Discussion Plugin (action component)',
       'desc'   => 'Enables discussion features',
       'url'    => 'http://www.wikidesign.ch/en/plugin/discussion/start',
@@ -436,8 +436,6 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
       if ($INFO['perm'] == AUTH_ADMIN)
         $this->_button($cid, $lang['btn_delete'], 'delete');
       ptln('</div>', 2); // class="comment_buttons"
-      ptln('<div class="comment_line" '.
-        ($this->getConf('usegravatar') ? $style : '').'>&nbsp;</div>', 4); 
     }
 
     // replies to this comment entry?
