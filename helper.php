@@ -16,10 +16,10 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
     return array(
       'author' => 'Esther Brunner',
       'email'  => 'wikidesign@gmail.com',
-      'date'   => '2007-02-28',
+      'date'   => '2007-08-13',
       'name'   => 'Discussion Plugin (helper class)',
       'desc'   => 'Functions to get info about comments to a wiki page',
-      'url'    => 'http://www.wikidesign/en/plugin/discussion/start',
+      'url'    => 'http://www.wikidesign.ch/en/plugin/discussion/start',
     );
   }
   

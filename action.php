@@ -19,7 +19,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     return array(
       'author' => 'Esther Brunner',
       'email'  => 'wikidesign@gmail.com',
-      'date'   => '2007-03-01',
+      'date'   => '2007-08-17',
       'name'   => 'Discussion Plugin (action component)',
       'desc'   => 'Enables discussion features',
       'url'    => 'http://www.wikidesign.ch/en/plugin/discussion/start',
@@ -127,9 +127,11 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         
     // section title
     $title = $this->getLang('discussion');
-    echo '<div class="comment_wrapper">';
-    echo '<h2><a name="discussion__section" id="discussion__section">'.$title.'</a></h2>';
-    echo '<div class="level2 hfeed">';
+    ptln('<div class="comment_wrapper">');
+    ptln('<h2><a name="discussion__section" id="discussion__section">', 2);
+    ptln($title, 4);
+    ptln('</a></h2>', 2);
+    ptln('<div class="level2 hfeed">', 2);
         
     // now display the comments
     if (isset($data['comments'])){
@@ -142,8 +144,8 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     // comment form
     if (($data['status'] == 1) && !$reply && !$edit) $this->_form('');
     
-    echo '</div>'; // level2
-    echo '</div>'; // comment_wrapper
+    ptln('</div>', 2); // level2 hfeed
+    ptln('</div>'); // comment_wrapper
     
     return true;
   }
@@ -343,14 +345,17 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     if ($comment['parent'] != $parent) return true;    // reply to an other comment
     
     if (!$comment['show']){                            // comment hidden
-      if ($INFO['perm'] == AUTH_ADMIN) echo '<div class="comment_hidden">'.DOKU_LF;
+      if ($INFO['perm'] == AUTH_ADMIN) $hidden = ' comment_hidden';
       else return true;
+    } else {
+      $hidden = '';
     }
         
     // comment head with date and user data
-    echo '<div class="hentry"><div class="comment_head">'.DOKU_LF.
-      '<a name="comment__'.$cid.'" id="comment__'.$cid.'"></a>'.DOKU_LF.
-      '<span class="vcard author">';
+    ptln('<div class="hentry'.$hidden.'">', 4);
+    ptln('<div class="comment_head">', 6);
+    ptln('<a name="comment__'.$cid.'" id="comment__'.$cid.'"></a>', 8);
+    $head = '<span class="vcard author">';
       
     // prepare variables
     if (is_array($comment['user'])){ // new format
@@ -378,37 +383,40 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     if ($this->getConf('useavatar')
 	    && (!plugin_isdisabled('avatar'))
 	    && ($avatar =& plugin_load('helper', 'avatar'))){
-      if ($user) echo $avatar->getXHTML($user, $name, 'left');
-      else echo $avatar->getXHTML($mail, $name, 'left');
+      if ($user) $head .= $avatar->getXHTML($user, $name, 'left');
+      else $head .= $avatar->getXHTML($mail, $name, 'left');
       $style = ' style="margin-left: '.($avatar->getConf('size') + 14).'px;"';
     } else {
       $style = ' style="margin-left: 20px;"';
     }
     
     if ($this->getConf('linkemail') && $mail){
-      echo $this->email($mail, $name, 'email fn');
+      $head .= $this->email($mail, $name, 'email fn');
     } elseif ($url){
-      echo $this->external_link($url, $name, 'urlextern url fn');
+      $head .= $this->external_link($url, $name, 'urlextern url fn');
     } else {
-      echo '<span class="fn">'.$name.'</span>';
+      $head .= '<span class="fn">'.$name.'</span>';
     }
-    if ($address) echo ', <span class="adr">'.$address.'</span>';
-    echo '</span>, <abbr class="published" title="'.gmdate('Y-m-d\TH:i:s\Z', $created).
-      '">'.date($conf['dformat'], $created).'</abbr>';
-    if ($comment['edited']) echo ' (<abbr class="updated" title="'.
+    if ($address) $head .= ', <span class="adr">'.$address.'</span>';
+    $head .= '</span>, '.
+      '<abbr class="published" title="'.gmdate('Y-m-d\TH:i:s\Z', $created).'">'.
+      date($conf['dformat'], $created).'</abbr>';
+    if ($comment['edited']) $head .= ' (<abbr class="updated" title="'.
       gmdate('Y-m-d\TH:i:s\Z', $modified).'">'.date($conf['dformat'], $modified).
       '</abbr>)';
-    echo ':'.DOKU_LF.'</div>'.DOKU_LF; // class="comment_head"
+    ptln($head.':', 8);
+    ptln('</div>', 6); // class="comment_head"
     
     // main comment content
-    echo '<div class="comment_body entry-content"'.
-      ($this->getConf('useavatar') ? $style : '').'>'.DOKU_LF.
-      $comment['xhtml'].DOKU_LF.
-      '</div>'.DOKU_LF.'</div>'.DOKU_LF; // class="comment_body" and class="hentry"
+    ptln('<div class="comment_body entry-content"'.
+      ($this->getConf('useavatar') ? $style : '').'>', 6);
+    echo $comment['xhtml'].DOKU_LF;
+    ptln('</div>', 6); // class="comment_body"
+    ptln('</div>', 4); // class="hentry"
     
     if ($visible){
       // show hide/show toogle button?
-      echo '<div class="comment_buttons">'.DOKU_LF;
+      ptln('<div class="comment_buttons">', 4);
       if ($INFO['perm'] == AUTH_ADMIN){
         if (!$comment['show']) $label = $this->getLang('btn_show');
         else $label = $this->getLang('btn_hide');
@@ -427,28 +435,26 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         $this->_button($cid, $lang['btn_secedit'], 'edit', true);
       if ($INFO['perm'] == AUTH_ADMIN)
         $this->_button($cid, $lang['btn_delete'], 'delete');
-      echo '</div>'.DOKU_LF; // class="comment_buttons"
-      echo '<div class="comment_line" '.
-        ($this->getConf('usegravatar') ? $style : '').'>&nbsp;</div>'.DOKU_LF; 
+      ptln('</div>', 2); // class="comment_buttons"
+      ptln('<div class="comment_line" '.
+        ($this->getConf('usegravatar') ? $style : '').'>&nbsp;</div>', 4); 
     }
 
     // replies to this comment entry?
     if (count($comment['replies'])){
-      echo '<div class="comment_replies"'.$style.'>'.DOKU_LF;
+      ptln('<div class="comment_replies"'.$style.'>', 4);
       $visible = ($comment['show'] && $visible);
       foreach ($comment['replies'] as $rid){
         $this->_print($rid, $data, $cid, $reply, $visible);
       }
-      echo '</div>'.DOKU_LF; // class="comment_replies"
+      ptln('</div>', 4); // class="comment_replies"
     }
-    
-    if (!$comment['show']) echo '</div>'.DOKU_LF; // class="comment_hidden"
-    
+        
     // reply form
     if ($reply == $cid){
-      echo '<div class="comment_replies">'.DOKU_LF;
+      ptln('<div class="comment_replies">', 4);
       $this->_form('', 'add', $cid);
-      echo '</div>'.DOKU_LF; // class="comment_replies"
+      ptln('</div>', 4); // class="comment_replies"
     }
   }
 
@@ -798,7 +804,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     }
     return $xhtml;
   }
-  
+    
   /**
    * Adds a TOC item for the discussion section
    */
@@ -832,6 +838,9 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
   function _hasDiscussion(){
     global $ID;
     
+    $classes = get_declared_classes();
+    if (in_array('helper_plugin_include', $classes)) return false;
+    
     $cfile = metaFN($ID, '.comments');
     
     if (!@file_exists($cfile)){
@@ -840,7 +849,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     }
     
     $comments = unserialize(io_readFile($cfile, false));
-    
+        
     $num = $comments['number'];
     if ((!$comments['status']) || (($comments['status'] == 2) && (!$num))) return false;
     else return true;
