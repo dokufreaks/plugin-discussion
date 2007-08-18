@@ -664,6 +664,9 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     io_saveFile($changelog, $logline, true); //global changelog cache
     io_saveFile($conf['metadir'].'/_dokuwiki.changes', $logline, true);
     $this->_trimRecentCommentsLog($changelog);
+    
+    // tell the indexer to re-index the page
+    @unlink(metaFN($id, '.indexed'));
   }
   
   /**
@@ -1004,7 +1007,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     // now add the comments
     if (isset($data['comments'])){
       foreach ($data['comments'] as $key => $value){
-        $event->data[1] .= _addCommentWords($key, $data);
+        $event->data[1] .= $this->_addCommentWords($key, $data);
       }
     }
   }
