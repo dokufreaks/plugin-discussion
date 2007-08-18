@@ -555,6 +555,11 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     }
     ?>
           <div class="comment_text">
+    <?php
+    echo $this->getLang('entercomment');
+    if ($this->getConf('wikisyntaxok')) echo ' ('.$this->getLang('wikisyntax').')';
+    echo ':<br />';
+    ?>
             <textarea class="edit" name="text" cols="80" rows="10" id="discussion__comment_text" tabindex="5"><?php echo formText($raw) ?></textarea>
           </div>
     <?php //bad and dirty event insert hook
