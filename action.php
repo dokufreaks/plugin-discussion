@@ -830,7 +830,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     
     $item = '<li class="level'.$level.'">'.DOKU_LF.
       DOKU_TAB.'<div class="li">'.DOKU_LF.
-      DOKU_TAb.DOKU_TAB.'<span class="li"><a href="'.$section.'" class="toc">'.DOKU_LF.
+      DOKU_TAB.DOKU_TAB.'<span class="li"><a href="'.$section.'" class="toc">'.DOKU_LF.
       DOKU_TAB.DOKU_TAB.DOKU_TAB.$title.DOKU_LF.
       DOKU_TAB.DOKU_TAB.'</a></span>'.DOKU_LF.
       DOKU_TAB.'</div>'.DOKU_LF.
