@@ -1,13 +1,13 @@
 ====== Discussion Plugin for DokuWiki ======
 
 All documentation for the Discussion Plugin is available online at:
-http://www.wikidesign.ch/en/plugin/discussion/start
-http://wiki.splitbrain.org/plugin:discussion
 
-This plugin requires DokuWiki 2006-11-06 and these helper plugins:
+  * http://www.wikidesign.ch/en/plugin/discussion/start
+  * http://wiki.splitbrain.org/plugin:discussion
 
-  * Feed Plugin      http://www.wikidesign.ch/en/plugin/feed/start
-  * Pagelist Plugin  http://www.wikidesign.ch/en/plugin/pagelist/start
+This plugin requires DokuWiki 2007-06-26 or later and these helper plugins:
+
+  * [[http://www.wikidesign.ch/en/plugin/pagelist/start|Pagelist Plugin]], version 1.2 reccomended
 
 There's a Google Groups mailing list to discuss all issues:
 http://groups-beta.google.com/group/discussion-plugin/
