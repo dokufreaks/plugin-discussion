@@ -19,7 +19,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     return array(
       'author' => 'Esther Brunner',
       'email'  => 'wikidesign@gmail.com',
-      'date'   => '2007-08-18',
+      'date'   => '2007-08-21',
       'name'   => 'Discussion Plugin (action component)',
       'desc'   => 'Enables discussion features',
       'url'    => 'http://www.wikidesign.ch/en/plugin/discussion/start',
@@ -126,7 +126,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     if (!$data['status']) return false; // comments are turned off
         
     // section title
-    $title = $this->getLang('discussion');
+    $title = ($data['title'] ? hsc($data['title']) : $this->getLang('discussion'));
     ptln('<div class="comment_wrapper">');
     ptln('<h2><a name="discussion__section" id="discussion__section">', 2);
     ptln($title, 4);
@@ -815,21 +815,26 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
    * Adds a TOC item for the discussion section
    */
   function add_toc_item(&$event, $param){
-    if ($event->data[0] != 'xhtml') return; // nothing to do for us
-    if (!$this->_hasDiscussion()) return;   // no discussion section
+    if ($event->data[0] != 'xhtml') return;       // nothing to do for us
+    if (!$this->_hasDiscussion($title)) return;   // no discussion section
         
     $pattern = '/<div id="toc__inside">(.*?)<\/div>\s<\/div>/s';
     if (!preg_match($pattern, $event->data[1], $match)) return; // no TOC on this page
     
     // ok, then let's do it!
     global $conf;
-        
-    $title   = $this->getLang('discussion');
+    
+    if (!$title) $title = $this->getLang('discussion');
     $section = '#discussion__section';
     $level   = 3 - $conf['toptoclevel'];
     
-    $item = '<li class="level'.$level.'"><div class="li"><span class="li"><a href="'.
-      $section.'" class="toc">'.$title.'</a></span></div></li>';
+    $item = '<li class="level'.$level.'">'.DOKU_LF.
+      DOKU_TAB.'<div class="li">'.DOKU_LF.
+      DOKU_TAb.DOKU_TAB.'<span class="li"><a href="'.$section.'" class="toc">'.DOKU_LF.
+      DOKU_TAB.DOKU_TAB.DOKU_TAB.$title.DOKU_LF.
+      DOKU_TAB.DOKU_TAB.'</a></span>'.DOKU_LF.
+      DOKU_TAB.'</div>'.DOKU_LF.
+      '</li>'.DOKU_LF;
       
     if ($level == 1) $search = "</ul>\n</div>";
     else $search = "</ul>\n</li></ul>\n</div>";
@@ -841,7 +846,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
   /**
    * Finds out whether there is a discussion section for the current page
    */
-  function _hasDiscussion(){
+  function _hasDiscussion(&$title = ''){
     global $ID;
     
     $classes = get_declared_classes();
@@ -855,7 +860,8 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     }
     
     $comments = unserialize(io_readFile($cfile, false));
-        
+    
+    if ($comments['title']) $title = hsc($comments['title']);
     $num = $comments['number'];
     if ((!$comments['status']) || (($comments['status'] == 2) && (!$num))) return false;
     else return true;

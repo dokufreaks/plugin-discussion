@@ -28,7 +28,7 @@ class syntax_plugin_discussion_comments extends DokuWiki_Syntax_Plugin {
     return array(
       'author' => 'Esther Brunner',
       'email'  => 'wikidesign@gmail.com',
-      'date'   => '2007-08-02',
+      'date'   => '2007-08-21',
       'name'   => 'Discussion Plugin (comments component)',
       'desc'   => 'Enables discussion features',
       'url'    => 'http://www.wikidesign.ch/en/plugin/discussion/start',
@@ -44,7 +44,7 @@ class syntax_plugin_discussion_comments extends DokuWiki_Syntax_Plugin {
    */
   function connectTo($mode){
     if ($mode == 'base'){
-      $this->Lexer->addSpecialPattern('~~DISCUSSION(?:|:off|:closed)~~', $mode, 'plugin_discussion_comments');
+      $this->Lexer->addSpecialPattern('~~DISCUSSION[\r\n]*?~~', $mode, 'plugin_discussion_comments');
     }
   }
 
@@ -52,15 +52,17 @@ class syntax_plugin_discussion_comments extends DokuWiki_Syntax_Plugin {
    * Handle the match
    */
   function handle($match, $state, $pos, &$handler){
-    global $ID;
-    global $ACT;
+    global $ID, $ACT;
     
-    // don't show discussion section on blog mainpages
-    if (defined('PLUGIN_BLOG_MAINPAGE')) $status = 0;
+    // strip markup
+    $match = substr($match, 12, 2);
+    
+    // split title (if there is one)
+    list($match, $title) = explode('|', $match, 2);
     
     // assign discussion state
-    if ($match == '~~DISCUSSION:off~~') $status = 0;
-    else if ($match == '~~DISCUSSION:closed~~') $status = 2;
+    if ($match == ':off') $status = 0;
+    else if ($match == ':closed') $status = 2;
     else $status = 1;
         
     // get discussion meta file name
@@ -68,7 +70,8 @@ class syntax_plugin_discussion_comments extends DokuWiki_Syntax_Plugin {
     
     $data = array();
     if (@file_exists($file)) $data = unserialize(io_readFile($file, false));
-    if ($data['status'] != $status){
+    if (($data['status'] != $status) || ($data['title'] != $title)){
+      $data['title']  = $title;
       $data['status'] = $status;
       io_saveFile($file, serialize($data));
     }
