@@ -19,7 +19,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     return array(
       'author' => 'Esther Brunner',
       'email'  => 'wikidesign@gmail.com',
-      'date'   => '2007-08-21',
+      'date'   => '2007-08-22',
       'name'   => 'Discussion Plugin (action component)',
       'desc'   => 'Enables discussion features',
       'url'    => 'http://www.wikidesign.ch/en/plugin/discussion/start',
@@ -221,7 +221,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
    * Saves the comment with the given ID and then displays all comments
    */
   function _save($cids, $raw, $act = NULL){
-    global $ID, $INFO;
+    global $ID;
 
     if ($raw){
       global $TEXT;
@@ -255,7 +255,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
       }
           
       // someone else was trying to edit our comment -> abort
-      if (($user != $_SERVER['REMOTE_USER']) && ($INFO['perm'] != AUTH_ADMIN)) return false;
+      if (($user != $_SERVER['REMOTE_USER']) && (auth_ismanager())) return false;
         
       $date = time();
       
@@ -335,7 +335,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
    * Prints an individual comment
    */
   function _print($cid, &$data, $parent = '', $reply = '', $visible = true){
-    global $conf, $lang, $ID, $INFO;
+    global $conf, $lang, $ID;
     
     if (!isset($data['comments'][$cid])) return false; // comment was removed
     $comment = $data['comments'][$cid];
@@ -345,7 +345,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     if ($comment['parent'] != $parent) return true;    // reply to an other comment
     
     if (!$comment['show']){                            // comment hidden
-      if ($INFO['perm'] == AUTH_ADMIN) $hidden = ' comment_hidden';
+      if (auth_ismanager()) $hidden = ' comment_hidden';
       else return true;
     } else {
       $hidden = '';
@@ -417,7 +417,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     if ($visible){
       // show hide/show toogle button?
       ptln('<div class="comment_buttons">', 4);
-      if ($INFO['perm'] == AUTH_ADMIN){
+      if (auth_ismanager()){
         if (!$comment['show']) $label = $this->getLang('btn_show');
         else $label = $this->getLang('btn_hide');
         
@@ -430,11 +430,9 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         $this->_button($cid, $this->getLang('btn_reply'), 'reply', true);
       
       // show edit and delete button?
-      if ((($user == $_SERVER['REMOTE_USER']) && ($user != ''))
-        || ($INFO['perm'] == AUTH_ADMIN))
+      if ((($user == $_SERVER['REMOTE_USER']) && ($user != '')) || (auth_ismanager()))
         $this->_button($cid, $lang['btn_secedit'], 'edit', true);
-      if ($INFO['perm'] == AUTH_ADMIN)
-        $this->_button($cid, $lang['btn_delete'], 'delete');
+      if (auth_ismanager()) $this->_button($cid, $lang['btn_delete'], 'delete');
       ptln('</div>', 2); // class="comment_buttons"
     }
 
@@ -486,7 +484,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
       <?php
       // for registered user (and we're not in admin import mode)
       if ($conf['useacl'] && $_SERVER['REMOTE_USER']
-        && (!($this->getConf('adminimport') && ($INFO['perm'] == AUTH_ADMIN)))){
+        && (!($this->getConf('adminimport') && (auth_ismanager())))){
       ?>
           <input type="hidden" name="user" value="<?php echo hsc($_SERVER['REMOTE_USER']) ?>" />
           <input type="hidden" name="name" value="<?php echo hsc($INFO['userinfo']['name']) ?>" />
@@ -536,7 +534,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
       }
       
       // allow setting the comment date
-      if ($this->getConf('adminimport') && ($INFO['perm'] == AUTH_ADMIN)){
+      if ($this->getConf('adminimport') && (auth_ismanager())){
       ?>
           <div class="comment_date">
             <label class="block" for="discussion__comment_date">
