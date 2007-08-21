@@ -558,7 +558,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     <?php
     echo $this->getLang('entercomment');
     if ($this->getConf('wikisyntaxok')) echo ' ('.$this->getLang('wikisyntax').')';
-    echo ':<br />';
+    echo ':<br />'.DOKU_LF;
     ?>
             <textarea class="edit" name="text" cols="80" rows="10" id="discussion__comment_text" tabindex="5"><?php echo formText($raw) ?></textarea>
           </div>
@@ -846,7 +846,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
   /**
    * Finds out whether there is a discussion section for the current page
    */
-  function _hasDiscussion(&$title = ''){
+  function _hasDiscussion(&$title){
     global $ID;
     
     $classes = get_declared_classes();

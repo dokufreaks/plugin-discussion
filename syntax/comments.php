@@ -44,7 +44,7 @@ class syntax_plugin_discussion_comments extends DokuWiki_Syntax_Plugin {
    */
   function connectTo($mode){
     if ($mode == 'base'){
-      $this->Lexer->addSpecialPattern('~~DISCUSSION[\r\n]*?~~', $mode, 'plugin_discussion_comments');
+      $this->Lexer->addSpecialPattern('~~DISCUSSION[^\r\n]*?~~', $mode, 'plugin_discussion_comments');
     }
   }
 
@@ -55,7 +55,7 @@ class syntax_plugin_discussion_comments extends DokuWiki_Syntax_Plugin {
     global $ID, $ACT;
     
     // strip markup
-    $match = substr($match, 12, 2);
+    $match = substr($match, 12, -2);
     
     // split title (if there is one)
     list($match, $title) = explode('|', $match, 2);
