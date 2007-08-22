@@ -412,29 +412,25 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
       ($this->getConf('useavatar') ? $style : '').'>', 6);
     echo $comment['xhtml'].DOKU_LF;
     ptln('</div>', 6); // class="comment_body"
-    ptln('</div>', 4); // class="hentry"
     
     if ($visible){
-      // show hide/show toogle button?
-      ptln('<div class="comment_buttons">', 4);
-      if (auth_ismanager()){
-        if (!$comment['show']) $label = $this->getLang('btn_show');
-        else $label = $this->getLang('btn_hide');
-        
-        $this->_button($cid, $label, 'toogle');
-      }
+      ptln('<div class="comment_buttons">', 6);
           
       // show reply button?
       if (($data['status'] == 1) && !$reply && $comment['show']
         && ($this->getConf('allowguests') || $_SERVER['REMOTE_USER']))
         $this->_button($cid, $this->getLang('btn_reply'), 'reply', true);
       
-      // show edit and delete button?
-      if ((($user == $_SERVER['REMOTE_USER']) && ($user != '')) || (auth_ismanager()))
+      // show edit, show/hide and delete button?
+      if ((($user == $_SERVER['REMOTE_USER']) && ($user != '')) || (auth_ismanager())){
         $this->_button($cid, $lang['btn_secedit'], 'edit', true);
-      if (auth_ismanager()) $this->_button($cid, $lang['btn_delete'], 'delete');
-      ptln('</div>', 2); // class="comment_buttons"
+        $label = ($comment['show'] ? $this->getLang('btn_hide') : $this->getLang('btn_show'));
+        $this->_button($cid, $label, 'toogle');
+        $this->_button($cid, $lang['btn_delete'], 'delete');
+      }
+      ptln('</div>', 6); // class="comment_buttons"
     }
+    ptln('</div>', 4); // class="hentry"
 
     // replies to this comment entry?
     if (count($comment['replies'])){
