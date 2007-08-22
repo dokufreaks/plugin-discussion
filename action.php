@@ -109,6 +109,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     global $ID, $INFO, $ACT;
     
     if ($ACT !== 'show') return false;
+    if (in_array('helper_plugin_include', get_declared_classes())) return false;
     
     // get .comments meta file name
     $file = metaFN($ID, '.comments');
