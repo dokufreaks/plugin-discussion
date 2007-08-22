@@ -222,7 +222,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
    */
   function _save($cids, $raw, $act = NULL){
     global $ID;
-
+    
     if ($raw){
       global $TEXT;
           
@@ -255,7 +255,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
       }
           
       // someone else was trying to edit our comment -> abort
-      if (($user != $_SERVER['REMOTE_USER']) && (auth_ismanager())) return false;
+      if (($user != $_SERVER['REMOTE_USER']) && (!auth_ismanager())) return false;
         
       $date = time();
       

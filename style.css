@@ -54,6 +54,7 @@ div.dokuwiki div.comment_buttons {
   font-size: 10px;
   cursor: pointer;
   margin-top: -21px;
+  padding-bottom: 1em;
 }
 
 div.dokuwiki div.comment_buttons input.button {
@@ -77,6 +78,7 @@ div.dokuwiki #discussion__newthread_form input.edit {
 }
 
 div.dokuwiki ul.admin_discussion li.hidden {
+  display: list-item;
   opacity: 0.5;
 }
 

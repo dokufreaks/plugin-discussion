@@ -17,7 +17,7 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
     return array(
       'author' => 'Esther Brunner',
       'email'  => 'wikidesign@gmail.com',
-      'date'   => '2007-03-01',
+      'date'   => '2007-08-22',
       'name'   => 'Discussion Plugin (admin component)',
       'desc'   => 'Moderate discussions',
       'url'    => 'http://www.wikidesign.ch/en/plugin/discussion/start',
@@ -260,6 +260,8 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
   function _browseDiscussionLinks($more, $first, $num){
     global $ID;
     
+    if (($first == 0) && (!$more)) return true;
+    
     $params = array('do' => 'admin', 'page' => 'discussion');
     $last = $first+$num;
     ptln('<div class="level1">', 8);
@@ -306,9 +308,9 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
     io_saveFile($file, serialize($data));
     
     // look for ~~DISCUSSION~~ command in page file and change it accordingly
-    $patterns = array('~~DISCUSSION:off~~', '~~DISCUSSION~~', '~~DISCUSSION:closed~~');
+    $patterns = array('~~DISCUSSION:off\2~~', '~~DISCUSSION\2~~', '~~DISCUSSION:closed\2~~');
     $replace = $patterns[$new];
-    $wiki = preg_replace('/~~DISCUSSION(?:|:off|:closed)~~/', $replace, rawWiki($ID));
+    $wiki = preg_replace('/~~DISCUSSION([\w:]*)(\|?.*?)~~/', $replace, rawWiki($ID));
     saveWikiText($ID, $wiki, $this->getLang('statuschanged'), true);
     
     return true;
