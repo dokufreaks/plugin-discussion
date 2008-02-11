@@ -14,12 +14,12 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
 
   function getInfo(){
     return array(
-      'author' => 'Esther Brunner',
-      'email'  => 'wikidesign@gmail.com',
+      'author' => 'Gina Häußge, Michael Klier, Esther Brunner',
+      'email'  => 'dokuwiki@chimeric.de',
       'date'   => '2007-08-13',
       'name'   => 'Discussion Plugin (helper class)',
       'desc'   => 'Functions to get info about comments to a wiki page',
-      'url'    => 'http://www.wikidesign.ch/en/plugin/discussion/start',
+      'url'    => 'http://wiki.splitbrain.org/plugin:discussion',
     );
   }
   

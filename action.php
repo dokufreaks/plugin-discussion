@@ -17,12 +17,12 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
 
   function getInfo(){
     return array(
-      'author' => 'Esther Brunner',
-      'email'  => 'wikidesign@gmail.com',
+      'author' => 'Gina Häußge, Michael Klier, Esther Brunner',
+      'email'  => 'dokuwiki@chimeric.de',
       'date'   => '2007-08-30',
       'name'   => 'Discussion Plugin (action component)',
       'desc'   => 'Enables discussion features',
-      'url'    => 'http://www.wikidesign.ch/en/plugin/discussion/start',
+      'url'    => 'http://wiki.splitbrain.org/plugin:discussion',
     );
   }
 

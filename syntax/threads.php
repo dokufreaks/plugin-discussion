@@ -19,12 +19,12 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
 
   function getInfo(){
     return array(
-      'author' => 'Esther Brunner',
-      'email'  => 'wikidesign@gmail.com',
+      'author' => 'Gina Häußge, Michael Klier, Esther Brunner',
+      'email'  => 'dokuwiki@chimeric.de',
       'date'   => '2007-01-16',
       'name'   => 'Discussion Plugin (threads component)',
       'desc'   => 'Displays a list of recently active discussions',
-      'url'    => 'http://www.wikidesign.ch/en/plugin/discussion/start',
+      'url'    => 'http://wiki.splitbrain.org/plugin:discussion',
     );
   }
 

@@ -15,12 +15,12 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
  
   function getInfo(){
     return array(
-      'author' => 'Esther Brunner',
-      'email'  => 'wikidesign@gmail.com',
+      'author' => 'Gina Häußge, Michael Klier, Esther Brunner',
+      'email'  => 'dokuwiki@chimeric.de',
       'date'   => '2007-08-22',
       'name'   => 'Discussion Plugin (admin component)',
       'desc'   => 'Moderate discussions',
-      'url'    => 'http://www.wikidesign.ch/en/plugin/discussion/start',
+      'url'    => 'http://wiki.splitbrain.org/plugin:discussion',
     );
   }
 

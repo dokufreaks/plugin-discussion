@@ -26,12 +26,12 @@ class syntax_plugin_discussion_comments extends DokuWiki_Syntax_Plugin {
    */
   function getInfo(){
     return array(
-      'author' => 'Esther Brunner',
-      'email'  => 'wikidesign@gmail.com',
+      'author' => 'Gina Häußge, Michael Klier, Esther Brunner',
+      'email'  => 'dokuwiki@chimeric.de',
       'date'   => '2007-08-21',
       'name'   => 'Discussion Plugin (comments component)',
       'desc'   => 'Enables discussion features',
-      'url'    => 'http://www.wikidesign.ch/en/plugin/discussion/start',
+      'url'    => 'http://wiki.splitbrain.org/plugin:discussion',
     );
   }
 
