@@ -225,7 +225,7 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
     if (utf8_strlen($abstract) > 160) $abstract = utf8_substr($abstract, 0, 160).'...';
 
     return '<input type="checkbox" name="cid['.$comment['id'].']" value="1" /> '.
-      $this->email($mail, $name, 'email').', '.date($conf['dformat'], $created).': '.
+      $this->email($mail, $name, 'email').', '.strftime($conf['dformat'], $created).': '.
       '<span class="abstract">'.$abstract.'</span>';
   }
   

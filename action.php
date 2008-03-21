@@ -401,12 +401,12 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     }
     if ($address) $head .= ', <span class="adr">'.$address.'</span>';
     $head .= '</span>, '.
-      '<abbr class="published" title="'.gmdate('Y-m-d\TH:i:s\Z', $created).'">'.
-      date($conf['dformat'], $created).'</abbr>';
+      '<abbr class="published" title="'.strftime('%Y-%m-%dT%H:%M:%SZ', $created).'">'.
+      strftime($conf['dformat'], $created).'</abbr>';
     if ($comment['edited']) $head .= ' (<abbr class="updated" title="'.
-      gmdate('Y-m-d\TH:i:s\Z', $modified).'">'.date($conf['dformat'], $modified).
+      strftime('%Y-%m-%dT%H:%M:%SZ', $modified).'">'.strftime($conf['dformat'], $modified).
       '</abbr>)';
-    ptln($head.':', 8);
+    ptln($head, 8);
     ptln('</div>', 6); // class="comment_head"
     
     // main comment content
@@ -754,7 +754,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     $replace = array(
       $ID,
       $conf['title'],
-      date($conf['dformat'], $comment['date']['created']),
+      strftime($conf['dformat'], $comment['date']['created']),
       $comment['user']['name'],
       $comment['raw'],
       wl($ID, 'do=unsubscribe', true, '&'),
@@ -948,7 +948,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
       '@USER@' => $user,
       '@NAME@' => $INFO['userinfo']['name'],
       '@MAIL@' => $INFO['userinfo']['mail'],
-      '@DATE@' => date($conf['dformat']),
+      '@DATE@' => strftime($conf['dformat']),
     );
     
     // additional replacements
