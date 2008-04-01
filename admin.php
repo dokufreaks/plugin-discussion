@@ -111,7 +111,7 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
       if (!@file_exists($file)) continue; // skip if no comments file
       
       $date = filemtime($file);
-      $result[$date] = array(
+      $result[] = array(
         'id'   => $id,
         'file' => $file,
         'date' => $date,
@@ -119,9 +119,23 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
     }
     
     // finally sort by time of last comment
-    krsort($result);
+    usort($result, array('admin_plugin_discussion', '_threadCmp'));
           
     return $result;
+  }
+  
+  /**
+   * Callback for comparison of thread data. 
+   * 
+   * Used for sorting threads in descending order by date of last comment. 
+   * If this date happens to be equal for the compared threads, page id 
+   * is used as second comparison attribute.
+   */
+  function _threadCmp($a, $b) {
+  	if ($a['date'] == $b['date']) {
+        return strcmp($a['id'], $b['id']);
+    }
+    return ($a['date'] < $b['date']) ? 1 : -1;
   }
   
   /**
