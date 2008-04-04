@@ -842,7 +842,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
    * Finds out whether there is a discussion section for the current page
    */
   function _hasDiscussion(&$title){
-    if ($this->_ignore()) return false;
+    //if ($this->_ignore()) return false;
     
     global $ID;
         
