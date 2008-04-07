@@ -2,7 +2,7 @@
 
 ====== @TITLE@ ======
 
-@AVATAR@//@NAME@, @DATE@: //
+@AVATAR@//@NAME@, @DATE@ //
 
 @TAG@
 
