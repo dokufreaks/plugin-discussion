@@ -20,14 +20,29 @@ $lang['menu']            = 'Voir les discussions...';
 $lang['discussion']      = 'Discussion';
 $lang['comment']         = 'Commentaire';
 $lang['comments']        = 'Commentaires';
+$lang['url']             = 'Site web';
+$lang['address']         = 'Adresse';
+$lang['date']            = 'Date';
+$lang['entercomment']    = 'Entrer votre commentaire';
+$lang['wikisyntax']      = 'La syntaxe wiki est autorisée';
+$lang['older']           = 'Anciennes discussions';
+$lang['newer']           = 'Nouvelle discussion';
 $lang['btn_reply']       = 'Répondre';
 $lang['btn_hide']        = 'Cacher';
 $lang['btn_show']        = 'Montrer';
+$lang['btn_change']      = 'Modifier';
+$lang['statuschanged']   = 'Statut de discussion modifié';
 $lang['wordblock']       = 'Votre commentaire a été détécté comme spam.';
 $lang['mail_newcomment'] = 'Nouveau commentaire';
+
+$lang['status']          = 'Statut';
+$lang['off']             = 'désactivé';
+$lang['open']            = 'ouvert';
+$lang['closed']          = 'fermé';
 
 $lang['reply']           = 'Réponse';
 $lang['replies']         = 'Réponses';
 $lang['newthread']       = 'Nouvelle discussion';
+$lang['threads']         = 'Discussions';
 
 //Setup VIM: ex: et ts=2 enc=utf-8 :
