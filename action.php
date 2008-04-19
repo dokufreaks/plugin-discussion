@@ -106,8 +106,6 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
    * Shows all comments of the current page
    */
   function _show($reply = NULL, $edit = NULL){
-    if ($this->_ignore()) return false;
-
     global $ID, $INFO, $ACT;
     
     if ($ACT !== 'show') return false;
@@ -842,8 +840,6 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
    * Finds out whether there is a discussion section for the current page
    */
   function _hasDiscussion(&$title){
-    //if ($this->_ignore()) return false;
-    
     global $ID;
         
     $cfile = metaFN($ID, '.comments');
@@ -859,21 +855,6 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     $num = $comments['number'];
     if ((!$comments['status']) || (($comments['status'] == 2) && (!$num))) return false;
     else return true;
-  }
-  
-  /**
-   * Checks whether a discussion section request should be ignored
-   *
-   * Include Plugin or Pagelist Plugin might load .comments without actually
-   * wanting to add a discussion section for the *including* page
-   */
-  function _ignore(){
-    $ignoreClasses   = array('helper_plugin_include', 'helper_plugin_pagelist');
-    $declaredClasses = get_declared_classes();
-    foreach ($ignoreClasses as $ignoreClass){
-      if (in_array($ignoreClass, $declaredClasses)) return true;
-    }
-    return false;
   }
   
   /**
