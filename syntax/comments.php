@@ -28,7 +28,7 @@ class syntax_plugin_discussion_comments extends DokuWiki_Syntax_Plugin {
     return array(
       'author' => 'Gina Häußge, Michael Klier, Esther Brunner',
       'email'  => 'dokuwiki@chimeric.de',
-      'date'   => '2007-08-21',
+      'date'   => '2008-04-20',
       'name'   => 'Discussion Plugin (comments component)',
       'desc'   => 'Enables discussion features',
       'url'    => 'http://wiki.splitbrain.org/plugin:discussion',

@@ -17,7 +17,7 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
     return array(
       'author' => 'Gina Häußge, Michael Klier, Esther Brunner',
       'email'  => 'dokuwiki@chimeric.de',
-      'date'   => '2007-08-22',
+      'date'   => '2008-04-20',
       'name'   => 'Discussion Plugin (admin component)',
       'desc'   => 'Moderate discussions',
       'url'    => 'http://wiki.splitbrain.org/plugin:discussion',
