@@ -58,11 +58,29 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
   }
     
   /**
-   * Main function; dispatches the comment actions
+   * Handles comment actions, dispatches data processing routines
    */
-  function comments(&$event, $param){
-    if ($event->data != 'show') return; // nothing to do for us
+  function handle_act_preprocess(&$event, $param) {
+      
+    // handle newthread ACTs
+    if ($event->data == 'newthread'){
+      // we can handle it -> prevent others
+      // $event->stopPropagation();
+      $event->preventDefault();
+      
+      $event->data = $this->_newThread();
+    }
     
+    // enable captchas
+    if ((in_array($_REQUEST['comment'], array('add', 'save')))
+      && (@file_exists(DOKU_PLUGIN.'captcha/action.php'))){
+      $this->_captchaCheck();
+    }
+
+	// if we are not in show mode, that was all for now    
+    if ($event->data != 'show') return;
+    
+    // do the data processing for comments
     $cid  = $_REQUEST['cid'];  
     switch ($_REQUEST['comment']){
       case 'add':
@@ -80,10 +98,6 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         $this->_add($comment, $repl);
         break;
       
-      case 'edit':
-        $this->_show(NULL, $cid);
-        break;
-      
       case 'save':
         $raw  = cleanText($_REQUEST['text']);
         $this->_save(array($cid), $raw);
@@ -96,10 +110,35 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
       case 'toogle':
         $this->_save(array($cid), '', 'toogle');
         break;
-                      
+    }
+  }
+  
+  /**
+   * Main function; dispatches the visual comment actions
+   */
+  function comments(&$event, $param){
+    if ($event->data != 'show') return; // nothing to do for us
+    
+    $cid  = $_REQUEST['cid'];  
+    switch ($_REQUEST['comment']){
+      case 'edit':
+        $this->_show(NULL, $cid);
+        break;
+
       default: // 'show' => $this->_show(), 'reply' => $this->_show($cid)
         $this->_show($cid);
     }
+  }
+  
+  /**
+   * Redirects browser to given comment anchor
+   */
+  function _redirect($cid) {
+      global $ID;
+      global $ACT;
+      
+      if ($ACT !== 'show') return;
+   	  header('Location: ' . wl($ID) . '#comment__' . $cid);
   }
   
   /**
@@ -162,7 +201,6 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     // spamcheck against the DokuWiki blacklist
     if (checkwordblock()){
       msg($this->getLang('wordblock'), -1);
-      $this->_show();
       return false;
     }
     
@@ -213,7 +251,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     // notify subscribers of the page
     $this->_notify($data['comments'][$cid]);
   
-    $this->_show();
+    $this->_redirect($cid);
     return true;
   }
     
@@ -232,7 +270,6 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
       // spamcheck against the DokuWiki blacklist
       if (checkwordblock()){
         msg($this->getLang('wordblock'), -1);
-        $this->_show();
         return false;
       }
       
@@ -314,7 +351,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     io_saveFile($file, serialize($data));
     $this->_addLogEntry($date, $ID, $type, '', $cid);
     
-    $this->_show();
+    $this->_redirect($cid);
     return true;
   }
   
@@ -855,23 +892,6 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     $num = $comments['number'];
     if ((!$comments['status']) || (($comments['status'] == 2) && (!$num))) return false;
     else return true;
-  }
-  
-  /**
-   * Checks if 'newthread' was given as action or the comment form was submitted
-   */
-  function handle_act_preprocess(&$event, $param){
-    if ($event->data == 'newthread'){
-      // we can handle it -> prevent others
-      // $event->stopPropagation();
-      $event->preventDefault();
-      
-      $event->data = $this->_newThread();
-    }
-    if ((in_array($_REQUEST['comment'], array('add', 'save')))
-      && (@file_exists(DOKU_PLUGIN.'captcha/action.php'))){
-      $this->_captchaCheck();
-    }
   }
   
   /**
