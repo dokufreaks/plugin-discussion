@@ -4,6 +4,7 @@ Um novo comentário foi adicionado à página @PAGE@ no wiki @TITLE@.
 
 Data:   @DATE@
 Nome:   @NAME@
+URL:    @COMMENTURL@
 
 Comentário:
 --------------------------------------------------------

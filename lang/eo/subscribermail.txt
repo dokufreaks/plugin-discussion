@@ -4,6 +4,7 @@ Nova komento estis aldonata al la pagxo @PAGE@ en la vikio @TITLE@.
 
 Dato:   @DATE@
 Nomo:   @NAME@
+URL:    @COMMENTURL@
 
 Komento:
 --------------------------------------------------------

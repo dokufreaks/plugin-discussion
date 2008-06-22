@@ -2,8 +2,9 @@ Hallo!
 
 Een nieuw commentaar is toegevoegd aan pagina @PAGE@ in de @TITLE@ wiki.
 
-Datum:     @DATE@
-Autheur:   @NAME@
+Datum:    @DATE@
+Autheur:  @NAME@
+URL:      @COMMENTURL@	
 
 Commentaar:
 --------------------------------------------------------

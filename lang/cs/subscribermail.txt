@@ -2,8 +2,9 @@ Dobry den,
 
 komentar byl pridan na strance @PAGE@ s titulkem @TITLE@ wiki.
 
-Datum:  @DATE@
-Jmeno:   @NAME@
+Datum: 	@DATE@
+Jmeno: 	@NAME@
+URL:    @COMMENTURL@
 
 Komentar:
 --------------------------------------------------------

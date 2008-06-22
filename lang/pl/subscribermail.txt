@@ -3,7 +3,8 @@
 Nowy komentarz został dodany na stronie @PAGE@ w pod tytułem @TITLE@.
 
 Data:   @DATE@
-Nazwa:   @NAME@
+Nazwa:  @NAME@
+URL:	@COMMENTURL@
 
 Komentarz:
 --------------------------------------------------------

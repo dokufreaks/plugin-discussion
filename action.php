@@ -249,6 +249,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         $this->_addLogEntry($date, $ID, 'cc', '', $cid);
 
         // notify subscribers of the page
+		$data['comments'][$cid]['cid'] = $cid;
         $this->_notify($data['comments'][$cid]);
 
         $this->_redirect($cid);
@@ -781,6 +782,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                 '@DATE@',
                 '@NAME@',
                 '@TEXT@',
+				'@COMMENTURL@',
                 '@UNSUBSCRIBE@',
                 '@DOKUWIKIURL@',
                 );
@@ -790,6 +792,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                 strftime($conf['dformat'], $comment['date']['created']),
                 $comment['user']['name'],
                 $comment['raw'],
+				wl($ID, '', true) . '#comment__' . $comment['cid'],
                 wl($ID, 'do=unsubscribe', true, '&'),
                 DOKU_URL,
                 );

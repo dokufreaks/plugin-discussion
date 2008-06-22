@@ -2,8 +2,9 @@ Olá!
 
 Um novo comentário foi adicionado à página @PAGE@ no wiki @TITLE@.
 
-Data:   @DATE@
-Nome:   @NAME@
+Data:  @DATE@
+Nome:  @NAME@
+UR:	   @COMMENTURL@
 
 Comentário:
 --------------------------------------------------------

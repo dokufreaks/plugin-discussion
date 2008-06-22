@@ -4,6 +4,7 @@ Un nuovo commento è stato aggiunto alla pagina @PAGE@ nel wiki: @TITLE@
 
 Data:   @DATE@
 Nome:   @NAME@
+URL:    @COMMENTURL@
 
 Commento:
 --------------------------------------------------------

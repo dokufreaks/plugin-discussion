@@ -4,6 +4,7 @@ komentar bol pridany na stranke @PAGE@ s titulkom @TITLE@ wiki.
 
 Datum:  @DATE@
 Meno:   @NAME@
+URL:	@COMMENTURL@
 
 Komentar:
 --------------------------------------------------------
