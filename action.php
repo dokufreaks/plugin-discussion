@@ -595,7 +595,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         $evdata = array('writable' => true);
         trigger_event('HTML_EDITFORM_INJECTION', $evdata);
         ?>
-              <input class="button" type="submit" name="submit" value="<?php echo $lang['btn_save'] ?>" tabindex="6" />
+              <input class="button" type="submit" name="submit" accesskey="s" value="<?php echo $lang['btn_save'] ?>" title="<?php echo $lang['btn_save']?> [ALt+S]" tabindex="6" />
             </div>
           </form>
         </div>
