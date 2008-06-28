@@ -42,13 +42,6 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                 array()
                 );
         $contr->register_hook(
-                'RENDERER_CONTENT_POSTPROCESS',
-                'AFTER',
-                $this,
-                'add_toc_item',
-                array()
-                );
-        $contr->register_hook(
                 'INDEXER_PAGE_ADD',
                 'AFTER',
                 $this,
@@ -61,6 +54,8 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
      * Handles comment actions, dispatches data processing routines
      */
     function handle_act_preprocess(&$event, $param) {
+        global $ID;
+        global $conf;
 
         // handle newthread ACTs
         if ($event->data == 'newthread') {
@@ -86,11 +81,11 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             case 'add':
                 $comment = array(
                         'user'    => array(
-                            'id'      => hsc($_REQUEST['user']),
-                            'name'    => hsc($_REQUEST['name']),
-                            'mail'    => hsc($_REQUEST['mail']),
-                            'url'     => hsc($_REQUEST['url']),
-                            'address' => hsc($_REQUEST['address'])),
+                        'id'      => hsc($_REQUEST['user']),
+                        'name'    => hsc($_REQUEST['name']),
+                        'mail'    => hsc($_REQUEST['mail']),
+                        'url'     => hsc($_REQUEST['url']),
+                        'address' => hsc($_REQUEST['address'])),
                         'date'    => array('created' => $_REQUEST['date']),
                         'raw'     => cleanText($_REQUEST['text'])
                         );
@@ -110,6 +105,28 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             case 'toogle':
                 $this->_save(array($cid), '', 'toogle');
                 break;
+        }
+
+        // FIXME use new TPL_TOC_RENDER event in the future
+        $tocmeta = p_get_metadata($ID, 'description tableofcontents');
+        if(count($tocmeta) >= ($conf['maxtoclevel']-1)) {
+
+            $TOC = array();
+            global $TOC;
+            $TOC = $tocmeta;
+
+            $tocitem = array( 'hid' => 'discussion__section',
+                              'title' => $this->getLang('discussion'),
+                              'type' => 'ul',
+                              'level' => 1 );
+
+            $file = metaFN($ID, '.comments');
+            if(@file_exists($file)) {
+                $data = unserialize(io_readFile($file));
+                if($data['status'] != 0 && !empty($TOC)) {
+                    $TOC[] = $tocitem;
+                }
+            }
         }
     }
   
@@ -149,8 +166,6 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         global $INFO;
         global $ACT;
 
-        if ($ACT !== 'show') return false;
-
         // get .comments meta file name
         $file = metaFN($ID, '.comments');
 
@@ -172,8 +187,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         ptln('<h2><a name="discussion__section" id="discussion__section">', 2);
         ptln($title, 4);
         ptln('</a></h2>', 2);
-        ptln('<div class="level2 hfeed">', 2);
-
+        ptln('<div class="level2 hfeed">', 2); 
         // now display the comments
         if (isset($data['comments'])) {
             foreach ($data['comments'] as $key => $value) {
