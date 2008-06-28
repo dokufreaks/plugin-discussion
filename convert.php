@@ -151,4 +151,4 @@ function convertDiscussionPage($file) {
 
     return true;
 }
-//vim:ts=4:sw=4:et:enc=utf-8:
+// vim:ts=4:sw=4:et:enc=utf-8:

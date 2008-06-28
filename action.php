@@ -1062,4 +1062,4 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         return ' '.$text;
     }
 }
-//vim:ts=4:sw=4:et:enc=utf-8:
+// vim:ts=4:sw=4:et:enc=utf-8:

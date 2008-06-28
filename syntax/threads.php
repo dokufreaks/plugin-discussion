@@ -137,4 +137,4 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
             '</div>'.DOKU_LF;
     }
 }
-//vim:ts=4:sw=4:et:enc=utf-8:
+// vim:ts=4:sw=4:et:enc=utf-8:

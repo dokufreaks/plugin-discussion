@@ -85,4 +85,4 @@ class syntax_plugin_discussion_comments extends DokuWiki_Syntax_Plugin {
         return true; // do nothing -> everything is handled in action component
     }
 }
-//vim:ts=4:sw=4:et:enc=utf-8:
+// vim:ts=4:sw=4:et:enc=utf-8:
