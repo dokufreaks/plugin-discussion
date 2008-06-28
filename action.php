@@ -19,7 +19,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         return array(
                 'author' => 'Gina Häußge, Michael Klier, Esther Brunner',
                 'email'  => 'dokuwiki@chimeric.de',
-                'date'   => '2008-04-20',
+                'date'   => '2008-06-28',
                 'name'   => 'Discussion Plugin (action component)',
                 'desc'   => 'Enables discussion features',
                 'url'    => 'http://wiki.splitbrain.org/plugin:discussion',
@@ -124,9 +124,9 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             case 'edit':
                 $this->_show(NULL, $cid);
                 break;
-
-            default: // 'show' => $this->_show(), 'reply' => $this->_show($cid)
+            default: 
                 $this->_show($cid);
+				break;
         }
     }
   
@@ -145,48 +145,50 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
      * Shows all comments of the current page
      */
     function _show($reply = NULL, $edit = NULL) {
-        global $ID, $INFO, $ACT;
+        global $ID;
+		global $INFO;
+		global $ACT;
 
         if ($ACT !== 'show') return false;
 
         // get .comments meta file name
         $file = metaFN($ID, '.comments');
 
-        if (!@file_exists($file)) {
-            // create .comments meta file if automatic setting is switched on
-            if ($this->getConf('automatic') && $INFO['exists']) {
-                $data = array('status' => 1, 'number' => 0);
-                io_saveFile($file, serialize($data));
-            }
-        } else { // load data
+        if (!@file_exists($file) && !$this->getConf('automatic')) return false;
+
+		// load data
+        if (@file_exists($file)) {
             $data = unserialize(io_readFile($file, false));
-        }
+        	if (!$data['status']) return false; // comments are turned off
+		} elseif (!@file_exists($file) && $this->getConf('automatic') && $INFO['exists']) {
+			// set status to show the comment form
+			$data['status'] = 1;
+			$data['number'] = 0;
+		}
 
-        if (!$data['status']) return false; // comments are turned off
+		// section title
+		$title = ($data['title'] ? hsc($data['title']) : $this->getLang('discussion'));
+		ptln('<div class="comment_wrapper">');
+		ptln('<h2><a name="discussion__section" id="discussion__section">', 2);
+		ptln($title, 4);
+		ptln('</a></h2>', 2);
+		ptln('<div class="level2 hfeed">', 2);
 
-        // section title
-        $title = ($data['title'] ? hsc($data['title']) : $this->getLang('discussion'));
-        ptln('<div class="comment_wrapper">');
-        ptln('<h2><a name="discussion__section" id="discussion__section">', 2);
-        ptln($title, 4);
-        ptln('</a></h2>', 2);
-        ptln('<div class="level2 hfeed">', 2);
+		// now display the comments
+		if (isset($data['comments'])) {
+			foreach ($data['comments'] as $key => $value) {
+				if ($key == $edit) $this->_form($value['raw'], 'save', $edit); // edit form
+				else $this->_print($key, $data, '', $reply);
+			}
+		}
 
-        // now display the comments
-        if (isset($data['comments'])) {
-            foreach ($data['comments'] as $key => $value) {
-                if ($key == $edit) $this->_form($value['raw'], 'save', $edit); // edit form
-                else $this->_print($key, $data, '', $reply);
-            }
-        }
+		// comment form
+		if (($data['status'] == 1) && !$reply && !$edit) $this->_form('');
 
-        // comment form
-        if (($data['status'] == 1) && !$reply && !$edit) $this->_form('');
+		ptln('</div>', 2); // level2 hfeed
+		ptln('</div>'); // comment_wrapper
 
-        ptln('</div>', 2); // level2 hfeed
-        ptln('</div>'); // comment_wrapper
-
-        return true;
+		return true;
     }
   
     /**
@@ -209,18 +211,24 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         // get discussion meta file name
         $file = metaFN($ID, '.comments');
 
-        $data = array();
-        $data = unserialize(io_readFile($file, false));
+		// create comments file if it doesn't exist yet
+		if(!@file_exists($file)) {
+			$data = array('status' => 1, 'number' => 0);
+			io_saveFile($file, serialize($data));
+		} else {
+        	$data = array();
+        	$data = unserialize(io_readFile($file, false));
+        	if ($data['status'] != 1) return false; // comments off or closed
+		}
 
-        if ($data['status'] != 1) return false;                // comments off or closed
         if ((!$this->getConf('allowguests'))
                 && ($comment['user']['id'] != $_SERVER['REMOTE_USER']))
-            return false;                                        // guest comments not allowed 
+            return false; // guest comments not allowed 
 
         if ($comment['date']['created']) $date = strtotime($comment['date']['created']);
         else $date = time();
         if ($date == -1) $date = time();
-        $cid  = md5($comment['user']['id'].$date);             // create a unique id
+        $cid  = md5($comment['user']['id'].$date); // create a unique id
 
         if (!is_array($data['comments'][$parent])) $parent = NULL; // invalid parent comment
 
@@ -608,7 +616,9 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
      * Adds a javascript to interact with coComments
      */
     function _coComment() {
-        global $ID, $conf, $INFO;
+        global $ID;
+		global $conf;
+		global $INFO;
 
         $user = $_SERVER['REMOTE_USER'];
 
@@ -883,8 +893,11 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         $cfile = metaFN($ID, '.comments');
 
         if (!@file_exists($cfile)) {
-            if ($this->getConf('automatic')) return true;
-            else return false;
+            if ($this->getConf('automatic')) {
+				return true;
+            } else {
+				return false;
+			}
         }
 
         $comments = unserialize(io_readFile($cfile, false));
