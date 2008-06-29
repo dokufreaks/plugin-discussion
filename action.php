@@ -950,38 +950,6 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     }
 
     /**
-     * Adds a TOC item for the discussion section
-     */
-    function add_toc_item(&$event, $param) {
-        if ($event->data[0] != 'xhtml') return;       // nothing to do for us
-        if (!$this->_hasDiscussion($title)) return;   // no discussion section
-
-        $pattern = '/<div id="toc__inside">(.*?)<\/div>\s<\/div>/s';
-        if (!preg_match($pattern, $event->data[1], $match)) return; // no TOC on this page
-
-        // ok, then let's do it!
-        global $conf;
-
-        if (!$title) $title = $this->getLang('discussion');
-        $section = '#discussion__section';
-        $level   = 3 - $conf['toptoclevel'];
-
-        $item = '<li class="level'.$level.'">'.DOKU_LF.
-            DOKU_TAB.'<div class="li">'.DOKU_LF.
-            DOKU_TAB.DOKU_TAB.'<span class="li"><a href="'.$section.'" class="toc">'.DOKU_LF.
-            DOKU_TAB.DOKU_TAB.DOKU_TAB.$title.DOKU_LF.
-            DOKU_TAB.DOKU_TAB.'</a></span>'.DOKU_LF.
-            DOKU_TAB.'</div>'.DOKU_LF.
-            '</li>'.DOKU_LF;
-
-        if ($level == 1) $search = "</ul>\n</div>";
-        else $search = "</ul>\n</li></ul>\n</div>";
-
-        $new = str_replace($search, $item.$search, $match[0]);
-        $event->data[1] = preg_replace($pattern, $new, $event->data[1]);
-    }
-
-    /**
      * Finds out whether there is a discussion section for the current page
      */
     function _hasDiscussion(&$title) {
