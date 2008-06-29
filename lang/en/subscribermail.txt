@@ -11,7 +11,7 @@ Comment:
 @TEXT@
 --------------------------------------------------------
 
-To unsubscribe from this page log into the wiki and then click this link:
+To unsubscribe click this link:
 @UNSUBSCRIBE@
 
 --

@@ -32,6 +32,7 @@ $lang['btn_change']      = 'Ändern';
 $lang['statuschanged']   = 'Status der Diskussion geändert';
 $lang['wordblock']       = 'Ihr Kommentar wurde als Spam blockiert.';
 $lang['mail_newcomment'] = 'Neuer Kommentar';
+$lang['subscribe']       = 'Kommentare abonnieren';
 
 $lang['status']          = 'Status';
 $lang['off']             = 'aus';

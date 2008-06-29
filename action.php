@@ -19,7 +19,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         return array(
                 'author' => 'Gina Häußge, Michael Klier, Esther Brunner',
                 'email'  => 'dokuwiki@chimeric.de',
-                'date'   => '2008-06-28',
+                'date'   => '2008-06-29',
                 'name'   => 'Discussion Plugin (action component)',
                 'desc'   => 'Enables discussion features',
                 'url'    => 'http://wiki.splitbrain.org/plugin:discussion',
@@ -56,11 +56,11 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     function handle_act_preprocess(&$event, $param) {
         global $ID;
         global $conf;
+        global $lang;
 
         // handle newthread ACTs
         if ($event->data == 'newthread') {
             // we can handle it -> prevent others
-            // $event->stopPropagation();
             $event->preventDefault();
 
             $event->data = $this->_newThread();
@@ -72,39 +72,61 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             $this->_captchaCheck();
         }
 
-        // if we are not in show mode, that was all for now    
-        if ($event->data != 'show') return;
+        // if we are not in show mode or someone wants to unsubscribe, that was all for now    
+        if ($event->data != 'show' && $event->data != 'unsubscribe') return;
 
-        // do the data processing for comments
-        $cid  = $_REQUEST['cid'];  
-        switch ($_REQUEST['comment']) {
-            case 'add':
-                $comment = array(
-                        'user'    => array(
-                        'id'      => hsc($_REQUEST['user']),
-                        'name'    => hsc($_REQUEST['name']),
-                        'mail'    => hsc($_REQUEST['mail']),
-                        'url'     => hsc($_REQUEST['url']),
-                        'address' => hsc($_REQUEST['address'])),
-                        'date'    => array('created' => $_REQUEST['date']),
-                        'raw'     => cleanText($_REQUEST['text'])
-                        );
-                $repl = $_REQUEST['reply'];
-                $this->_add($comment, $repl);
-                break;
+        if ($event->data == 'unsubscribe') {
+            if (!isset($_REQUEST['hash'])) {
+                return;
+            } else { 
+                $file = metaFN($ID, '.comments');
+                $data = unserialize(io_readFile($file));
+                foreach($data['subscribers'] as $mail => $hash)  {
+                    if($hash == $_REQUEST['hash']) {
+                        // ok we can handle it prevent others
+                        $event->preventDefault();
+                        unset($data['subscribers'][$mail]);
+                        io_saveFile($file, serialize($data));
+                        msg(sprintf($lang['unsubscribe_success'], $mail, $ID), 1);
+                        $event->data = 'show';
+                        return true;
+                    }
+                }
+                return false;
+            }
+        } else {
+            // do the data processing for comments
+            $cid  = $_REQUEST['cid'];  
+            switch ($_REQUEST['comment']) {
+                case 'add':
+                    $comment = array(
+                            'user'    => array(
+                            'id'      => hsc($_REQUEST['user']),
+                            'name'    => hsc($_REQUEST['name']),
+                            'mail'    => hsc($_REQUEST['mail']),
+                            'url'     => hsc($_REQUEST['url']),
+                            'address' => hsc($_REQUEST['address'])),
+                            'subscribe' => $_REQUEST['subscribe'],
+                            'date'    => array('created' => $_REQUEST['date']),
+                            'raw'     => cleanText($_REQUEST['text'])
+                            );
+                    $repl = $_REQUEST['reply'];
+                    $this->_add($comment, $repl);
+                    break;
 
-            case 'save':
-                $raw  = cleanText($_REQUEST['text']);
-                $this->_save(array($cid), $raw);
-                break;
+                case 'save':
+                    $raw  = cleanText($_REQUEST['text']);
+                    $this->_save(array($cid), $raw);
+                    break;
 
-            case 'delete':
-                $this->_save(array($cid), '');
-                break;
+                case 'delete':
+                    $this->_save(array($cid), '');
+                    break;
 
-            case 'toogle':
-                $this->_save(array($cid), '', 'toogle');
-                break;
+                case 'toogle':
+                    $this->_save(array($cid), '', 'toogle');
+                    break;
+            }
         }
 
         // FIXME use new TPL_TOC_RENDER event in the future
@@ -209,7 +231,9 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
      * Adds a new comment and then displays all comments
      */
     function _add($comment, $parent) {
-        global $ID, $TEXT;
+        global $lang;
+        global $ID;
+        global $TEXT;
 
         $otxt = $TEXT; // set $TEXT to comment text for wordblock check
         $TEXT = $comment['raw'];
@@ -219,6 +243,10 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             msg($this->getLang('wordblock'), -1);
             return false;
         }
+
+        if ((!$this->getConf('allowguests'))
+                && ($comment['user']['id'] != $_SERVER['REMOTE_USER']))
+            return false; // guest comments not allowed 
 
         $TEXT = $otxt; // restore global $TEXT
 
@@ -235,16 +263,21 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             if ($data['status'] != 1) return false; // comments off or closed
         }
 
-        if ((!$this->getConf('allowguests'))
-                && ($comment['user']['id'] != $_SERVER['REMOTE_USER']))
-            return false; // guest comments not allowed 
+        if ($comment['date']['created']) {
+            $date = strtotime($comment['date']['created']);
+        } else { 
+            $date = time();
+        }
 
-        if ($comment['date']['created']) $date = strtotime($comment['date']['created']);
-        else $date = time();
-        if ($date == -1) $date = time();
+        if ($date == -1) {
+            $date = time();
+        }
+
         $cid  = md5($comment['user']['id'].$date); // create a unique id
 
-        if (!is_array($data['comments'][$parent])) $parent = NULL; // invalid parent comment
+        if (!is_array($data['comments'][$parent])) {
+            $parent = NULL; // invalid parent comment
+        }
 
         // render the comment
         $xhtml = $this->_render($comment['raw']);
@@ -260,6 +293,17 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                 'replies' => array()
                 );
 
+        if($comment['subscribe']) {
+            $mail = $comment['user']['mail'];
+            if($data['subscribers']) {
+                if(!$data['subscribers'][$mail]) {
+                    $data['subscribers'][$mail] = md5($mail . mt_rand());
+                }
+            } else {
+                $data['subscribers'][$mail] = md5($mail . mt_rand());
+            }
+        }
+
         // update parent comment
         if ($parent) $data['comments'][$parent]['replies'][] = $cid;
 
@@ -272,7 +316,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
 
         // notify subscribers of the page
         $data['comments'][$cid]['cid'] = $cid;
-        $this->_notify($data['comments'][$cid]);
+        $this->_notify($data['comments'][$cid], $data['subscribers']);
 
         $this->_redirect($cid);
         return true;
@@ -514,7 +558,10 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
      * Outputs the comment form
      */
     function _form($raw = '', $act = 'add', $cid = NULL) {
-        global $lang, $conf, $ID, $INFO;
+        global $lang;
+        global $conf;
+        global $ID;
+        global $INFO;
 
         // not for unregistered users when guest comments aren't allowed
         if (!$_SERVER['REMOTE_USER'] && !$this->getConf('allowguests')) return false;
@@ -544,7 +591,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
               <input type="hidden" name="name" value="<?php echo hsc($INFO['userinfo']['name']) ?>" />
               <input type="hidden" name="mail" value="<?php echo hsc($INFO['userinfo']['mail']) ?>" />
         <?php
-        // for guest: show name and e-mail entry fields
+        // for guest: show name, e-mail and subscribe to comments fields
         } else {
         ?>
               <input type="hidden" name="user" value="<?php echo clientIP() ?>" />
@@ -618,7 +665,19 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         $evdata = array('writable' => true);
         trigger_event('HTML_EDITFORM_INJECTION', $evdata);
         ?>
-              <input class="button" type="submit" name="submit" accesskey="s" value="<?php echo $lang['btn_save'] ?>" title="<?php echo $lang['btn_save']?> [ALt+S]" tabindex="6" />
+              <input class="button comment_submit" type="submit" name="submit" accesskey="s" value="<?php echo $lang['btn_save'] ?>" title="<?php echo $lang['btn_save']?> [ALt+S]" tabindex="7" />
+
+        <?php if(!$_SERVER['REMOTE_USER']) { ?>
+              <div class="comment_subscribe">
+                <input type="checkbox" id="discussion__comment_subscribe" name="subscribe" tabindex=="6" />
+                <label class="block" for="discussion__comment_subscribe">
+                  <span><?php echo $this->getLang('subscribe') ?></span>
+                </label>
+              </div>
+        <?php } ?>
+
+              <div class="clearer"></div>
+
             </div>
           </form>
         </div>
@@ -790,15 +849,12 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
      * @author Andreas Gohr <andi@splitbrain.org>
      * @author Esther Brunner <wikidesign@gmail.com>
      */
-    function _notify($comment) {
+    function _notify($comment, $subscribers) {
         global $conf;
         global $ID;
 
-        if ((!$conf['subscribers']) && (!$conf['notify'])) return; //subscribers enabled?
-        $bcc  = subscriber_addresslist($ID);
-        if ((empty($bcc)) && (!$conf['notify'])) return;
-        $to   = $conf['notify'];
-        $text = io_readFile($this->localFN('subscribermail'));
+        $text = io_readfile($this->localfn('subscribermail'));
+        $subject = '['.$conf['title'].'] '.$this->getLang('mail_newcomment');
 
         $search = array(
                 '@PAGE@',
@@ -810,21 +866,48 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                 '@UNSUBSCRIBE@',
                 '@DOKUWIKIURL@',
                 );
-        $replace = array(
-                $ID,
-                $conf['title'],
-                strftime($conf['dformat'], $comment['date']['created']),
-                $comment['user']['name'],
-                $comment['raw'],
-                wl($ID, '', true) . '#comment__' . $comment['cid'],
-                wl($ID, 'do=unsubscribe', true, '&'),
-                DOKU_URL,
-                );
-        $text = str_replace($search, $replace, $text);
 
-        $subject = '['.$conf['title'].'] '.$this->getLang('mail_newcomment');
+        // notify page subscribers
+        if (($conf['subscribers']) && ($conf['notify'])) {
+            $bcc = subscriber_addresslist($ID);
+            $to = $conf['notify'];
 
-        mail_send($to, $subject, $text, $conf['mailfrom'], '', $bcc);
+            $replace = array(
+                    $ID,
+                    $conf['title'],
+                    strftime($conf['dformat'], $comment['date']['created']),
+                    $comment['user']['name'],
+                    $comment['raw'],
+                    wl($ID, '', true) . '#comment__' . $comment['cid'],
+                    wl($ID, 'do=unsubscribe', true, '&'),
+                    DOKU_URL,
+                    );
+
+                $body = str_replace($search, $replace, $text);
+                mail_send($to, $subject, $body, $conf['mailfrom'], '', $bcc);
+        }
+
+        // notify comment subscribers
+        if (!empty($subscribers)) {
+
+            foreach($subscribers as $mail => $hash) {
+                $to = $mail;
+
+                $replace = array(
+                        $ID,
+                        $conf['title'],
+                        strftime($conf['dformat'], $comment['date']['created']),
+                        $comment['user']['name'],
+                        $comment['raw'],
+                        wl($ID, '', true) . '#comment__' . $comment['cid'],
+                        wl($ID, 'do=unsubscribe&hash=' . $hash, true, '&'),
+                        DOKU_URL,
+                        );
+
+                $body = str_replace($search, $replace, $text);
+                mail_send($to, $subject, $body, $conf['mailfrom']);
+            }
+        }
     }
 
     /**

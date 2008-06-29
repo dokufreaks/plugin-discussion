@@ -45,6 +45,27 @@ div.dokuwiki .comment_body {
 div.dokuwiki div.comment_replies {
 }
 
+div.dokuwiki div.comment_subscribe {
+  float: left;
+  display: inline;
+  padding: 0.6em;
+}
+
+div.dokuwiki div.comment_subscribe input {
+  float: left;
+  display: inline;
+}
+
+div.dokuwiki div.comment_subscribe label {
+  float: left;
+  padding-left: 0.8em;
+}
+
+div.dokuwiki input.comment_submit {
+  float: left;
+  display: inline;
+}
+
 div.dokuwiki div.comment_hidden {
   opacity: 0.5;
 }

@@ -11,7 +11,7 @@ Kommentar:
 @TEXT@
 --------------------------------------------------------
 
-Um das Abonnement für diese Seite aufzulösen, melde dich im Wiki an und klicke dann diesen Link:
+Um das Abonnement aufzulösen klicke diesen Link:
 @UNSUBSCRIBE@
 
 -- 
