@@ -807,7 +807,8 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             $trim_time = time() - $conf['recent_days']*86400;
             $out_lines = array();
 
-            for ($i=0; $i<count($lines); $i++) {
+            $num = count($lines);
+            for ($i=0; $i<$num; $i++) {
                 $log = parseChangelogLine($lines[$i]);
                 if ($log === false) continue;                      // discard junk
                 if ($log['date'] < $trim_time) {

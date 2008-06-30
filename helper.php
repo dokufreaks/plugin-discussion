@@ -161,7 +161,8 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
         $lines = file($conf['metadir'].'/_comments.changes');
 
         // handle lines
-        for ($i = count($lines)-1; $i >= 0; $i--) {
+        $num = count($lines);
+        for ($i = ($num - 1); $i >= 0; $i--) {
             $rec = $this->_handleRecentComment($lines[$i], $ns);
             if ($rec !== false) {
                 if (--$first >= 0) continue; // skip first entries
