@@ -16,7 +16,7 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
         return array(
                 'author' => 'Gina Häußge, Michael Klier, Esther Brunner',
                 'email'  => 'dokuwiki@chimeric.de',
-                'date'   => '2008-04-20',
+                'date'   => @file_get_contents(DOKU_PLUGIN.'discussion/VERSION'),
                 'name'   => 'Discussion Plugin (helper class)',
                 'desc'   => 'Functions to get info about comments to a wiki page',
                 'url'    => 'http://wiki.splitbrain.org/plugin:discussion',

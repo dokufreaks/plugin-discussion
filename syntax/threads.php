@@ -21,7 +21,7 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
         return array(
                 'author' => 'Gina Häußge, Michael Klier, Esther Brunner',
                 'email'  => 'dokuwiki@chimeric.de',
-                'date'   => '2008-04-20',
+                'date'   => @file_get_contents(DOKU_PLUGIN.'discussion/VERSION'),
                 'name'   => 'Discussion Plugin (threads component)',
                 'desc'   => 'Displays a list of recently active discussions',
                 'url'    => 'http://wiki.splitbrain.org/plugin:discussion',
