@@ -55,6 +55,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
      */
     function handle_act_preprocess(&$event, $param) {
         global $ID;
+        global $INFO;
         global $conf;
         global $lang;
 
@@ -130,12 +131,11 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         }
 
         // FIXME use new TPL_TOC_RENDER event in the future
-        $tocmeta = p_get_metadata($ID, 'description tableofcontents');
-        if(count($tocmeta) >= ($conf['maxtoclevel']-1)) {
+        if(count($INFO['meta']['description']['tableofcontents']) >= ($conf['maxtoclevel']-1) && $INFO['meta']['internal']['toc']) {
 
             $TOC = array();
             global $TOC;
-            $TOC = $tocmeta;
+            $TOC = $INFO['meta']['description']['tableofcontents'];
 
             $tocitem = array( 'hid' => 'discussion__section',
                               'title' => $this->getLang('discussion'),
