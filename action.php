@@ -487,8 +487,20 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         if ($this->getConf('useavatar')
                 && (!plugin_isdisabled('avatar'))
                 && ($avatar =& plugin_load('helper', 'avatar'))) {
-            if ($mail) $head .= $avatar->getXHTML($mail, $name, 'left');
-            else $head .= $avatar->getXHTML($user, $name, 'left');
+
+            $files = @glob(mediaFN('user') . '/' . $user . '.*');
+            if ($files) {
+                foreach ($files as $file) {
+                    if (preg_match('/jpg|jpeg|gif|png/', $file)) {
+                        $head .= $avatar->getXHTML($user, $name, 'left');
+                        break;
+                    }
+                }
+            } elseif ($mail) {
+                $head .= $avatar->getXHTML($mail, $name, 'left');
+            } else { 
+                $head .= $avatar->getXHTML($user, $name, 'left');
+            }
             $style = ' style="margin-left: '.($avatar->getConf('size') + 14).'px;"';
         } else {
             $style = ' style="margin-left: 20px;"';
