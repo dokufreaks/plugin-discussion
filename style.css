@@ -1,12 +1,13 @@
 div.dokuwiki div.comment_wrapper {
   background-color: __background_alt__;
-  margin: 1em -1em;
-  padding: 0.5em 1em;
+  margin: 1em; 
+  padding: 0.5em 1em 1.5em 0;
   clear: both;
 }
 
 div.dokuwiki div.comment_form {
   margin-top: 2em;
+  margin-right: 1em;
   clear: both;
 }
 
