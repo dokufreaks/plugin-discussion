@@ -178,6 +178,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
 
         if ($ACT !== 'show') return;
         header('Location: ' . wl($ID) . '#comment__' . $cid);
+        exit();
     }
 
     /**
@@ -764,7 +765,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         $anchor = ($jump ? '#discussion__comment_form' : '' );
         
         ?>
-        <form class="button discussion__<?php echo $act?>" method="post" action="<?php echo script().$anchor ?>">
+        <form class="button discussion__<?php echo $act?>" method="get" action="<?php echo script().$anchor ?>">
           <div class="no">
             <input type="hidden" name="id" value="<?php echo $ID ?>" />
             <input type="hidden" name="do" value="show" />
