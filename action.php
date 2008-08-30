@@ -212,6 +212,10 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         ptln('<div class="level2 hfeed">', 2); 
         // now display the comments
         if (isset($data['comments'])) {
+            if (!$this->getConf('usethreading')) {
+                $data['comments'] = $this->_flattenThreads($data['comments']);
+                uasort($data['comments'], '_sortCallBack');
+            }
             foreach ($data['comments'] as $key => $value) {
                 if ($key == $edit) $this->_form($value['raw'], 'save', $edit); // edit form
                 else $this->_print($key, $data, '', $reply);
@@ -219,14 +223,29 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         }
 
         // comment form
-        if (($data['status'] == 1) && !$reply && !$edit) $this->_form('');
+        if (($data['status'] == 1) && (!$reply || !$this->getConf('usethreading')) && !$edit) $this->_form('');
 
         ptln('</div>', 2); // level2 hfeed
         ptln('</div>'); // comment_wrapper
 
         return true;
     }
-  
+    
+    function _flattenThreads($comments, $keys = null) {
+        if (is_null($keys))
+            $keys = array_keys($comments);
+        
+        foreach($keys as $cid) {
+            if (!empty($comments[$cid]['replies'])) {
+                $rids = $comments[$cid]['replies'];
+                $comments = $this->_flattenThreads($comments, $rids);
+                $comments[$cid]['replies'] = array();
+            }
+            $comments[$cid]['parent'] = '';
+        }
+        return $comments;
+    }
+    
     /**
      * Adds a new comment and then displays all comments
      */
@@ -534,7 +553,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
 
             // show reply button?
             if (($data['status'] == 1) && !$reply && $comment['show']
-                    && ($this->getConf('allowguests') || $_SERVER['REMOTE_USER']))
+                    && ($this->getConf('allowguests') || $_SERVER['REMOTE_USER']) && $this->getConf('usethreading'))
                 $this->_button($cid, $this->getLang('btn_reply'), 'reply', true);
 
             // show edit, show/hide and delete button?
@@ -559,7 +578,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         }
 
         // reply form
-        if ($reply == $cid) {
+        if ($this->getConf('usethreading') && $reply == $cid) {
             ptln('<div class="comment_replies">', 4);
             $this->_form('', 'add', $cid);
             ptln('</div>', 4); // class="comment_replies"
@@ -1140,4 +1159,24 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         return ' '.$text;
     }
 }
+
+function _sortCallback($a, $b) {
+    if (is_array($a['date'])) { // new format
+        $createdA  = $a['date']['created'];
+    } else {                         // old format
+        $createdA  = $a['date'];
+    }
+
+    if (is_array($b['date'])) { // new format
+        $createdB  = $b['date']['created'];
+    } else {                         // old format
+        $createdB  = $b['date'];
+    }
+        
+    if ($createdA == $createdB)
+        return 0;
+    else
+        return ($createdA < $createdB) ? -1 : 1;
+}
+  
 // vim:ts=4:sw=4:et:enc=utf-8:

@@ -16,6 +16,8 @@ $meta['adminimport']  = array('onoff');
 $meta['usecocomment'] = array('onoff');
 $meta['wikisyntaxok'] = array('onoff');
 
+$meta['usethreading'] = array('onoff');
+
 $meta['threads_formposition'] = array(
                                   'multichoice',
                                   '_choices' => array('top', 'bottom')

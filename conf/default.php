@@ -13,6 +13,8 @@ $conf['adminimport']  = 0;   // allow admins to set all the fields for import
 $conf['usecocomment'] = 0;   // use coComment comment tracking
 $conf['wikisyntaxok'] = 1;   // allow wiki syntax in comments
 
+$conf['usethreading'] = 1;
+
 $conf['threads_formposition'] = 'bottom'; // position of new thread form
 
 //Setup VIM: ex: et ts=2 enc=utf-8 :

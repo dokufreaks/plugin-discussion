@@ -17,6 +17,8 @@ $lang['adminimport']  = 'allow admins to set  all fields for import';
 $lang['usecocomment'] = 'use coComment comment tracking';
 $lang['wikisyntaxok'] = 'allow wiki syntax in comments';
 
+$lang['usethreading'] = 'allow threading of comments';
+
 $lang['threads_formposition']          = 'position of the new thread form';
 $lang['threads_formposition_o_top']    = 'top';
 $lang['threads_formposition_o_bottom'] = 'bottom';
