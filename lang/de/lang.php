@@ -18,6 +18,7 @@ $lang['menu']            = 'Diskussionen moderieren';
 $lang['discussion']      = 'Diskussion';
 $lang['comment']         = 'Kommentar';
 $lang['comments']        = 'Kommentare';
+$lang['nocomments']      = 'comments';
 $lang['url']             = 'Website';
 $lang['address']         = 'Adresse';
 $lang['date']            = 'Datum';
