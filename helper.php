@@ -160,10 +160,11 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
         // read all recent changes. (kept short)
         $lines = file($conf['metadir'].'/_comments.changes');
 
+        $seen = array(); //caches seen pages in order to skip them
         // handle lines
-        $num = count($lines);
-        for ($i = ($num - 1); $i >= 0; $i--) {
-            $rec = $this->_handleRecentComment($lines[$i], $ns);
+        $line_num = count($lines);
+        for ($i = ($line_num - 1); $i >= 0; $i--) {
+            $rec = $this->_handleRecentComment($lines[$i], $ns, $seen);
             if ($rec !== false) {
                 if (--$first >= 0) continue; // skip first entries
                 $result[$rec['date']] = $rec;
@@ -191,8 +192,7 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
      * @author Ben Coburn <btcoburn@silicodon.net>
      * @author Esther Brunner <wikidesign@gmail.com>
      */
-    function _handleRecentComment($line, $ns) {
-        static $seen  = array();         //caches seen pages and skip them
+    function _handleRecentComment($line, $ns, &$seen) {
         if (empty($line)) return false;  //skip empty lines
 
         // split the line into parts
@@ -233,6 +233,9 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
 
         // check if discussion is turned off
         if ($data['status'] === 0) return false;
+
+        // check if the comment still exists
+        if (!isset($data['comments'][$cid])) return false;
 
         // okay, then add some additional info
         if (is_array($data['comments'][$cid]['user']))
