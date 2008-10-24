@@ -16,6 +16,7 @@ $lang['addressfield'] = 'allow users to enter a postal address';
 $lang['adminimport']  = 'allow admins to set  all fields for import';
 $lang['usecocomment'] = 'use coComment comment tracking';
 $lang['wikisyntaxok'] = 'allow wiki syntax in comments';
+$lang['subscribe']    = 'enable/disable subscribe to comments';
 
 $lang['usethreading'] = 'allow threading of comments';
 

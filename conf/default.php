@@ -12,6 +12,7 @@ $conf['addressfield'] = 0;   // allow entering an address
 $conf['adminimport']  = 0;   // allow admins to set all the fields for import
 $conf['usecocomment'] = 0;   // use coComment comment tracking
 $conf['wikisyntaxok'] = 1;   // allow wiki syntax in comments
+$conf['subscribe']    = 1;   // enable/disable subscribe to comments
 
 $conf['usethreading'] = 1;
 

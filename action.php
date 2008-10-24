@@ -699,7 +699,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         ?>
               <input class="button comment_submit" type="submit" name="submit" accesskey="s" value="<?php echo $lang['btn_save'] ?>" title="<?php echo $lang['btn_save']?> [ALt+S]" tabindex="7" />
 
-        <?php if(!$_SERVER['REMOTE_USER']) { ?>
+        <?php if(!$_SERVER['REMOTE_USER'] && $this->getConf('subscribe')) { ?>
               <div class="comment_subscribe">
                 <input type="checkbox" id="discussion__comment_subscribe" name="subscribe" tabindex=="6" />
                 <label class="block" for="discussion__comment_subscribe">
