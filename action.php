@@ -701,7 +701,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
 
         <?php if(!$_SERVER['REMOTE_USER'] && $this->getConf('subscribe')) { ?>
               <div class="comment_subscribe">
-                <input type="checkbox" id="discussion__comment_subscribe" name="subscribe" tabindex=="6" />
+                <input type="checkbox" id="discussion__comment_subscribe" name="subscribe" tabindex="6" />
                 <label class="block" for="discussion__comment_subscribe">
                   <span><?php echo $this->getLang('subscribe') ?></span>
                 </label>
