@@ -177,7 +177,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         global $ACT;
 
         if ($ACT !== 'show') return;
-        header('Location: ' . wl($ID) . '#comment__' . $cid);
+        header('Location: ' . wl($ID) . '#comment_' . $cid);
         exit();
     }
 
@@ -481,7 +481,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         // comment head with date and user data
         ptln('<div class="hentry'.$hidden.'">', 4);
         ptln('<div class="comment_head">', 6);
-        ptln('<a name="comment__'.$cid.'" id="comment__'.$cid.'"></a>', 8);
+        ptln('<a name="comment_'.$cid.'" id="comment_'.$cid.'"></a>', 8);
         $head = '<span class="vcard author">';
 
         // prepare variables
@@ -914,7 +914,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                     strftime($conf['dformat'], $comment['date']['created']),
                     $comment['user']['name'],
                     $comment['raw'],
-                    wl($ID, '', true) . '#comment__' . $comment['cid'],
+                    wl($ID, '', true) . '#comment_' . $comment['cid'],
                     wl($ID, 'do=unsubscribe', true, '&'),
                     DOKU_URL,
                     );
@@ -935,7 +935,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                         strftime($conf['dformat'], $comment['date']['created']),
                         $comment['user']['name'],
                         $comment['raw'],
-                        wl($ID, '', true) . '#comment__' . $comment['cid'],
+                        wl($ID, '', true) . '#comment_' . $comment['cid'],
                         wl($ID, 'do=unsubscribe&hash=' . $hash, true, '&'),
                         DOKU_URL,
                         );
