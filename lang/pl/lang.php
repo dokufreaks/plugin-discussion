@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Polish language file v0.9 by Zbyszekk <zbypan@gmail.com>
  *

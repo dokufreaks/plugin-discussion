@@ -1,4 +1,4 @@
-﻿Witaj!
+Witaj!
 
 Nowy komentarz został dodany na stronie @PAGE@ w pod tytułem @TITLE@.
 
