@@ -217,6 +217,9 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                 $data['comments'] = $this->_flattenThreads($data['comments']);
                 uasort($data['comments'], '_sortCallBack');
             }
+            if($this->getConf('newestfirst')) {
+                $data['comments'] = array_reverse($data['comments']);
+            }
             foreach ($data['comments'] as $key => $value) {
                 if ($key == $edit) $this->_form($value['raw'], 'save', $edit); // edit form
                 else $this->_print($key, $data, '', $reply);
