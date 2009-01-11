@@ -1099,10 +1099,8 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
      * @adaption   Esther Brunner <wikidesign@gmail.com>
      */
     function _captchaCheck() {
-        if (@file_exists(DOKU_PLUGIN.'captcha/disabled')) return; // CAPTCHA is disabled
-
-        require_once(DOKU_PLUGIN.'captcha/action.php');
-        $captcha = new action_plugin_captcha;
+    	if (plugin_isdisabled('captcha') || (!$captcha = plugin_load('helper', 'captcha')))
+    		return; // CAPTCHA is disabled or not available
 
         // do nothing if logged in user and no CAPTCHA required
         if (!$captcha->getConf('forusers') && $_SERVER['REMOTE_USER']) return;
