@@ -78,7 +78,7 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
             if ((!$comments['status']) || (($comments['status'] == 2) && (!$num))) return '';
         }
 
-        if ($num == 0) $comment = '0&nbsp;'.$this->getLang($this->getLang('nocomments'));
+        if ($num == 0) $comment = '0&nbsp;'.$this->getLang('nocomments');
         elseif ($num == 1) $comment = '1&nbsp;'.$this->getLang('comment');
         else $comment = $num.'&nbsp;'.$this->getLang('comments');
 
