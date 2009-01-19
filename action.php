@@ -15,6 +15,10 @@ require_once(DOKU_PLUGIN.'action.php');
 
 class action_plugin_discussion extends DokuWiki_Action_Plugin{
 
+    var $avatar = null;
+    var $style = null;
+    var $use_avatar = null;
+
     function getInfo() {
         return array(
                 'author' => 'Gina Häußge, Michael Klier, Esther Brunner',
@@ -462,8 +466,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
      * Prints an individual comment
      */
     function _print($cid, &$data, $parent = '', $reply = '', $visible = true) {
-        global $conf, $lang, $ID, $HIGH;
-
+        
         if (!isset($data['comments'][$cid])) return false; // comment was removed
         $comment = $data['comments'][$cid];
 
@@ -477,6 +480,28 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         } else {
             $hidden = '';
         }
+
+        if($this->getConf('newestfirst')) {
+            // reply form
+            $this->_print_form($cid, $reply);
+            // replies to this comment entry?
+            $this->_print_replies($cid, $data, $reply, $visible);
+            // print the actual comment
+            $this->_print_comment($cid, &$data, $parent, $reply, $visible, $hidden);
+        } else {
+            // print the actual comment
+            $this->_print_comment($cid, &$data, $parent, $reply, $visible, $hidden);
+            // replies to this comment entry?
+            $this->_print_replies($cid, $data, $reply, $visible);
+            // reply form
+            $this->_print_form($cid, $reply);
+        }
+    }
+
+    function _print_comment($cid, &$data, $parent, $reply, $visible, $hidden)    
+    {
+        global $conf, $lang, $ID, $HIGH;
+        $comment = $data['comments'][$cid];
 
         // comment head with date and user data
         ptln('<div class="hentry'.$hidden.'">', 4);
@@ -507,26 +532,21 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         }
 
         // show avatar image?
-        if ($this->getConf('useavatar')
-                && (!plugin_isdisabled('avatar'))
-                && ($avatar =& plugin_load('helper', 'avatar'))) {
+        if ($this->_use_avatar()) {
 
             $files = @glob(mediaFN('user') . '/' . $user . '.*');
             if ($files) {
                 foreach ($files as $file) {
                     if (preg_match('/jpg|jpeg|gif|png/', $file)) {
-                        $head .= $avatar->getXHTML($user, $name, 'left');
+                        $head .= $this->avatar->getXHTML($user, $name, 'left');
                         break;
                     }
                 }
             } elseif ($mail) {
-                $head .= $avatar->getXHTML($mail, $name, 'left');
+                $head .= $this->avatar->getXHTML($mail, $name, 'left');
             } else { 
-                $head .= $avatar->getXHTML($user, $name, 'left');
+                $head .= $this->avatar->getXHTML($user, $name, 'left');
             }
-            $style = ' style="margin-left: '.($avatar->getConf('size') + 14).'px;"';
-        } else {
-            $style = ' style="margin-left: 20px;"';
         }
 
         if ($this->getConf('linkemail') && $mail) {
@@ -548,7 +568,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
 
         // main comment content
         ptln('<div class="comment_body entry-content"'.
-                ($this->getConf('useavatar') ? $style : '').'>', 6);
+                ($this->getConf('useavatar') ? $this->_get_style() : '').'>', 6);
         echo ($HIGH?html_hilight($comment['xhtml'],$HIGH):$comment['xhtml']).DOKU_LF;
         ptln('</div>', 6); // class="comment_body"
 
@@ -570,23 +590,51 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             ptln('</div>', 6); // class="comment_buttons"
         }
         ptln('</div>', 4); // class="hentry"
-
-        // replies to this comment entry?
-        if (count($comment['replies'])) {
-            ptln('<div class="comment_replies"'.$style.'>', 4);
-            $visible = ($comment['show'] && $visible);
-            foreach ($comment['replies'] as $rid) {
-                $this->_print($rid, $data, $cid, $reply, $visible);
-            }
-            ptln('</div>', 4); // class="comment_replies"
-        }
-
-        // reply form
+    }
+    
+    function _print_form($cid, $reply)
+    {
         if ($this->getConf('usethreading') && $reply == $cid) {
             ptln('<div class="comment_replies">', 4);
             $this->_form('', 'add', $cid);
             ptln('</div>', 4); // class="comment_replies"
         }
+    }
+    
+    function _print_replies($cid, &$data, $reply, &$visible)
+    {
+        $comment = $data['comments'][$cid];
+        if (!count($comment['replies'])) {
+            return;
+        }   
+        ptln('<div class="comment_replies"'.$this->_get_style().'>', 4);
+        $visible = ($comment['show'] && $visible);
+        foreach ($comment['replies'] as $rid) {
+            $this->_print($rid, $data, $cid, $reply, $visible);
+        }
+        ptln('</div>', 4);
+    }
+    
+    function _use_avatar()
+    {
+        if (is_null($this->use_avatar)) {
+            $this->use_avatar = $this->getConf('useavatar')
+                    && (!plugin_isdisabled('avatar'))
+                    && ($this->avatar =& plugin_load('helper', 'avatar'));
+        }
+        return $this->use_avatar;
+    }
+    
+    function _get_style()
+    {
+        if (is_null($this->style)){
+            if ($this->_use_avatar()) {
+                $this->style = ' style="margin-left: '.($this->avatar->getConf('size') + 14).'px;"';
+            } else {
+                $this->style = ' style="margin-left: 20px;"';
+            }
+        }
+        return $this->style;
     }
 
     /**
