@@ -462,7 +462,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
      * Prints an individual comment
      */
     function _print($cid, &$data, $parent = '', $reply = '', $visible = true) {
-        global $conf, $lang, $ID;
+        global $conf, $lang, $ID, $HIGH;
 
         if (!isset($data['comments'][$cid])) return false; // comment was removed
         $comment = $data['comments'][$cid];
@@ -549,7 +549,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         // main comment content
         ptln('<div class="comment_body entry-content"'.
                 ($this->getConf('useavatar') ? $style : '').'>', 6);
-        echo $comment['xhtml'].DOKU_LF;
+        echo ($HIGH?html_hilight($comment['xhtml'],$HIGH):$comment['xhtml']).DOKU_LF;
         ptln('</div>', 6); // class="comment_body"
 
         if ($visible) {
