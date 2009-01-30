@@ -109,7 +109,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                             'id'      => hsc($_REQUEST['user']),
                             'name'    => hsc($_REQUEST['name']),
                             'mail'    => hsc($_REQUEST['mail']),
-                            'url'     => hsc($_REQUEST['url']),
+                            'url'     => ($this->getConf('urlfield')) ? hsc($_REQUEST['url']) : '',
                             'address' => hsc($_REQUEST['address'])),
                             'subscribe' => $_REQUEST['subscribe'],
                             'date'    => array('created' => $_REQUEST['date']),
