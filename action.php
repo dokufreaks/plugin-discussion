@@ -106,9 +106,9 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                 case 'add':
                     $comment = array(
                             'user'    => array(
-                            'id'      => hsc($_REQUEST['user']),
-                            'name'    => hsc($_REQUEST['name']),
-                            'mail'    => hsc($_REQUEST['mail']),
+                            'id'      => (isset($_SERVER['REMOTE_USER'])) ? $_SERVER['REMOTE_USER'] : hsc($_REQUEST['user']),
+                            'name'    => (isset($_SERVER['REMOTE_USER'])) ? $INFO['userinfo']['name'] : hsc($_REQUEST['name']),
+                            'mail'    => (isset($_SERVER['REMOTE_USER'])) ? $INFO['userinfo']['mail'] : hsc($_REQUEST['mail']),
                             'url'     => ($this->getConf('urlfield')) ? hsc($_REQUEST['url']) : '',
                             'address' => hsc($_REQUEST['address'])),
                             'subscribe' => $_REQUEST['subscribe'],
@@ -666,16 +666,8 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         ?>
               <input type="hidden" name="reply" value="<?php echo $cid ?>" />
         <?php
-        // for registered user (and we're not in admin import mode)
-        if ($conf['useacl'] && $_SERVER['REMOTE_USER']
-                && (!($this->getConf('adminimport') && (auth_ismanager())))) {
-        ?>
-              <input type="hidden" name="user" value="<?php echo hsc($_SERVER['REMOTE_USER']) ?>" />
-              <input type="hidden" name="name" value="<?php echo hsc($INFO['userinfo']['name']) ?>" />
-              <input type="hidden" name="mail" value="<?php echo hsc($INFO['userinfo']['mail']) ?>" />
-        <?php
-        // for guest: show name, e-mail and subscribe to comments fields
-        } else {
+        // for guest/adminimport: show name, e-mail and subscribe to comments fields
+        if(!$_SERVER['REMOTE_USER'] or ($this->getConf('adminimport') && auth_ismanager())) {
         ?>
               <input type="hidden" name="user" value="<?php echo clientIP() ?>" />
               <div class="comment_name">
