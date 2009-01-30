@@ -111,7 +111,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                             'mail'    => (isset($_SERVER['REMOTE_USER'])) ? $INFO['userinfo']['mail'] : hsc($_REQUEST['mail']),
                             'url'     => ($this->getConf('urlfield')) ? hsc($_REQUEST['url']) : '',
                             'address' => hsc($_REQUEST['address'])),
-                            'subscribe' => $_REQUEST['subscribe'],
+                            'subscribe' => ($this->getConf('subscribe')) ? $_REQUEST['subscribe'] : '',
                             'date'    => array('created' => $_REQUEST['date']),
                             'raw'     => cleanText($_REQUEST['text'])
                             );
