@@ -555,7 +555,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         if ($this->getConf('linkemail') && $mail) {
             $head .= $this->email($mail, $name, 'email fn');
         } elseif ($url) {
-            $head .= $this->external_link($url, $name, 'urlextern url fn');
+            $head .= $this->external_link($this->_checkURL($url), $name, 'urlextern url fn');
         } else {
             $head .= '<span class="fn">'.$name.'</span>';
         }
