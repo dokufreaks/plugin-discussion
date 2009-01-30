@@ -104,17 +104,20 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             $cid  = $_REQUEST['cid'];  
             switch ($_REQUEST['comment']) {
                 case 'add':
-                    $comment = array(
-                            'user'    => array(
-                            'id'      => (isset($_SERVER['REMOTE_USER'])) ? $_SERVER['REMOTE_USER'] : hsc($_REQUEST['user']),
-                            'name'    => (isset($_SERVER['REMOTE_USER'])) ? $INFO['userinfo']['name'] : hsc($_REQUEST['name']),
-                            'mail'    => (isset($_SERVER['REMOTE_USER'])) ? $INFO['userinfo']['mail'] : hsc($_REQUEST['mail']),
-                            'url'     => ($this->getConf('urlfield')) ? hsc($_REQUEST['url']) : '',
-                            'address' => hsc($_REQUEST['address'])),
-                            'subscribe' => ($this->getConf('subscribe')) ? $_REQUEST['subscribe'] : '',
-                            'date'    => array('created' => $_REQUEST['date']),
-                            'raw'     => cleanText($_REQUEST['text'])
-                            );
+                    if(isset($_SERVER['REMOTE_USER']) && !$this->getConf('adminimport')) {
+                        $comment['user']['id'] = $_SERVER['REMOTE_USER'];
+                        $comment['user']['name'] = $INFO['userinfo']['name'];
+                        $comment['user']['mail'] = $INFO['userinfo']['mail'];
+                    } elseif((isset($_SERVER['REMOTE_USER']) && $this->getConf('adminimport') && auth_ismanager()) || !isset($_SERVER['REMOTE_USER'])) {
+                        $comment['user']['id'] = 'test'.hsc($_REQUEST['user']);
+                        $comment['user']['name'] = hsc($_REQUEST['name']);
+                        $comment['user']['mail'] = hsc($_REQUEST['mail']);
+                    }
+                    $comment['user']['address'] = ($this->getConf('addressfield')) ? hsc($_REQUEST['address']) : '';
+                    $comment['user']['url'] = ($this->getConf('urlfield')) ? hsc($_REQUEST['url']) : '';
+                    $comment['subscribe'] = ($this->getConf('subscribe')) ? $_REQUEST['subscribe'] : '';
+                    $comment['date'] = array('created' => $_REQUEST['date']);
+                    $comment['raw'] = cleanText($_REQUEST['text']);
                     $repl = $_REQUEST['reply'];
                     $this->_add($comment, $repl);
                     break;
