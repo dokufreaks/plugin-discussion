@@ -114,7 +114,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                         $comment['user']['mail'] = hsc($_REQUEST['mail']);
                     }
                     $comment['user']['address'] = ($this->getConf('addressfield')) ? hsc($_REQUEST['address']) : '';
-                    $comment['user']['url'] = ($this->getConf('urlfield')) ? hsc($_REQUEST['url']) : '';
+                    $comment['user']['url'] = ($this->getConf('urlfield')) ? $this->_checkURL($_REQUEST['url']) : '';
                     $comment['subscribe'] = ($this->getConf('subscribe')) ? $_REQUEST['subscribe'] : '';
                     $comment['date'] = array('created' => $_REQUEST['date']);
                     $comment['raw'] = cleanText($_REQUEST['text']);
@@ -1142,8 +1142,8 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
      * @adaption   Esther Brunner <wikidesign@gmail.com>
      */
     function _captchaCheck() {
-    	if (plugin_isdisabled('captcha') || (!$captcha = plugin_load('helper', 'captcha')))
-    		return; // CAPTCHA is disabled or not available
+        if (plugin_isdisabled('captcha') || (!$captcha = plugin_load('helper', 'captcha')))
+            return; // CAPTCHA is disabled or not available
 
         // do nothing if logged in user and no CAPTCHA required
         if (!$captcha->getConf('forusers') && $_SERVER['REMOTE_USER']) return;
@@ -1202,6 +1202,19 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             }
         }
         return ' '.$text;
+    }
+
+    /**
+     * Only allow http(s) URLs and append http:// to URLs if needed
+     */
+    function _checkURL($url) {
+        if(preg_match("#^http://|^https://#", $url)) {
+            return hsc($url);
+        } elseif(substr($url, 0, 4) == 'www.') {
+            return hsc('http://' . $url);
+        } else {
+            return '';
+        }
     }
 }
 
