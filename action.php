@@ -715,7 +715,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         ?>
 
         <div class="comment_form">
-          <form id="discussion__comment_form" method="post" action="<?php echo script() ?>" accept-charset="<?php echo $lang['encoding'] ?>" onsubmit="return validate(this);">
+          <form id="discussion__comment_form" method="post" action="<?php echo script() ?>" accept-charset="<?php echo $lang['encoding'] ?>">
             <div class="no">
               <input type="hidden" name="id" value="<?php echo $ID ?>" />
               <input type="hidden" name="do" value="show" />
@@ -800,7 +800,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         $evdata = array('writable' => true);
         trigger_event('HTML_EDITFORM_INJECTION', $evdata);
         ?>
-              <input class="button comment_submit" type="submit" name="submit" accesskey="s" value="<?php echo $lang['btn_save'] ?>" title="<?php echo $lang['btn_save']?> [S]" tabindex="7" />
+              <input class="button comment_submit" id="discussion__btn_submit" type="submit" name="submit" accesskey="s" value="<?php echo $lang['btn_save'] ?>" title="<?php echo $lang['btn_save']?> [S]" tabindex="7" />
               <input class="button comment_preview" id="discussion__btn_preview" type="button" name="preview" accesskey="p" value="<?php echo $lang['btn_preview'] ?>" title="<?php echo $lang['btn_preview']?> [P]" />
 
         <?php if(!$_SERVER['REMOTE_USER'] && $this->getConf('subscribe')) { ?>

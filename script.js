@@ -1,3 +1,6 @@
+/**
+ * ehck if a field is blank
+ */
 function isBlank(s){
   if ((s === null) || (s.length === 0)){
     return true;
@@ -12,20 +15,24 @@ function isBlank(s){
   return true;
 }
 
-function validate(frm){
-  if (isBlank(frm.mail.value) || frm.mail.value.indexOf("@") == -1){
-    frm.mail.focus();
-    return false;
-  }
-  if (isBlank(frm.name.value)){
-    frm.name.focus();
-    return false;
-  }
+/**
+ * Validate an input field
+ */
+function validate(form){
+    if(!form) return;
 
-  if (isBlank(frm.text.value)){
-    frm.text.focus();
-    return false;
-	}
+    if (isBlank(form.mail.value) || form.mail.value.indexOf("@") == -1){
+        form.mail.focus();
+        return false;
+    }
+    if (isBlank(form.name.value)){
+        form.name.focus();
+        return false;
+    }
+    if (isBlank(form.text.value)){
+        form.text.focus();
+        return false;
+    }
 }
 
 /**
@@ -68,4 +75,11 @@ addInitEvent(function() {
     var btn = $('discussion__btn_preview');
     if(!btn) return;
     addEvent(btn, 'click', discussion_ajax_preview);
+});
+
+// init field check
+addInitEvent(function() {
+    var form = $('discussion__comment_form');
+    if(!form) return;
+    addEvent(form, 'submit', function() { return validate(form); });
 });
