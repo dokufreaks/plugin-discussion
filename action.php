@@ -52,6 +52,64 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                 'idx_add_discussion',
                 array()
                 );
+        $contr->register_hook(
+                'TPL_METAHEADER_OUTPUT',
+                'BEFORE',
+                $this,
+                'handle_tpl_metaheader_output',
+                array()
+                );
+        $contr->register_hook(
+                'TOOLBAR_DEFINE',
+                'AFTER',
+                $this,
+                'handle_toolbar_define',
+                array()
+                );
+    }
+
+    /**
+     * Modify Tollbar for use with discussion plugin
+     *
+     * @author Michael Klier <chi@chimeric.de>
+     */
+    function handle_toolbar_define(&$event, $param) {
+        global $ACT;
+        if($ACT != 'show') return;
+
+        if($this->_hasDiscussion($title)) {
+            $toolbar = array();
+            foreach($event->data as $btn) {
+                if($btn['type'] == 'mediapopup') continue;
+                if($btn['type'] == 'signature') continue;
+                if(preg_match("/=+?/", $btn['open'])) continue;
+                array_push($toolbar, $btn);
+            }
+            $event->data = $toolbar;
+        }
+    }
+
+    /**
+     * Dirty workaround to add a toolbar to the discussion plugin
+     *
+     * @author Michael Klier <chi@chimeric.de>
+     */
+    function handle_tpl_metaheader_output(&$event, $param) {
+        global $ACT;
+        global $ID;
+        if($ACT != 'show') return;
+
+        // FIXME check if this works for global discussion/on too
+        if($this->_hasDiscussion($title)) {
+            // FIXME ugly workaround, replace this once DW the toolbar code is more flexible
+            array_unshift($event->data['script'], array('type' => 'text/javascript', 'charset' => 'utf-8', '_data' => '', 'src' => DOKU_BASE.'lib/scripts/edit.js'));
+            @require_once(DOKU_INC.'inc/toolbar.php');
+            ob_start();
+            print 'NS = "' . getNS($ID) . '";'; // we have to define NS, otherwise we get get JS errors
+            toolbar_JSdefines('toolbar');
+            $script = ob_get_clean();
+            array_push($event->data['script'], array('type' => 'text/javascript', 'charset' => "utf-8", '_data' => $script));
+        }
     }
     
     /**
@@ -734,8 +792,11 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
               <div class="comment_text">
         <?php
         echo $this->getLang('entercomment');
-        if ($this->getConf('wikisyntaxok')) echo ' ('.$this->getLang('wikisyntax').')';
-        echo ':<br />'.DOKU_LF;
+        if ($this->getConf('wikisyntaxok')) {
+        ?>
+                <div id="discussion__comment_toolbar">&nbsp;</div>
+        <?php
+        }
         ?>
                 <textarea class="edit" name="text" cols="80" rows="10" id="discussion__comment_text" tabindex="5"><?php echo formText($raw) ?></textarea>
               </div>

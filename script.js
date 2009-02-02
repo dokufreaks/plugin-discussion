@@ -27,3 +27,5 @@ function validate(frm){
     return false;
 	}
 }
+
+addInitEvent(function() {initToolbar("discussion__comment_toolbar", "discussion__comment_text", toolbar)});
