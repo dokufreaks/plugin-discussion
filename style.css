@@ -13,6 +13,7 @@ div.dokuwiki div#discussion__comment_preview {
   border: 1px dashed __border__;
   padding: 1em;
   margin-top: 1em;
+  visibility: hidden;
 }
 
 div.dokuwiki div.comment_form {
