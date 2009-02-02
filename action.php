@@ -720,7 +720,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
               <input type="hidden" name="id" value="<?php echo $ID ?>" />
               <input type="hidden" name="do" value="show" />
               <input type="hidden" name="comment" value="<?php echo $act ?>" />
-
+              <input type="hidden" name="wikisyntaxok" id="discussion__comment_wikisyntaxok" value="<?php echo $this->getConf('wikisyntaxok') ?>" />
         <?php
         // for adding a comment
         if ($act == 'add') {
@@ -800,7 +800,8 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         $evdata = array('writable' => true);
         trigger_event('HTML_EDITFORM_INJECTION', $evdata);
         ?>
-              <input class="button comment_submit" type="submit" name="submit" accesskey="s" value="<?php echo $lang['btn_save'] ?>" title="<?php echo $lang['btn_save']?> [ALt+S]" tabindex="7" />
+              <input class="button comment_submit" type="submit" name="submit" accesskey="s" value="<?php echo $lang['btn_save'] ?>" title="<?php echo $lang['btn_save']?> [S]" tabindex="7" />
+              <input class="button comment_preview" id="discussion__btn_preview" type="button" name="preview" accesskey="p" value="<?php echo $lang['btn_preview'] ?>" title="<?php echo $lang['btn_preview']?> [P]" />
 
         <?php if(!$_SERVER['REMOTE_USER'] && $this->getConf('subscribe')) { ?>
               <div class="comment_subscribe">
@@ -812,7 +813,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         <?php } ?>
 
               <div class="clearer"></div>
-
+              <div id="discussion__comment_preview">&nbsp;</div>
             </div>
           </form>
         </div>

@@ -9,6 +9,12 @@ div.dokuwiki div.comment_text {
   padding-top: 0.5em
 }
 
+div.dokuwiki div#discussion__comment_preview {
+  border: 1px dashed __border__;
+  padding: 1em;
+  margin-top: 1em;
+}
+
 div.dokuwiki div.comment_form {
   margin-top: 2em;
   margin-right: 1em;
