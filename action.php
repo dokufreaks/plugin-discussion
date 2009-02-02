@@ -77,7 +77,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         global $ACT;
         if($ACT != 'show') return;
 
-        if($this->_hasDiscussion($title)) {
+        if($this->_hasDiscussion($title) && $this->getConf('wikisyntaxok')) {
             $toolbar = array();
             foreach($event->data as $btn) {
                 if($btn['type'] == 'mediapopup') continue;
@@ -100,7 +100,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         if($ACT != 'show') return;
 
         // FIXME check if this works for global discussion/on too
-        if($this->_hasDiscussion($title)) {
+        if($this->_hasDiscussion($title) && $this->getConf('wikisyntaxok')) {
             // FIXME ugly workaround, replace this once DW the toolbar code is more flexible
             array_unshift($event->data['script'], array('type' => 'text/javascript', 'charset' => 'utf-8', '_data' => '', 'src' => DOKU_BASE.'lib/scripts/edit.js'));
             @require_once(DOKU_INC.'inc/toolbar.php');
@@ -790,14 +790,10 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         }
         ?>
               <div class="comment_text">
-        <?php
-        echo $this->getLang('entercomment');
-        if ($this->getConf('wikisyntaxok')) {
-        ?>
-                <div id="discussion__comment_toolbar">&nbsp;</div>
-        <?php
-        }
-        ?>
+                <div id="discussion__comment_toolbar">
+                  <?php echo $this->getLang('entercomment')?>
+                  <?php if($this->getLang('wikisyntaxok')) echo ', ' . $this->getLang('wikisyntax') . ':';?> 
+                </div>
                 <textarea class="edit" name="text" cols="80" rows="10" id="discussion__comment_text" tabindex="5"><?php echo formText($raw) ?></textarea>
               </div>
         <?php //bad and dirty event insert hook

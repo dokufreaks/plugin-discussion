@@ -5,6 +5,10 @@ div.dokuwiki div.comment_wrapper {
   clear: both;
 }
 
+div.dokuwiki div.comment_text {
+  padding-top: 0.5em
+}
+
 div.dokuwiki div.comment_form {
   margin-top: 2em;
   margin-right: 1em;
