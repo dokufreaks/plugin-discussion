@@ -22,6 +22,10 @@ div.dokuwiki div.comment_form {
   clear: both;
 }
 
+div.dokuwiki div.comment_form .error {
+  background: #ffc;
+}
+
 div.dokuwiki #discussion__comment_form label input.edit {
   width: 75%;
 }

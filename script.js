@@ -1,5 +1,9 @@
 /**
- * ehck if a field is blank
+ * Javascript functionality for the discussion plugin
+ */
+
+/**
+ * Check if a field is blank
  */
 function isBlank(s){
   if ((s === null) || (s.length === 0)){
@@ -22,6 +26,7 @@ function validate(form){
     if(!form) return;
 
     if (isBlank(form.mail.value) || form.mail.value.indexOf("@") == -1){
+        form.mail.style.class = form.mail.style.class + ' error';
         form.mail.focus();
         return false;
     }
