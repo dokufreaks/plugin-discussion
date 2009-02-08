@@ -73,7 +73,11 @@ function discussion_ajax_preview() {
 }
 
 // init toolbar
-addInitEvent(function() {initToolbar("discussion__comment_toolbar", "discussion__comment_text", toolbar)});
+addInitEvent(function() { 
+    if(typeof window.initToolbar == 'function') {
+        initToolbar("discussion__comment_toolbar", "discussion__comment_text", toolbar) 
+    }
+});
 
 // init preview button
 addInitEvent(function() {
