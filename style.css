@@ -10,10 +10,14 @@ div.dokuwiki div.comment_text {
 }
 
 div.dokuwiki div#discussion__comment_preview {
-  border: 1px dashed __border__;
   padding: 1em;
   margin-top: 1em;
   visibility: hidden;
+}
+
+div.dokuwiki div.comment_preview {
+  padding: 1em;
+  border: 1px dashed __border__;
 }
 
 div.dokuwiki div.comment_form {
