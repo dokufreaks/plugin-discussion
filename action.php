@@ -803,7 +803,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
               <input class="button comment_submit" id="discussion__btn_submit" type="submit" name="submit" accesskey="s" value="<?php echo $lang['btn_save'] ?>" title="<?php echo $lang['btn_save']?> [S]" tabindex="7" />
               <input class="button comment_preview" id="discussion__btn_preview" type="button" name="preview" accesskey="p" value="<?php echo $lang['btn_preview'] ?>" title="<?php echo $lang['btn_preview']?> [P]" />
 
-        <?php if(!$_SERVER['REMOTE_USER'] && $this->getConf('subscribe')) { ?>
+        <?php if((!$_SERVER['REMOTE_USER'] || $_SERVER['REMOTE_USER'] && !$conf['subscribers']) && $this->getConf('subscribe')) { ?>
               <div class="comment_subscribe">
                 <input type="checkbox" id="discussion__comment_subscribe" name="subscribe" tabindex="6" />
                 <label class="block" for="discussion__comment_subscribe">
@@ -1005,9 +1005,10 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                 );
 
         // notify page subscribers
-        if (($conf['subscribers']) && ($conf['notify'])) {
-            $bcc = subscriber_addresslist($ID);
-            $to = $conf['notify'];
+        if ($conf['subscribers']) {
+            $list = explode(',', subscriber_addresslist($ID));
+            $to   = ($conf['notify']) ? $conf['notify'] : array_pop($list);
+            $bcc  = implode(',', $list);
 
             $replace = array(
                     $ID,
