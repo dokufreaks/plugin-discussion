@@ -125,7 +125,6 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         if ($event->data == 'newthread') {
             // we can handle it -> prevent others
             $event->preventDefault();
-
             $event->data = $this->_newThread();
         }
 
@@ -136,26 +135,41 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         }
 
         // if we are not in show mode or someone wants to unsubscribe, that was all for now    
-        if ($event->data != 'show' && $event->data != 'unsubscribe') return;
+        if ($event->data != 'show' && $event->data != 'unsubscribe' && $event->data != 'confirmsubscribe') return;
 
-        if ($event->data == 'unsubscribe') {
+        if ($event->data == 'unsubscribe' or $event->data == 'confirmsubscribe') {
+            // ok we can handle it prevent others
+            $event->preventDefault();
+
             if (!isset($_REQUEST['hash'])) {
-                return;
+                return false;
             } else { 
                 $file = metaFN($ID, '.comments');
                 $data = unserialize(io_readFile($file));
-                foreach($data['subscribers'] as $mail => $hash)  {
-                    if($hash == $_REQUEST['hash']) {
-                        // ok we can handle it prevent others
-                        $event->preventDefault();
-                        unset($data['subscribers'][$mail]);
-                        io_saveFile($file, serialize($data));
-                        msg(sprintf($lang['unsubscribe_success'], $mail, $ID), 1);
-                        $event->data = 'show';
-                        return true;
+                foreach($data['subscribers'] as $mail => $info)  {
+                    // convert old style subscribers just in case
+                    if(!is_array($info)) {
+                        $hash = $data['subscribers'][$mail];
+                        $data['subscribers'][$mail]['hash']   = $hash;
+                        $data['subscribers'][$mail]['active'] = true;
+                        $data['subscribers'][$mail]['confirmsent'] = true;
                     }
                 }
-                return false;
+
+                if($data['subscribers'][$mail]['hash'] == $_REQUEST['hash']) {
+                    if($event->data == 'unsubscribe') {
+                        unset($data['subscribers'][$mail]);
+                        msg(sprintf($lang['unsubscribe_success'], $mail, $ID), 1);
+                    } elseif($event->data == 'confirmsubscribe') {
+                        $data['subscribers'][$mail]['active'] = true;
+                        msg(sprintf($lang['subscribe_success'], $mail, $ID), 1);
+                    }
+                    io_saveFile($file, serialize($data));
+                    $event->data = 'show';
+                    return true;
+                } else {
+                    return false;
+                }
             }
         } else {
             // do the data processing for comments
@@ -385,10 +399,22 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             $mail = $comment['user']['mail'];
             if($data['subscribers']) {
                 if(!$data['subscribers'][$mail]) {
-                    $data['subscribers'][$mail] = md5($mail . mt_rand());
+                    $data['subscribers'][$mail]['hash'] = md5($mail . mt_rand());
+                    $data['subscribers'][$mail]['active'] = false;
+                    $data['subscribers'][$mail]['confirmsent'] = false;
+                } else {
+                    // convert old style subscribers and set them active
+                    if(!is_array($data['subscribers'][$mail])) {
+                        $hash = $data['subscribers'][$mail];
+                        $data['subscribers'][$mail]['hash'] = $hash;
+                        $data['subscribers'][$mail]['active'] = true;
+                        $data['subscribers'][$mail]['confirmsent'] = true;
+                    }
                 }
             } else {
-                $data['subscribers'][$mail] = md5($mail . mt_rand());
+                $data['subscribers'][$mail]['hash']   = md5($mail . mt_rand());
+                $data['subscribers'][$mail]['active'] = false;
+                $data['subscribers'][$mail]['confirmsent'] = false;
             }
         }
 
@@ -398,13 +424,13 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         // update the number of comments
         $data['number']++;
 
-        // save the comment metadata file
-        io_saveFile($file, serialize($data));
-        $this->_addLogEntry($date, $ID, 'cc', '', $cid);
-
         // notify subscribers of the page
         $data['comments'][$cid]['cid'] = $cid;
         $this->_notify($data['comments'][$cid], $data['subscribers']);
+
+        // save the comment metadata file
+        io_saveFile($file, serialize($data));
+        $this->_addLogEntry($date, $ID, 'cc', '', $cid);
 
         $this->_redirect($cid);
         return true;
@@ -986,12 +1012,14 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
      * @author Andreas Gohr <andi@splitbrain.org>
      * @author Esther Brunner <wikidesign@gmail.com>
      */
-    function _notify($comment, $subscribers) {
+    function _notify($comment, &$subscribers) {
         global $conf;
         global $ID;
 
-        $text = io_readfile($this->localfn('subscribermail'));
-        $subject = '['.$conf['title'].'] '.$this->getLang('mail_newcomment');
+        $notify_text = io_readfile($this->localfn('subscribermail'));
+        $confirm_text = io_readfile($this->localfn('confirmsubscribe'));
+        $subject_notify = '['.$conf['title'].'] '.$this->getLang('mail_newcomment');
+        $subject_subscribe = '['.$conf['title'].'] '.$this->getLang('subscribe');
 
         $search = array(
                 '@PAGE@',
@@ -1021,29 +1049,48 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                     DOKU_URL,
                     );
 
-                $body = str_replace($search, $replace, $text);
-                mail_send($to, $subject, $body, $conf['mailfrom'], '', $bcc);
+                $body = str_replace($search, $replace, $notify_text);
+                mail_send($to, $subject_notify, $body, $conf['mailfrom'], '', $bcc);
         }
 
         // notify comment subscribers
         if (!empty($subscribers)) {
 
-            foreach($subscribers as $mail => $hash) {
+            foreach($subscribers as $mail => $data) {
                 $to = $mail;
 
-                $replace = array(
-                        $ID,
-                        $conf['title'],
-                        strftime($conf['dformat'], $comment['date']['created']),
-                        $comment['user']['name'],
-                        $comment['raw'],
-                        wl($ID, '', true) . '#comment_' . $comment['cid'],
-                        wl($ID, 'do=unsubscribe&hash=' . $hash, true, '&'),
-                        DOKU_URL,
-                        );
+                if($data['active']) {
+                    $replace = array(
+                            $ID,
+                            $conf['title'],
+                            strftime($conf['dformat'], $comment['date']['created']),
+                            $comment['user']['name'],
+                            $comment['raw'],
+                            wl($ID, '', true) . '#comment_' . $comment['cid'],
+                            wl($ID, 'do=unsubscribe&hash=' . $data['hash'], true, '&'),
+                            DOKU_URL,
+                            );
 
-                $body = str_replace($search, $replace, $text);
-                mail_send($to, $subject, $body, $conf['mailfrom']);
+                    $body = str_replace($search, $replace, $notify_text);
+                    mail_send($to, $subject_notify, $body, $conf['mailfrom']);
+                } elseif(!$data['active'] && !$data['confirmsent']) {
+                    $search = array(
+                            '@PAGE@',
+                            '@TITLE@',
+                            '@SUBSCRIBE@',
+                            '@DOKUWIKIURL@',
+                            );
+                    $replace = array(
+                            $ID,
+                            $conf['title'],
+                            wl($ID, 'do=confirmsubscribe&hash=' . $data['hash'], true, '&'),
+                            DOKU_URL,
+                            );
+
+                    $body = str_replace($search, $replace, $confirm_text);
+                    mail_send($to, $subject_subscribe, $body, $conf['mailfrom']);
+                    $subscribers[$mail]['confirmsent'] = true;
+                }
             }
         }
     }
