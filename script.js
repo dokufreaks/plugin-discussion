@@ -25,17 +25,23 @@ function isBlank(s){
 function validate(form){
     if(!form) return;
 
-    if (isBlank(form.mail.value) || form.mail.value.indexOf("@") == -1){
-        form.mail.style.class = form.mail.style.class + ' error';
-        form.mail.focus();
-        return false;
-    }
     if (isBlank(form.name.value)){
         form.name.focus();
+        form.name.style.backgroundColor = '#fcc';
         return false;
+    } else {
+        form.name.style.backgroundColor = '#fff';
+    }
+    if (isBlank(form.mail.value) || form.mail.value.indexOf("@") == -1){
+        form.mail.focus();
+        form.mail.style.backgroundColor = '#fcc';
+        return false;
+    } else {
+        form.mail.style.backgroundColor = '#fff';
     }
     if (isBlank(form.text.value)){
         form.text.focus();
+        form.text.style.borderColor = '#fcc';
         return false;
     }
 }
