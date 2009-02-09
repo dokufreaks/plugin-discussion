@@ -176,11 +176,13 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             $cid  = $_REQUEST['cid'];  
             switch ($_REQUEST['comment']) {
                 case 'add':
+                    if(empty($_REQUEST['text'])) return; // don't add empty comments
                     if(isset($_SERVER['REMOTE_USER']) && !$this->getConf('adminimport')) {
                         $comment['user']['id'] = $_SERVER['REMOTE_USER'];
                         $comment['user']['name'] = $INFO['userinfo']['name'];
                         $comment['user']['mail'] = $INFO['userinfo']['mail'];
                     } elseif((isset($_SERVER['REMOTE_USER']) && $this->getConf('adminimport') && auth_ismanager()) || !isset($_SERVER['REMOTE_USER'])) {
+                        if(empty($_REQUEST['name']) or empty($_REQUEST['mail'])) return // don't add anonymous comments
                         $comment['user']['id'] = 'test'.hsc($_REQUEST['user']);
                         $comment['user']['name'] = hsc($_REQUEST['name']);
                         $comment['user']['mail'] = hsc($_REQUEST['mail']);
@@ -760,13 +762,13 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
               <div class="comment_name">
                 <label class="block" for="discussion__comment_name">
                   <span><?php echo $lang['fullname'] ?>:</span>
-                  <input type="text" class="edit" name="name" id="discussion__comment_name" size="50" tabindex="1" value="<?php echo hsc($_REQUEST['name'])?>" />
+                  <input type="text" class="edit<?php if($_REQUEST['comment'] == 'add' && empty($_REQUEST['name'])) echo ' error'?>" name="name" id="discussion__comment_name" size="50" tabindex="1" value="<?php echo hsc($_REQUEST['name'])?>" />
                 </label>
               </div>
               <div class="comment_mail">
                 <label class="block" for="discussion__comment_mail">
                   <span><?php echo $lang['email'] ?>:</span>
-                  <input type="text" class="edit" name="mail" id="discussion__comment_mail" size="50" tabindex="2" value="<?php echo hsc($_REQUEST['mail'])?>" />
+                  <input type="text" class="edit<?php if($_REQUEST['comment'] == 'add' && empty($_REQUEST['mail'])) echo ' error'?>" name="mail" id="discussion__comment_mail" size="50" tabindex="2" value="<?php echo hsc($_REQUEST['mail'])?>" />
                 </label>
               </div>
         <?php
@@ -820,7 +822,13 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                   <?php echo $this->getLang('entercomment')?>
                   <?php if($this->getLang('wikisyntaxok')) echo ', ' . $this->getLang('wikisyntax') . ':';?> 
                 </div>
-                <textarea class="edit" name="text" cols="80" rows="10" id="discussion__comment_text" tabindex="5"><?php echo formText($raw) ?></textarea>
+                <textarea class="edit<?php if($_REQUEST['comment'] == 'add' && empty($_REQUEST['text'])) echo ' error'?>" name="text" cols="80" rows="10" id="discussion__comment_text" tabindex="5"><?php
+                  if($raw) { 
+                      echo formText($raw); 
+                  } else { 
+                      echo $_REQUEST['text']; 
+                  }
+                ?></textarea>
               </div>
         <?php //bad and dirty event insert hook
         $evdata = array('writable' => true);

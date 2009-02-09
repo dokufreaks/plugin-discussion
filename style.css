@@ -27,7 +27,7 @@ div.dokuwiki div.comment_form {
 }
 
 div.dokuwiki div.comment_form .error {
-  background: #ffc;
+  background: #fcc;
 }
 
 div.dokuwiki #discussion__comment_form label input.edit {
