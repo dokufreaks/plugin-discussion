@@ -162,7 +162,7 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
             ptln('<option value="'.$key.'"'.$selected.'>'.$label.'</option>', 12);
         }
         ptln('</select> ', 10);
-        ptln('<input type="submit" name="comment" value="'.$this->getLang('btn_change').'" class"button" title="'.$this->getLang('btn_change').'" />', 10);
+        ptln('<input type="submit" class="button" name="comment" value="'.$this->getLang('btn_change').'" class"button" title="'.$this->getLang('btn_change').'" />', 10);
         ptln('</div>', 8);
         ptln('</form>', 6);
         ptln('<div class="level2">', 6);

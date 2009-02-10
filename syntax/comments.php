@@ -71,12 +71,12 @@ class syntax_plugin_discussion_comments extends DokuWiki_Syntax_Plugin {
         $file = metaFN($ID, '.comments');
 
         $data = array();
-        if (@file_exists($file)) $data = unserialize(io_readFile($file, false));
-        if (($data['status'] != $status) || ($data['title'] != $title)) {
-            $data['title']  = $title;
-            $data['status'] = $status;
-            io_saveFile($file, serialize($data));
+        if (@file_exists($file)) {
+            $data = unserialize(io_readFile($file, false));
         }
+        $data['title']  = $title;
+        $data['status'] = $status;
+        io_saveFile($file, serialize($data));
 
         return $status;
     }
