@@ -193,7 +193,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                     $comment['date'] = array('created' => $_REQUEST['date']);
                     $comment['raw'] = cleanText($_REQUEST['text']);
                     $repl = $_REQUEST['reply'];
-                    if($this->getConf('moderate')) {
+                    if($this->getConf('moderate') && !auth_ismanager()) {
                         $comment['show'] = false;
                     } else {
                         $comment['show'] = true;
@@ -264,7 +264,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
 
         if ($ACT !== 'show') return;
 
-        if($this->getConf('moderate')) {
+        if($this->getConf('moderate') && !auth_ismanager()) {
             msg($this->getLang('moderation'), 1);
             @session_start();
             global $MSG;
