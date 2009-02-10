@@ -93,6 +93,7 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
             $pagelist->setFlags($flags);
             $pagelist->startList();
             foreach ($pages as $page) {
+                $page['class'] = 'discussion_status'.$page['status'];
                 $pagelist->addPage($page);
             }
             $renderer->doc .= $pagelist->finishList();
