@@ -289,6 +289,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         // get .comments meta file name
         $file = metaFN($ID, '.comments');
 
+        if (!$INFO['exists']) return;
         if (!@file_exists($file) && !$this->getConf('automatic')) return false;
 
         // load data
