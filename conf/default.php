@@ -14,6 +14,7 @@ $conf['usecocomment'] = 0;   // use coComment comment tracking
 $conf['wikisyntaxok'] = 1;   // allow wiki syntax in comments
 $conf['subscribe']    = 1;   // enable/disable subscribe to comments
 $conf['newestfirst']  = 0;   // list newest comments first
+$conf['moderate']     = 0;   // moderate newly added comments
 
 $conf['usethreading'] = 1;
 

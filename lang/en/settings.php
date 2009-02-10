@@ -18,6 +18,7 @@ $lang['usecocomment'] = 'use coComment comment tracking';
 $lang['wikisyntaxok'] = 'allow wiki syntax in comments';
 $lang['subscribe']    = 'enable/disable subscribe to comments';
 $lang['newestfirst']  = 'list newest comments first';
+$lang['moderate']     = 'moderate new comments';
 
 $lang['usethreading'] = 'allow threading of comments';
 

@@ -17,6 +17,7 @@ $meta['usecocomment'] = array('onoff');
 $meta['wikisyntaxok'] = array('onoff');
 $meta['subscribe']    = array('onoff');
 $meta['newestfirst']  = array('onoff');
+$meta['moderate']     = array('onoff');
 
 $meta['usethreading'] = array('onoff');
 

@@ -193,6 +193,11 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                     $comment['date'] = array('created' => $_REQUEST['date']);
                     $comment['raw'] = cleanText($_REQUEST['text']);
                     $repl = $_REQUEST['reply'];
+                    if($this->getConf('moderate')) {
+                        $comment['show'] = false;
+                    } else {
+                        $comment['show'] = true;
+                    }
                     $this->_add($comment, $repl);
                     break;
 
@@ -258,7 +263,18 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         global $ACT;
 
         if ($ACT !== 'show') return;
-        header('Location: ' . wl($ID) . '#comment_' . $cid);
+
+        if($this->getConf('moderate')) {
+            msg($this->getLang('moderation'), 1);
+            @session_start();
+            global $MSG;
+            $_SESSION[DOKU_COOKIE]['msg'] = $MSG;
+            session_write_close();
+            $url = wl($ID);
+        } else {
+            $url = wl($ID) . '#comment_' . $cid;
+        }
+        send_redirect($url);
         exit();
     }
 
@@ -394,7 +410,8 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                 'raw'     => $comment['raw'],
                 'xhtml'   => $xhtml,
                 'parent'  => $parent,
-                'replies' => array()
+                'replies' => array(),
+                'show'    => $comment['show']
                 );
 
         if($comment['subscribe']) {
