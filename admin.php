@@ -60,7 +60,7 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
 
         $first = $_REQUEST['first'];
         if (!is_numeric($first)) $first = 0;
-        $num = $conf['recent'];
+        $num = ($conf['recent']) ? $conf['recent'] : 20;
 
         ptln('<h1>'.$this->getLang('menu').'</h1>');
 
