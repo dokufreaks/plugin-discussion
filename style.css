@@ -126,3 +126,7 @@ div.dokuwiki ul.admin_discussion li.hidden {
 div.dokuwiki ul.admin_discussion span.abstract {
   color: __text_neu__;
 }
+
+div.dokuwiki table.pagelist tr.discussion_status2 a {
+  color: __text_neu__ !important;
+}
