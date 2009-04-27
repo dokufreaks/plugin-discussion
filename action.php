@@ -666,28 +666,9 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
 
         // show avatar image?
         if ($this->_use_avatar()) {
-
-            $avatar = '';
-
-            // check mail first
-            if ($mail) {
-                $avatar = $this->avatar->getXHTML($mail, $name, 'left');
-            }
-            
-            // okay maybe a user avatar?
-            // FIXME make namespace configurable
-            $files = @glob(mediaFN('user') . '/' . $user . '.*');
-            if(!$avatar && $files) { 
-                $avatar = $this->avatar->getXHTML($user, $name, 'left');
-            }
-
-            // well it's a monster then
-            if(!$avatar) {
-                $avatar = $this->avatar->getXHTML($name, $name, 'left');
-            }
-
-            $head .= $avatar;
-
+            if(!$mail) $mail = $name;
+            $avatar = $this->avatar->getXHTML($mail, $name, 'left');
+            if($avatar) $head .= $avatar;
         }
 
         if ($this->getConf('linkemail') && $mail) {
