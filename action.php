@@ -89,11 +89,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         if(!$_SERVER['REMOTE_USER'] && !$this->getConf('allowguests')) {
             print p_locale_xhtml('denied');
         } else {
-            if($this->getConf('wikisyntaxok')) {
-                print p_render('xhtml', p_get_instructions($_REQUEST['comment']), $info);
-            } else {
-                print hsc($_REQUEST['comment']);
-            }
+            print $this->_render($_REQUEST['comment']);
         }
         print '</div>';
     }
@@ -1192,7 +1188,8 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         if ($this->getConf('wikisyntaxok')) {
             $xhtml = $this->render($raw);
         } else { // wiki syntax not allowed -> just encode special chars
-            $xhtml = htmlspecialchars(trim($raw));
+            $xhtml = hsc(trim($raw));
+            $xhtml = str_replace("\n", '<br />', $xhtml);
         }
         return $xhtml;
     }
