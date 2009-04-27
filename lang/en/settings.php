@@ -23,6 +23,7 @@ $lang['moderate']     = 'moderate new comments';
 $lang['usethreading'] = 'allow threading of comments';
 
 $lang['threads_formposition']          = 'position of the new thread form';
+$lang['threads_formposition_o_off']    = 'off';
 $lang['threads_formposition_o_top']    = 'top';
 $lang['threads_formposition_o_bottom'] = 'bottom';
 

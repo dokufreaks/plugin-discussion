@@ -23,7 +23,7 @@ $meta['usethreading'] = array('onoff');
 
 $meta['threads_formposition'] = array(
                                   'multichoice',
-                                  '_choices' => array('top', 'bottom')
+                                  '_choices' => array('off', 'top', 'bottom')
                                 );
 
 //Setup VIM: ex: et ts=2 enc=utf-8 :
