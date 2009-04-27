@@ -66,6 +66,36 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                 'handle_toolbar_define',
                 array()
                 );
+        $contr->register_hook(
+                'AJAX_CALL_UNKNOWN',
+                'BEFORE',
+                $this,
+                'handle_ajax_call',
+                array()
+                );
+    }
+
+    /**
+     * Preview Comments
+     *
+     * @author Michael Klier <chi@chimeric.de>
+     */
+    function handle_ajax_call(&$event, $params) {
+        if($event->data != 'discussion_preview') return;
+        $event->preventDefault();
+        $event->stopPropagation();
+        print p_locale_xhtml('preview');
+        print '<div class="comment_preview">';
+        if(!$_SERVER['REMOTE_USER'] && !$this->getConf('allowguests')) {
+            print p_locale_xhtml('denied');
+        } else {
+            if($this->getConf('wikisyntaxok')) {
+                print p_render('xhtml', p_get_instructions($_REQUEST['comment']), $info);
+            } else {
+                print hsc($_REQUEST['comment']);
+            }
+        }
+        print '</div>';
     }
 
     /**
@@ -774,7 +804,6 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
               <input type="hidden" name="id" value="<?php echo $ID ?>" />
               <input type="hidden" name="do" value="show" />
               <input type="hidden" name="comment" value="<?php echo $act ?>" />
-              <input type="hidden" name="wikisyntaxok" id="discussion__comment_wikisyntaxok" value="<?php echo $this->getConf('wikisyntaxok') ?>" />
         <?php
         // for adding a comment
         if ($act == 'add') {

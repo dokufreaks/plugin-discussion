@@ -59,12 +59,14 @@ function discussion_ajax_preview() {
     if(!comment) return;
 
     var preview = $('discussion__comment_preview');
-    var wikisyntaxok = $('discussion__comment_wikisyntaxok');
+    preview.innerHTML = '<img src="'+DOKU_BASE+'/lib/images/throbber.gif" />';
 
     // We use SACK to do the AJAX requests
-    var ajax = new sack(DOKU_BASE+'lib/plugins/discussion/ajax.php');
-    ajax_qsearch.sack.AjaxFailedAlert = '';
-    ajax_qsearch.sack.encodeURIString = false;
+    var ajax = new sack(DOKU_BASE+'lib/exe/ajax.php');
+    ajax.AjaxFailedAlert = '';
+    ajax.encodeURIString = false;
+    ajax.setVar('call', 'discussion_preview');
+    ajax.setVar('comment', comment);
 
     // define callback
     ajax.onCompletion = function(){
@@ -75,7 +77,7 @@ function discussion_ajax_preview() {
         preview.style.visibility = 'visible';
     };
 
-    ajax.runAJAX('comment='+comment+'&wikisyntaxok='+wikisyntaxok.value);
+    ajax.runAJAX();
 }
 
 // init toolbar
