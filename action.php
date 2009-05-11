@@ -491,6 +491,8 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     function _save($cids, $raw, $act = NULL) {
         global $ID;
 
+        if(!$cids) return; // do nothing if we get no comment id
+
         if ($raw) {
             global $TEXT;
 
