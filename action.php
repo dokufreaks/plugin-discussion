@@ -73,6 +73,13 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                 'handle_ajax_call',
                 array()
                 );
+        $contr->register_hook(
+                'TPL_TOC_RENDER',
+                'BEFORE',
+                $this,
+                'handle_toc_render',
+                array()
+                );
     }
 
     /**
@@ -92,6 +99,23 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             print $this->_render($_REQUEST['comment']);
         }
         print '</div>';
+    }
+
+    /**
+     * Adds a TOC item if a discussion exists
+     *
+     * @author Michael Klier <chi@chimeric.de>
+     */
+    function handle_toc_render(&$event, $params) {
+        global $ID;
+        if($this->_hasDiscussion($title) && $event->data) {
+            $tocitem = array( 'hid' => 'discussion__section',
+                              'title' => $this->getLang('discussion'),
+                              'type' => 'ul',
+                              'level' => 1 );
+
+            array_push($event->data, $tocitem);
+        }
     }
 
     /**
@@ -239,27 +263,6 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                 case 'toogle':
                     $this->_save(array($cid), '', 'toogle');
                     break;
-            }
-        }
-
-        // FIXME use new TPL_TOC_RENDER event in the future
-        if(count($INFO['meta']['description']['tableofcontents']) >= ($conf['maxtoclevel']-1) && $INFO['meta']['internal']['toc']) {
-
-            $TOC = array();
-            global $TOC;
-            $TOC = $INFO['meta']['description']['tableofcontents'];
-
-            $tocitem = array( 'hid' => 'discussion__section',
-                              'title' => $this->getLang('discussion'),
-                              'type' => 'ul',
-                              'level' => 1 );
-
-            $file = metaFN($ID, '.comments');
-            if(@file_exists($file)) {
-                $data = unserialize(io_readFile($file));
-                if($data['status'] != 0 && !empty($TOC)) {
-                    $TOC[] = $tocitem;
-                }
             }
         }
     }
