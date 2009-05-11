@@ -669,6 +669,13 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             $modified = $comment['edited'];
         }
 
+        // show username or real name?
+        if ((!$this->getConf('userealname')) && ($user)) {
+            $showname = $user;
+        } else {
+            $showname = $name;
+        }
+
         // show avatar image?
         if ($this->_use_avatar()) {
             if(!$mail) $mail = $name;
@@ -677,11 +684,11 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         }
 
         if ($this->getConf('linkemail') && $mail) {
-            $head .= $this->email($mail, $name, 'email fn');
+            $head .= $this->email($mail, $showname, 'email fn');
         } elseif ($url) {
-            $head .= $this->external_link($this->_checkURL($url), $name, 'urlextern url fn');
+            $head .= $this->external_link($this->_checkURL($url), $showname, 'urlextern url fn');
         } else {
-            $head .= '<span class="fn">'.$name.'</span>';
+            $head .= '<span class="fn">'.$showname.'</span>';
         }
         if ($address) $head .= ', <span class="adr">'.$address.'</span>';
         $head .= '</span>, '.

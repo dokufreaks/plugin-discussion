@@ -20,6 +20,7 @@ $meta['newestfirst']  = array('onoff');
 $meta['moderate']     = array('onoff');
 
 $meta['usethreading'] = array('onoff');
+$meta['userealname']  = array('onoff');
 
 $meta['threads_formposition'] = array(
                                   'multichoice',

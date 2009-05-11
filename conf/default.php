@@ -17,6 +17,7 @@ $conf['newestfirst']  = 0;   // list newest comments first
 $conf['moderate']     = 0;   // moderate newly added comments
 
 $conf['usethreading'] = 1;
+$conf['userealname']  = 1;
 
 $conf['threads_formposition'] = 'bottom'; // position of new thread form
 

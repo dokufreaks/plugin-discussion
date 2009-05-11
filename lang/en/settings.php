@@ -21,6 +21,7 @@ $lang['newestfirst']  = 'list newest comments first';
 $lang['moderate']     = 'moderate new comments';
 
 $lang['usethreading'] = 'allow threading of comments';
+$lang['userealname']  = 'display real name instead of user name of registered wiki users';
 
 $lang['threads_formposition']          = 'position of the new thread form';
 $lang['threads_formposition_o_off']    = 'off';
