@@ -185,9 +185,9 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         }
 
         // if we are not in show mode or someone wants to unsubscribe, that was all for now    
-        if ($event->data != 'show' && $event->data != 'unsubscribe' && $event->data != 'confirmsubscribe') return;
+        if ($event->data != 'show' && $event->data != 'discussion_unsubscribe' && $event->data != 'discussion_confirmsubscribe') return;
 
-        if ($event->data == 'unsubscribe' or $event->data == 'confirmsubscribe') {
+        if ($event->data == 'discussion_unsubscribe' or $event->data == 'discussion_confirmsubscribe') {
             // ok we can handle it prevent others
             $event->preventDefault();
 
@@ -207,10 +207,10 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                 }
 
                 if($data['subscribers'][$mail]['hash'] == $_REQUEST['hash']) {
-                    if($event->data == 'unsubscribe') {
+                    if($event->data == 'discussion_unsubscribe') {
                         unset($data['subscribers'][$mail]);
                         msg(sprintf($lang['unsubscribe_success'], $mail, $ID), 1);
-                    } elseif($event->data == 'confirmsubscribe') {
+                    } elseif($event->data == 'discussion_confirmsubscribe') {
                         $data['subscribers'][$mail]['active'] = true;
                         msg(sprintf($lang['subscribe_success'], $mail, $ID), 1);
                     }
@@ -1110,7 +1110,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                             $comment['user']['name'],
                             $comment['raw'],
                             wl($ID, '', true) . '#comment_' . $comment['cid'],
-                            wl($ID, 'do=unsubscribe&hash=' . $data['hash'], true, '&'),
+                            wl($ID, 'do=discussion_unsubscribe&hash=' . $data['hash'], true, '&'),
                             DOKU_URL,
                             );
 
@@ -1126,7 +1126,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                     $replace = array(
                             $ID,
                             $conf['title'],
-                            wl($ID, 'do=confirmsubscribe&hash=' . $data['hash'], true, '&'),
+                            wl($ID, 'do=discussion_confirmsubscribe&hash=' . $data['hash'], true, '&'),
                             DOKU_URL,
                             );
 
