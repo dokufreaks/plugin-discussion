@@ -1067,11 +1067,16 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     function _notify($comment, &$subscribers) {
         global $conf;
         global $ID;
+        global $INFO;
 
         $notify_text = io_readfile($this->localfn('subscribermail'));
         $confirm_text = io_readfile($this->localfn('confirmsubscribe'));
         $subject_notify = '['.$conf['title'].'] '.$this->getLang('mail_newcomment');
         $subject_subscribe = '['.$conf['title'].'] '.$this->getLang('subscribe');
+        $from = $conf['mailfrom'];
+        $from = str_replace('@USER@',$_SERVER['REMOTE_USER'],$from);
+        $from = str_replace('@NAME@',$INFO['userinfo']['name'],$from);
+        $from = str_replace('@MAIL@',$INFO['userinfo']['mail'],$from);
 
         $search = array(
                 '@PAGE@',
@@ -1102,7 +1107,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                     );
 
                 $body = str_replace($search, $replace, $notify_text);
-                mail_send($to, $subject_notify, $body, $conf['mailfrom'], '', $bcc);
+                mail_send($to, $subject_notify, $body, $from, '', $bcc);
         }
 
         // notify comment subscribers
@@ -1124,7 +1129,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                             );
 
                     $body = str_replace($search, $replace, $notify_text);
-                    mail_send($to, $subject_notify, $body, $conf['mailfrom']);
+                    mail_send($to, $subject_notify, $body, $from);
                 } elseif(!$data['active'] && !$data['confirmsent']) {
                     $search = array(
                             '@PAGE@',
@@ -1140,7 +1145,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                             );
 
                     $body = str_replace($search, $replace, $confirm_text);
-                    mail_send($to, $subject_subscribe, $body, $conf['mailfrom']);
+                    mail_send($to, $subject_subscribe, $body, $from);
                     $subscribers[$mail]['confirmsent'] = true;
                 }
             }
