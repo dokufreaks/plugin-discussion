@@ -5,6 +5,7 @@
 
 $conf['automatic']    = 0;   // discussion section on every page by default
 $conf['allowguests']  = 1;   // should unregistred users be able to comment?
+$conf['showguests']   = 1;   // show/hide comments from guests
 $conf['linkemail']    = 0;   // link usernames with e-mail addresses
 $conf['useavatar']    = 1;   // use Avatar Plugin to display user images in comments
 $conf['urlfield']     = 0;   // allow entering an URL

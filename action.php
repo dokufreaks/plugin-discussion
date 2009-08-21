@@ -320,6 +320,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
 
         if (!$INFO['exists']) return;
         if (!@file_exists($file) && !$this->getConf('automatic')) return false;
+        if (!$_SERVER['REMOTE_USER'] && !$this->getConf('showguests')) return false;
 
         // load data
         if (@file_exists($file)) {

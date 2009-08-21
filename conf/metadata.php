@@ -8,6 +8,7 @@
 
 $meta['automatic']    = array('onoff');
 $meta['allowguests']  = array('onoff');
+$meta['showguests']   = array('onoff');
 $meta['linkemail']    = array('onoff');
 $meta['useavatar']    = array('onoff');
 $meta['urlfield']     = array('onoff');
