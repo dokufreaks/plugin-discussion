@@ -619,21 +619,12 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             $hidden = '';
         }
 
-        if($this->getConf('newestfirst')) {
-            // reply form
-            $this->_print_form($cid, $reply);
-            // replies to this comment entry?
-            $this->_print_replies($cid, $data, $reply, $visible);
-            // print the actual comment
-            $this->_print_comment($cid, $data, $parent, $reply, $visible, $hidden);
-        } else {
-            // print the actual comment
-            $this->_print_comment($cid, $data, $parent, $reply, $visible, $hidden);
-            // replies to this comment entry?
-            $this->_print_replies($cid, $data, $reply, $visible);
-            // reply form
-            $this->_print_form($cid, $reply);
-        }
+        // print the actual comment
+        $this->_print_comment($cid, $data, $parent, $reply, $visible, $hidden);
+        // replies to this comment entry?
+        $this->_print_replies($cid, $data, $reply, $visible);
+        // reply form
+        $this->_print_form($cid, $reply);
     }
 
     function _print_comment($cid, &$data, $parent, $reply, $visible, $hidden)    
