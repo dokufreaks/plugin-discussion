@@ -331,13 +331,20 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             $data['number'] = 0;
         }
 
-        // section title
-        $title = ($data['title'] ? hsc($data['title']) : $this->getLang('discussion'));
-        ptln('<div class="comment_wrapper">');
-        ptln('<h2><a name="discussion__section" id="discussion__section">', 2);
-        ptln($title, 4);
-        ptln('</a></h2>', 2);
-        ptln('<div class="level2 hfeed">', 2); 
+        // show discussion wrapper only on certain circumstances
+        $cnt = count($data['comments']);
+        $keys = array_keys($data['comments']);
+        if($cnt > 1 || ($cnt == 1 && $data['comments'][$keys[0]]['show'] == 1) || $this->getConf('allowguests') || isset($_SERVER['REMOTE_USER'])) {
+            $show = true;
+            // section title
+            $title = ($data['title'] ? hsc($data['title']) : $this->getLang('discussion'));
+            ptln('<div class="comment_wrapper">');
+            ptln('<h2><a name="discussion__section" id="discussion__section">', 2);
+            ptln($title, 4);
+            ptln('</a></h2>', 2);
+            ptln('<div class="level2 hfeed">', 2); 
+        }
+
         // now display the comments
         if (isset($data['comments'])) {
             if (!$this->getConf('usethreading')) {
@@ -356,8 +363,10 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         // comment form
         if (($data['status'] == 1) && (!$reply || !$this->getConf('usethreading')) && !$edit) $this->_form('');
 
-        ptln('</div>', 2); // level2 hfeed
-        ptln('</div>'); // comment_wrapper
+        if($show) {
+            ptln('</div>', 2); // level2 hfeed
+            ptln('</div>'); // comment_wrapper
+        }
 
         return true;
     }
