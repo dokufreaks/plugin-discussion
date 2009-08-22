@@ -679,8 +679,10 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
 
         // show avatar image?
         if ($this->_use_avatar()) {
-            if(!$mail) $mail = $name;
-            $avatar = $this->avatar->getXHTML($mail, $name, 'left');
+            $user_data['name'] = $name;
+            $user_data['user'] = $user;
+            $user_data['mail'] = $mail;
+            $avatar = $this->avatar->getXHTML($user_data, $name, 'left');
             if($avatar) $head .= $avatar;
         }
 
