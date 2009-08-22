@@ -334,7 +334,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
 
         // show discussion wrapper only on certain circumstances
         $cnt = count($data['comments']);
-        $keys = array_keys($data['comments']);
+        $keys = @array_keys($data['comments']);
         if($cnt > 1 || ($cnt == 1 && $data['comments'][$keys[0]]['show'] == 1) || $this->getConf('allowguests') || isset($_SERVER['REMOTE_USER'])) {
             $show = true;
             // section title
