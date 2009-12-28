@@ -179,9 +179,13 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         }
 
         // enable captchas
-        if ((in_array($_REQUEST['comment'], array('add', 'save')))
-                && (@file_exists(DOKU_PLUGIN.'captcha/action.php'))) {
-            $this->_captchaCheck();
+        if (in_array($_REQUEST['comment'], array('add', 'save'))) {
+            if (@file_exists(DOKU_PLUGIN.'captcha/action.php')) {
+                $this->_captchaCheck();
+            }
+            if (@file_exists(DOKU_PLUGIN.'recaptcha/action.php')) {
+                $this->_recaptchaCheck();
+            }
         }
 
         // if we are not in show mode or someone wants to unsubscribe, that was all for now
@@ -1334,6 +1338,26 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             elseif ($_REQUEST['comment'] == 'add') $_REQUEST['comment'] = 'show';
         }
         // if we arrive here it was a valid save
+    }
+
+    /**
+     * checks if the submitted reCAPTCHA string is valid
+     *
+     * @author Adrian Schlegel <adrian@liip.ch>
+     */
+    function _recaptchaCheck() {
+        if (plugin_isdisabled('recaptcha') || (!$recaptcha = plugin_load('helper', 'recaptcha')))
+            return; // reCAPTCHA is disabled or not available
+
+        // do nothing if logged in user and no reCAPTCHA required
+        if (!$recaptcha->getConf('forusers') && $_SERVER['REMOTE_USER']) return;
+
+        $resp = $recaptcha->check();
+        if (!$resp->is_valid) {
+            msg($recaptcha->getLang('testfailed'),-1);
+            if ($_REQUEST['comment'] == 'save') $_REQUEST['comment'] = 'edit';
+            elseif ($_REQUEST['comment'] == 'add') $_REQUEST['comment'] = 'show';
+        }
     }
 
     /**
