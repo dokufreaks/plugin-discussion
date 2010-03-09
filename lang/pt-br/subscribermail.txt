@@ -11,7 +11,7 @@ Comentário:
 @TEXT@
 --------------------------------------------------------
 
-Para se desinscrever desta página "log-se" no wiki e então clique neste link:
+Para desinscrever-se desta página, clique neste link:
 @UNSUBSCRIBE@
 
 --
