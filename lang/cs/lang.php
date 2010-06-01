@@ -12,14 +12,17 @@ $lang['direction']  = 'ltr';
  
 // for admin plugins, the menu prompt to be displayed in the admin menu
 // if set here, the plugin doesn't need to override the getMenuText() method
-$lang['menu']            = 'Moderate Discussions'; 
+$lang['menu']            = 'Moderovat diskusi'; 
 
 $lang['discussion']      = 'Diskuze';
 $lang['comment']         = 'Komentář';
 $lang['comments']        = 'Komentáře';
+$lang['nocomments']      = 'Komentáře';
 $lang['url']             = 'Web';
 $lang['address']         = 'Adresa';
 $lang['date']            = 'Datum';
+$lang['entercomment']    = 'Vložte svůj komentář';
+$lang['wikisyntax']      = 'Popužívání wiki syntaxe povoleno';
 $lang['older']           = 'Starší komentáře';
 $lang['newer']           = 'Novější komentáře';
 $lang['btn_reply']       = 'Odpověď';
@@ -28,7 +31,9 @@ $lang['btn_show']        = 'Zobrazit';
 $lang['btn_change']      = 'Změnit';
 $lang['statuschanged']   = 'Stav diskuse se změnil';
 $lang['wordblock']       = 'Váš příspěvek byl blokován jako spam.';
+$lang['moderation']      = 'Váš komentář byl přidán a čeká na schválení moderátorem.';
 $lang['mail_newcomment'] = 'Nový komentář';
+$lang['subscribe']       = 'Posílat upozornění na nové komentáře';
 
 $lang['status']          = 'Stav';
 $lang['off']             = 'vypnuto';
