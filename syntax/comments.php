@@ -65,7 +65,7 @@ class syntax_plugin_discussion_comments extends DokuWiki_Syntax_Plugin {
         else if ($match == ':closed') $status = 2;
         else $status = 1;
 
-        if ($ACT !== 'save') return $status;
+        if ($ACT == 'preview') return;
 
         // get discussion meta file name
         $file = metaFN($ID, '.comments');
