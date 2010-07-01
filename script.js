@@ -81,9 +81,9 @@ function discussion_ajax_preview() {
 }
 
 // init toolbar
-addInitEvent(function() { 
+addInitEvent(function() {
     if(typeof window.initToolbar == 'function') {
-        initToolbar("discussion__comment_toolbar", "discussion__comment_text", toolbar) 
+        initToolbar("discussion__comment_toolbar", "discussion__comment_text", toolbar);
     }
 });
 

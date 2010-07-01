@@ -132,6 +132,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             foreach($event->data as $btn) {
                 if($btn['type'] == 'mediapopup') continue;
                 if($btn['type'] == 'signature') continue;
+                if($btn['type'] == 'linkwiz') continue;
                 if(preg_match("/=+?/", $btn['open'])) continue;
                 array_push($toolbar, $btn);
             }
