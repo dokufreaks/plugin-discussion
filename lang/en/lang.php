@@ -35,6 +35,7 @@ $lang['wordblock']       = 'Your comment was blocked as spam.';
 $lang['moderation']      = 'Your comment has been added and awaits moderation.';
 $lang['mail_newcomment'] = 'New Comment';
 $lang['subscribe']       = 'Subscribe to comments';
+$lang['noguests']        = 'You could leave a comment if you were logged in.';
 
 $lang['status']          = 'Status';
 $lang['off']             = 'off';

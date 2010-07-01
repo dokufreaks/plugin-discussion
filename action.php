@@ -792,7 +792,14 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         global $INFO;
 
         // not for unregistered users when guest comments aren't allowed
-        if (!$_SERVER['REMOTE_USER'] && !$this->getConf('allowguests')) return false;
+        if (!$_SERVER['REMOTE_USER'] && !$this->getConf('allowguests')) {
+            ?>
+            <div class="comment_form">
+                <?php echo $this->getLang('noguests'); ?>
+            </div>
+            <?php
+            return false;
+        }
 
         // fill $raw with $_REQUEST['text'] if it's empty (for failed CAPTCHA check)
         if (!$raw && ($_REQUEST['comment'] == 'show')) $raw = $_REQUEST['text'];
