@@ -149,10 +149,8 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         global $ID;
         if($ACT != 'show') return;
 
-        // FIXME check if this works for global discussion/on too
         if($this->_hasDiscussion($title) && $this->getConf('wikisyntaxok')) {
             // FIXME ugly workaround, replace this once DW the toolbar code is more flexible
-            array_unshift($event->data['script'], array('type' => 'text/javascript', 'charset' => 'utf-8', '_data' => '', 'src' => DOKU_BASE.'lib/scripts/edit.js'));
             @require_once(DOKU_INC.'inc/toolbar.php');
             ob_start();
             print 'NS = "' . getNS($ID) . '";'; // we have to define NS, otherwise we get get JS errors
