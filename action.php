@@ -240,10 +240,15 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                         $comment['user']['name'] = $INFO['userinfo']['name'];
                         $comment['user']['mail'] = $INFO['userinfo']['mail'];
                     } elseif((isset($_SERVER['REMOTE_USER']) && $this->getConf('adminimport') && auth_ismanager()) || !isset($_SERVER['REMOTE_USER'])) {
-                        if(empty($_REQUEST['name']) or empty($_REQUEST['mail'])) return // don't add anonymous comments
-                        $comment['user']['id'] = 'test'.hsc($_REQUEST['user']);
-                        $comment['user']['name'] = hsc($_REQUEST['name']);
-                        $comment['user']['mail'] = hsc($_REQUEST['mail']);
+                        if(empty($_REQUEST['name']) or empty($_REQUEST['mail'])) return; // don't add anonymous comments
+                        if(!mail_isvalid($_REQUEST['mail'])) {
+                            msg($lang['regbadmail'], -1);
+                            return;
+                        } else {
+                            $comment['user']['id'] = 'test'.hsc($_REQUEST['user']);
+                            $comment['user']['name'] = hsc($_REQUEST['name']);
+                            $comment['user']['mail'] = hsc($_REQUEST['mail']);
+                        }
                     }
                     $comment['user']['address'] = ($this->getConf('addressfield')) ? hsc($_REQUEST['address']) : '';
                     $comment['user']['url'] = ($this->getConf('urlfield')) ? $this->_checkURL($_REQUEST['url']) : '';
