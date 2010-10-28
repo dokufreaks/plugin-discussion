@@ -108,7 +108,8 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
      */
     function handle_toc_render(&$event, $params) {
         global $ID;
-        if($this->_hasDiscussion($title) && $event->data) {
+        global $ACT;
+        if($this->_hasDiscussion($title) && $event->data && $ACT != 'admin') {
             $tocitem = array( 'hid' => 'discussion__section',
                               'title' => $this->getLang('discussion'),
                               'type' => 'ul',
