@@ -8,6 +8,7 @@
  
 // for the configuration manager
 $lang['automatic']    = 'discussion section on every page by default';
+$lang['excluded_ns']  = 'exclusions (semicolumn-separated list of namespaces)';
 $lang['allowguests']  = 'allow comments by unregistered users';
 $lang['showguests']   = 'allow guests to read comments';
 $lang['linkemail']    = 'link commenters name with e-mail';

@@ -320,6 +320,27 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         send_redirect($url);
         exit();
     }
+    
+    /**
+     * Should we render the form on the current page
+     * according to current configuration settings
+     */
+    function is_shown() {
+        global $INFO;
+        
+        // handle excluded_ns 
+    		$exclusion_list = $this->getConf('excluded_ns');    		
+    		if ($exclusion_list == "")
+    			$exclusion_list = array();
+    		else 
+    			$exclusion_list = @explode(';', strtolower($exclusion_list));    			
+    		$is_exclusion = in_array(strtolower($INFO['namespace']), $exclusion_list);
+    		
+    		return
+    		    ($this->getConf('automatic') && (!$is_exclusion)) ||
+    		    ((!$this->getConf('automatic')) && $is_exclusion);
+    }
+    
 
     /**
      * Shows all comments of the current page
@@ -328,24 +349,26 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         global $ID;
         global $INFO;
         global $ACT;
+        
 
         // get .comments meta file name
         $file = metaFN($ID, '.comments');
-
+        
         if (!$INFO['exists']) return;
-        if (!@file_exists($file) && !$this->getConf('automatic')) return false;
+        if (!@file_exists($file) && !$this->is_shown()) return false;
         if (!$_SERVER['REMOTE_USER'] && !$this->getConf('showguests')) return false;
 
         // load data
         if (@file_exists($file)) {
             $data = unserialize(io_readFile($file, false));
             if (!$data['status']) return false; // comments are turned off
-        } elseif (!@file_exists($file) && $this->getConf('automatic') && $INFO['exists']) {
+        } elseif (!@file_exists($file) && $this->is_shown() && $INFO['exists']) {
             // set status to show the comment form
             $data['status'] = 1;
             $data['number'] = 0;
         }
 
+        echo "???";
         // show discussion wrapper only on certain circumstances
         $cnt = count($data['comments']);
         $keys = @array_keys($data['comments']);
@@ -1225,7 +1248,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         $cfile = metaFN($ID, '.comments');
 
         if (!@file_exists($cfile)) {
-            if ($this->getConf('automatic')) {
+            if ($this->is_shown()) {
                 return true;
             } else {
                 return false;

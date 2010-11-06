@@ -4,6 +4,7 @@
  */
 
 $conf['automatic']    = 0;   // discussion section on every page by default
+$conf['excluded_ns']  = "playground"; // namespaces to ignore, separated by ";"
 $conf['allowguests']  = 1;   // should unregistred users be able to comment?
 $conf['showguests']   = 1;   // show/hide comments from guests
 $conf['linkemail']    = 0;   // link usernames with e-mail addresses
