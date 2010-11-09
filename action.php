@@ -330,10 +330,11 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         
         // handle excluded_ns 
     		$exclusion_list = $this->getConf('excluded_ns');    		
-    		if ($exclusion_list == "")
+    		if ($exclusion_list == "") {
     			$exclusion_list = array();
-    		else 
+    		} else { 
     			$exclusion_list = @explode(';', strtolower($exclusion_list));    			
+    		}
     		$is_exclusion = in_array(strtolower($INFO['namespace']), $exclusion_list);
     		
     		return
@@ -368,7 +369,6 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             $data['number'] = 0;
         }
 
-        echo "???";
         // show discussion wrapper only on certain circumstances
         $cnt = count($data['comments']);
         $keys = @array_keys($data['comments']);
