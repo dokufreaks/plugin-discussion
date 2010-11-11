@@ -331,11 +331,20 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         // handle excluded_ns 
         $exclusions = $this->getConf('excluded_ns');
     		$is_exclusion = preg_match($exclusions, $INFO['namespace']);
-//    		$is_exclusion = preg_match("/aaa/", "bbb");
     		
-    		return
-    		    ($this->getConf('automatic') && (!$is_exclusion)) ||
-    		    ((!$this->getConf('automatic')) && $is_exclusion);
+    		if ($this->getConf('automatic') {
+    			if ($is_exclusion) {
+    				return false;
+    			} else {
+    				return true;
+    			}
+    		} else {
+    			if ($is_exclusion) {
+    				return true;
+    			} else {
+    				return false;
+    			}
+    		}
     }
     
 
