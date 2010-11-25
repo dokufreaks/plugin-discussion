@@ -13,37 +13,37 @@ $lang['direction']  = 'ltr';
 
 // for admin plugins, the menu prompt to be displayed in the admin menu
 // if set here, the plugin doesn't need to override the getMenuText() method
-$lang['menu']            = 'Модерирование обсуждений';
+$lang['menu']            = 'РњРѕРґРµСЂРёСЂРѕРІР°РЅРёРµ РѕР±СЃСѓР¶РґРµРЅРёР№';
 
-$lang['discussion']      = 'Обсуждение';
-$lang['comment']         = 'Комментарий';
-$lang['comments']        = 'Комментариев';
-$lang['nocomments']      = 'Комментариев';
-$lang['url']             = 'Вебсайт';
-$lang['address']         = 'Адрес';
-$lang['date']            = 'Дата';
-$lang['entercomment']    = 'Введите ваш комментарий';
-$lang['wikisyntax']      = 'wiki-синтаксис разрешен';
-$lang['older']           = 'Более старые обсуждения';
-$lang['newer']           = 'Более новые обсуждения';
-$lang['btn_reply']       = 'Ответить';
-$lang['btn_hide']        = 'Скрыть';
-$lang['btn_show']        = 'Показать';
-$lang['btn_change']      = 'Изменить';
-$lang['statuschanged']   = 'Статус обсуждения изменен';
-$lang['wordblock']       = 'Ваш комментарий заблокирован как спам.';
-$lang['moderation']      = 'Ваш комментарий был добавлен в очередь на модерацию.';
-$lang['mail_newcomment'] = 'Новый коммент';
-$lang['subscribe']       = 'Подписаться на обсуждение';
+$lang['discussion']      = 'РћР±СЃСѓР¶РґРµРЅРёРµ';
+$lang['comment']         = 'РљРѕРјРјРµРЅС‚Р°СЂРёР№';
+$lang['comments']        = 'РљРѕРјРјРµРЅС‚Р°СЂРёРµРІ';
+$lang['nocomments']      = 'РљРѕРјРјРµРЅС‚Р°СЂРёРµРІ';
+$lang['url']             = 'Р’РµР±СЃР°Р№С‚';
+$lang['address']         = 'РђРґСЂРµСЃ';
+$lang['date']            = 'Р”Р°С‚Р°';
+$lang['entercomment']    = 'Р’РІРµРґРёС‚Рµ РІР°С€ РєРѕРјРјРµРЅС‚Р°СЂРёР№';
+$lang['wikisyntax']      = 'wiki-СЃРёРЅС‚Р°РєСЃРёСЃ СЂР°Р·СЂРµС€РµРЅ';
+$lang['older']           = 'Р‘РѕР»РµРµ СЃС‚Р°СЂС‹Рµ РѕР±СЃСѓР¶РґРµРЅРёСЏ';
+$lang['newer']           = 'Р‘РѕР»РµРµ РЅРѕРІС‹Рµ РѕР±СЃСѓР¶РґРµРЅРёСЏ';
+$lang['btn_reply']       = 'РћС‚РІРµС‚РёС‚СЊ';
+$lang['btn_hide']        = 'РЎРєСЂС‹С‚СЊ';
+$lang['btn_show']        = 'РџРѕРєР°Р·Р°С‚СЊ';
+$lang['btn_change']      = 'РР·РјРµРЅРёС‚СЊ';
+$lang['statuschanged']   = 'РЎС‚Р°С‚СѓСЃ РѕР±СЃСѓР¶РґРµРЅРёСЏ РёР·РјРµРЅРµРЅ';
+$lang['wordblock']       = 'Р’Р°С€ РєРѕРјРјРµРЅС‚Р°СЂРёР№ Р·Р°Р±Р»РѕРєРёСЂРѕРІР°РЅ РєР°Рє СЃРїР°Рј.';
+$lang['moderation']      = 'Р’Р°С€ РєРѕРјРјРµРЅС‚Р°СЂРёР№ Р±С‹Р» РґРѕР±Р°РІР»РµРЅ РІ РѕС‡РµСЂРµРґСЊ РЅР° РјРѕРґРµСЂР°С†РёСЋ.';
+$lang['mail_newcomment'] = 'РќРѕРІС‹Р№ РєРѕРјРјРµРЅС‚';
+$lang['subscribe']       = 'РџРѕРґРїРёСЃР°С‚СЊСЃСЏ РЅР° РѕР±СЃСѓР¶РґРµРЅРёРµ';
 
-$lang['status']          = 'Статус';
-$lang['off']             = 'отключено';
-$lang['open']            = 'открыто';
-$lang['closed']          = 'закрыто';
+$lang['status']          = 'РЎС‚Р°С‚СѓСЃ';
+$lang['off']             = 'РѕС‚РєР»СЋС‡РµРЅРѕ';
+$lang['open']            = 'РѕС‚РєСЂС‹С‚Рѕ';
+$lang['closed']          = 'Р·Р°РєСЂС‹С‚Рѕ';
 
-$lang['reply']           = 'Ответ';
-$lang['replies']         = 'Ответы';
-$lang['newthread']       = 'Новая ветка';
-$lang['threads']         = 'Ветки';
+$lang['reply']           = 'РћС‚РІРµС‚';
+$lang['replies']         = 'РћС‚РІРµС‚С‹';
+$lang['newthread']       = 'РќРѕРІР°СЏ РІРµС‚РєР°';
+$lang['threads']         = 'Р’РµС‚РєРё';
 
 //Setup VIM: ex: et ts=2 enc=utf-8 :
