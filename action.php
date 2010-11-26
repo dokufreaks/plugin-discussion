@@ -317,7 +317,12 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         } else {
             $url = wl($ID) . '#comment_' . $cid;
         }
-        header('Location: ' . $url);
+
+        if (function_exists('send_redirect')) {
+            send_redirect($url);
+        } else {
+            header('Location: ' . $url);
+        }
         exit();
     }
 
