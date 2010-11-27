@@ -1120,9 +1120,10 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
 
         // notify page subscribers
         if ($conf['subscribers'] || $conf['notify']) {
-            $list = explode(',', subscription_addresslist($ID));
             $to   = $conf['notify'];
-            $bcc  = implode(',', $list);
+            $data = array('id' => $id, 'addresslist' => '', 'self' => false);
+            trigger_event('COMMON_NOTIFY_ADDRESSLIST', $data, 'subscription_addresslist');
+            $bcc = $data['addresslist'];
 
             $replace = array(
                     $ID,
