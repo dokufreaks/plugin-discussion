@@ -242,7 +242,7 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
             $recent['name'] = $data['comments'][$cid]['user']['name'];
         else $recent['name'] = $data['comments'][$cid]['name'];
         $recent['desc'] = strip_tags($data['comments'][$cid]['xhtml']);
-        $recent['anchor'] = 'comment__'.$cid;
+        $recent['anchor'] = 'comment_'.$cid;
 
         return $recent;
     }
