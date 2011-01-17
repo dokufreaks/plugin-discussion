@@ -817,6 +817,8 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
 
         if ($this->getConf('linkemail') && $mail) {
             $head .= $this->email($mail, $showname, 'email fn');
+        } elseif ($this->getConf('usernamespace') && $auth->getUserData($user)) {
+            $head .= '<a class="wikilink1" href="'.wl($this->getConf('usernamespace').':'.$user.':').'">'.hsc($name).'</a>';
         } elseif ($url) {
             $head .= $this->external_link($this->_checkURL($url), $showname, 'urlextern url fn');
         } else {
@@ -958,7 +960,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         }
 
         // allow entering an URL
-        if ($this->getConf('urlfield')) {
+        if ($this->getConf('urlfield') && !($this->getConf('usernamespace') && $_SERVER['REMOTE_USER'])) {
         ?>
               <div class="comment_url">
                 <label class="block" for="discussion__comment_url">
