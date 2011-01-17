@@ -82,7 +82,7 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
         elseif ($num == 1) $comment = '1&nbsp;'.$this->getLang('comment');
         else $comment = $num.'&nbsp;'.$this->getLang('comments');
 
-        return '<a href="'.wl($id).$section.'" class="wikilink1" title="'.$id.$section.'">'.
+        return '<a href="'.wl($id).$section.'" class="comment wikilink1" title="'.$id.$section.'">'.
             $comment.'</a>';
     }
 
@@ -238,9 +238,13 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
         if (!isset($data['comments'][$cid])) return false;
 
         // okay, then add some additional info
-        if (is_array($data['comments'][$cid]['user']))
+        if (is_array($data['comments'][$cid]['user'])) {
             $recent['name'] = $data['comments'][$cid]['user']['name'];
-        else $recent['name'] = $data['comments'][$cid]['name'];
+            $recent['url']  = $data['comments'][$cid]['user']['url'];
+        } else {
+            $recent['name'] = $data['comments'][$cid]['name'];
+            $recent['url']  = $comment['url'];
+        }
         $recent['desc'] = strip_tags($data['comments'][$cid]['xhtml']);
         $recent['anchor'] = 'comment_'.$cid;
 
