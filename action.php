@@ -80,6 +80,14 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                 'handle_toc_render',
                 array()
                 );
+        $contr->register_hook(
+                'AJAX_CALL_UNKNOWN',
+                'BEFORE',
+                $this,
+                'handle_ajax',
+                array()
+                );
+        );
     }
 
     /**
@@ -298,6 +306,105 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         }
     }
 
+    function handle_ajax(&$event, $param) {
+        if ($event->data != 'discussion') return; // nothing to do for us
+
+        global $ID, $INFO;
+        $ID = cleanID($_REQUEST['id']);
+        $INFO = pageinfo();
+
+        // enable captchas
+        if ((in_array($_REQUEST['comment'], array('add', 'save')))
+                && (@file_exists(DOKU_PLUGIN.'captcha/action.php'))) {
+            $this->_captchaCheck();
+        }
+        // do the data processing for comments
+        $cid  = $_REQUEST['cid'];
+        switch ($_REQUEST['comment']) {
+        case 'add':
+            $comment = array(
+                'user'    => array(
+                    'id'      => hsc($_REQUEST['user']),
+                    'name'    => hsc($_REQUEST['name']),
+                    'mail'    => hsc($_REQUEST['mail']),
+                    'url'     => hsc($_REQUEST['url']),
+                    'address' => hsc($_REQUEST['address'])),
+                'subscribe' => $_REQUEST['subscribe'],
+                'date'    => array('created' => $_REQUEST['date']),
+                'raw'     => cleanText($_REQUEST['text'])
+            );
+            $repl = $_REQUEST['reply'];
+            $cid = $this->_add($comment, $repl);
+            $this->_display($cid);
+            break;
+
+        case 'save':
+            $raw  = cleanText($_REQUEST['text']);
+            $this->_save(array($cid), $raw);
+            $this->_display($cid);
+            break;
+
+        case 'delete':
+            $this->_save(array($cid), '');
+            echo "";
+            break;
+
+        case 'toogle':
+            $this->_save(array($cid), '', 'toogle');
+            $this->_display($cid);
+            break;
+        case 'reply':
+            $this->_form('', 'add', $cid);
+            break;
+        case 'edit':
+            $comment = $this->_getData($cid);
+            $this->_form($comment['raw'], 'save', $cid);
+            break;
+        case 'show':
+            $this->_show($cid);
+            break;
+        }
+        $event->preventDefault();
+        $event->stopPropagation();
+    }
+
+    function _display($cid) {
+        $data = $this->_getData();
+        $this->_print($cid, $data, $data['comments'][$cid]['parent']);
+    }
+
+    /**
+     * loads the data-file and optionally checks if the provided cid exists
+     *
+     * @param string $cid the cid to check for
+     * @return array the data, the data for the cid (if provided or NULL
+     */
+    function _getData($cid = NULL) {
+        global $ID;
+        // load an individual comment and display it
+        $file = metaFN($ID, '.comments');
+
+        if (!@file_exists($file)) {
+            echo 'Keine Kommentare vorhanden!';
+            return;
+        }
+
+        $data = unserialize(io_readFile($file, false));
+        if (!$data['status']) {
+            echo 'Kommentare ausgeschaltet!';
+            return;
+        }
+        if ($cid) {
+           if (isset($data['comments']) && array_key_exists($cid, $data['comments']))
+               return $data['comments'][$cid];
+           else {
+               echo "Keine Daten vorhanden";
+               return NULL;
+           }
+        } else
+            return $data;
+    }
+
     /**
      * Redirects browser to given comment anchor
      */
@@ -511,7 +618,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         $this->_addLogEntry($date, $ID, 'cc', '', $cid);
 
         $this->_redirect($cid);
-        return true;
+        return $cid;
     }
 
     /**
