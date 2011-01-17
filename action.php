@@ -660,7 +660,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             }
 
             // someone else was trying to edit our comment -> abort
-            if (($user != $_SERVER['REMOTE_USER']) && (!auth_ismanager())) return false;
+            if (($user != $_SERVER['REMOTE_USER'] || count($data['comments'][$cid]['replies'])) && (!auth_ismanager())) return false;
 
             $date = time();
 
@@ -752,7 +752,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         if ($comment['parent'] != $parent) return true;    // reply to an other comment
 
         if (!$comment['show']) {                            // comment hidden
-            if (auth_ismanager()) $hidden = ' comment_hidden';
+            if (($_SERVER['REMOTE_USER'] && $_SERVER['REMOTE_USER'] == $comment['user']['id']) || auth_ismanager()) $hidden = ' comment_hidden';
             else return true;
         } else {
             $hidden = '';
@@ -849,7 +849,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                 $this->_button($cid, $this->getLang('btn_reply'), 'reply', true);
 
             // show edit, show/hide and delete button?
-            if ((($user == $_SERVER['REMOTE_USER']) && ($user != '')) || (auth_ismanager())) {
+            if ((($user == $_SERVER['REMOTE_USER']) && ($user != '') && !count($data['comments'][$cid]['replies'])) || (auth_ismanager())) {
                 $this->_button($cid, $lang['btn_secedit'], 'edit', true);
                 $label = ($comment['show'] ? $this->getLang('btn_hide') : $this->getLang('btn_show'));
                 $this->_button($cid, $label, 'toogle');
