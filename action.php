@@ -625,6 +625,9 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                 $comments = $this->_removeComment($rid, $comments);
             }
         }
+        // delete this comment from the replies of the parent
+        if ($comments[$cid]['parent'] && $comments[$comments[$cid]['parent']])
+            $comments[$comments[$cid]['parent']]['replies'] = array_diff($comments[$comments[$cid]['parent']]['replies'], array($cid));
         unset($comments[$cid]);
         return $comments;
     }
