@@ -23,6 +23,11 @@ $meta['moderate']     = array('onoff');
 $meta['usethreading'] = array('onoff');
 $meta['userealname']  = array('onoff');
 
+$meta['edit_own']     = array(
+                          'multichoice',
+                          '_choices' => array('off', 'on', 'noreplies')
+                        );
+
 $meta['threads_formposition'] = array(
                                   'multichoice',
                                   '_choices' => array('off', 'top', 'bottom')

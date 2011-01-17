@@ -54,6 +54,71 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
                     'number (optional)' => 'integer'),
                 'return' => array('pages' => 'array'),
                 );
+        $result[] = array(
+                'name'   => 'getCommentsData',
+                'desc'   => 'returns the comments-data-array',
+                'params' => array('id' => 'string'),
+                'return' => array('comments_data' => 'array')
+            );
+        $result[] = array(
+                'name'   => 'saveCommentsData',
+                'desc'   => 'saves the changed comments-data-array',
+                'params' => array(
+                    'id' => 'string',
+                    'data' => 'array'),
+                'return' => array('success' => 'bool')
+            );
+
+        $result[] = array(
+                'name'   => 'getCommentACL',
+                'desc'   => 'gets the permissions the user has for a comment or for comments in general',
+                'params' => array(
+                    'id'  => 'string',
+                    'comment (optional)' => 'array',
+                    'exists (optional)'  => 'bool'),
+                'return' => array('acl' => 'int')
+            );
+        $result[] = array(
+                'name'   => 'addComment',
+                'desc'   => 'adds a new comment',
+                'params' => array(
+                    'id' => 'string',
+                    'comment' => 'array'),
+                'return' => array('success' => 'boolean')
+            );
+        $result[] = array(
+                'name'   => 'deleteComment',
+                'desc'   => 'deletes a comment',
+                'params' => array(
+                    'id' => 'string',
+                    'cid' => 'string'),
+                'return' => array('success' => 'boolean')
+            );
+        $result[] = array(
+                'name'   => 'editComment',
+                'desc'   => 'edits a comment',
+                'params' => array(
+                    'id' => 'string',
+                    'cid' => 'string',
+                    'comment' => 'array'),
+                'return' => array('success' => 'boolean')
+            );
+        $result[] = array(
+                'name'   => 'renderComment',
+                'desc'   => 'renders a comment',
+                'params' => array(
+                    'id' => 'string',
+                    'comment' => 'array'),
+                'return' => array('html' => 'string')
+            );
+        $result[] = array(
+                'name'   => 'renderCommentForm',
+                'desc'   => 'renders a comment form',
+                'params' => array(
+                    'id' => 'string',
+                    'comment' => 'array'),
+                'return' => array('html' => 'string')
+            );
         return $result;
     }
 
@@ -250,5 +315,451 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
 
         return $recent;
     }
+
+    /**
+     * loads the comment-data-file
+     *
+     * @param string $id the id of the page for which the comments shall be loaded
+     * @return array the data-array or an empty array when the comments don't exist
+     */
+    function &getCommentsData($id) {
+        static $data_cache = array();
+        if (isset($data_cache[$id])) return $data_cache[$id];
+        $file = metaFN($id, '.comments');
+
+        if (!@file_exists($file)) {
+            // generate the comments_file when automatic is on
+            if ($this->getConf('automatic') && page_exists($id)) {
+                $data = array('status' => 1, 'number' => 0, 'comments' => array(), 'user_array' => true);
+                io_saveFile($file, serialize($data));
+                $data_cache[$id] =& $data;
+                return $data;
+            } else {
+                return array();
+            }
+        }
+
+        $data = unserialize(io_readFile($file, false));
+        if (!isset($data['user_array'])) {
+            foreach (array_keys($data['comments']) as $cid) {
+                $comment =& $data['comments'][$cid];
+                if (!is_array($comment['user'])) {
+                    $comment['user'] = array(
+                        'id'      => $comment['user'],
+                        'name'    => $comment['name'],
+                        'mail'    => $comment['mail'],
+                        'url'     => $comment['url'],
+                        'address' => $comment['address'],
+                    );
+                }
+                $comment['cid'] = $cid;
+            }
+            $data['user_array'] = true;
+            io_saveFile($file, serialize($data));
+        }
+        $data_cache[$id] =& $data;
+        return $data;
+    }
+
+    function getCommentACL($id, $comment = null) {
+        $data =& $this->getCommentsData($id);
+        if ((count($data) != 0) && !$data['status']) return AUTH_NONE;
+        if (count($data) == 0) return AUTH_NONE;
+        if (auth_ismanager()) return AUTH_ADMIN;
+        if ($comment && $data['comments'][$comment['cid']]) {
+            // check the permissions for this $cid
+            $edit_own = $this->getConf('edit_own');
+            if ($_SERVER['REMOTE_USER'] === $comment['user']['id'] && ($edit_own == 'yes' || ($edit_own == 'noreplies' && !count($comment['replies'])))) return AUTH_WRITE;
+            if ($comment['show'])
+                return AUTH_READ;
+            else
+                return AUTH_NONE;
+ 
+        } else {
+            if (($_SERVER['REMOTE_USER'] && 
+                ($comment ? $comment['user']['id'] == $_SERVER['REMOTE_USER'] : true))
+                || $this->getConf('allowguests'))
+                return AUTH_CREATE;
+            else
+                return AUTH_READ;
+        }
+    }
+
+    function addComment($id, $comment) {
+        if ($this->getCommentACL($id, $comment) < AUTH_CREATE) return false;
+        global $TEXT;
+
+        $otxt = $TEXT; // set $TEXT to comment text for wordblock check
+        $TEXT = $comment['raw'];
+
+        // spamcheck against the DokuWiki blacklist
+        if (checkwordblock()) {
+            msg($this->getLang('wordblock'), -1);
+            $TEXT = $otxt; // restore global $TEXT
+            return false;
+        }
+
+        $TEXT = $otxt; // restore global $TEXT
+
+        if ($comment['date']['created']) {
+            $date = strtotime($comment['date']['created']);
+        } else { 
+            $date = time();
+        }
+
+        if ($date == -1) {
+            $date = time();
+        }
+
+        $cid  = md5($comment['user']['id'].$date); // create a unique id
+
+        $data =& $this->getCommentsData($id);
+
+        $paraent = $comment['parent'];
+        if (!is_array($data['comments'][$parent])) {
+            $parent = NULL; // invalid parent comment
+        }
+
+        // render the comment
+        $xhtml = $this->_render($comment['raw']);
+
+
+        // fill in the new comment
+        $data['comments'][$cid] = array(
+                'user'    => $comment['user'],
+                'date'    => array('created' => $date),
+                'show'    => true,
+                'raw'     => $comment['raw'],
+                'xhtml'   => $xhtml,
+                'parent'  => $parent,
+                'replies' => array()
+                'cid'     => $cid;
+                );
+
+        if($comment['subscribe']) {
+            $mail = $comment['user']['mail'];
+            if($data['subscribers']) {
+                if(!$data['subscribers'][$mail]) {
+                    $data['subscribers'][$mail] = md5($mail . mt_rand());
+                }
+            } else {
+                $data['subscribers'][$mail] = md5($mail . mt_rand());
+            }
+        }
+
+        // update parent comment
+        if ($parent) $data['comments'][$parent]['replies'][] = $cid;
+
+        // update the number of comments
+        $data['number']++;
+
+        // save the comment metadata file
+        $this->_notify($data['comments'][$cid], $data['subscribers']);
+        $this->saveCommentsData($id, $data);
+        $this->_addLogEntry($date, $id, 'cc', '', $cid);
+        return $cid;
+    }
+
+    function deleteComment($id, $cid, $force = false) {
+        $data =& $this->getCommentsData($id);
+        $comment =& $data['comments'][$cid];
+        if (!@is_array($comment)) return false;
+        if (!$force && $this->getCommentACL($id, $comment) < AUTH_WRITE) return false;
+
+        if ($this->getConf('usethreading') && is_array($comments[$cid]['replies'])) {
+            foreach ($comments[$cid]['replies'] as $rid) {
+                $this->deleteComment($id, $rid, true);
+            }
+        }
+        // delete this comment from the replies of the parent. even when threads are turned of, this is intentional.
+        $pcid = $comment['parent'];
+        if ($pcid && $data['comments'][$pcid])
+            $data['comments'][$pcid]['replies'] = array_diff($data['comments'][$pcid]['replies'], array($cid)); 
+
+        unset($data['comments'][$cid]);
+        // save the comment metadata file
+        $this->saveCommentsData($id, $data);
+        $this->_addLogEntry($date, $id, 'dc', '', $cid);
+        return true;
+    }
+
+    function editComment($id, $comment) {
+        $data =& $this->getCommentsData($id);
+        if (@is_array($data['comments'][$comment['cid'])) return false;
+        if ($this->getCommentACL($id, $comment['cid']) < AUTH_WRITE) return false;
+        
+        global $TEXT;
+
+        $otxt = $TEXT; // set $TEXT to comment text for wordblock check
+        $TEXT = $comment['raw'];
+
+        // spamcheck against the DokuWiki blacklist
+        if (checkwordblock()) {
+            msg($this->getLang('wordblock'), -1);
+            return false;
+        }
+
+        $TEXT = $otxt; // restore global $TEXT
+
+        $date = time();
+
+        $xhtml = $this->_render($comment['raw']);
+        $comment['date']['modified'] = $date;
+        $comment['raw']              = $raw;
+        $comment['xhtml']            = $xhtml;
+
+        // check which type of modification we had
+        $orig_comment = $data['comments'][$comment['cid']];
+        if ($orig_comment['show'] && !$comment['show']) {
+            $type = 'hc';
+            $data['number']--;
+        } elseif (!$orig_comment['show'] && $comment['show']) {
+            $type = 'sc';
+            $data['number']++;
+        } else {
+            $type = 'ec';
+        }
+
+        $data['comments'][$comment['cid']] = $comment;
+
+        // save the comment metadata file
+        $this->saveCommentsData($id, $data);
+        $this->_addLogEntry($date, $id, $type, '', $comment['cid']);
+        return true;
+    }
+
+    function renderComment($id, $comment) {
+        $acl = $this->getCommentACL($id, $comment);
+        if ($acl < AUTH_READ) return false;
+        $hidden = ($comment['show'] ? ' comment_hidden' : '');
+
+        // comment head with date and user data
+        ptln('<div class="hentry'.$hidden.'">', 4);
+        ptln('<div class="comment_head">', 6);
+        ptln('<a name="comment__'.$comment['cid'].'" id="comment__'.$comment['cid'].'"></a>', 8);
+        $head = '<span class="vcard author">';
+
+        // show avatar image?
+        if ($this->getConf('useavatar')
+                && (!plugin_isdisabled('avatar'))
+                && ($avatar =& plugin_load('helper', 'avatar'))) {
+
+                    $files = @glob(mediaFN($avatar->getConf('namespace')) . '/' . $comment['user']['id'] . '.*');
+            if ($files) {
+                foreach ($files as $file) {
+                    if (preg_match('/jpg|jpeg|gif|png/', $file)) {
+                        $head .= $avatar->getXHTML($comment['user']['id'], $comment['user']['name'], 'left');
+                        break;
+                    }
+                }
+            } elseif ($comment['user']['mail']) {
+                $head .= $avatar->getXHTML($comment['user']['mail'], $comment['user']['name'], 'left');
+            } else { 
+                $head .= $avatar->getXHTML($comment['user']['id'], $comment['user']['name'], 'left');
+            }
+            $style = ' style="margin-left: '.($avatar->getConf('size') + 14).'px;"';
+        } else {
+            $style = ' style="margin-left: 20px;"';
+        }
+
+        if ($this->getConf('linkemail') && $comment['user']['mail']) {
+            $head .= $this->email($comment['user']['mail'], $comment['user']['name'], 'email fn');
+        } elseif ($this->getConf('usernamespace') && $auth->getUserData($comment['user']['id'])) {
+            $head .= '<a class="wikilink1" href="'.wl($this->getConf('usernamespace').':'.$comment['user']['id'].':').'">'.hsc($comment['user']['name']).'</a>';
+        } elseif ($comment['user']['url']) {
+            $head .= $this->external_link($url, $comment['user']['name'], 'urlextern url fn');
+        } else {
+            $head .= '<span class="fn">'.$comment['user']['name'].'</span>';
+        }
+        if ($comment['user']['address']) $head .= ', <span class="adr">'.$comment['user']['address'].'</span>';
+        $head .= '</span>, '.
+            '<abbr class="published" title="'.strftime('%Y-%m-%dT%H:%M:%SZ', $comment['date']['created']).'">'.
+            strftime($conf['dformat'], $comment['date']['created']).'</abbr>';
+        if ($comment['edited']) $head .= ' (<abbr class="updated" title="'.
+                strftime('%Y-%m-%dT%H:%M:%SZ', $modified).'">'.strftime($conf['dformat'], $comment['date']['modified']).
+                '</abbr>)';
+        ptln($head, 8);
+        ptln('</div>', 6); // class="comment_head"
+
+        // main comment content
+        ptln('<div class="comment_body entry-content"'.
+                ($this->getConf('useavatar') ? $style : '').'>', 6);
+        echo $comment['xhtml'].DOKU_LF;
+        ptln('</div>', 6); // class="comment_body"
+
+        $id_acl = $this->getCommentACL($id);
+        if ($acl >= AUTH_WRITE || $id_acl >= AUTH_CREATE) {
+            ptln('<div class="comment_buttons">', 6);
+
+            // show reply button?
+            if ($id_acl >= AUTH_CREATE && $this->getConf('usethreading'))
+                $this->_button($cid, $this->getLang('btn_reply'), 'reply', true);
+
+            // show edit, show/hide and delete button?
+            if ($acl >= AUTH_WRITE) {
+                $this->_button($cid, $lang['btn_secedit'], 'edit', true);
+                $label = ($comment['show'] ? $this->getLang('btn_hide') : $this->getLang('btn_show'));
+                $this->_button($cid, $label, 'toogle');
+                $this->_button($cid, $lang['btn_delete'], 'delete');
+            }
+            ptln('</div>', 6); // class="comment_buttons"
+        }
+        ptln('</div>', 4); // class="hentry"
+    }
+
+    /**
+     * Outputs the comment form
+     */
+    function _form($id, $comment, $act = 'add') {
+        global $lang;
+        global $conf;
+        global $INFO;
+
+        if ($comment['cid']) {
+            $acl = $this->getCommentACL($id, $comment);
+            if ($acl < AUTH_WRITE) return false;
+        } else {
+            $acl = $this->getCommentACL($id);
+            if ($acl < AUTH_CREATE) return false;
+        }
+
+        // FIXME: where is that needed, can it be replaced somewhere???
+        // fill $raw with $_REQUEST['text'] if it's empty (for failed CAPTCHA check)
+        if (!$raw && ($_REQUEST['comment'] == 'show')) $raw = $_REQUEST['text'];
+        ?>
+
+        <div class="comment_form">
+          <form id="discussion__comment_form" method="post" action="<?php echo script() ?>" accept-charset="<?php echo $lang['encoding'] ?>" onsubmit="return validate(this);">
+            <div class="no">
+              <input type="hidden" name="id" value="<?php echo $id ?>" />
+              <input type="hidden" name="do" value="show" />
+              <input type="hidden" name="comment" value="<?php echo $act ?>" />
+
+        <?php
+        // for adding a comment
+        if ($act == 'add') {
+        ?>
+              <input type="hidden" name="reply" value="<?php echo $comment['cid'] ?>" />
+        <?php
+        // for registered user (and we're not in admin import mode)
+        if ($conf['useacl'] && $_SERVER['REMOTE_USER']
+                && (!($this->getConf('adminimport') && (auth_ismanager())))) {
+        ?>
+              <input type="hidden" name="user" value="<?php echo hsc($_SERVER['REMOTE_USER']) ?>" />
+              <input type="hidden" name="name" value="<?php echo hsc($INFO['userinfo']['name']) ?>" />
+              <input type="hidden" name="mail" value="<?php echo hsc($INFO['userinfo']['mail']) ?>" />
+        <?php
+        // for guest: show name, e-mail and subscribe to comments fields
+        } else {
+        ?>
+              <input type="hidden" name="user" value="<?php echo clientIP() ?>" />
+              <div class="comment_name">
+                <label class="block" for="discussion__comment_name">
+                  <span><?php echo $lang['fullname'] ?>:</span>
+                  <input type="text" class="edit" name="name" id="discussion__comment_name" size="50" tabindex="1" value="<?php echo hsc($_REQUEST['name'])?>" />
+                </label>
+              </div>
+              <div class="comment_mail">
+                <label class="block" for="discussion__comment_mail">
+                  <span><?php echo $lang['email'] ?>:</span>
+                  <input type="text" class="edit" name="mail" id="discussion__comment_mail" size="50" tabindex="2" value="<?php echo hsc($_REQUEST['mail'])?>" />
+                </label>
+              </div>
+        <?php
+        }
+
+        // allow entering an URL
+        if ($this->getConf('urlfield') && !($this->getConf('usernamespace') && $_SERVER['REMOTE_USER'])) {
+        ?>
+              <div class="comment_url">
+                <label class="block" for="discussion__comment_url">
+                  <span><?php echo $this->getLang('url') ?>:</span>
+                  <input type="text" class="edit" name="url" id="discussion__comment_url" size="50" tabindex="3" value="<?php echo hsc($_REQUEST['url'])?>" />
+                </label>
+              </div>
+        <?php
+        }
+
+        // allow entering an address
+        if ($this->getConf('addressfield')) {
+        ?>
+              <div class="comment_address">
+                <label class="block" for="discussion__comment_address">
+                  <span><?php echo $this->getLang('address') ?>:</span>
+                  <input type="text" class="edit" name="address" id="discussion__comment_address" size="50" tabindex="4" value="<?php echo hsc($_REQUEST['address'])?>" />
+                </label>
+              </div>
+        <?php
+        }
+
+        // allow setting the comment date
+        if ($this->getConf('adminimport') && (auth_ismanager())) {
+        ?>
+              <div class="comment_date">
+                <label class="block" for="discussion__comment_date">
+                  <span><?php echo $this->getLang('date') ?>:</span>
+                  <input type="text" class="edit" name="date" id="discussion__comment_date" size="50" />
+                </label>
+              </div>
+        <?php
+        }
+
+        // for saving a comment
+        } else {
+        ?>
+              <input type="hidden" name="cid" value="<?php echo $cid ?>" />
+        <?php
+        }
+        ?>
+              <div class="comment_text">
+        <?php
+        echo $this->getLang('entercomment');
+        if ($this->getConf('wikisyntaxok')) echo ' ('.$this->getLang('wikisyntax').')';
+        echo ':<br />'.DOKU_LF;
+        ?>
+        <textarea class="edit" name="text" cols="80" rows="10" id="discussion__comment_text" tabindex="5"><?php echo formText($comment['raw']) ?></textarea>
+              </div>
+        <?php //bad and dirty event insert hook
+        $evdata = array('writable' => true);
+        trigger_event('HTML_EDITFORM_INJECTION', $evdata);
+        ?>
+              <input class="button comment_submit" type="submit" name="submit" accesskey="s" value="<?php echo $lang['btn_save'] ?>" title="<?php echo $lang['btn_save']?> [ALt+S]" tabindex="7" />
+
+        <?php if(!$_SERVER['REMOTE_USER']) { ?>
+              <div class="comment_subscribe">
+                <input type="checkbox" id="discussion__comment_subscribe" name="subscribe" tabindex=="6" />
+                <label class="block" for="discussion__comment_subscribe">
+                  <span><?php echo $this->getLang('subscribe') ?></span>
+                </label>
+              </div>
+        <?php } ?>
+
+              <div class="clearer"></div>
+
+            </div>
+          </form>
+        </div>
+        <?php
+        if ($this->getConf('usecocomment')) echo $this->_coComment();
+    }
+
+//TODO:
+    //move redirect in the action-handler
+    //functions:
+        //_render()
+        //_notify()
+        //_addLogEntry()
+        //_button();
+        //_coComment()
+    /* modify according to on getCommentsData()
+     *
+        if (is_array($comment['date'])) { // new format
+            $created  = $comment['date']['created'];
+            $modified = $comment['date']['modified'];
+        } else {                         // old format
+            $created  = $comment['date'];
+            $modified = $comment['edited'];
+        }
+     */
 }
 // vim:ts=4:sw=4:et:enc=utf-8:

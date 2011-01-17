@@ -24,6 +24,11 @@ $lang['moderate']     = 'moderate new comments';
 $lang['usethreading'] = 'allow threading of comments';
 $lang['userealname']  = 'display real name instead of user name of registered wiki users';
 
+$lang['edit_own']             = 'allow non-manager-users to edit their own comments';
+$lang['edit_own_o_no']        = 'No';
+$lang['edit_own_o_yes']       = 'Yes';
+$lang['edit_own_o_noreplies'] = 'Only when there are no replies';
+
 $lang['threads_formposition']          = 'position of the new thread form';
 $lang['threads_formposition_o_off']    = 'off';
 $lang['threads_formposition_o_top']    = 'top';

@@ -22,4 +22,7 @@ $conf['userealname']  = 1;
 
 $conf['threads_formposition'] = 'bottom'; // position of new thread form
 
+$conf['edit_own']     = 'yes';
+
+$conf['usernamespace'] = 'users';
 //Setup VIM: ex: et ts=2 enc=utf-8 :
