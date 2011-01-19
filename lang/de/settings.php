@@ -7,9 +7,8 @@
  */
 
 // for the configuration manager
-$lang['automatic']    = 'Standardmässig Diskussionen auf allen Seiten';
+$lang['automatic']    = 'Standardmäßig Diskussionen auf allen Seiten';
 $lang['allowguests']  = 'Kommentare von Gästen erlauben';
-$lang['allowguests']  = 'Gast-Kommentare erlauben';
 $lang['linkemail']    = 'Name mit E-Mail verlinken';
 $lang['useavatar']    = 'Avatar in Kommentaren verwenden';
 $lang['urlfield']     = 'Eingabefeld für URL anbieten';

@@ -11,7 +11,7 @@ Kommentar:
 @TEXT@
 --------------------------------------------------------
 
-Um das Abonnement aufzulösen klicke diesen Link:
+Um das Abonnement aufzulösen klicke diesen Link an:
 @UNSUBSCRIBE@
 
 -- 

@@ -19,7 +19,7 @@ $lang['discussion']      = 'Diskussion';
 $lang['comment']         = 'Kommentar';
 $lang['comments']        = 'Kommentare';
 $lang['nocomments']      = 'Kommentare';
-$lang['url']             = 'Website';
+$lang['url']             = 'Webseite';
 $lang['address']         = 'Adresse';
 $lang['date']            = 'Datum';
 $lang['entercomment']    = 'Geben Sie Ihren Kommentar ein';
@@ -34,7 +34,7 @@ $lang['statuschanged']   = 'Status der Diskussion geändert';
 $lang['wordblock']       = 'Ihr Kommentar wurde als Spam blockiert.';
 $lang['mail_newcomment'] = 'Neuer Kommentar';
 $lang['subscribe']       = 'Kommentare abonnieren';
-$lang['noguests']        = 'Wenn Sie eingeloggt wären, könnten Sie einen Kommentar hinterlassen.';
+$lang['noguests']        = 'Melden sich Sie an um ein Kommentar zu erstellen.';
 
 $lang['status']          = 'Status';
 $lang['off']             = 'aus';
