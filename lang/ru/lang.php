@@ -48,4 +48,4 @@ $lang['replies']         = 'Ответы';
 $lang['newthread']       = 'Новая ветка';
 $lang['threads']         = 'Ветки обсуждения';
 
-//Setup VIM: ex: et ts=2 enc=utf-8 :
+//Setup VIM: ex: et ts=2 :

@@ -30,4 +30,4 @@ $lang['threads_formposition_o_off']    = 'нет';
 $lang['threads_formposition_o_top']    = 'вверху';
 $lang['threads_formposition_o_bottom'] = 'внизу';
 
-//Setup VIM: ex: et ts=2 enc=utf-8 :
+//Setup VIM: ex: et ts=2 :
