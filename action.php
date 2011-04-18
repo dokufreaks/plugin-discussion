@@ -712,12 +712,13 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         } else {
             $head .= '<span class="fn">'.$showname.'</span>';
         }
+
         if ($address) $head .= ', <span class="adr">'.$address.'</span>';
         $head .= '</span>, '.
-            '<abbr class="published" title="'.strftime('%Y-%m-%dT%H:%M:%SZ', $created).'">'.
-            strftime($conf['dformat'], $created).'</abbr>';
+            '<abbr class="published" title="'. strftime('%Y-%m-%dT%H:%M:%SZ', $created) .'">'.
+            dformat($created, $conf['dformat']).'</abbr>';
         if ($comment['edited']) $head .= ' (<abbr class="updated" title="'.
-                strftime('%Y-%m-%dT%H:%M:%SZ', $modified).'">'.strftime($conf['dformat'], $modified).
+                strftime('%Y-%m-%dT%H:%M:%SZ', $modified).'">'.dformat($modified, $conf['dformat']).
                 '</abbr>)';
         ptln($head, 8);
         ptln('</div>', 6); // class="comment_head"
@@ -1128,7 +1129,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             $replace = array(
                     $ID,
                     $conf['title'],
-                    strftime($conf['dformat'], $comment['date']['created']),
+                    dformat($comment['date']['created'], $conf['dformat']),
                     $comment['user']['name'],
                     $comment['raw'],
                     wl($ID, '', true) . '#comment_' . $comment['cid'],
@@ -1150,7 +1151,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                     $replace = array(
                             $ID,
                             $conf['title'],
-                            strftime($conf['dformat'], $comment['date']['created']),
+                            dformat($comment['date']['created'], $conf['dformat']),
                             $comment['user']['name'],
                             $comment['raw'],
                             wl($ID, '', true) . '#comment_' . $comment['cid'],
@@ -1300,7 +1301,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                 '@USER@' => $user,
                 '@NAME@' => $INFO['userinfo']['name'],
                 '@MAIL@' => $INFO['userinfo']['mail'],
-                '@DATE@' => strftime($conf['dformat']),
+                '@DATE@' => dformat($conf['dformat']),
                 );
 
         // additional replacements
