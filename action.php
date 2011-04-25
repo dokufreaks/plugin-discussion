@@ -891,10 +891,16 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         <?php
         }
         ?>
-              <div class="comment_text">
-                <div id="discussion__comment_toolbar">
-                  <?php echo $this->getLang('entercomment')?>
-                  <?php if($this->getLang('wikisyntaxok')) echo ', ' . $this->getLang('wikisyntax') . ':';?>
+                <div class="comment_text">
+                  <?php echo $this->getLang('entercomment'); echo ($this->getConf('wikisyntaxok') ? "" : ":");
+                        if($this->getConf('wikisyntaxok')) echo '. ' . $this->getLang('wikisyntax') . ':'; ?>
+                 
+                  <!-- Fix for disable the toolbar when wikisyntaxok is set to false. See discussion's script.jss -->
+                  <?php if($this->getConf('wikisyntaxok')) { ?>                
+                    <div id="discussion__comment_toolbar">
+                  <?php } else { ?>
+                    <div id="discussion__comment_toolbar_disabled">
+                  <?php } ?>
                 </div>
                 <textarea class="edit<?php if($_REQUEST['comment'] == 'add' && empty($_REQUEST['text'])) echo ' error'?>" name="text" cols="80" rows="10" id="discussion__comment_text" tabindex="5"><?php
                   if($raw) {
