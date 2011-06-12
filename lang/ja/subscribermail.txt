@@ -1,19 +1,19 @@
-����ɂ��́B
+こんにちは。
 
-Wiki�y�[�W @PAGE@ �ɐV�����R�����g�u @TITLE@ �v���ǉ�����܂����B
+Wikiページ「@TITLE@」@PAGE@ に新しいコメントが追加されました。
 
-Date:   @DATE@
-Name:   @NAME@
+日付:   @DATE@
+名前:   @NAME@
 URL:    @COMMENTURL@
 
-�R�����g
+コメント
 --------------------------------------------------------
 @TEXT@
 --------------------------------------------------------
 
-���̃y�[�W�̎�M�҃��X�g���甲����ɂ́A���̃����N���N���b�N���Ă��������B
+このページのコメント購読をやめるには、下記リンク先にアクセスしてください。
 @UNSUBSCRIBE@
 
 --
-���̃��[����DokuWiki�ɂ���Ď�����������Ă��܂��B
+このメールはDokuWikiによって自動生成されています。
 @DOKUWIKIURL@
