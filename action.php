@@ -1123,15 +1123,10 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                 '@COMMENTURL@',
                 '@UNSUBSCRIBE@',
                 '@DOKUWIKIURL@',
-                );
+        );
 
-        // notify page subscribers
-        if ($conf['subscribers'] || $conf['notify']) {
-            $to   = $conf['notify'];
-            $data = array('id' => $ID, 'addresslist' => '', 'self' => false);
-            trigger_event('COMMON_NOTIFY_ADDRESSLIST', $data, 'subscription_addresslist');
-            $bcc = $data['addresslist'];
-
+        // prepare email body
+        if($conf['notify'] || $conf['subscribers']) {
             $replace = array(
                     $ID,
                     $conf['title'],
@@ -1142,9 +1137,22 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                     wl($ID, 'do=unsubscribe', true, '&'),
                     DOKU_URL,
                     );
-
-                $body = str_replace($search, $replace, $notify_text);
-                mail_send($to, $subject_notify, $body, $from, '', $bcc);
+            $body = str_replace($search, $replace, $notify_text);
+        }
+        
+        // send mail to notify address
+        if ($conf['notify']) {
+            $to = $conf['notify'];
+            mail_send($to, $subject_notify, $body, $from, '', '');
+        }
+        
+        // notify page subscribers
+        if ($conf['subscribers']) {
+            $to   = ''; // put all recipients in bcc field
+            $data = array('id' => $ID, 'addresslist' => '', 'self' => false);
+            trigger_event('COMMON_NOTIFY_ADDRESSLIST', $data, 'subscription_addresslist');
+            $bcc = $data['addresslist'];            
+            mail_send($to, $subject_notify, $body, $from, '', $bcc);
         }
 
         // notify comment subscribers
@@ -1391,11 +1399,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     function idx_add_discussion(&$event, $param) {
 
         // get .comments meta file name
-        if (isset($event->data['page'])) {
-            $file = metaFN($event->data['page'], '.comments');
-        } else {
-            $file = metaFN($event->data[0], '.comments');
-        }
+        $file = metaFN($event->data[0], '.comments');
 
         if (@file_exists($file)) $data = unserialize(io_readFile($file, false));
         if ((!$data['status']) || ($data['number'] == 0)) return; // comments are turned off
@@ -1403,12 +1407,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         // now add the comments
         if (isset($data['comments'])) {
             foreach ($data['comments'] as $key => $value) {
-                if (isset($event->data['page'])) {
-                    $event->data['body'] .= $this->_addCommentWords($key, $data);
-                } else {
-                    $event->data[1] .= $this->_addCommentWords($key, $data);
-                }
-
+                $event->data[1] .= $this->_addCommentWords($key, $data);
             }
         }
     }
