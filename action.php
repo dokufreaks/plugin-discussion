@@ -358,7 +358,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             $show = true;
             // section title
             $title = ($data['title'] ? hsc($data['title']) : $this->getLang('discussion'));
-            ptln('<div class="comment_wrapper">');
+            ptln('<div class="comment_wrapper" id="comment_wrapper">'); // the id value is used for visibility toggling the section
             ptln('<h2><a name="discussion__section" id="discussion__section">', 2);
             ptln($title, 4);
             ptln('</a></h2>', 2);
@@ -386,6 +386,12 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         if($show) {
             ptln('</div>', 2); // level2 hfeed
             ptln('</div>'); // comment_wrapper
+        }
+        
+        // check for toggle print configuration
+        if($this->getConf('visibilityButton')) {           
+            // print the hide/show discussion section button
+            $this->_print_toggle_button();
         }
 
         return true;
@@ -654,6 +660,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         $this->_print_replies($cid, $data, $reply, $visible);
         // reply form
         $this->_print_form($cid, $reply);
+
     }
 
     function _print_comment($cid, &$data, $parent, $reply, $visible, $hidden)
@@ -794,6 +801,15 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         return $this->style;
     }
 
+    /**
+     * Show the button which toggle the visibility of the discussion section
+     */
+    function _print_toggle_button() {
+        ptln('<div id="toggle_button" class="toggle_button" style="text-align: right;">');
+        ptln('<input type="submit" id="discussion__btn_toggle_visibility" title="Toggle Visibiliy" class="button" value="Hide/Show">');
+        ptln('</div>');
+    }
+    
     /**
      * Outputs the comment form
      */

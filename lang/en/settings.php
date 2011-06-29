@@ -29,4 +29,6 @@ $lang['threads_formposition_o_off']    = 'off';
 $lang['threads_formposition_o_top']    = 'top';
 $lang['threads_formposition_o_bottom'] = 'bottom';
 
+$lang['visibilityButton'] = 'Enable button for toggling the visibility of the discussion section';
+
 //Setup VIM: ex: et ts=2 enc=utf-8 :
