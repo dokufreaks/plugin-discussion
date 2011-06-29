@@ -108,6 +108,22 @@ div.dokuwiki div.comment_buttons input.button {
   margin: 0 0 0 0.5em;
 }
 
+div.dokuwiki div.toggle_button {
+  text-align: right;
+
+}
+
+div.dokuwiki div.toggle_button input.button {
+  border: 1px solid __border__;
+  color: __text__;
+  background-color: __background__;
+  vertical-align: middle;
+  text-decoration: none;
+  padding: 0;
+  margin: 0 12px 0 0;
+  font-size: 10px;
+}
+
 div.dokuwiki div.newthread_form {
   clear: both;
   text-align: center;
