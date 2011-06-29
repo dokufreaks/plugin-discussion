@@ -80,6 +80,18 @@ function discussion_ajax_preview() {
     ajax.runAJAX();
 }
 
+/**
+ * Toggle the visibility of the discussion section
+ */
+function discussion_toggle_visibility() {
+	discussion_section = $('comment_wrapper');
+	if(discussion_section.style.display == "none") {
+		discussion_section.style.display = "block";
+	} else {
+		discussion_section.style.display = "none";
+	}
+}
+
 // init toolbar
 addInitEvent(function() {
     if(typeof window.initToolbar == 'function') {
@@ -100,3 +112,10 @@ addInitEvent(function() {
     if(!form) return;
     addEvent(form, 'submit', function() { return validate(form); });
 });
+
+// toggle section visibility
+addInitEvent(function() {
+	var togglebtn = $('discussion__btn_toggle_visibility');
+	if(!togglebtn) return;
+	addEvent(togglebtn, 'click', discussion_toggle_visibility);
+})

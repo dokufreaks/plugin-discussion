@@ -28,4 +28,6 @@ $meta['threads_formposition'] = array(
                                   '_choices' => array('off', 'top', 'bottom')
                                 );
 
+$meta['visibilityButton'] = array('onoff');
+                                
 //Setup VIM: ex: et ts=2 enc=utf-8 :
