@@ -118,4 +118,4 @@ addInitEvent(function() {
 	var togglebtn = $('discussion__btn_toggle_visibility');
 	if(!togglebtn) return;
 	addEvent(togglebtn, 'click', discussion_toggle_visibility);
-})
+});
