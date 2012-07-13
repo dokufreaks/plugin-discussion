@@ -13,17 +13,6 @@ require_once(DOKU_PLUGIN.'admin.php');
 
 class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
 
-    function getInfo() {
-        return array(
-                'author' => 'Gina Häußge, Michael Klier, Esther Brunner',
-                'email'  => 'dokuwiki@chimeric.de',
-                'date'   => @file_get_contents(DOKU_PLUGIN.'discussion/VERSION'),
-                'name'   => 'Discussion Plugin (admin component)',
-                'desc'   => 'Moderate discussions',
-                'url'    => 'http://wiki.splitbrain.org/plugin:discussion',
-                );
-    }
-
     function getMenuSort() { return 200; }
     function forAdminOnly() { return false; }
 

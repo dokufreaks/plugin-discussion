@@ -19,17 +19,6 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     var $style = null;
     var $use_avatar = null;
 
-    function getInfo() {
-        return array(
-                'author' => 'Gina Häußge, Michael Klier, Esther Brunner',
-                'email'  => 'dokuwiki@chimeric.de',
-                'date'   => @file_get_contents(DOKU_PLUGIN.'discussion/VERSION'),
-                'name'   => 'Discussion Plugin (action component)',
-                'desc'   => 'Enables discussion features',
-                'url'    => 'http://wiki.splitbrain.org/plugin:discussion',
-                );
-    }
-
     function register(&$contr) {
         $contr->register_hook(
                 'ACTION_ACT_PREPROCESS',
