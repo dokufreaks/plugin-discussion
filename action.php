@@ -53,6 +53,13 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                 array()
                 );
         $contr->register_hook(
+                'INDEXER_VERSION_GET',
+                'BEFORE',
+                $this,
+                'idx_version',
+                array()
+                );
+        $contr->register_hook(
                 'TPL_METAHEADER_OUTPUT',
                 'BEFORE',
                 $this,
@@ -1407,6 +1414,15 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             if ($_REQUEST['comment'] == 'save') $_REQUEST['comment'] = 'edit';
             elseif ($_REQUEST['comment'] == 'add') $_REQUEST['comment'] = 'show';
         }
+    }
+
+    /**
+     * Add discussion plugin version to the indexer version
+     * This means that all pages will be indexed again in order to add the comments
+     * to the index whenever there has been a change that concerns the index content.
+     */
+    function idx_version(&$event, $param) {
+        $event->data['discussion'] = '0.1';
     }
 
     /**
