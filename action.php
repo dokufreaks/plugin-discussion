@@ -1415,7 +1415,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     function idx_add_discussion(&$event, $param) {
 
         // get .comments meta file name
-        $file = metaFN($event->data[0], '.comments');
+        $file = metaFN($event->data['page'], '.comments');
 
         if (@file_exists($file)) $data = unserialize(io_readFile($file, false));
         if ((!$data['status']) || ($data['number'] == 0)) return; // comments are turned off
@@ -1423,7 +1423,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         // now add the comments
         if (isset($data['comments'])) {
             foreach ($data['comments'] as $key => $value) {
-                $event->data[1] .= $this->_addCommentWords($key, $data);
+                $event->data['body'] .= $this->_addCommentWords($key, $data);
             }
         }
     }
