@@ -38,7 +38,7 @@ class syntax_plugin_discussion_comments extends DokuWiki_Syntax_Plugin {
      * Handle the match
      */
     function handle($match, $state, $pos, &$handler) {
-        global $ID, $ACT;
+        global $ID, $ACT, $REV;
 
         // strip markup
         $match = substr($match, 12, -2);
@@ -51,7 +51,7 @@ class syntax_plugin_discussion_comments extends DokuWiki_Syntax_Plugin {
         else if ($match == ':closed') $status = 2;
         else $status = 1;
 
-        if ($ACT == 'preview') return;
+        if ($ACT == 'preview' || $REV) return false;
 
         // get discussion meta file name
         $file = metaFN($ID, '.comments');
