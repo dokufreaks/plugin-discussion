@@ -87,7 +87,7 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
 
         // returns the list of pages in the given namespace and it's subspaces
         $items = array();
-        search($items, $dir, 'search_allpages', '');
+        search($items, $dir, 'search_allpages', array());
 
         // add pages with comments to result
         $result = array();
