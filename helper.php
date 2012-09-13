@@ -106,7 +106,7 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
 
             $date = filemtime($file);
             $meta = p_get_metadata($id);
-            $result[$date] = array(
+            $result[$date.'_'.$id] = array(
                     'id'       => $id,
                     'file'     => $file,
                     'title'    => $meta['title'],
