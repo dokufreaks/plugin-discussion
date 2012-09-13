@@ -60,9 +60,14 @@ class syntax_plugin_discussion_comments extends DokuWiki_Syntax_Plugin {
         if (@file_exists($file)) {
             $data = unserialize(io_readFile($file, false));
         }
-        $data['title']  = $title;
-        $data['status'] = $status;
-        io_saveFile($file, serialize($data));
+        // only save when the status or title was actually changed, the timestamp of the .comments file is used
+        // as sorting criteria for the threads view!
+        // note that isset can't be used for the first test as isset returns false for NULL values!
+        if (!array_key_exists('title', $data) || $data['title'] !== $title || !isset($data['status']) || $data['status'] !== $status) {
+            $data['title']  = $title;
+            $data['status'] = $status;
+            io_saveFile($file, serialize($data));
+        }
 
         return $status;
     }
