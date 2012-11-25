@@ -27,21 +27,37 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
 
     function handle($match, $state, $pos, &$handler) {
         global $ID;
+        $flagCount = -1;
 
         $match = substr($match, 10, -2); // strip {{threads> from start and }} from end
         list($match, $flags) = explode('&', $match, 2);
         $flags = explode('&', $flags);
+
+        // Identify the "count" flag and remove it before passing it to pagelist
+        foreach($flags as $key => $flag) {
+            if(substr($flag, 0, 5) == "count") {
+                $flagCount = $flag;
+                unset($flags[$key]);
+                break;
+            }
+        }
+
+        $flagCount = explode('=', $flagCount);
+        $flagCount = $flagCount[1]; // Holds the value of "count"
+        if($flagCount <= 0 || !is_numeric($flagCount)) $flagCount = false; // Ignore param if invalid value is passed
+
         list($ns, $refine) = explode(' ', $match, 2);
 
         if (($ns == '*') || ($ns == ':')) $ns = '';
         elseif ($ns == '.') $ns = getNS($ID);
         else $ns = cleanID($ns);
 
-        return array($ns, $flags, $refine);
+        return array($ns, $flags, $refine, $flagCount);
     }
 
     function render($mode, &$renderer, $data) {
-        list($ns, $flags, $refine) = $data;
+        list($ns, $flags, $refine, $count) = $data;
+        $i = 0;
 
         if ($my =& plugin_load('helper', 'discussion')) $pages = $my->getThreads($ns);
 
@@ -81,9 +97,12 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
             $pagelist->column['comments'] = true;
             $pagelist->setFlags($flags);
             $pagelist->startList();
-            foreach ($pages as $page) {
+            foreach ($pages as $key => $page) {
                 $page['class'] = 'discussion_status'.$page['status'];
                 $pagelist->addPage($page);
+
+                $i++;
+                if($count != false && $i >= $count) break; // Only display the n discussion threads specified by the count flag
             }
             $renderer->doc .= $pagelist->finishList();
 
