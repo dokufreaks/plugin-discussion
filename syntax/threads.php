@@ -27,24 +27,28 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
 
     function handle($match, $state, $pos, &$handler) {
         global $ID;
-        $flagCount = -1;
+        $customFlags = array();
 
         $match = substr($match, 10, -2); // strip {{threads> from start and }} from end
         list($match, $flags) = explode('&', $match, 2);
         $flags = explode('&', $flags);
 
-        // Identify the "count" flag and remove it before passing it to pagelist
+        // Identify the count/skipempty flag and remove it before passing it to pagelist
         foreach($flags as $key => $flag) {
             if(substr($flag, 0, 5) == "count") {
-                $flagCount = $flag;
+                $tmp = explode('=', $flag);
+                $customFlags['count'] = $tmp[1];
                 unset($flags[$key]);
-                break;
+            }
+            if(substr($flag, 0, 9) == "skipempty") {
+                $customFlags['skipempty'] = true;
+                unset($flags[$key]);
             }
         }
 
-        $flagCount = explode('=', $flagCount);
-        $flagCount = $flagCount[1]; // Holds the value of "count"
-        if($flagCount <= 0 || !is_numeric($flagCount)) $flagCount = false; // Ignore param if invalid value is passed
+        // Ignore params if invalid values have been passed
+        if(!array_key_exists('count', $customFlags) || $customFlags['count'] <= 0 || !is_numeric($customFlags['count'])) $customFlags['count'] = false;
+        if(!array_key_exists('skipempty', $customFlags) && !$customFlags['skipempty']) $customFlags['skipempty'] = false;
 
         list($ns, $refine) = explode(' ', $match, 2);
 
@@ -52,14 +56,16 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
         elseif ($ns == '.') $ns = getNS($ID);
         else $ns = cleanID($ns);
 
-        return array($ns, $flags, $refine, $flagCount);
+        return array($ns, $flags, $refine, $customFlags);
     }
 
     function render($mode, &$renderer, $data) {
-        list($ns, $flags, $refine, $count) = $data;
+        list($ns, $flags, $refine, $customFlags) = $data;
+        $count = $customFlags['count'];
+        $skipEmpty = $customFlags['skipempty'];
         $i = 0;
 
-        if ($my =& plugin_load('helper', 'discussion')) $pages = $my->getThreads($ns);
+        if ($my =& plugin_load('helper', 'discussion')) $pages = $my->getThreads($ns, NULL, $skipEmpty);
 
         // use tag refinements?
         if ($refine) {
