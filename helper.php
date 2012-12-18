@@ -78,7 +78,7 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
     /**
      * Returns an array of pages with discussion sections, sorted by recent comments
      */
-    function getThreads($ns, $num = NULL) {
+    function getThreads($ns, $num = NULL, $skipEmpty = false) {
         global $conf;
 
         require_once(DOKU_INC.'inc/search.php');
@@ -101,8 +101,10 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
             if (!@file_exists($file)) continue; // skip if no comments file
             $data = unserialize(io_readFile($file, false));
             $status = $data['status'];
-            $number = $data['number']; // skip if comments are off or closed without comments
-            if (!$status || (($status == 2) && (!$number))) continue;
+            $number = $data['number'];
+
+            if (!$status || (($status == 2) && (!$number))) continue; // skip if comments are off or closed without comments
+            if($skipEmpty == 'y' && $number == 0) continue; // skip if discussion is empty and flag is set
 
             $date = filemtime($file);
             $meta = p_get_metadata($id);
