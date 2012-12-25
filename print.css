@@ -2,6 +2,7 @@ div.dokuwiki #discussion__comment_form,
 div.dokuwiki #discussion__newthread_form,
 div.dokuwiki div.comment_buttons,
 div.dokuwiki div.comment_hidden,
-#picker0, #picker1, #picker2 {
+div.dokuwiki #toggle_button,
+#picker0, #picker1, #picker2, #picker3 {
   display:none;
 }
