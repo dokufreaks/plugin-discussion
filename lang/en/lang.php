@@ -44,7 +44,6 @@ $lang['closed']          = 'closed';
 
 $lang['reply']           = 'Reply';
 $lang['replies']         = 'Replies';
-$lang['newthread']       = 'New thread';
-$lang['threads']         = 'Threads';
+$lang['newthread']       = 'New discussion page';
 
 //Setup VIM: ex: et ts=2 enc=utf-8 :
