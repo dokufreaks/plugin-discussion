@@ -1,0 +1,10 @@
+Hallo!
+
+Je bent ingeschreven voor opmerkingen van de pagina @PAGE@ in de @TITLE@ wiki.
+
+Om je inschrijving te bevestigen moet je de volgende link volgen:
+@SUBSCRIBE@
+
+--
+Deze e-mail is genereert door DokuWiki op
+@DOKUWIKIURL@
