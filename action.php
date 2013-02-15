@@ -918,7 +918,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                   if($raw) {
                       echo formText($raw);
                   } else {
-                      echo $_REQUEST['text'];
+                      echo hsc($_REQUEST['text']);
                   }
                 ?></textarea>
               </div>
