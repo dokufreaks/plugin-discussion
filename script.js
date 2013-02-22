@@ -52,70 +52,47 @@ function validate(form){
  * @author Michael Klier <chi@chimeric.de>
  */
 function discussion_ajax_preview() {
-    if(!document.getElementById) return;
+    var $textarea = jQuery('#discussion__comment_text');
+    var comment = $textarea.val();
 
-    var textarea = $('discussion__comment_text');
-    var comment = textarea.value;
-    if(!comment) return;
+    var $preview = jQuery('#discussion__comment_preview');
+    if (!comment) {
+        $preview.hide();
+        return;
+    }
+    $preview.html('<img src="'+DOKU_BASE+'/lib/images/throbber.gif" />');
+    $preview.show();
 
-    var preview = $('discussion__comment_preview');
-    preview.innerHTML = '<img src="'+DOKU_BASE+'/lib/images/throbber.gif" />';
-
-    // We use SACK to do the AJAX requests
-    var ajax = new sack(DOKU_BASE+'lib/exe/ajax.php');
-    ajax.AjaxFailedAlert = '';
-    ajax.encodeURIString = false;
-    ajax.setVar('call', 'discussion_preview');
-    ajax.setVar('comment', comment);
-
-    // define callback
-    ajax.onCompletion = function(){
-        var data = this.response;
-        if(data === ''){ return; }
-        preview.style.visibility = 'hidden';
-        preview.innerHTML = data;
-        preview.style.visibility = 'visible';
-    };
-
-    ajax.runAJAX();
+    jQuery.post(DOKU_BASE + 'lib/exe/ajax.php',
+        {
+            'call': 'discussion_preview',
+            'comment': comment
+        },
+        function (data) {
+            if (data === '') {
+                $preview.hide();
+                return;
+            }
+            $preview.html(data);
+            $preview.show();
+            $preview.css('visibility', 'visible');
+        }, 'html');
 }
 
-/**
- * Toggle the visibility of the discussion section
- */
-function discussion_toggle_visibility() {
-	discussion_section = $('comment_wrapper');
-	if(discussion_section.style.display == "none") {
-		discussion_section.style.display = "block";
-	} else {
-		discussion_section.style.display = "none";
-	}
-}
-
-// init toolbar
-addInitEvent(function() {
+jQuery(function() {
+    // init toolbar
     if(typeof window.initToolbar == 'function') {
         initToolbar("discussion__comment_toolbar", "discussion__comment_text", toolbar);
     }
-});
 
-// init preview button
-addInitEvent(function() {
-    var btn = $('discussion__btn_preview');
-    if(!btn) return;
-    addEvent(btn, 'click', discussion_ajax_preview);
-});
+    // init preview button
+    jQuery('#discussion__btn_preview').click(discussion_ajax_preview);
 
-// init field check
-addInitEvent(function() {
-    var form = $('discussion__comment_form');
-    if(!form) return;
-    addEvent(form, 'submit', function() { return validate(form); });
-});
+    // init field check
+    jQuery('#discussion__comment_form').submit(function() { return validate(this); });
 
-// toggle section visibility
-addInitEvent(function() {
-	var togglebtn = $('discussion__btn_toggle_visibility');
-	if(!togglebtn) return;
-	addEvent(togglebtn, 'click', discussion_toggle_visibility);
+    // toggle section visibility
+    jQuery('#discussion__btn_toggle_visibility').click(function() {
+        jQuery('#comment_wrapper').toggle();
+    });
 });
