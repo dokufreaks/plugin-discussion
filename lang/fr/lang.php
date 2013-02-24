@@ -20,6 +20,8 @@ $lang['menu']            = 'Voir les discussions...';
 $lang['discussion']      = 'Discussion';
 $lang['comment']         = 'Commentaire';
 $lang['comments']        = 'Commentaires';
+$lang['nocomments']      = 'Pas de commentaires';
+
 $lang['url']             = 'Site web';
 $lang['address']         = 'Adresse';
 $lang['date']            = 'Date';
@@ -33,7 +35,10 @@ $lang['btn_show']        = 'Montrer';
 $lang['btn_change']      = 'Modifier';
 $lang['statuschanged']   = 'Statut de discussion modifié';
 $lang['wordblock']       = 'Votre commentaire a été détécté comme spam.';
+$lang['moderation']      = 'votre commentaire a été ajouté et est en attente de validation.';
 $lang['mail_newcomment'] = 'Nouveau commentaire';
+$lang['subscribe']       = 'Suivre les commentaires';
+$lang['noguests']        = 'Vous pourriez laisser un commentaire si vous étiez connecté.';
 
 $lang['status']          = 'Statut';
 $lang['off']             = 'désactivé';
