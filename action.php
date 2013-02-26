@@ -1327,7 +1327,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                 '@USER@' => $user,
                 '@NAME@' => $INFO['userinfo']['name'],
                 '@MAIL@' => $INFO['userinfo']['mail'],
-                '@DATE@' => dformat($conf['dformat']),
+                '@DATE@' => dformat(time(), $conf['dformat']),
                 );
 
         // additional replacements
