@@ -83,7 +83,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
      *
      * @author Michael Klier <chi@chimeric.de>
      */
-    function handle_ajax_call(&$event, $params) {
+    function handle_ajax_call(Doku_Event &$event, $params) {
         if($event->data != 'discussion_preview') return;
         $event->preventDefault();
         $event->stopPropagation();
@@ -161,7 +161,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     /**
      * Handles comment actions, dispatches data processing routines
      */
-    function handle_act_preprocess(&$event, $param) {
+    function handle_act_preprocess(Doku_Event &$event, $param) {
         global $ID;
         global $INFO;
         global $conf;
