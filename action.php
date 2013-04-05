@@ -214,10 +214,10 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                 if($themail != '') {
                     if($event->data == 'discussion_unsubscribe') {
                         unset($data['subscribers'][$themail]);
-                        msg(sprintf($lang['unsubscribe_success'], $themail, $ID), 1);
+                        msg(sprintf($lang['subscr_unsubscribe_success'], $themail, $ID), 1);
                     } elseif($event->data == 'discussion_confirmsubscribe') {
                         $data['subscribers'][$themail]['active'] = true;
-                        msg(sprintf($lang['subscribe_success'], $themail, $ID), 1);
+                        msg(sprintf($lang['subscr_subscribe_success'], $themail, $ID), 1);
                     }
                     io_saveFile($file, serialize($data));
                     $event->data = 'show';
