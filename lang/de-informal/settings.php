@@ -28,4 +28,5 @@ $lang['threads_formposition_o_off']    = 'aus';
 $lang['threads_formposition_o_top']    = 'oben';
 $lang['threads_formposition_o_bottom'] = 'unten';
 
+$lang['moderatorgroups']  = 'Komma-separierte Liste mit Moderatoren-Gruppen (gleichzusetzen mit der Berechtigung eines DokuWiki-Managers)';
 //Setup VIM: ex: et ts=2 enc=utf-8 :

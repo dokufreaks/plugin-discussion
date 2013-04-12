@@ -18,6 +18,11 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     var $avatar = null;
     var $style = null;
     var $use_avatar = null;
+    var $helper = null;
+
+    public function __construct() {
+        $this->helper = plugin_load('helper', 'discussion');
+    }
 
     function register(&$contr) {
         $contr->register_hook(
@@ -236,7 +241,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                         $comment['user']['id'] = $_SERVER['REMOTE_USER'];
                         $comment['user']['name'] = $INFO['userinfo']['name'];
                         $comment['user']['mail'] = $INFO['userinfo']['mail'];
-                    } elseif((isset($_SERVER['REMOTE_USER']) && $this->getConf('adminimport') && auth_ismanager()) || !isset($_SERVER['REMOTE_USER'])) {
+                    } elseif((isset($_SERVER['REMOTE_USER']) && $this->getConf('adminimport') && $this->helper->isDiscussionMod()) || !isset($_SERVER['REMOTE_USER'])) {
                         if(empty($_REQUEST['name']) or empty($_REQUEST['mail'])) return; // don't add anonymous comments
                         if(!mail_isvalid($_REQUEST['mail'])) {
                             msg($lang['regbadmail'], -1);
@@ -253,7 +258,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                     $comment['date'] = array('created' => $_REQUEST['date']);
                     $comment['raw'] = cleanText($_REQUEST['text']);
                     $repl = $_REQUEST['reply'];
-                    if($this->getConf('moderate') && !auth_ismanager()) {
+                    if($this->getConf('moderate') && !$this->helper->isDiscussionMod()) {
                         $comment['show'] = false;
                     } else {
                         $comment['show'] = true;
@@ -303,7 +308,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
 
         if ($ACT !== 'show') return;
 
-        if($this->getConf('moderate') && !auth_ismanager()) {
+        if($this->getConf('moderate') && !$this->helper->isDiscussionMod()) {
             msg($this->getLang('moderation'), 1);
             @session_start();
             global $MSG;
@@ -555,7 +560,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             }
 
             // someone else was trying to edit our comment -> abort
-            if (($user != $_SERVER['REMOTE_USER']) && (!auth_ismanager())) return false;
+            if (($user != $_SERVER['REMOTE_USER']) && (!$this->helper->isDiscussionMod())) return false;
 
             $date = time();
 
@@ -635,7 +640,6 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
      * Prints an individual comment
      */
     function _print($cid, &$data, $parent = '', $reply = '', $visible = true) {
-
         if (!isset($data['comments'][$cid])) return false; // comment was removed
         $comment = $data['comments'][$cid];
 
@@ -644,7 +648,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         if ($comment['parent'] != $parent) return true;    // reply to an other comment
 
         if (!$comment['show']) {                            // comment hidden
-            if (auth_ismanager()) $hidden = ' comment_hidden';
+            if ($this->helper->isDiscussionMod()) $hidden = ' comment_hidden';
             else return true;
         } else {
             $hidden = '';
@@ -741,7 +745,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                 $this->_button($cid, $this->getLang('btn_reply'), 'reply', true);
 
             // show edit, show/hide and delete button?
-            if ((($user == $_SERVER['REMOTE_USER']) && ($user != '')) || (auth_ismanager())) {
+            if ((($user == $_SERVER['REMOTE_USER']) && ($user != '')) || ($this->helper->isDiscussionMod())) {
                 $this->_button($cid, $lang['btn_secedit'], 'edit', true);
                 $label = ($comment['show'] ? $this->getLang('btn_hide') : $this->getLang('btn_show'));
                 $this->_button($cid, $label, 'toogle');
@@ -842,7 +846,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
               <input type="hidden" name="reply" value="<?php echo $cid ?>" />
         <?php
         // for guest/adminimport: show name, e-mail and subscribe to comments fields
-        if(!$_SERVER['REMOTE_USER'] or ($this->getConf('adminimport') && auth_ismanager())) {
+        if(!$_SERVER['REMOTE_USER'] or ($this->getConf('adminimport') && $this->helper->isDiscussionMod())) {
         ?>
               <input type="hidden" name="user" value="<?php echo clientIP() ?>" />
               <div class="comment_name">
@@ -885,7 +889,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         }
 
         // allow setting the comment date
-        if ($this->getConf('adminimport') && (auth_ismanager())) {
+        if ($this->getConf('adminimport') && ($this->helper->isDiscussionMod())) {
         ?>
               <div class="comment_date">
                 <label class="block" for="discussion__comment_date">
@@ -1468,23 +1472,23 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     }
 }
 
-function _sortCallback($a, $b) {
-    if (is_array($a['date'])) { // new format
-        $createdA  = $a['date']['created'];
-    } else {                         // old format
-        $createdA  = $a['date'];
-    }
+    function _sortCallback($a, $b) {
+        if (is_array($a['date'])) { // new format
+            $createdA  = $a['date']['created'];
+        } else {                         // old format
+            $createdA  = $a['date'];
+        }
 
-    if (is_array($b['date'])) { // new format
-        $createdB  = $b['date']['created'];
-    } else {                         // old format
-        $createdB  = $b['date'];
-    }
+        if (is_array($b['date'])) { // new format
+            $createdB  = $b['date']['created'];
+        } else {                         // old format
+            $createdB  = $b['date'];
+        }
 
-    if ($createdA == $createdB)
-        return 0;
-    else
-        return ($createdA < $createdB) ? -1 : 1;
-}
+        if ($createdA == $createdB)
+            return 0;
+        else
+            return ($createdA < $createdB) ? -1 : 1;
+    }
 
 // vim:ts=4:sw=4:et:enc=utf-8:

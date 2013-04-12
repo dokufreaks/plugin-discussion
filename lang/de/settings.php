@@ -30,4 +30,5 @@ $lang['threads_formposition_o_bottom'] = 'unten';
 
 $lang['visibilityButton'] = 'Schaltfläche anzeigen, mit der der Discussion-Abschnitt aus-/eingeblendet werden kann';
 
+$lang['moderatorgroups']  = 'Komma-separierte Liste mit Moderatoren-Gruppen (gleichzusetzen mit der Berechtigung eines DokuWiki-Managers)';
 //Setup VIM: ex: et ts=2 enc=utf-8 :
