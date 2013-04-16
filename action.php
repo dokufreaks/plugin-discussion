@@ -359,7 +359,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             $show = true;
             // section title
             $title = ($data['title'] ? hsc($data['title']) : $this->getLang('discussion'));
-            ptln('<div class="comment_wrapper" id="comment_wrapper">'); // the id value is used for visibility toggling the section
+            ptln('<div class="comment_wrapper" id="comment_wrapper" style="display: none;">'); // the id value is used for visibility toggling the section
             ptln('<h2><a name="discussion__section" id="discussion__section">', 2);
             ptln($title, 4);
             ptln('</a></h2>', 2);
@@ -806,7 +806,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
      */
     function _print_toggle_button() {
         ptln('<div id="toggle_button" class="toggle_button" style="text-align: right;">');
-        ptln('<input type="submit" id="discussion__btn_toggle_visibility" title="Toggle Visibiliy" class="button" value="Hide/Show">');
+        ptln('<input type="submit" id="discussion__btn_toggle_visibility" title="Toggle Visibiliy" class="button" value="Show/Hide Discussion">');
         ptln('</div>');
     }
     
