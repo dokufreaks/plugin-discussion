@@ -178,7 +178,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             $event->preventDefault();
             $event->data = $this->_newThread();
         }
-
+/*
         // enable captchas
         if (in_array($_REQUEST['comment'], array('add', 'save'))) {
             if (@file_exists(DOKU_PLUGIN.'captcha/action.php')) {
@@ -188,7 +188,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                 $this->_recaptchaCheck();
             }
         }
-
+*/
         // if we are not in show mode or someone wants to unsubscribe, that was all for now
         if ($event->data != 'show' && $event->data != 'discussion_unsubscribe' && $event->data != 'discussion_confirmsubscribe') return;
 
