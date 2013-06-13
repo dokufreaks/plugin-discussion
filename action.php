@@ -806,7 +806,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
      */
     function _print_toggle_button() {
         ptln('<div id="toggle_button" class="toggle_button" style="text-align: right;">');
-        ptln('<input type="submit" id="discussion__btn_toggle_visibility" title="Toggle Visibiliy" class="button" value="Hide/Show">');
+        ptln('<input type="submit" id="discussion__btn_toggle_visibility" title="Toggle Visibiliy" class="button" value="'.$this->getLang('toggle_display').'">');
         ptln('</div>');
     }
     
