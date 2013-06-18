@@ -1,0 +1,10 @@
+你好！
+
+你订阅了 @TITLE@ 的 @PAGE@ 页面的评论。
+
+确认订阅访问下面的链接：
+@SUBSCRIBE@
+
+--
+这封邮件是由下面网站的 DokuWiki 自动生成的
+@DOKUWIKIURL@
