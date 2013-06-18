@@ -1362,31 +1362,16 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
 
     /**
      * Checks if the CAPTCHA string submitted is valid
-     *
-     * @author     Andreas Gohr <gohr@cosmocode.de>
-     * @adaption   Esther Brunner <wikidesign@gmail.com>
      */
     function _captchaCheck() {
+        /** @var helper_plugin_captcha $captcha */
         if (plugin_isdisabled('captcha') || (!$captcha = plugin_load('helper', 'captcha')))
             return; // CAPTCHA is disabled or not available
 
-        // do nothing if logged in user and no CAPTCHA required
-        if (!$captcha->getConf('forusers') && $_SERVER['REMOTE_USER']) return;
-
-        // compare provided string with decrypted captcha
-        $rand = PMA_blowfish_decrypt($_REQUEST['plugin__captcha_secret'], auth_cookiesalt());
-        $code = $captcha->_generateCAPTCHA($captcha->_fixedIdent(), $rand);
-
-        if (!$_REQUEST['plugin__captcha_secret'] ||
-                !$_REQUEST['plugin__captcha'] ||
-                strtoupper($_REQUEST['plugin__captcha']) != $code) {
-
-            // CAPTCHA test failed! Continue to edit instead of saving
-            msg($captcha->getLang('testfailed'), -1);
+        if (!$captcha->check()) {
             if ($_REQUEST['comment'] == 'save') $_REQUEST['comment'] = 'edit';
             elseif ($_REQUEST['comment'] == 'add') $_REQUEST['comment'] = 'show';
         }
-        // if we arrive here it was a valid save
     }
 
     /**
