@@ -1,7 +1,7 @@
 base   discussion
 author Michael Hamann, Gina Häussge, Christopher Smith, Michael Klier, Esther Brunner, Matthias Schulte
 email  michael@content-space.de
-date   2013-06-18
+date   2013-07-01
 name   discussion plugin
 desc   Provides discussion funtionality for wiki pages
 url    http://dokuwiki.org/plugin:discussion

@@ -1368,7 +1368,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         if (plugin_isdisabled('captcha') || (!$captcha = plugin_load('helper', 'captcha')))
             return; // CAPTCHA is disabled or not available
 
-        if (!$captcha->check()) {
+        if ($captcha->isEnabled() && !$captcha->check()) {
             if ($_REQUEST['comment'] == 'save') $_REQUEST['comment'] = 'edit';
             elseif ($_REQUEST['comment'] == 'add') $_REQUEST['comment'] = 'show';
         }
