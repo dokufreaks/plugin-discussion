@@ -6,5 +6,4 @@
 @SUBSCRIBE@
 
 --
-이 메일은 다음 도쿠위키에서 생성됬습니다:
-@DOKUWIKIURL@
+이 메일은 @DOKUWIKIURL@에서 도쿠위키가 생성했습니다
