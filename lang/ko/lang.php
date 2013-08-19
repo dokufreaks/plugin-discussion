@@ -8,7 +8,7 @@
  */
 $lang['encoding']              = 'utf-8';
 $lang['direction']             = 'ltr';
-$lang['menu']                  = '온건한 토론';
+$lang['menu']                  = '토론 중재';
 $lang['discussion']            = '토론';
 $lang['comment']               = '덧글';
 $lang['comments']              = '덧글';
@@ -26,7 +26,7 @@ $lang['btn_show']              = '보이기';
 $lang['btn_change']            = '바꾸기';
 $lang['statuschanged']         = '토론 상태가 바뀌었습니다';
 $lang['wordblock']             = '덧글이 스팸으로 차단되었습니다.';
-$lang['moderation']            = '댓글이 등록되었으며 검토를 기다리고 있습니다.';
+$lang['moderation']            = '덧글이 등록되었으며 검토를 기다리고 있습니다.';
 $lang['mail_newcomment']       = '새 덧글';
 $lang['subscribe']             = '덧글 구독';
 $lang['noguests']              = '로그인하면 덧글을 남길 수 있습니다.';
