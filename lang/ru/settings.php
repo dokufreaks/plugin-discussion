@@ -5,6 +5,7 @@
  * 
  * @author     Mike Lykov <lykov.myu@mgsm.ru>
  * @author     Aleksandr Selivanov <alexgearbox@gmail.com>
+ * @author Aleksandr Selivanov <alexgearbox@gmail.com>
  */
 $lang['automatic']             = 'Добавлять обсуждение на каждую страницу по умолчанию';
 $lang['allowguests']           = 'Разрешить анонимным пользователям оставлять комментарии';
@@ -25,3 +26,4 @@ $lang['threads_formposition']  = 'Позиция для формы добавл�
 $lang['threads_formposition_o_off'] = 'нет';
 $lang['threads_formposition_o_top'] = 'вверху';
 $lang['threads_formposition_o_bottom'] = 'внизу';
+$lang['visibilityButton']      = 'Включить кнопку для переключения видимости секции обсуждений';
