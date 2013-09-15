@@ -26,4 +26,4 @@ $lang['threads_formposition_o_off'] = '끄기';
 $lang['threads_formposition_o_top'] = '위';
 $lang['threads_formposition_o_bottom'] = '아래';
 $lang['visibilityButton']      = '토론 문단의 보이기를 토글하는 버튼 활성화';
-$lang['moderatorgroups']       = '운영자 그룹의 쉼표로 구분된 목록 (도쿠위키 관리자 권한 수준과 같음)';
+$lang['moderatorgroups']       = '중재자 그룹의 쉼표로 구분된 목록 (도쿠위키 관리자 권한 수준과 같음)';
