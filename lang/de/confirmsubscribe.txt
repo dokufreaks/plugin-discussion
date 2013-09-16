@@ -1,0 +1,8 @@
+Hallo!
+
+Sie sind momentan dabei die Kommentare der Seite @PAGE@ im Wiki @TITLE@ zu abonnieren.
+
+Um das Abonnement zu bestätigen, rufen Sie den folgenden Link auf: @SUBSCRIBE@
+
+--
+Diese E-Mail kommt vom DokuWiki auf @DOKUWIKIURL@
