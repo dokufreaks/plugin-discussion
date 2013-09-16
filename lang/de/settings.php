@@ -5,6 +5,7 @@
  * 
  * @author     Esther Brunner <wikidesign@gmail.com>
  * @author Dominik Eckelmann <deckelmann@gmail.com>
+ * @author Matthias Schulte <dokuwiki@lupo49.de>
  */
 $lang['automatic']             = 'Standardmäßig Diskussionen auf allen Seiten';
 $lang['allowguests']           = 'Kommentare von Gästen erlauben';
@@ -18,7 +19,7 @@ $lang['usecocomment']          = 'Kommentare mit coComment verfolgen';
 $lang['wikisyntaxok']          = 'Wiki-Syntax in Kommentaren erlauben';
 $lang['subscribe']             = 'De-/Aktivieren der Abo-Funktion für Kommentare';
 $lang['newestfirst']           = 'Neuste Kommentare als erstes anzeigen';
-$lang['moderate']              = 'neue Kommentare moderieren';
+$lang['moderate']              = 'Neue Kommentare moderieren';
 $lang['usethreading']          = 'Gethreadete Kommentare erlauben';
 $lang['userealname']           = 'Vor- und Nachnamen anstelle des Benutzernamens von registriereten Wiki-Benutzern anzeigen';
 $lang['threads_formposition']  = 'Position des Formulars für neue Themen';
