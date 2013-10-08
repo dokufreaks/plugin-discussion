@@ -1,0 +1,10 @@
+Saluton!
+
+Iu petis aboni komentojn de la paĝo @PAGE@ en @TITLE@.
+
+Por konfirmi, ke la peto estis vere via, bonvolu klaki jenan ligilon:
+
+@SUBSCRIBE@
+
+-- 
+Tiu ĉi mesaĝo kreiĝis de DokuWiki ĉe @DOKUWIKIURL@
