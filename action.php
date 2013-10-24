@@ -54,6 +54,13 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                 array()
                 );
         $contr->register_hook(
+                'PARSER_METADATA_RENDER',
+                'AFTER',
+                $this,
+                'update_comment_status',
+                array()
+        );
+        $contr->register_hook(
                 'TPL_METAHEADER_OUTPUT',
                 'BEFORE',
                 $this,
@@ -1418,6 +1425,41 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         if (isset($data['comments'])) {
             foreach ($data['comments'] as $key => $value) {
                 $event->data['body'] .= $this->_addCommentWords($key, $data);
+            }
+        }
+    }
+
+    /**
+     * Saves the current comment status and title in the .comments file
+     */
+    function update_comment_status(Doku_Event $event, $param) {
+        global $ID;
+
+        $meta = $event->data['current'];
+        $file = metaFN($ID, '.comments');
+        $status = ($this->getConf('automatic') ? 1 : 0);
+        $title = NULL;
+        if (isset($meta['plugin_discussion'])) {
+            $status = $meta['plugin_discussion']['status'];
+            $title = $meta['plugin_discussion']['title'];
+        } else if ($status == 1) {
+            // Don't enable comments when automatic comments are on - this already happens automatically
+            // and if comments are turned off in the admin this only updates the .comments file
+            return;
+        }
+
+        if ($status || @file_exists($file)) {
+            $data = array();
+            if (@file_exists($file)) {
+                $data = unserialize(io_readFile($file, false));
+            }
+
+            if (!array_key_exists('title', $data) || $data['title'] !== $title || !isset($data['status']) || $data['status'] !== $status) {
+                $data['title']  = $title;
+                $data['status'] = $status;
+                if (!isset($data['number']))
+                    $data['number'] = 0;
+                io_saveFile($file, serialize($data));
             }
         }
     }
