@@ -1119,6 +1119,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
      * Sends a notify mail on new comment
      *
      * @param  array  $comment  data array of the new comment
+     * @param  array  $subscribers data of the subscribers
      *
      * @author Andreas Gohr <andi@splitbrain.org>
      * @author Esther Brunner <wikidesign@gmail.com>
@@ -1126,94 +1127,82 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     function _notify($comment, &$subscribers) {
         global $conf;
         global $ID;
-        global $INFO;
 
         $notify_text = io_readfile($this->localfn('subscribermail'));
         $confirm_text = io_readfile($this->localfn('confirmsubscribe'));
         $subject_notify = '['.$conf['title'].'] '.$this->getLang('mail_newcomment');
         $subject_subscribe = '['.$conf['title'].'] '.$this->getLang('subscribe');
-        $from = $conf['mailfrom'];
-        $from = str_replace('@USER@',$_SERVER['REMOTE_USER'],$from);
-        $from = str_replace('@NAME@',$INFO['userinfo']['name'],$from);
-        $from = str_replace('@MAIL@',$INFO['userinfo']['mail'],$from);
 
-        $search = array(
-                '@PAGE@',
-                '@TITLE@',
-                '@DATE@',
-                '@NAME@',
-                '@TEXT@',
-                '@COMMENTURL@',
-                '@UNSUBSCRIBE@',
-                '@DOKUWIKIURL@',
+        $mailer = new Mailer();
+        if (empty($_SERVER['REMOTE_USER'])) {
+            $mailer->from($conf['mailfromnobody']);
+        }
+
+        $replace = array(
+            '@PAGE@' => $ID,
+            '@TITLE@' => $conf['title'],
+            '@DATE@' => dformat($comment['date']['created'], $conf['dformat']),
+            '@NAME@' => $comment['user']['name'],
+            '@TEXT@' => $comment['raw'],
+            '@COMMENTURL@' => wl($ID, '', true) . '#comment_' . $comment['cid'],
+            '@UNSUBSCRIBE@' => wl($ID, 'do=unsubscribe', true, '&'),
+            '@DOKUWIKIURL@' => DOKU_URL
         );
 
-        // prepare email body
-        if($conf['notify'] || $conf['subscribers']) {
-            $replace = array(
-                    $ID,
-                    $conf['title'],
-                    dformat($comment['date']['created'], $conf['dformat']),
-                    $comment['user']['name'],
-                    $comment['raw'],
-                    wl($ID, '', true) . '#comment_' . $comment['cid'],
-                    wl($ID, 'do=unsubscribe', true, '&'),
-                    DOKU_URL,
-                    );
-            $body = str_replace($search, $replace, $notify_text);
-        }
-        
+        $confirm_replace = array(
+            '@PAGE@' => $ID,
+            '@TITLE@' => $conf['title'],
+            '@DOKUWIKIURL@' => DOKU_URL
+        );
+
+
+        $mailer->subject($subject_notify);
+        $mailer->setBody($notify_text, $replace);
+
         // send mail to notify address
         if ($conf['notify']) {
-            $to = $conf['notify'];
-            mail_send($to, $subject_notify, $body, $from, '', '');
+            $mailer->bcc($conf['notify']);
+            $mailer->send();
         }
         
         // notify page subscribers
-        if ($conf['subscribers']) {
-            $to   = ''; // put all recipients in bcc field
+        if (actionOK('subscribe')) {
             $data = array('id' => $ID, 'addresslist' => '', 'self' => false);
-            trigger_event('COMMON_NOTIFY_ADDRESSLIST', $data, 'subscription_addresslist');
-            $bcc = $data['addresslist'];            
-            mail_send($to, $subject_notify, $body, $from, '', $bcc);
+            if (class_exists('Subscription')) { /* Introduced in DokuWiki 2013-05-10 */
+                trigger_event(
+                    'COMMON_NOTIFY_ADDRESSLIST', $data,
+                    array(new Subscription(), 'notifyaddresses')
+                );
+            } else { /* Old, deprecated default handler */
+                trigger_event(
+                    'COMMON_NOTIFY_ADDRESSLIST', $data,
+                    'subscription_addresslist'
+                );
+            }
+            $to = $data['addresslist'];
+            if(!empty($to)) {
+                $mailer->bcc($to);
+                $mailer->send();
+            }
         }
 
         // notify comment subscribers
         if (!empty($subscribers)) {
 
             foreach($subscribers as $mail => $data) {
-                $to = $mail;
-
+                $mailer->bcc($mail);
                 if($data['active']) {
-                    $replace = array(
-                            $ID,
-                            $conf['title'],
-                            dformat($comment['date']['created'], $conf['dformat']),
-                            $comment['user']['name'],
-                            $comment['raw'],
-                            wl($ID, '', true) . '#comment_' . $comment['cid'],
-                            wl($ID, 'do=discussion_unsubscribe&hash=' . $data['hash'], true, '&'),
-                            DOKU_URL,
-                            );
+                    $replace['@UNSUBSCRIBE@'] = wl($ID, 'do=discussion_unsubscribe&hash=' . $data['hash'], true, '&');
 
-                    $body = str_replace($search, $replace, $notify_text);
-                    mail_send($to, $subject_notify, $body, $from);
+                    $mailer->subject($subject_notify);
+                    $mailer->setBody($notify_text, $replace);
+                    $mailer->send();
                 } elseif(!$data['active'] && !$data['confirmsent']) {
-                    $search = array(
-                            '@PAGE@',
-                            '@TITLE@',
-                            '@SUBSCRIBE@',
-                            '@DOKUWIKIURL@',
-                            );
-                    $replace = array(
-                            $ID,
-                            $conf['title'],
-                            wl($ID, 'do=discussion_confirmsubscribe&hash=' . $data['hash'], true, '&'),
-                            DOKU_URL,
-                            );
+                    $confirm_replace['@SUBSCRIBE@'] = wl($ID, 'do=discussion_confirmsubscribe&hash=' . $data['hash'], true, '&');
 
-                    $body = str_replace($search, $replace, $confirm_text);
-                    mail_send($to, $subject_subscribe, $body, $from);
+                    $mailer->subject($subject_subscribe);
+                    $mailer->setBody($confirm_text, $confirm_replace);
+                    $mailer->send();
                     $subscribers[$mail]['confirmsent'] = true;
                 }
             }
