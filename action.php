@@ -1407,7 +1407,8 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         // get .comments meta file name
         $file = metaFN($event->data['page'], '.comments');
 
-        if (@file_exists($file)) $data = unserialize(io_readFile($file, false));
+        if (!@file_exists($file)) return;
+        $data = unserialize(io_readFile($file, false));
         if ((!$data['status']) || ($data['number'] == 0)) return; // comments are turned off
 
         // now add the comments
