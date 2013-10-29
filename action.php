@@ -1145,7 +1145,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             'NAME' => $comment['user']['name'],
             'TEXT' => $comment['raw'],
             'COMMENTURL' => wl($ID, '', true) . '#comment_' . $comment['cid'],
-            'UNSUBSCRIBE' => wl($ID, 'do=unsubscribe', true, '&'),
+            'UNSUBSCRIBE' => wl($ID, 'do=subscribe', true, '&'),
             'DOKUWIKIURL' => DOKU_URL
         );
 
