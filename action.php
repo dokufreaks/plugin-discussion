@@ -1139,20 +1139,20 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         }
 
         $replace = array(
-            '@PAGE@' => $ID,
-            '@TITLE@' => $conf['title'],
-            '@DATE@' => dformat($comment['date']['created'], $conf['dformat']),
-            '@NAME@' => $comment['user']['name'],
-            '@TEXT@' => $comment['raw'],
-            '@COMMENTURL@' => wl($ID, '', true) . '#comment_' . $comment['cid'],
-            '@UNSUBSCRIBE@' => wl($ID, 'do=unsubscribe', true, '&'),
-            '@DOKUWIKIURL@' => DOKU_URL
+            'PAGE' => $ID,
+            'TITLE' => $conf['title'],
+            'DATE' => dformat($comment['date']['created'], $conf['dformat']),
+            'NAME' => $comment['user']['name'],
+            'TEXT' => $comment['raw'],
+            'COMMENTURL' => wl($ID, '', true) . '#comment_' . $comment['cid'],
+            'UNSUBSCRIBE' => wl($ID, 'do=unsubscribe', true, '&'),
+            'DOKUWIKIURL' => DOKU_URL
         );
 
         $confirm_replace = array(
-            '@PAGE@' => $ID,
-            '@TITLE@' => $conf['title'],
-            '@DOKUWIKIURL@' => DOKU_URL
+            'PAGE' => $ID,
+            'TITLE' => $conf['title'],
+            'DOKUWIKIURL' => DOKU_URL
         );
 
 
@@ -1192,13 +1192,13 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             foreach($subscribers as $mail => $data) {
                 $mailer->bcc($mail);
                 if($data['active']) {
-                    $replace['@UNSUBSCRIBE@'] = wl($ID, 'do=discussion_unsubscribe&hash=' . $data['hash'], true, '&');
+                    $replace['UNSUBSCRIBE'] = wl($ID, 'do=discussion_unsubscribe&hash=' . $data['hash'], true, '&');
 
                     $mailer->subject($subject_notify);
                     $mailer->setBody($notify_text, $replace);
                     $mailer->send();
                 } elseif(!$data['active'] && !$data['confirmsent']) {
-                    $confirm_replace['@SUBSCRIBE@'] = wl($ID, 'do=discussion_confirmsubscribe&hash=' . $data['hash'], true, '&');
+                    $confirm_replace['SUBSCRIBE'] = wl($ID, 'do=discussion_confirmsubscribe&hash=' . $data['hash'], true, '&');
 
                     $mailer->subject($subject_subscribe);
                     $mailer->setBody($confirm_text, $confirm_replace);
