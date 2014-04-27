@@ -3,7 +3,7 @@
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  * 
- * @author     mrkwangseob<mrkwangseob@gmail.com>
+ * @author mrkwangseob<mrkwangseob@gmail.com>
  * @author Myeongjin <aranet100@gmail.com>
  */
 $lang['automatic']             = '기본적으로 모든 문서에 토론 문단을 생성';
