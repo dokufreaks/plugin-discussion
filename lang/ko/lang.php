@@ -3,7 +3,7 @@
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  * 
- * @author     Kwangseob Kim<mrkwangseob@gmail.com>
+ * @author Kwangseob Kim<mrkwangseob@gmail.com>
  * @author Myeongjin <aranet100@gmail.com>
  */
 $lang['encoding']              = 'utf-8';
