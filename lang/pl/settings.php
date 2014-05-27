@@ -13,6 +13,7 @@ $lang['useavatar']             = 'Wyświetlaj avatar\'y obok nazwy komentująceg
 $lang['urlfield']              = 'pozwól użytkownikom wejść do URL';
 $lang['addressfield']          = 'pozwól użytkownikom wejść do adresu pocztowego';
 $lang['wikisyntaxok']          = 'pozwól na składnię wiki w komentarzach';
+$lang['subscribe']             = 'włącz/wyłącz subskrybowanie komentarzy';
 $lang['newestfirst']           = 'jako pierwsze, wyświetl nowsze komentarze';
 $lang['moderate']              = 'moderuj nowe komentarze';
 $lang['userealname']           = 'wyświetl prawdziwe imię zamiast nazwy zarejestrowanych użytkowników na wiki';
