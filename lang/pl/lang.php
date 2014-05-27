@@ -26,6 +26,7 @@ $lang['statuschanged']         = 'Zmieniono status dyskusji';
 $lang['wordblock']             = 'Twoja wypowiedź została uznana za spam.';
 $lang['moderation']            = 'Twój komentarz został dodany i oczekuje na moderację.';
 $lang['mail_newcomment']       = 'Nowy komentarz';
+$lang['subscribe']             = 'Subskrybuj komentarze';
 $lang['noguests']              = 'Możesz pozostawić komentarz, jeżeli się zalogujesz.';
 $lang['status']                = 'Status';
 $lang['open']                  = 'otwarte';
