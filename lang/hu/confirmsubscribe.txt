@@ -1,0 +1,8 @@
+Helló!
+
+Feliratkozásod a @TITLE@ wiki @PAGE@ oldal hozzászólásaira folyamatban van.
+
+Kérlek kattints a következő linkre a feliratkozás megerősítéséhez: @SUBSCRIBE@
+
+--
+Ezt a levelet a @DOKUWIKIURL@ DokuWiki generálta automatikusan.
