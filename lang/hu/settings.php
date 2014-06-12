@@ -25,5 +25,5 @@ $lang['threads_formposition']  = 'új szál form pozíciója';
 $lang['threads_formposition_o_off'] = 'kikapcsolva';
 $lang['threads_formposition_o_top'] = 'fölül';
 $lang['threads_formposition_o_bottom'] = 'alul';
-$lang['visibilityButton']      = 'hozzászólások mutatása/elrejtése gomb bekapcsolása';
-$lang['moderatorgroups']       = 'Vesszővel elválasztott listája a moderátor csoportoknak (megegyezik a DokuWiki-Manager hozzáférési szinttel)';
+$lang['visibilityButton']      = 'hozzászólások elrejtése/megjelenítése gomb bekapcsolása';
+$lang['moderatorgroups']       = 'Moderátor csoportok vesszővel elválasztott listája (megegyezik a DokuWiki-Manager hozzáférési szinttel)';
