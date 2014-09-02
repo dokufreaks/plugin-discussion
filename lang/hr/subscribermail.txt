@@ -1,0 +1,19 @@
+Pozdrav!
+
+Novi komentar je dodan na stranici @PAGE@ wikija @TITLE@.
+
+Datum: @DATE@
+Ime:   @NAME@
+URL:   @COMMENTURL@
+
+Komentar:
+--------------------------------------------------------
+@TEXT@
+--------------------------------------------------------
+
+Za odjavu ove pretplate slijedite ovaj link:
+@UNSUBSCRIBE@
+
+--
+Ovaj mail je generiran od strane DokuWiki-a na
+@DOKUWIKIURL@
