@@ -1,0 +1,10 @@
+Pozdrav !
+
+Zatražili ste pretplatu na komentare stranice @PAGE@ na wikiu @TITLE@.
+
+Da potvrdite pretplatu molim slijedite link:
+@SUBSCRIBE@
+
+--
+Ovaj mail je generiran od strane DokuWiki-a na
+@DOKUWIKIURL@
