@@ -336,7 +336,7 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
     /**
      * Changes the status of a comment
      *
-     * @param string $new
+     * @param $new
      * @return bool
      */
     function _changeStatus($new) {
