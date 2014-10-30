@@ -24,7 +24,7 @@ $lang['moderate']     = 'moderate new comments';
 $lang['usethreading'] = 'allow threading of comments';
 $lang['userealname']  = 'display real name instead of user name of registered wiki users';
 
-$lang['threads_formposition']          = 'position of the new thread form';
+$lang['threads_formposition']          = 'position of the new thread form shown by the %%{{threads> }}%% syntax';
 $lang['threads_formposition_o_off']    = 'off';
 $lang['threads_formposition_o_top']    = 'top';
 $lang['threads_formposition_o_bottom'] = 'bottom';
