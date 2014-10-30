@@ -157,6 +157,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                 if($btn['type'] == 'mediapopup') continue;
                 if($btn['type'] == 'signature') continue;
                 if($btn['type'] == 'linkwiz') continue;
+                if($btn['type'] == 'NewTable') continue; //skip button for Edittable Plugin
                 if(preg_match("/=+?/", $btn['open'])) continue;
                 array_push($toolbar, $btn);
             }
