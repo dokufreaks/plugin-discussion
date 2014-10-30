@@ -7,13 +7,19 @@
 // must be run within Dokuwiki
 if (!defined('DOKU_INC')) die();
 
-if (!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
-
-require_once(DOKU_PLUGIN.'admin.php');
-
+/**
+ * Class admin_plugin_discussion
+ */
 class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
 
+    /**
+     * @return int
+     */
     function getMenuSort() { return 200; }
+
+    /**
+     * @return bool
+     */
     function forAdminOnly() { return false; }
 
     function handle() {
@@ -22,20 +28,21 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
         $cid = $_REQUEST['cid'];
         if (is_array($cid)) $cid = array_keys($cid);
 
+        /** @var action_plugin_discussion $action */
         $action =& plugin_load('action', 'discussion');
         if (!$action) return; // couldn't load action plugin component
 
         switch ($_REQUEST['comment']) {
             case $lang['btn_delete']:
-                $action->_save($cid, '');
+                $action->save($cid, '');
                 break;
 
             case $this->getLang('btn_show'):
-                $action->_save($cid, '', 'show');
+                $action->save($cid, '', 'show');
                 break;
 
             case $this->getLang('btn_hide'):
-                $action->_save($cid, '', 'hide');
+                $action->save($cid, '', 'hide');
                 break;
 
             case $this->getLang('btn_change'):
@@ -268,6 +275,7 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
         $params = array('do' => 'admin', 'page' => 'discussion');
         $last = $first+$num;
         ptln('<div class="level1">', 8);
+        $ret = '';
         if ($first > 0) {
             $first -= $num;
             if ($first < 0) $first = 0;
