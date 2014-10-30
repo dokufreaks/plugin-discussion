@@ -317,6 +317,9 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         if ($event->data != 'show') return; // nothing to do for us
 
         $cid  = $_REQUEST['cid'];
+        if(!$cid) {
+            $cid = $_REQUEST['reply'];
+        }
         switch ($_REQUEST['comment']) {
             case 'edit':
                 $this->_show(NULL, $cid);
