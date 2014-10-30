@@ -739,7 +739,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
 
         // main comment content
         ptln('<div class="comment_body entry-content"'.
-                ($this->getConf('useavatar') ? $this->_get_style() : '').'>', 6);
+                ($this->_use_avatar() ? $this->_get_style() : '').'>', 6);
         echo ($HIGH?html_hilight($comment['xhtml'],$HIGH):$comment['xhtml']).DOKU_LF;
         ptln('</div>', 6); // class="comment_body"
 
