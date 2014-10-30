@@ -11,7 +11,7 @@ Komento:
 @TEXT@
 --------------------------------------------------------
 
-Por malaligxi el cxi tiu pagxo, ensalutu en la vikio kaj musklaku tie:
+Por malaligxi el cxi tiu pagxo, ensalutu en la vikio kaj klaku tie:
 @UNSUBSCRIBE@
 
 --

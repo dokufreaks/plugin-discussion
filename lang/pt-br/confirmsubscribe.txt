@@ -1,6 +1,6 @@
 Olá!
 
-Você se inscreveu nos comentários da página @PAGE@ no wiki @TITLE@.
+Você está prestes a se inscrever nos comentários da página @PAGE@ no wiki @TITLE@.
 
 Para confirmar sua inscrição, por favor acesse este link:
 @SUBSCRIBE@

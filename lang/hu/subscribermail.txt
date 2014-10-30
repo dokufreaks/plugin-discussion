@@ -1,0 +1,17 @@
+Helló!
+
+Új komment érkezett a @TITLE@ wiki @PAGE@ oldalához.
+
+Dátum: @DATE@
+Név: @NAME@
+Weboldal: @COMMENTURL@
+
+Hozzászólás:
+--------------------------------------------------------
+@TEXT@
+--------------------------------------------------------
+
+A további értesítésekről történő leiratkozáshoz kattintson az következő linkre: @UNSUBSCRIBE@
+
+--
+Ezt a levelet a @DOKUWIKIURL@ DokuWiki generálta automatikusan.

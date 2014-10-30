@@ -19,15 +19,13 @@ $meta['wikisyntaxok'] = array('onoff');
 $meta['subscribe']    = array('onoff');
 $meta['newestfirst']  = array('onoff');
 $meta['moderate']     = array('onoff');
-
 $meta['usethreading'] = array('onoff');
 $meta['userealname']  = array('onoff');
-
 $meta['threads_formposition'] = array(
                                   'multichoice',
                                   '_choices' => array('off', 'top', 'bottom')
                                 );
-
 $meta['visibilityButton'] = array('onoff');
-                                
+$meta['moderatorgroups']  = array('string');
+
 //Setup VIM: ex: et ts=2 enc=utf-8 :

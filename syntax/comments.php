@@ -51,29 +51,16 @@ class syntax_plugin_discussion_comments extends DokuWiki_Syntax_Plugin {
         else if ($match == ':closed') $status = 2;
         else $status = 1;
 
-        if ($ACT == 'preview' || $REV) return false;
-
-        // get discussion meta file name
-        $file = metaFN($ID, '.comments');
-
-        $data = array();
-        if (@file_exists($file)) {
-            $data = unserialize(io_readFile($file, false));
-        }
-        // only save when the status or title was actually changed, the timestamp of the .comments file is used
-        // as sorting criteria for the threads view!
-        // note that isset can't be used for the first test as isset returns false for NULL values!
-        if (!array_key_exists('title', $data) || $data['title'] !== $title || !isset($data['status']) || $data['status'] !== $status) {
-            $data['title']  = $title;
-            $data['status'] = $status;
-            io_saveFile($file, serialize($data));
-        }
-
-        return $status;
+        return array($status, $title);
     }
 
-    function render($mode, &$renderer, $status) {
-        return true; // do nothing -> everything is handled in action component
+    function render($mode, &$renderer, $data) {
+        list($status, $title) = $data;
+        if ($mode == 'metadata') {
+            /** @var $renderer Doku_Renderer_metadata */
+            $renderer->meta['plugin_discussion'] = array('status' => $status, 'title' => $title);
+        }
+        return true;
     }
 }
 // vim:ts=4:sw=4:et:enc=utf-8:

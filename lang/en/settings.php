@@ -31,4 +31,5 @@ $lang['threads_formposition_o_bottom'] = 'bottom';
 
 $lang['visibilityButton'] = 'Enable button for toggling the visibility of the discussion section';
 
+$lang['moderatorgroups']  = 'Comma-separated list of moderator groups (equal to DokuWiki-Manager permission level)';
 //Setup VIM: ex: et ts=2 enc=utf-8 :

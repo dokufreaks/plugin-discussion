@@ -237,5 +237,16 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
 
         return $recent;
     }
+
+    function isDiscussionMod() {
+        global $USERINFO;
+        $groups = trim($this->getConf('moderatorgroups'));
+
+        if(auth_ismanager()) return true;
+        // Check if user is member of the moderator groups
+        if(!empty($groups) && auth_isMember($groups, $_SERVER['REMOTE_USER'], (array)$USERINFO['grps'])) return true;
+
+        return false;
+    }
 }
 // vim:ts=4:sw=4:et:enc=utf-8:
