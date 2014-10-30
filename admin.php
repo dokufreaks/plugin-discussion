@@ -87,6 +87,8 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
 
     /**
      * Returns an array of pages with discussion sections, sorted by recent comments
+     *
+     * @return array
      */
     function _getThreads() {
         global $conf;
@@ -121,11 +123,15 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
     }
 
     /**
-     * Callback for comparison of thread data. 
-     * 
-     * Used for sorting threads in descending order by date of last comment. 
-     * If this date happens to be equal for the compared threads, page id 
+     * Callback for comparison of thread data.
+     *
+     * Used for sorting threads in descending order by date of last comment.
+     * If this date happens to be equal for the compared threads, page id
      * is used as second comparison attribute.
+     *
+     * @param array $a
+     * @param array $b
+     * @return int
      */
     function _threadCmp($a, $b) {
         if ($a['date'] == $b['date']) {
@@ -136,6 +142,9 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
 
     /**
      * Outputs header, page ID and status of a discussion thread
+     *
+     * @param array $thread
+     * @return bool
      */
     function _threadHead($thread) {
         $id = $thread['id'];
@@ -168,6 +177,9 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
 
     /**
      * Returns the full comments data for a given wiki page
+     *
+     * @param array $thread
+     * @return array|bool
      */
     function _getComments(&$thread) {
         $id = $thread['id'];
@@ -193,6 +205,12 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
 
     /**
      * Recursive function to add the comment hierarchy to the result
+     *
+     * @param string $cid
+     * @param array  $data
+     * @param array  $result
+     * @param string $parent
+     * @param int    $level
      */
     function _addComment($cid, &$data, &$result, $parent = '', $level = 1) {
         if (!is_array($data['comments'][$cid])) return; // corrupt datatype
@@ -214,6 +232,9 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
 
     /**
      * Checkbox and info about a comment item
+     *
+     * @param array $comment
+     * @return string
      */
     function _commentItem($comment) {
         global $conf;
@@ -241,6 +262,9 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
 
     /**
      * list item tag
+     *
+     * @param array $comment
+     * @return string
      */
     function _li_comment($comment) {
         $show = ($comment['show'] ? '' : ' hidden');
@@ -249,6 +273,9 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
 
     /**
      * Show buttons to bulk remove, hide or show comments
+     *
+     * @param string $id
+     * @return bool
      */
     function _actionButtons($id) {
         global $lang;
@@ -266,6 +293,11 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
 
     /**
      * Displays links to older newer discussions
+     *
+     * @param bool $more
+     * @param int  $first
+     * @param int  $num
+     * @return bool
      */
     function _browseDiscussionLinks($more, $first, $num) {
         global $ID;
@@ -303,6 +335,9 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
 
     /**
      * Changes the status of a comment
+     *
+     * @param string $new
+     * @return bool
      */
     function _changeStatus($new) {
         global $ID;

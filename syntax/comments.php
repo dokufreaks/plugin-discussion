@@ -12,17 +12,31 @@
 // must be run within Dokuwiki
 if(!defined('DOKU_INC')) die();
 
-if(!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
-require_once(DOKU_PLUGIN.'syntax.php');
-
 /**
  * All DokuWiki plugins to extend the parser/rendering mechanism
  * need to inherit from this class
  */
 class syntax_plugin_discussion_comments extends DokuWiki_Syntax_Plugin {
 
+    /**
+     * Syntax Type
+     *
+     * @return string
+     */
     function getType() { return 'substition'; }
+
+    /**
+     * Paragraph Type
+     *
+     * @return string
+     */
     function getPType() { return 'block'; }
+
+    /**
+     * Sort for applying this mode
+     *
+     * @return int
+     */
     function getSort() { return 230; }
 
     /**
@@ -35,10 +49,15 @@ class syntax_plugin_discussion_comments extends DokuWiki_Syntax_Plugin {
     }
 
     /**
-     * Handle the match
+     * Handler to prepare matched data for the rendering process
+     *
+     * @param   string       $match   The text matched by the patterns
+     * @param   int          $state   The lexer state for the match
+     * @param   int          $pos     The character position of the matched text
+     * @param   Doku_Handler $handler The Doku_Handler object
+     * @return  array Return an array with all data you want to use in render
      */
     function handle($match, $state, $pos, &$handler) {
-        global $ID, $ACT, $REV;
 
         // strip markup
         $match = substr($match, 12, -2);
@@ -54,7 +73,15 @@ class syntax_plugin_discussion_comments extends DokuWiki_Syntax_Plugin {
         return array($status, $title);
     }
 
-    function render($mode, &$renderer, $data) {
+    /**
+     * Handles the actual output creation.
+     *
+     * @param   $mode   string        output format being rendered
+     * @param   $renderer Doku_Renderer the current renderer object
+     * @param   $data     array         data created by handler()
+     * @return  boolean                 rendered correctly?
+     */
+    function render($mode, Doku_Renderer $renderer, $data) {
         list($status, $title) = $data;
         if ($mode == 'metadata') {
             /** @var $renderer Doku_Renderer_metadata */
