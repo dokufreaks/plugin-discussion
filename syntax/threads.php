@@ -9,23 +9,50 @@
 // must be run within Dokuwiki
 if(!defined('DOKU_INC')) die();
 
-if (!defined('DOKU_LF')) define('DOKU_LF', "\n");
-if (!defined('DOKU_TAB')) define('DOKU_TAB', "\t");
-if (!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN', DOKU_INC.'lib/plugins/');
-
-require_once(DOKU_PLUGIN.'syntax.php');
-
+/**
+ * Class syntax_plugin_discussion_threads
+ */
 class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
 
+    /**
+     * Syntax Type
+     *
+     * @return string
+     */
     function getType() { return 'substition'; }
+
+    /**
+     * Paragraph Type
+     *
+     * @see Doku_Handler_Block
+     * @return string
+     */
     function getPType() { return 'block'; }
+
+    /**
+     * Sort for applying this mode
+     *
+     * @return int
+     */
     function getSort() { return 306; }
 
+    /**
+     * @param string $mode
+     */
     function connectTo($mode) {
         $this->Lexer->addSpecialPattern('\{\{threads>.+?\}\}', $mode, 'plugin_discussion_threads');
     }
 
-    function handle($match, $state, $pos, &$handler) {
+    /**
+     * Handler to prepare matched data for the rendering process
+     *
+     * @param   string       $match   The text matched by the patterns
+     * @param   int          $state   The lexer state for the match
+     * @param   int          $pos     The character position of the matched text
+     * @param   Doku_Handler $handler The Doku_Handler object
+     * @return  array Return an array with all data you want to use in render
+     */
+    function handle($match, $state, $pos, Doku_Handler $handler) {
         global $ID;
         $customFlags = array();
 
@@ -59,16 +86,27 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
         return array($ns, $flags, $refine, $customFlags);
     }
 
-    function render($mode, &$renderer, $data) {
+    /**
+     * Handles the actual output creation.
+     *
+     * @param   $mode   string        output format being rendered
+     * @param   $renderer Doku_Renderer the current renderer object
+     * @param   $data     array         data created by handler()
+     * @return  boolean                 rendered correctly?
+     */
+    function render($mode, Doku_Renderer $renderer, $data) {
         list($ns, $flags, $refine, $customFlags) = $data;
         $count = $customFlags['count'];
         $skipEmpty = $customFlags['skipempty'];
         $i = 0;
 
-        if ($my =& plugin_load('helper', 'discussion')) $pages = $my->getThreads($ns, NULL, $skipEmpty);
+        $pages = array();
+        /** @var helper_plugin_discussion $my */
+        if ($my =& plugin_load('helper', 'discussion')) $pages = $my->getThreads($ns, null, $skipEmpty);
 
         // use tag refinements?
         if ($refine) {
+            /** @var helper_plugin_tag $tag */
             if (plugin_isdisabled('tag') || (!$tag = plugin_load('helper', 'tag'))) {
                 msg('The Tag Plugin must be installed to use tag refinements.', -1);
             } else {
@@ -85,7 +123,7 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
         } 
 
         if ($mode == 'xhtml') {
-
+            /** @var $renderer Doku_Renderer_xhtml */
             // prevent caching to ensure content is always fresh
             $renderer->info['cache'] = false;
 
@@ -95,6 +133,7 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
                 $renderer->doc .= $this->_newThreadForm($ns);
 
             // let Pagelist Plugin do the work for us
+            /** @var $pagelist helper_plugin_pagelist */
             if (plugin_isdisabled('pagelist')
                     || (!$pagelist =& plugin_load('helper', 'pagelist'))) {
                 msg('The Pagelist Plugin must be installed for threads lists to work.', -1);
@@ -103,7 +142,7 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
             $pagelist->column['comments'] = true;
             $pagelist->setFlags($flags);
             $pagelist->startList();
-            foreach ($pages as $key => $page) {
+            foreach ($pages as $page) {
                 $page['class'] = 'discussion_status'.$page['status'];
                 $pagelist->addPage($page);
 
@@ -120,6 +159,7 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
 
             // for metadata renderer
         } elseif ($mode == 'metadata') {
+            /** @var $renderer Doku_Renderer_metadata */
             foreach ($pages as $page) {
                 $renderer->meta['relation']['references'][$page['id']] = true;
             }
@@ -133,6 +173,9 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
 
     /**
      * Show the form to start a new discussion thread
+     *
+     * @param string $ns
+     * @return string
      */
     function _newThreadForm($ns) {
         global $ID;

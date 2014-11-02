@@ -7,11 +7,14 @@
 // must be run within Dokuwiki
 if (!defined('DOKU_INC')) die();
 
-if (!defined('DOKU_LF')) define('DOKU_LF', "\n");
-if (!defined('DOKU_TAB')) define('DOKU_TAB', "\t");
-
+/**
+ * Class helper_plugin_discussion
+ */
 class helper_plugin_discussion extends DokuWiki_Plugin {
 
+    /**
+     * @return array
+     */
     function getMethods() {
         $result = array();
         $result[] = array(
@@ -48,6 +51,8 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
 
     /**
      * Returns the column header for the Pagelist Plugin
+     *
+     * @return string
      */
     function th() {
         return $this->getLang('discussion');
@@ -55,8 +60,12 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
 
     /**
      * Returns the link to the discussion section of a page
+     *
+     * @param string $id
+     * @param null|int $num
+     * @return string
      */
-    function td($id, $num = NULL) {
+    function td($id, $num = null) {
         $section = '#discussion__section';
 
         if (!isset($num)) {
@@ -77,13 +86,18 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
 
     /**
      * Returns an array of pages with discussion sections, sorted by recent comments
+     *
+     * @param string $ns
+     * @param null|int $num
+     * @param string|bool $skipEmpty
+     * @return array
      */
-    function getThreads($ns, $num = NULL, $skipEmpty = false) {
+    function getThreads($ns, $num = null, $skipEmpty = false) {
         global $conf;
 
         require_once(DOKU_INC.'inc/search.php');
 
-        $dir = $conf['datadir'].($ns ? '/'.str_replace(':', '/', $ns): '');
+        $dir = utf8_encodeFN($conf['datadir'].($ns ? '/'.str_replace(':', '/', $ns): ''));
 
         // returns the list of pages in the given namespace and it's subspaces
         $items = array();
@@ -134,6 +148,10 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
 
     /**
      * Returns an array of recently added comments to a given page or namespace
+     *
+     * @param string $ns
+     * @param int|null $num
+     * @return array
      */
     function getComments($ns, $num = NULL) {
         global $conf;
@@ -182,6 +200,11 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
      * @author Andreas Gohr <andi@splitbrain.org>
      * @author Ben Coburn <btcoburn@silicodon.net>
      * @author Esther Brunner <wikidesign@gmail.com>
+     *
+     * @param string $line
+     * @param string $ns
+     * @param array  $seen
+     * @return array|bool
      */
     function _handleRecentComment($line, $ns, &$seen) {
         if (empty($line)) return false;  //skip empty lines
@@ -238,6 +261,9 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
         return $recent;
     }
 
+    /**
+     * @return bool
+     */
     function isDiscussionMod() {
         global $USERINFO;
         $groups = trim($this->getConf('moderatorgroups'));
