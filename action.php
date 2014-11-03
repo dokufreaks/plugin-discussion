@@ -359,6 +359,31 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     }
 
     /**
+     *
+     * @return bool
+     */
+    public function isDiscussionEnabled() {
+        global $INFO;
+
+        // handle excluded_ns
+        $isNamespaceExcluded = preg_match($this->getConf('excluded_ns'), $INFO['namespace']);
+
+        if($this->getConf('automatic')) {
+            if($isNamespaceExcluded) {
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            if($isNamespaceExcluded) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    /**
      * Shows all comments of the current page
      */
     protected function _show($reply = null, $edit = null) {
@@ -369,14 +394,14 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         $file = metaFN($ID, '.comments');
 
         if (!$INFO['exists']) return false;
-        if (!@file_exists($file) && !$this->getConf('automatic')) return false;
+        if (!@file_exists($file) && !$this->isDiscussionEnabled()) return false;
         if (!$_SERVER['REMOTE_USER'] && !$this->getConf('showguests')) return false;
 
         // load data
         if (@file_exists($file)) {
             $data = unserialize(io_readFile($file, false));
             if (!$data['status']) return false; // comments are turned off
-        } elseif (!@file_exists($file) && $this->getConf('automatic') && $INFO['exists']) {
+        } elseif (!@file_exists($file) && $this->isDiscussionEnabled() && $INFO['exists']) {
             // set status to show the comment form
             $data['status'] = 1;
             $data['number'] = 0;
@@ -1358,7 +1383,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         $cfile = metaFN($ID, '.comments');
 
         if (!@file_exists($cfile)) {
-            if ($this->getConf('automatic')) {
+            if ($this->isDiscussionEnabled()) {
                 return true;
             } else {
                 return false;
@@ -1542,7 +1567,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
 
         $meta = $event->data['current'];
         $file = metaFN($ID, '.comments');
-        $status = ($this->getConf('automatic') ? 1 : 0);
+        $status = ($this->isDiscussionEnabled() ? 1 : 0);
         $title = NULL;
         if (isset($meta['plugin_discussion'])) {
             $status = $meta['plugin_discussion']['status'];
