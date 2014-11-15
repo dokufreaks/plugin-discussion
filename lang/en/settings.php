@@ -8,6 +8,7 @@
  
 // for the configuration manager
 $lang['automatic']    = 'discussion section on every page by default';
+$lang['excluded_ns']  = 'list of namespaces to revert the option above (a regular expression e.g. <code>/(playground|wiki)/</code> )';
 $lang['allowguests']  = 'allow comments by unregistered users';
 $lang['showguests']   = 'allow guests to read comments';
 $lang['linkemail']    = 'link commenters name with e-mail';
@@ -24,7 +25,7 @@ $lang['moderate']     = 'moderate new comments';
 $lang['usethreading'] = 'allow threading of comments';
 $lang['userealname']  = 'display real name instead of user name of registered wiki users';
 
-$lang['threads_formposition']          = 'position of the new thread form shown by the %%{{threads> }}%% syntax';
+$lang['threads_formposition']          = 'position of the new thread form shown by the <code>{{threads> }}</code> syntax';
 $lang['threads_formposition_o_off']    = 'off';
 $lang['threads_formposition_o_top']    = 'top';
 $lang['threads_formposition_o_bottom'] = 'bottom';

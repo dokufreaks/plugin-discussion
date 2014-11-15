@@ -19,6 +19,7 @@ $lang['discussion']      = 'Discussion';
 $lang['comment']         = 'Comment';
 $lang['comments']        = 'Comments';
 $lang['nocomments']      = 'Comments';
+$lang['threads']         = 'Discussions';
 $lang['url']             = 'Website';
 $lang['address']         = 'Address';
 $lang['date']            = 'Date';

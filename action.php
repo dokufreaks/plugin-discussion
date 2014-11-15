@@ -359,6 +359,31 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     }
 
     /**
+     *
+     * @return bool
+     */
+    public function isDiscussionEnabled() {
+        global $INFO;
+
+        // handle excluded_ns
+        $isNamespaceExcluded = preg_match($this->getConf('excluded_ns'), $INFO['namespace']);
+
+        if($this->getConf('automatic')) {
+            if($isNamespaceExcluded) {
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            if($isNamespaceExcluded) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    /**
      * Shows all comments of the current page
      */
     protected function _show($reply = null, $edit = null) {
@@ -369,14 +394,14 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         $file = metaFN($ID, '.comments');
 
         if (!$INFO['exists']) return false;
-        if (!@file_exists($file) && !$this->getConf('automatic')) return false;
+        if (!@file_exists($file) && !$this->isDiscussionEnabled()) return false;
         if (!$_SERVER['REMOTE_USER'] && !$this->getConf('showguests')) return false;
 
         // load data
         if (@file_exists($file)) {
             $data = unserialize(io_readFile($file, false));
             if (!$data['status']) return false; // comments are turned off
-        } elseif (!@file_exists($file) && $this->getConf('automatic') && $INFO['exists']) {
+        } elseif (!@file_exists($file) && $this->isDiscussionEnabled() && $INFO['exists']) {
             // set status to show the comment form
             $data['status'] = 1;
             $data['number'] = 0;
@@ -470,8 +495,10 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         }
 
         if ((!$this->getConf('allowguests'))
-                && ($comment['user']['id'] != $_SERVER['REMOTE_USER']))
+                && ($comment['user']['id'] != $_SERVER['REMOTE_USER'])
+        ) {
             return false; // guest comments not allowed
+        }
 
         $TEXT = $otxt; // restore global $TEXT
 
@@ -541,7 +568,9 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         }
 
         // update parent comment
-        if ($parent) $data['comments'][$parent]['replies'][] = $cid;
+        if ($parent) {
+            $data['comments'][$parent]['replies'][] = $cid;
+        }
 
         // update the number of comments
         $data['number']++;
@@ -776,13 +805,17 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             $head .= '<span class="fn">'.$showname.'</span>';
         }
 
-        if ($address) $head .= ', <span class="adr">'.$address.'</span>';
+        if ($address) {
+            $head .= ', <span class="adr">'.$address.'</span>';
+        }
         $head .= '</span>, '.
             '<abbr class="published" title="'. strftime('%Y-%m-%dT%H:%M:%SZ', $created) .'">'.
             dformat($created, $conf['dformat']).'</abbr>';
-        if ($comment['edited']) $head .= ' (<abbr class="updated" title="'.
+        if ($comment['edited']) {
+            $head .= ' (<abbr class="updated" title="'.
                 strftime('%Y-%m-%dT%H:%M:%SZ', $modified).'">'.dformat($modified, $conf['dformat']).
                 '</abbr>)';
+        }
         ptln($head, 8);
         ptln('</div>', 6); // class="comment_head"
 
@@ -797,8 +830,10 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
 
             // show reply button?
             if (($data['status'] == 1) && !$reply && $comment['show']
-                    && ($this->getConf('allowguests') || $_SERVER['REMOTE_USER']) && $this->getConf('usethreading'))
+                    && ($this->getConf('allowguests') || $_SERVER['REMOTE_USER']) && $this->getConf('usethreading')
+            ) {
                 $this->_button($cid, $this->getLang('btn_reply'), 'reply', true);
+            }
 
             // show edit, show/hide and delete button?
             if ((($user == $_SERVER['REMOTE_USER']) && ($user != '')) || ($this->helper->isDiscussionMod())) {
@@ -865,8 +900,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
      *
      * @return string
      */
-    protected function _get_style()
-    {
+    protected function _get_style() {
         if (is_null($this->style)){
             if ($this->_use_avatar()) {
                 $this->style = ' style="margin-left: '.($this->avatar->getConf('size') + 14).'px;"';
@@ -905,7 +939,9 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         }
 
         // fill $raw with $_REQUEST['text'] if it's empty (for failed CAPTCHA check)
-        if (!$raw && ($_REQUEST['comment'] == 'show')) $raw = $_REQUEST['text'];
+        if (!$raw && ($_REQUEST['comment'] == 'show')) {
+            $raw = $_REQUEST['text'];
+        }
         ?>
 
         <div class="comment_form">
@@ -1112,7 +1148,10 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
 
         $changelog = $conf['metadir'].'/_comments.changes';
 
-        if(!$date) $date = time(); //use current time if none supplied
+        //use current time if none supplied
+        if(!$date) {
+            $date = time();
+        }
         $remote = $_SERVER['REMOTE_ADDR'];
         $user   = $_SERVER['REMOTE_USER'];
 
@@ -1151,7 +1190,8 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
 
         if (@file_exists($changelog) &&
                 (filectime($changelog) + 86400) < time() &&
-                !@file_exists($changelog.'_tmp')) {
+                !@file_exists($changelog.'_tmp')
+        ) {
 
             io_lock($changelog);
             $lines = file($changelog);
@@ -1308,7 +1348,9 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             if (!$comment['show']) continue;
             $number++;
             $rids = $comment['replies'];
-            if (count($rids)) $number = $number + $this->_countReplies($data, $rids);
+            if (count($rids)) {
+                $number = $number + $this->_countReplies($data, $rids);
+            }
         }
         return $number;
     }
@@ -1325,7 +1367,9 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             if (!$data['comments'][$rid]['show']) continue;
             $number++;
             $rids = $data['comments'][$rid]['replies'];
-            if (count($rids)) $number = $number + $this->_countReplies($data, $rids);
+            if (count($rids)) {
+                $number = $number + $this->_countReplies($data, $rids);
+            }
         }
         return $number;
     }
@@ -1358,7 +1402,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         $cfile = metaFN($ID, '.comments');
 
         if (!@file_exists($cfile)) {
-            if ($this->getConf('automatic')) {
+            if ($this->isDiscussionEnabled()) {
                 return true;
             } else {
                 return false;
@@ -1367,7 +1411,9 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
 
         $comments = unserialize(io_readFile($cfile, false));
 
-        if ($comments['title']) $title = hsc($comments['title']);
+        if ($comments['title']) {
+            $title = hsc($comments['title']);
+        }
         $num = $comments['number'];
         if ((!$comments['status']) || (($comments['status'] == 2) && (!$num))) return false;
         else return true;
@@ -1391,8 +1437,11 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         if ($INFO['perm'] >= AUTH_CREATE) {
 
             //check if locked by anyone - if not lock for my self
-            if ($INFO['locked']) return 'locked';
-            else lock($ID);
+            if ($INFO['locked']) {
+                return 'locked';
+            } else {
+                lock($ID);
+            }
 
             // prepare the new thread file with default stuff
             if (!@file_exists($INFO['filepath'])) {
@@ -1442,7 +1491,8 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         // avatar if useavatar and avatar plugin available
         if ($this->getConf('useavatar')
                 && (@file_exists(DOKU_PLUGIN.'avatar/syntax.php'))
-                && (!plugin_isdisabled('avatar'))) {
+                && (!plugin_isdisabled('avatar'))
+        ) {
             $replace['@AVATAR@'] = '{{avatar>'.$user.' }} ';
         } else {
             $replace['@AVATAR@'] = '';
@@ -1450,7 +1500,8 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
 
         // tag if tag plugin is available
         if ((@file_exists(DOKU_PLUGIN.'tag/syntax/tag.php'))
-                && (!plugin_isdisabled('tag'))) {
+                && (!plugin_isdisabled('tag'))
+        ) {
             $replace['@TAG@'] = "\n\n{{tag>}}";
         } else {
             $replace['@TAG@'] = '';
@@ -1470,8 +1521,11 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             return; // CAPTCHA is disabled or not available
 
         if ($captcha->isEnabled() && !$captcha->check()) {
-            if ($_REQUEST['comment'] == 'save') $_REQUEST['comment'] = 'edit';
-            elseif ($_REQUEST['comment'] == 'add') $_REQUEST['comment'] = 'show';
+            if ($_REQUEST['comment'] == 'save') {
+                $_REQUEST['comment'] = 'edit';
+            } elseif ($_REQUEST['comment'] == 'add') {
+                $_REQUEST['comment'] = 'show';
+            }
         }
     }
 
@@ -1491,8 +1545,11 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         $resp = $recaptcha->check();
         if (!$resp->is_valid) {
             msg($recaptcha->getLang('testfailed'),-1);
-            if ($_REQUEST['comment'] == 'save') $_REQUEST['comment'] = 'edit';
-            elseif ($_REQUEST['comment'] == 'add') $_REQUEST['comment'] = 'show';
+            if ($_REQUEST['comment'] == 'save') {
+                $_REQUEST['comment'] = 'edit';
+            } elseif ($_REQUEST['comment'] == 'add') {
+                $_REQUEST['comment'] = 'show';
+            }
         }
     }
 
@@ -1542,7 +1599,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
 
         $meta = $event->data['current'];
         $file = metaFN($ID, '.comments');
-        $status = ($this->getConf('automatic') ? 1 : 0);
+        $status = ($this->isDiscussionEnabled() ? 1 : 0);
         $title = NULL;
         if (isset($meta['plugin_discussion'])) {
             $status = $meta['plugin_discussion']['status'];
@@ -1632,10 +1689,11 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             $createdB  = $b['date'];
         }
 
-        if ($createdA == $createdB)
+        if ($createdA == $createdB) {
             return 0;
-        else
+        } else {
             return ($createdA < $createdB) ? -1 : 1;
+        }
     }
 
 // vim:ts=4:sw=4:et:enc=utf-8:

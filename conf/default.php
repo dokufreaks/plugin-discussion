@@ -4,6 +4,7 @@
  */
 
 $conf['automatic']    = 0;   // discussion section on every page by default
+$conf['excluded_ns']  = '';  // list of namespaces to revert the option above (a regular expression)
 $conf['allowguests']  = 1;   // should unregistred users be able to comment?
 $conf['showguests']   = 1;   // show/hide comments from guests
 $conf['linkemail']    = 0;   // link usernames with e-mail addresses

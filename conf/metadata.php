@@ -7,6 +7,7 @@
  */
 
 $meta['automatic']    = array('onoff');
+$meta['excluded_ns']  = array('string');
 $meta['allowguests']  = array('onoff');
 $meta['showguests']   = array('onoff');
 $meta['linkemail']    = array('onoff');
