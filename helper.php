@@ -76,9 +76,13 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
             if ((!$comments['status']) || (($comments['status'] == 2) && (!$num))) return '';
         }
 
-        if ($num == 0) $comment = '0&nbsp;'.$this->getLang('nocomments');
-        elseif ($num == 1) $comment = '1&nbsp;'.$this->getLang('comment');
-        else $comment = $num.'&nbsp;'.$this->getLang('comments');
+        if ($num == 0) {
+            $comment = '0&nbsp;'.$this->getLang('nocomments');
+        } elseif ($num == 1) {
+            $comment = '1&nbsp;'.$this->getLang('comment');
+        } else {
+            $comment = $num.'&nbsp;'.$this->getLang('comments');
+        }
 
         return '<a href="'.wl($id).$section.'" class="wikilink1" title="'.$id.$section.'">'.
             $comment.'</a>';
@@ -86,6 +90,7 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
 
     /**
      * Returns an array of pages with discussion sections, sorted by recent comments
+     * Note: also used for content by Feed Plugin
      *
      * @param string $ns
      * @param null|int $num
@@ -148,6 +153,7 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
 
     /**
      * Returns an array of recently added comments to a given page or namespace
+     * Note: also used for content by Feed Plugin
      *
      * @param string $ns
      * @param int|null $num
@@ -252,9 +258,11 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
         if (!isset($data['comments'][$cid])) return false;
 
         // okay, then add some additional info
-        if (is_array($data['comments'][$cid]['user']))
+        if (is_array($data['comments'][$cid]['user'])) {
             $recent['name'] = $data['comments'][$cid]['user']['name'];
-        else $recent['name'] = $data['comments'][$cid]['name'];
+        } else {
+            $recent['name'] = $data['comments'][$cid]['name'];
+        }
         $recent['desc'] = strip_tags($data['comments'][$cid]['xhtml']);
         $recent['anchor'] = 'comment_'.$cid;
 

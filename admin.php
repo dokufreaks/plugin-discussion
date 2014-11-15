@@ -150,12 +150,14 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
         $id = $thread['id'];
 
         $labels = array(
-                0 => $this->getLang('off'),
-                1 => $this->getLang('open'),
-                2 => $this->getLang('closed')
-                );
+            0 => $this->getLang('off'),
+            1 => $this->getLang('open'),
+            2 => $this->getLang('closed')
+        );
         $title = p_get_metadata($id, 'title');
-        if (!$title) $title = $id;
+        if (!$title) {
+            $title = $id;
+        }
         ptln('<h2 name="'.$id.'" id="'.$id.'">'.hsc($title).'</h2>', 6);
         ptln('<form method="post" action="'.wl($id).'">', 6);
         ptln('<div class="mediaright">', 8);
@@ -184,7 +186,9 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
     function _getComments(&$thread) {
         $id = $thread['id'];
 
-        if (!$thread['file']) $thread['file'] = metaFN($id, '.comments');
+        if (!$thread['file']) {
+            $thread['file'] = metaFN($id, '.comments');
+        }
         if (!@file_exists($thread['file'])) return false; // no discussion thread at all
 
         $data = unserialize(io_readFile($thread['file'], false));
@@ -199,8 +203,11 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
             $this->_addComment($cid, $data, $result);
         }
 
-        if (empty($result)) return false;
-        else return $result;
+        if (empty($result)) {
+            return false;
+        } else {
+            return $result;
+        }
     }
 
     /**
@@ -253,7 +260,9 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
             $created  = $comment['date'];
         }
         $abstract = preg_replace('/\s+?/', ' ', strip_tags($comment['xhtml']));
-        if (utf8_strlen($abstract) > 160) $abstract = utf8_substr($abstract, 0, 160).'...';
+        if (utf8_strlen($abstract) > 160) {
+            $abstract = utf8_substr($abstract, 0, 160).'...';
+        }
 
         return '<input type="checkbox" name="cid['.$comment['id'].']" value="1" /> '.
             $this->email($mail, $name, 'email').', '.strftime($conf['dformat'], $created).': '.
@@ -310,7 +319,9 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
         $ret = '';
         if ($first > 0) {
             $first -= $num;
-            if ($first < 0) $first = 0;
+            if ($first < 0) {
+                $first = 0;
+            }
             $params['first'] = $first;
             ptln('<p class="centeralign">', 8);
             $ret = '<a href="'.wl($ID, $params).'" class="wikilink1">&lt;&lt; '.$this->getLang('newer').'</a>';
