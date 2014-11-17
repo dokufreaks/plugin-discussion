@@ -6,6 +6,7 @@
  * @author Davor Turkalj <turki.bsc@gmail.com>
  */
 $lang['automatic']             = 'odjeljak rasprava automatski na svakoj stranici';
+$lang['excluded_ns']           = 'lista imenskih prostora na koje se gornja opcija ne odnosi (regularni izraz npr. <code>/(playground|wiki)/</code>)';
 $lang['allowguests']           = 'dozvoli komentare ne registriranih korisnika';
 $lang['showguests']            = 'dozvoli gostima čitanje komentara';
 $lang['linkemail']             = 'poveži komentatore s e-mailovima';
