@@ -5,12 +5,14 @@
  * 
  * @author Davor Turkalj <turki.bsc@gmail.com>
  */
+$lang['encoding']              = 'utf-8';
 $lang['direction']             = 's lijeva udesno';
 $lang['menu']                  = 'Moderiranje rasprava';
 $lang['discussion']            = 'Rasprave';
 $lang['comment']               = 'Komentar';
 $lang['comments']              = 'Komentari';
 $lang['nocomments']            = 'Komentari';
+$lang['threads']               = 'Rasprave';
 $lang['url']                   = 'WEB stranica';
 $lang['address']               = 'Adresa';
 $lang['date']                  = 'Datum';
