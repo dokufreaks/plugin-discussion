@@ -359,14 +359,18 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     }
 
     /**
+     * Checks config settings to enable/disable discussions
      *
      * @return bool
      */
     public function isDiscussionEnabled() {
         global $INFO;
 
-        // handle excluded_ns
-        $isNamespaceExcluded = preg_match($this->getConf('excluded_ns'), $INFO['namespace']);
+        if($this->getConf('excluded_ns') == '') {
+            $isNamespaceExcluded = false;
+        } else {
+            $isNamespaceExcluded = preg_match($this->getConf('excluded_ns'), $INFO['namespace']);
+        }
 
         if($this->getConf('automatic')) {
             if($isNamespaceExcluded) {
