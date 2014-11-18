@@ -1386,7 +1386,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
      */
     protected function _render($raw) {
         if ($this->getConf('wikisyntaxok')) {
-            $xhtml = $this->render_text($raw);
+            $xhtml = $this->render($raw);
         } else { // wiki syntax not allowed -> just encode special chars
             $xhtml = hsc(trim($raw));
             $xhtml = str_replace("\n", '<br />', $xhtml);
