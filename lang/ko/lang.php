@@ -13,6 +13,7 @@ $lang['discussion']            = '토론';
 $lang['comment']               = '덧글';
 $lang['comments']              = '덧글';
 $lang['nocomments']            = '덧글';
+$lang['threads']               = '토론';
 $lang['url']                   = '웹사이트';
 $lang['address']               = '주소';
 $lang['date']                  = '날짜';

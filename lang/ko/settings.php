@@ -7,6 +7,7 @@
  * @author Myeongjin <aranet100@gmail.com>
  */
 $lang['automatic']             = '기본적으로 모든 문서에 토론 문단을 생성';
+$lang['excluded_ns']           = '위 옵션을 되돌릴 이름공간의 목록 (정규 표현식 예를 들어 <code>/(playground|wiki)/</code> )';
 $lang['allowguests']           = '등록하지 않은 사용자가 덧글을 남길 수 있음';
 $lang['showguests']            = '손님이 덧글을 읽을 수 있음';
 $lang['linkemail']             = '이메일로 된 덧글을 남긴 사용자의 이름 링크';
