@@ -6,6 +6,7 @@
  * @author Mike Lykov <lykov.myu@mgsm.ru>
  * @author Maxim Maximov <mxmv@@mail.ru>
  * @author Aleksandr Selivanov <alexgearbox@gmail.com>
+ * @author Aleksandr Selivanov <alexgearbox@yandex.ru>
  */
 $lang['encoding']              = 'utf-8';
 $lang['direction']             = 'ltr';
@@ -14,6 +15,7 @@ $lang['discussion']            = 'Обсуждение';
 $lang['comment']               = 'Комментарий';
 $lang['comments']              = 'комментариев (-я)';
 $lang['nocomments']            = 'комментариев (-я)';
+$lang['threads']               = 'Обсуждения';
 $lang['url']                   = 'Веб-сайт';
 $lang['address']               = 'Адрес';
 $lang['date']                  = 'Дата';
