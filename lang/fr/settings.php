@@ -7,8 +7,10 @@
  * @author Raphael Wils <info@r-wils.fr>
  * @author Benjamin HKB <http://benjamin.hkb.free.fr>
  * @author Nicolas Charpenel <n.charpenel@laposte.net>
+ * @author Nicolas Friedli <nicolas@theologique.ch>
  */
 $lang['automatic']             = 'Discussion sur toutes les pages par défaut';
+$lang['excluded_ns']           = 'listes des espaces de noms pour lesquels inverser l\'option générale (sous forme d\'expression régulière, p.ex. <code>/(playground|wiki)/</code> )';
 $lang['allowguests']           = 'Permettre les commentaires des utilisateurs non-enregistrés';
 $lang['showguests']            = 'autoriser les visiteurs à lire les commentaires';
 $lang['linkemail']             = 'Mettre un lien vers l\'email de la personne qui commente';

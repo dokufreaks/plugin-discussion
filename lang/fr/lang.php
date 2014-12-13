@@ -8,6 +8,7 @@
  * @author Benjamin HKB <http://benjamin.hkb.free.fr>
  * @author iDo <iLoveiDo@gmail.com>
  * @author Nicolas Charpenel <n.charpenel@laposte.net>
+ * @author Nicolas Friedli <nicolas@theologique.ch>
  */
 $lang['encoding']              = 'utf-8';
 $lang['direction']             = 'ltr';
@@ -16,6 +17,7 @@ $lang['discussion']            = 'Discussion';
 $lang['comment']               = 'Commentaire';
 $lang['comments']              = 'Commentaires';
 $lang['nocomments']            = 'Pas de commentaires';
+$lang['threads']               = 'Discussions';
 $lang['url']                   = 'Site web';
 $lang['address']               = 'Adresse';
 $lang['date']                  = 'Date';
