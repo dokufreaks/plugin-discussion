@@ -7,8 +7,10 @@
  * @author Aleksandr Selivanov <alexgearbox@gmail.com>
  * @author JSBmanD <JSBmanD@gmail.com>
  * @author Aleksandr Selivanov <alexgearbox@yandex.ru>
+ * @author Vitaly Filatenko <kot@hacktest.net>
  */
 $lang['automatic']             = 'Добавлять обсуждение на каждую страницу по умолчанию';
+$lang['excluded_ns']           = 'Список пространств имён для отката вариантов, указанных выше (регулярное выражение, например <code>/(playground|wiki)/</code> )';
 $lang['allowguests']           = 'Разрешить анонимным пользователям оставлять комментарии';
 $lang['showguests']            = 'Разрешить незарегистрированным пользователям читать комментарии';
 $lang['linkemail']             = 'Связывать имя комментирующего с адресом его электропочты';
