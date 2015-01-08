@@ -3,8 +3,9 @@
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  * 
- * @author     Erwin Moller <erwin@darwine.nl>
+ * @author Erwin Moller <erwin@darwine.nl>
  * @author mprins <mprins@users.sf.net>
+ * @author Mijndert <mijndert@mijndertstuij.nl>
  */
 $lang['encoding']              = 'utf-8';
 $lang['direction']             = 'ltr';
@@ -13,6 +14,7 @@ $lang['discussion']            = 'Discussie';
 $lang['comment']               = 'Opmerking';
 $lang['comments']              = 'Opmerkingen';
 $lang['nocomments']            = 'Opmerkingen';
+$lang['threads']               = 'Discussies';
 $lang['url']                   = 'Website';
 $lang['address']               = 'Adres';
 $lang['date']                  = 'Datum';

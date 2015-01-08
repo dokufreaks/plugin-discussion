@@ -3,7 +3,7 @@
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  * 
- * @author     Erwin Moller <erwin@darwine.nl>
+ * @author Erwin Moller <erwin@darwine.nl>
  * @author mprins <mprins@users.sf.net>
  */
 $lang['automatic']             = 'Discussie-sectie standaard op elke pagina';
