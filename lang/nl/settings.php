@@ -5,8 +5,10 @@
  * 
  * @author Erwin Moller <erwin@darwine.nl>
  * @author mprins <mprins@users.sf.net>
+ * @author Mijndert <mijndert@mijndertstuij.nl>
  */
 $lang['automatic']             = 'Discussie-sectie standaard op elke pagina';
+$lang['excluded_ns']           = 'lijst van namespaces om bijgenoemde optie terug te draaien (een reguliere expressie, b.v. <code>/(playground|wiki)/</code>)';
 $lang['allowguests']           = 'Niet-geregistreerde gebruikers mogen commentaar geven';
 $lang['showguests']            = 'Sta gasten toe om opmerkingen te lezen';
 $lang['linkemail']             = 'Hyperlink de naam van degene die commentaar geeft naar hun email';
