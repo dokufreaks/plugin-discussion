@@ -3,8 +3,9 @@
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  * 
- * @author     Felipe Castro <fefcas@yahoo.com.br>
+ * @author Felipe Castro <fefcas@yahoo.com.br>
  * @author Robert Bogenschneider <bogi@uea.org>
+ * @author Robert Bogenschneider <robog@gmx.de>
  */
 $lang['encoding']              = 'utf-8';
 $lang['direction']             = 'ltr';
@@ -13,6 +14,7 @@ $lang['discussion']            = 'Diskuto';
 $lang['comment']               = 'Komento';
 $lang['comments']              = 'Komentoj';
 $lang['nocomments']            = 'Komentoj';
+$lang['threads']               = 'Diskutoj';
 $lang['url']                   = 'Retpaĝo';
 $lang['address']               = 'Adreso';
 $lang['date']                  = 'Dato';

@@ -1,6 +1,6 @@
 Saluton!
 
-Nova komento estis aldonata al la pagxo @PAGE@ en la vikio @TITLE@.
+Nova komento estis aldonata al la paĝo @PAGE@ en la vikio @TITLE@.
 
 Dato:   @DATE@
 Nomo:   @NAME@
@@ -11,9 +11,9 @@ Komento:
 @TEXT@
 --------------------------------------------------------
 
-Por malaligxi el cxi tiu pagxo, ensalutu en la vikio kaj klaku tie:
+Por malaliĝi el ĉi tiu paĝo, ensalutu en la vikio kaj klaku tie:
 @UNSUBSCRIBE@
 
 --
-Cxi tiu mesagxo estis naskita de DokuWiki en
+Ĉi tiu mesaĝo kreiĝis de DokuWiki en
 @DOKUWIKIURL@

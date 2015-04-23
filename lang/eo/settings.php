@@ -3,16 +3,18 @@
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  * 
- * @author     Felipe Castro <fefcas@yahoo.com.br>
+ * @author Felipe Castro <fefcas@yahoo.com.br>
  * @author Robert Bogenschneider <bogi@uea.org>
+ * @author Robert Bogenschneider <robog@gmx.de>
  */
 $lang['automatic']             = 'meti diskutan sekcion por ĉiu paĝo apriore';
-$lang['allowguests']           = 'permesi komentojn de neregistritaj uzuloj';
+$lang['excluded_ns']           = 'listo de nomspacoj, en kiuj ne validas la supra opcio (regula esprimo, ekz. <code>/(playground|wiki)/</code> )';
+$lang['allowguests']           = 'permesi komentojn de neregistritaj uzantoj';
 $lang['showguests']            = 'permesi al gastoj legi komentojn';
-$lang['linkemail']             = 'aldoni ligilon por emejlo de la uzuloj';
+$lang['linkemail']             = 'aldoni ligilon por retpoŝto de la uzantoj';
 $lang['useavatar']             = 'uzi avatarbildon por komentoj';
-$lang['urlfield']              = 'permesi uzulojn inkludi URL-on';
-$lang['addressfield']          = 'permesi uzulojn inkludi posxtan adreson';
+$lang['urlfield']              = 'permesi al uzantoj inkludi URL-on';
+$lang['addressfield']          = 'permesi al uzantoj inkludi poŝtan adreson';
 $lang['adminimport']           = 'permesi administrantojn difini cxiujn erojn por importo';
 $lang['usecocomment']          = 'uzi kromkomentan postsekvadon';
 $lang['wikisyntaxok']          = 'permesi vikian sintakson en komentoj';

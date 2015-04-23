@@ -1,9 +1,8 @@
 Saluton!
 
-Iu petis aboni komentojn de la paĝo @PAGE@ en @TITLE@.
+Per tio vi abonas komentojn de la paĝo @PAGE@ en @TITLE@.
 
-Por konfirmi, ke la peto estis vere via, bonvolu klaki jenan ligilon:
-
+Por konfirmi la abonon bv. klaki jenan ligilon: 
 @SUBSCRIBE@
 
 -- 
