@@ -3,10 +3,12 @@
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  * 
- * @author     Felipe Castro <fefcas@yahoo.com.br>
+ * @author Felipe Castro <fefcas@yahoo.com.br>
  * @author Robert Bogenschneider <bogi@uea.org>
+ * @author Robert Bogenschneider <robog@gmx.de>
  */
 $lang['automatic']             = 'meti diskutan sekcion por ĉiu paĝo apriore';
+$lang['excluded_ns']           = 'listo de nomspacoj, en kiuj ne validas la supra opcio (regula esprimo, ekz. <code>/(playground|wiki)/</code> )';
 $lang['allowguests']           = 'permesi komentojn de neregistritaj uzuloj';
 $lang['showguests']            = 'permesi al gastoj legi komentojn';
 $lang['linkemail']             = 'aldoni ligilon por emejlo de la uzuloj';
