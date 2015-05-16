@@ -18,7 +18,6 @@ $lang['useavatar']             = 'Utiliser les avatars pour les commentaires';
 $lang['urlfield']              = 'Affichage d\'un champ URL';
 $lang['addressfield']          = 'Affichage d\'un champ adresse postale';
 $lang['adminimport']           = 'Permettre aux administrateurs de saisir tous les champs pour l\'import';
-$lang['usecocomment']          = 'Utiliser coComment tracking';
 $lang['wikisyntaxok']          = 'Autoriser la syntaxe wiki dans les commentaires';
 $lang['subscribe']             = 'activer/désactiver les souscriptions aux commentaires';
 $lang['newestfirst']           = 'lister les commentaires les plus récents en premier';

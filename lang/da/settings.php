@@ -14,7 +14,6 @@ $lang['useavatar']             = 'brug brugerikoner som billed til kommentarer';
 $lang['urlfield']              = 'tillad brugere at indtaste et link til en hjemmeside';
 $lang['addressfield']          = 'tillad brugere at indtaste adresser';
 $lang['adminimport']           = 'tillad administratorer at sætte alle felter til import';
-$lang['usecocomment']          = 'brug coComment til at følge kommentarer';
 $lang['wikisyntaxok']          = 'tillad wiki syntax i kommentarer';
 $lang['subscribe']             = 'Aktiver mulighed for at tilmelde sig kommentarer';
 $lang['newestfirst']           = 'skriv nyeste kommentarer først';

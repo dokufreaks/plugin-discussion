@@ -15,7 +15,6 @@ $lang['useavatar']             = 'コメントのアバターとしてユーザ�
 $lang['urlfield']              = 'ユーザーのURL入力を許可';
 $lang['addressfield']          = 'ユーザーの郵便番号入力を許可';
 $lang['adminimport']           = '管理者にインポートする為の全てのフィールドの設定を許可';
-$lang['usecocomment']          = 'coCommentトラッキングを使う';
 $lang['wikisyntaxok']          = 'コメント内でもwiki文法を許可';
 $lang['subscribe']             = 'コメント購読の有効／無効を表示';
 $lang['newestfirst']           = '新しいコメントを最初に表示';

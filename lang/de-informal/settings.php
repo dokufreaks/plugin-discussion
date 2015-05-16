@@ -14,7 +14,6 @@ $lang['useavatar']    = 'Avatar in Kommentaren verwenden';
 $lang['urlfield']     = 'Eingabefeld für URL anbieten';
 $lang['addressfield'] = 'Eingabefeld für Adresse anbieten';
 $lang['adminimport']  = 'Admins können alle Felder eingeben (für Import)';
-$lang['usecocomment'] = 'Kommentare mit coComment verfolgen';
 $lang['wikisyntaxok'] = 'Wiki-Syntax in Kommentaren erlauben';
 $lang['subscribe']    = 'De-/Aktivieren der Abo-Funktion für Kommentare';
 $lang['newestfirst']  = 'Neuste Kommentare als erstes anzeigen';

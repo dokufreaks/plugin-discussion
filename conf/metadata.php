@@ -15,7 +15,6 @@ $meta['useavatar']    = array('onoff');
 $meta['urlfield']     = array('onoff');
 $meta['addressfield'] = array('onoff');
 $meta['adminimport']  = array('onoff');
-$meta['usecocomment'] = array('onoff');
 $meta['wikisyntaxok'] = array('onoff');
 $meta['subscribe']    = array('onoff');
 $meta['newestfirst']  = array('onoff');

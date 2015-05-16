@@ -13,7 +13,6 @@ $lang['useavatar']             = 'bruk avatar brukerbilder for kommentarer';
 $lang['urlfield']              = 'tillat brukere å legge inn URL';
 $lang['addressfield']          = 'tillat brukere å legge inn postadresse';
 $lang['adminimport']           = 'tillat administratorer å sette alle felt for import';
-$lang['usecocomment']          = 'bruk coComment kommentarsporing';
 $lang['wikisyntaxok']          = 'tillat wiki syntax i kommentarer';
 $lang['subscribe']             = 'aktiver/deaktiver abonnering av kommentarer';
 $lang['newestfirst']           = 'nyeste kommentarer øverst';

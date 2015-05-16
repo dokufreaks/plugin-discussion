@@ -14,7 +14,6 @@ $lang['useavatar']             = 'koristi slike korisničkih avatara na komentar
 $lang['urlfield']              = 'dozvoli korisnicima unos URL-ova';
 $lang['addressfield']          = 'dozvoli korisnicima unos poštanske adrese';
 $lang['adminimport']           = 'dozvoli administratorima da postave sva polja za unos';
-$lang['usecocomment']          = 'koristi coComment za praćenje komentara';
 $lang['wikisyntaxok']          = 'dozvoli wiki sintaksu u komentarima';
 $lang['subscribe']             = 'dozvoli pretplate na komentare';
 $lang['newestfirst']           = 'prikaži prvo najnovije komentare';

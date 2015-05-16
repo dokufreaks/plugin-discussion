@@ -16,7 +16,6 @@ $lang['useavatar']             = 'Gebruik avatar afbeeldingen van gebruikers';
 $lang['urlfield']              = 'Gebruikers mogen een url-veld invullen';
 $lang['addressfield']          = 'Gebruikers mogen een adresveld invullen';
 $lang['adminimport']           = 'Laat admins alle invoervelden zien';
-$lang['usecocomment']          = 'Gebruik coComment commentaar-volgen';
 $lang['wikisyntaxok']          = 'Sta wiki syntax toe in reacties';
 $lang['subscribe']             = 'In-/uitschakelen van e-mailinschrijvingen op discussies';
 $lang['newestfirst']           = 'Geef de nieuwste reacties eerst';

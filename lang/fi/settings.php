@@ -15,7 +15,6 @@ $lang['useavatar']    = 'käytä avatar-käyttäjäkuvia kommentteihin';
 $lang['urlfield']     = 'salli käyttjien antaa URL';
 $lang['addressfield'] = 'salli käyttäjien antaa postiosoite';
 $lang['adminimport']  = 'salli hallinnoijan asettaa kaikki kentät vienti-toimintoa varten';
-$lang['usecocomment'] = 'käytä coComment -kommentin seurantaa';
 $lang['wikisyntaxok'] = 'salli wiki syntaksi kommenteissa';
 $lang['subscribe']    = 'aseta kommenttien tilaaminen päälle/pois';
 $lang['newestfirst']  = 'listaa uusimmat kommentit ensin';

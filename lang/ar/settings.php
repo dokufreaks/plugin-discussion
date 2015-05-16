@@ -17,7 +17,6 @@ $lang['gravatar_rating'] = 'أصغر معدّل لصورة المستخدم';
 $lang['urlfield']        = 'السماح للمستخدكين بإدخال رابط الويب';
 $lang['addressfield']    = 'السماح للمستخدمين بإدخال العنوان البريدي';
 $lang['adminimport']     = 'السماح للمشرفين بوضع كل الحقول للتصدير';
-$lang['usecocomment']    = 'إرسال نسخة من التعليقات';
 $lang['wikisyntaxok']    = 'السماح بصيغ ويكي في التعليقات';
 
 $lang['threads_formposition']          = 'مكان توضع الفقرة الجديدة';

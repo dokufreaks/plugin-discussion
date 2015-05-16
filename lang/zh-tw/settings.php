@@ -15,7 +15,6 @@ $lang['useavatar']    = '意見使用 avatar 使用者圖像';
 $lang['urlfield']     = '允許使用者輸入自己的網站網址';
 $lang['addressfield'] = '允許使用者輸入自己的通信地址';
 $lang['adminimport']  = '允許管理者設定意見發表日期 (方便匯入使用)';
-$lang['usecocomment'] = '使用 coComment 評論追蹤功能';
 $lang['wikisyntaxok'] = '意見允許使用維基語法';
 $lang['subscribe']    = '允許訂閱意見';
 $lang['newestfirst']  = '新意見置前';

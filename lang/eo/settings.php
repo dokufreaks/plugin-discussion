@@ -16,7 +16,6 @@ $lang['useavatar']             = 'uzi avatarbildon por komentoj';
 $lang['urlfield']              = 'permesi al uzantoj inkludi URL-on';
 $lang['addressfield']          = 'permesi al uzantoj inkludi poŝtan adreson';
 $lang['adminimport']           = 'permesi administrantojn difini cxiujn erojn por importo';
-$lang['usecocomment']          = 'uzi kromkomentan postsekvadon';
 $lang['wikisyntaxok']          = 'permesi vikian sintakson en komentoj';
 $lang['subscribe']             = 'permesi/malebligi abonadon de komentoj';
 $lang['newestfirst']           = 'listigi plej novajn komentojn unue';

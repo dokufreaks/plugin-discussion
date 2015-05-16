@@ -16,7 +16,6 @@ $lang['useavatar']    = 'use avatar user images for comments';
 $lang['urlfield']     = 'allow users to enter an URL';
 $lang['addressfield'] = 'allow users to enter a postal address';
 $lang['adminimport']  = 'allow admins to set  all fields for import';
-$lang['usecocomment'] = 'use coComment comment tracking';
 $lang['wikisyntaxok'] = 'allow wiki syntax in comments';
 $lang['subscribe']    = 'enable/disable subscribe to comments';
 $lang['newestfirst']  = 'list newest comments first';

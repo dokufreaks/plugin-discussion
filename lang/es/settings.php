@@ -15,7 +15,6 @@ $lang['useavatar']             = 'usar avatar del usuario para los comentarios';
 $lang['urlfield']              = 'permitir a los usuarios ingresar una URL';
 $lang['addressfield']          = 'permitir a los usuarios ingresar una dirección postal';
 $lang['adminimport']           = 'permitir a los administradores definir todos los campos a insertar';
-$lang['usecocomment']          = 'usar seguimiento de comentarios coComment';
 $lang['wikisyntaxok']          = 'permitir sintaxis wiki en comentarios';
 $lang['subscribe']             = 'activar/desactivar la suscripción a comentarios';
 $lang['newestfirst']           = 'listar nuevos comentarios primero';

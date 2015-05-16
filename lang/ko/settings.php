@@ -15,7 +15,6 @@ $lang['useavatar']             = '덧글에 아바타 사용자 그림 사용';
 $lang['urlfield']              = '사용자가 URL을 입력할 수 있음';
 $lang['addressfield']          = '사용자가 우편 주소를 입력할 수 있음';
 $lang['adminimport']           = '관리자가 가져오기에 대한 모든 필드를 설정할 수 있음';
-$lang['usecocomment']          = '다중 덧글 추적 사용';
 $lang['wikisyntaxok']          = '덧글에 위키 문법을 사용할 수 있음';
 $lang['subscribe']             = '덧글 구독 활성화/비활성화';
 $lang['newestfirst']           = '새 덧글을 먼저 나열';

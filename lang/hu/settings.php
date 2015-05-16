@@ -14,7 +14,6 @@ $lang['useavatar']             = 'használjon avatar képeket a hozzászólások
 $lang['urlfield']              = 'felhasználók megadhatnak egy weboldalt';
 $lang['addressfield']          = 'felhasználók megadhatják a címüket';
 $lang['adminimport']           = 'adminok hozzászóláskor minden mezőt külön megadhatnak';
-$lang['usecocomment']          = 'coComment komment követés használata';
 $lang['wikisyntaxok']          = 'wiki szintaxis engedélyezése kommentekben';
 $lang['subscribe']             = 'kommentekre feliratkozás engedélyezése';
 $lang['newestfirst']           = 'újabb hozzászólásokat mutassa fölül';

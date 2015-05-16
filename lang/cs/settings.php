@@ -15,7 +15,6 @@ $lang['useavatar']             = 'použit avatar obrázky';
 $lang['urlfield']              = 'povolit uživatelům vložit URL';
 $lang['addressfield']          = 'povolit uživatelům vložit poštovní adresu';
 $lang['adminimport']           = 'povolit administrátorům nastavit všechna pole pro import';
-$lang['usecocomment']          = 'použít sledování komentářů coComment';
 $lang['wikisyntaxok']          = 'povolit wiki syntax v komentářích';
 $lang['subscribe']             = 'povolit/zakázat odběr komentářů';
 $lang['newestfirst']           = 'vypisovat nejdříve nejnovější komentáře';

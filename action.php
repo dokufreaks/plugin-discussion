@@ -1070,48 +1070,6 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
           </form>
         </div>
         <?php
-        if ($this->getConf('usecocomment')){
-            $this->_coComment();
-        }
-    }
-
-    /**
-     * Adds a javascript to interact with coComments
-     */
-    protected function _coComment() {
-        global $ID;
-        global $conf;
-        global $INFO;
-
-        $user = $_SERVER['REMOTE_USER'];
-
-        ?>
-        <script type="text/javascript"><!--//--><![CDATA[//><!--
-          var blogTool  = "DokuWiki";
-          var blogURL   = "<?php echo DOKU_URL ?>";
-          var blogTitle = "<?php echo $conf['title'] ?>";
-          var postURL   = "<?php echo wl($ID, '', true) ?>";
-          var postTitle = "<?php echo tpl_pagetitle($ID, true) ?>";
-        <?php
-        if ($user) {
-        ?>
-          var commentAuthor = "<?php echo $INFO['userinfo']['name'] ?>";
-        <?php
-        } else {
-        ?>
-          var commentAuthorFieldName = "name";
-        <?php
-        }
-        ?>
-          var commentAuthorLoggedIn = <?php echo ($user ? 'true' : 'false') ?>;
-          var commentFormID         = "discussion__comment_form";
-          var commentTextFieldName  = "text";
-          var commentButtonName     = "submit";
-          var cocomment_force       = false;
-        //--><!]]></script>
-        <script type="text/javascript" src="http://www.cocomment.com/js/cocomment.js">
-        </script>
-        <?php
     }
 
     /**
