@@ -210,12 +210,8 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
 
         // enable captchas
         if (in_array($_REQUEST['comment'], array('add', 'save'))) {
-            if (@file_exists(DOKU_PLUGIN.'captcha/action.php')) {
-                $this->_captchaCheck();
-            }
-            if (@file_exists(DOKU_PLUGIN.'recaptcha/action.php')) {
-                $this->_recaptchaCheck();
-            }
+            $this->_captchaCheck();
+            $this->_recaptchaCheck();
         }
 
         // if we are not in show mode or someone wants to unsubscribe, that was all for now
@@ -1041,10 +1037,21 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                   }
                 ?></textarea>
               </div>
-        <?php //bad and dirty event insert hook
-        $evdata = array('writable' => true);
-        trigger_event('HTML_EDITFORM_INJECTION', $evdata);
-        ?>
+
+              <?php
+              /** @var helper_plugin_captcha $captcha */
+              $captcha = $this->loadHelper('captcha', false);
+              if ($captcha && $captcha->isEnabled()) {
+                  echo $captcha->getHTML();
+              }
+
+              /** @var helper_plugin_recaptcha $recaptcha */
+              $recaptcha = $this->loadHelper('recaptcha', false);
+              if ($recaptcha && $recaptcha->isEnabled()) {
+                  echo $recaptcha->getHTML();
+              }
+              ?>
+
               <input class="button comment_submit" id="discussion__btn_submit" type="submit" name="submit" accesskey="s" value="<?php echo $lang['btn_save'] ?>" title="<?php echo $lang['btn_save']?> [S]" tabindex="7" />
               <input class="button comment_preview_button" id="discussion__btn_preview" type="button" name="preview" accesskey="p" value="<?php echo $lang['btn_preview'] ?>" title="<?php echo $lang['btn_preview']?> [P]" />
 
