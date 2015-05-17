@@ -27,5 +27,6 @@ $meta['threads_formposition'] = array(
                                 );
 $meta['visibilityButton'] = array('onoff');
 $meta['moderatorgroups']  = array('string');
+$meta['moderatorsnotify']  = array('onoff');
 
 //Setup VIM: ex: et ts=2 enc=utf-8 :

@@ -1259,7 +1259,42 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             $mailer->bcc($conf['notify']);
             $mailer->send();
         }
-        
+
+        // send email to moderators
+        if ($this->getConf('moderatorsnotify')) {
+            $mods = trim($this->getConf('moderatorgroups'));
+            if (!empty($mods)) {
+                global $auth;
+                // create a clean mods list
+                $mods = explode(',', $mods);
+                $mods = array_map('trim', $mods);
+                $mods = array_unique($mods);
+                $mods = array_filter($mods);
+                // search for moderators users
+                foreach($mods as $mod) {
+                    if(!$auth->isCaseSensitive()) $mod = utf8_strtolower($mod);
+                    // create a clean mailing list
+                    $dests = array();
+                    if($mod[0] == '@') {
+                        foreach($auth->retrieveUsers(0, 0, array('grps' => $auth->cleanGroup(substr($mod, 1)))) as $user) {
+                            if (!empty($user['mail'])) {
+                                array_push($dests, $user['mail']);
+                            }
+                        }
+                    } else {
+                        $userdata = $auth->getUserData($auth->cleanUser($mod));
+                        if (!empty($userdata['mail'])) {
+                            array_push($dests, $userdata['mail']);
+                        }
+                    }
+                    $dests = array_unique($dests);
+                    // notify the users
+                    $mailer->bcc(implode(',', $dests));
+                    $mailer->send();
+                }
+            }
+        }
+
         // notify page subscribers
         if (actionOK('subscribe')) {
             $data = array('id' => $ID, 'addresslist' => '', 'self' => false);

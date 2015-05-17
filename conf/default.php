@@ -21,5 +21,6 @@ $conf['userealname']  = 1;
 $conf['threads_formposition'] = 'bottom'; // position of new thread form
 $conf['visibilityButton'] = 0; // show/hide button to hide the discussion section
 $conf['moderatorgroups']  = '';
+$conf['moderatorsnotify'] = 0;
 
 //Setup VIM: ex: et ts=2 enc=utf-8 :
