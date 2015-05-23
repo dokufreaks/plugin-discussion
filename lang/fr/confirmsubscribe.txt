@@ -4,6 +4,6 @@ Vous êtes sur le point de souscrire aux commentaires de la page @PAGE@ du wiki 
 Pour confirmer votre souscription, merci de suivre ce lien :
 @SUBSCRIBE@
 
---
-Ce mail a été généré par DokuWiki à
+-- 
+Courriel généré par DokuWiki à
 @DOKUWIKIURL@
