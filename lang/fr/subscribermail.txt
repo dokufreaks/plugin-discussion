@@ -14,6 +14,6 @@ Commentaire:
 Pour vous désinscrire de cette page connectez vous au wiki puis cliquez sur ce lien:
 @UNSUBSCRIBE@
 
---
-Ce mail a été créé par DokuWiki à
+-- 
+Courriel créé par DokuWiki à
 @DOKUWIKIURL@
