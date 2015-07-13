@@ -26,3 +26,4 @@ $lang['threads_formposition_o_top'] = 'vrh';
 $lang['threads_formposition_o_bottom'] = 'dno';
 $lang['visibilityButton']      = 'Omogući gumb za kontrolu vidljivosti odjeljka rasprava';
 $lang['moderatorgroups']       = 'Zarezom odvojena lista grupa moderatora (identično postavci DokuWiki-Manager)';
+$lang['moderatorsnotify']      = 'Pošalji obavijest poštom moderatorima o novim komentarima';
