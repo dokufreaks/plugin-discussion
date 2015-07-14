@@ -4,6 +4,7 @@
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  * 
  * @author ZDYX <zhangduyixiong@gmail.com>
+ * @author PlaneV <PlaneVV@Gmail.com>
  */
 $lang['encoding']              = 'utf-8';
 $lang['direction']             = 'ltr';
@@ -12,6 +13,7 @@ $lang['discussion']            = '评论';
 $lang['comment']               = '评论';
 $lang['comments']              = '评论';
 $lang['nocomments']            = '无评论';
+$lang['threads']               = '评论';
 $lang['url']                   = '个人主页';
 $lang['address']               = '通信地址';
 $lang['date']                  = '评论日期';
