@@ -3,11 +3,12 @@
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  * 
- * @author     Ikuo Obataya <I.Obataya@gmail.com>
- * @author     Yusuke Ishida <yusuke.ishida.gnl@gmail.com>
+ * @author Ikuo Obataya <I.Obataya@gmail.com>
+ * @author Yusuke Ishida <yusuke.ishida.gnl@gmail.com>
  * @author Hideaki SAWADA <chuno@live.jp>
  */
 $lang['automatic']             = 'デフォルトで全てのページにコメントセクションを追加';
+$lang['excluded_ns']           = '上記オプションを元に戻す、名前空間の一覧（正規表現、例：　<code>/(playground|wiki)/</code>）';
 $lang['allowguests']           = '登録していないユーザーのコメントを許可';
 $lang['showguests']            = 'ゲストのコメント表示を許可';
 $lang['linkemail']             = 'コメントした人の名前にe-mailリンクを貼る';
@@ -27,3 +28,4 @@ $lang['threads_formposition_o_top'] = '上';
 $lang['threads_formposition_o_bottom'] = '下';
 $lang['visibilityButton']      = 'コメントセクションの表示を切り替えるボタンを有効にする';
 $lang['moderatorgroups']       = '承認者グループ（DokuWikiのマネージャー権限と同じレベル）のカンマ区切り一覧';
+$lang['moderatorsnotify']      = '承認者に対して新しいコメントの通知メールを送信する';

@@ -3,8 +3,8 @@
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  * 
- * @author     Ikuo Obataya <I.Obataya@gmail.com>
- * @author     Yusuke Ishida <yusuke.ishida.gnl@gmail.com>
+ * @author Ikuo Obataya <I.Obataya@gmail.com>
+ * @author Yusuke Ishida <yusuke.ishida.gnl@gmail.com>
  * @author Hideaki SAWADA <chuno@live.jp>
  */
 $lang['encoding']              = 'utf-8';
@@ -14,6 +14,7 @@ $lang['discussion']            = 'コメント';
 $lang['comment']               = 'コメント';
 $lang['comments']              = 'コメント';
 $lang['nocomments']            = 'コメント';
+$lang['threads']               = 'コメント';
 $lang['url']                   = 'ウェブサイト';
 $lang['address']               = '住所';
 $lang['date']                  = '日付';
