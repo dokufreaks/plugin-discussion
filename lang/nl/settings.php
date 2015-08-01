@@ -6,6 +6,7 @@
  * @author Erwin Moller <erwin@darwine.nl>
  * @author mprins <mprins@users.sf.net>
  * @author Mijndert <mijndert@mijndertstuij.nl>
+ * @author hugo smet <hugo.smet@scarlet.be>
  */
 $lang['automatic']             = 'Discussie-sectie standaard op elke pagina';
 $lang['excluded_ns']           = 'lijst van namespaces om bijgenoemde optie terug te draaien (een reguliere expressie, b.v. <code>/(playground|wiki)/</code>)';
@@ -28,3 +29,4 @@ $lang['threads_formposition_o_top'] = 'boven';
 $lang['threads_formposition_o_bottom'] = 'onder';
 $lang['visibilityButton']      = 'Zet knop aan voor het in-/uitschakelen van de zichtbaarheid van discussies';
 $lang['moderatorgroups']       = 'Komma gescheiden lijst van moderator groepen (gelijk aan het  DokuWiki-Manager toegangsniveau)';
+$lang['moderatorsnotify']      = 'Stuur verwittigingsmails voor de nieuwe opmerkingen naar de moderators';
