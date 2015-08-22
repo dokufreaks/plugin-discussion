@@ -3,9 +3,10 @@
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  * 
- * @author     Esther Brunner <wikidesign@gmail.com>
- * @author     iDo <iLoveiDo@gmail.com>
+ * @author Esther Brunner <wikidesign@gmail.com>
+ * @author iDo <iLoveiDo@gmail.com>
  * @author Dominik Eckelmann <deckelmann@gmail.com>
+ * @author Padhie <develop@padhie.de>
  */
 $lang['encoding']              = 'utf-8';
 $lang['direction']             = 'ltr';
@@ -14,6 +15,7 @@ $lang['discussion']            = 'Diskussion';
 $lang['comment']               = 'Kommentar';
 $lang['comments']              = 'Kommentare';
 $lang['nocomments']            = 'Kommentare';
+$lang['threads']               = 'Gespräche';
 $lang['url']                   = 'Webseite';
 $lang['address']               = 'Adresse';
 $lang['date']                  = 'Datum';
