@@ -8,6 +8,7 @@
  * @author JSBmanD <JSBmanD@gmail.com>
  * @author Aleksandr Selivanov <alexgearbox@yandex.ru>
  * @author Vitaly Filatenko <kot@hacktest.net>
+ * @author RainbowSpike <1@2.ru>
  */
 $lang['automatic']             = 'Добавлять обсуждение на каждую страницу по умолчанию';
 $lang['excluded_ns']           = 'Список пространств имён для отката вариантов, указанных выше (регулярное выражение, например, <code>/(playground|wiki)/</code> )';
@@ -30,3 +31,4 @@ $lang['threads_formposition_o_top'] = 'вверху';
 $lang['threads_formposition_o_bottom'] = 'внизу';
 $lang['visibilityButton']      = 'Включить кнопку для переключения видимости секции обсуждений';
 $lang['moderatorgroups']       = 'Разделённый запятыми список групп модераторов (equal to DokuWiki-Manager permission level)';
+$lang['moderatorsnotify']      = 'Посылать модераторам е-майл о новых комментариях?';
