@@ -9,10 +9,11 @@
  * @author iDo <iLoveiDo@gmail.com>
  * @author Nicolas Charpenel <n.charpenel@laposte.net>
  * @author Nicolas Friedli <nicolas@theologique.ch>
+ * @author Simon DELAGE <simon.geekitude@gmail.com>
  */
 $lang['encoding']              = 'utf-8';
 $lang['direction']             = 'ltr';
-$lang['menu']                  = 'Discussions modérés';
+$lang['menu']                  = 'Discussions modérées';
 $lang['discussion']            = 'Discussion';
 $lang['comment']               = 'Commentaire';
 $lang['comments']              = 'Commentaires';
