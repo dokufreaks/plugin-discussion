@@ -102,7 +102,7 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
 
         require_once(DOKU_INC.'inc/search.php');
 
-        $dir = utf8_encodeFN($conf['datadir'].($ns ? '/'.str_replace(':', '/', $ns): ''));
+        $dir = $conf['datadir'].utf8_encodeFN(($ns ? '/'.str_replace(':', '/', $ns): ''));
 
         // returns the list of pages in the given namespace and it's subspaces
         $items = array();
