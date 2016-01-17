@@ -57,7 +57,7 @@ class syntax_plugin_discussion_comments extends DokuWiki_Syntax_Plugin {
      * @param   Doku_Handler $handler The Doku_Handler object
      * @return  array Return an array with all data you want to use in render
      */
-    function handle($match, $state, $pos, &$handler) {
+    function handle($match, $state, $pos, Doku_Handler $handler) {
 
         // strip markup
         $match = substr($match, 12, -2);
