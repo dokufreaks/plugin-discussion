@@ -254,8 +254,18 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
         // check if discussion is turned off
         if ($data['status'] === 0) return false;
 
-        // check if the comment still exists
-        if (!isset($data['comments'][$cid])) return false;
+        $parent_id = $cid;
+        // Check for the comment and all parents if they exist and are visible.
+        do  {
+            $tcid = $parent_id;
+
+            // check if the comment still exists
+            if (!isset($data['comments'][$tcid])) return false;
+            // check if the comment is visible
+            if ($data['comments'][$tcid]['show'] != 1) return false;
+
+            $parent_id = $data['comments'][$tcid]['parent'];
+        } while ($parent_id && $parent_id != $tcid);
 
         // okay, then add some additional info
         if (is_array($data['comments'][$cid]['user'])) {
