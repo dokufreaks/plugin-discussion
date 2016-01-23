@@ -51,7 +51,14 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                 'AFTER',
                 $this,
                 'idx_add_discussion',
-                array()
+                array('id' => 'page', 'text' => 'body')
+                );
+        $contr->register_hook(
+                'FULLTEXT_SNIPPET_CREATE',
+                'BEFORE',
+                $this,
+                'idx_add_discussion',
+                array('id' => 'id', 'text' => 'text')
                 );
         $contr->register_hook(
                 'INDEXER_VERSION_GET',
@@ -60,6 +67,13 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                 'idx_version',
                 array()
                 );
+        $contr->register_hook(
+                'FULLTEXT_PHRASE_MATCH',
+                'AFTER',
+                $this,
+                'ft_phrase_match',
+                array()
+        );
         $contr->register_hook(
                 'PARSER_METADATA_RENDER',
                 'AFTER',
@@ -1578,7 +1592,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     public function idx_add_discussion(Doku_Event $event, $param) {
 
         // get .comments meta file name
-        $file = metaFN($event->data['page'], '.comments');
+        $file = metaFN($event->data[$param['id']], '.comments');
 
         if (!@file_exists($file)) return;
         $data = unserialize(io_readFile($file, false));
@@ -1587,9 +1601,56 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         // now add the comments
         if (isset($data['comments'])) {
             foreach ($data['comments'] as $key => $value) {
-                $event->data['body'] .= $this->_addCommentWords($key, $data);
+                $event->data[$param['text']] .= DOKU_LF.$this->_addCommentWords($key, $data);
             }
         }
+    }
+
+    function ft_phrase_match(Doku_Event $event, $param) {
+        if ($event->result === true) return;
+
+        // get .comments meta file name
+        $file = metaFN($event->data['id'], '.comments');
+
+        if (!@file_exists($file)) return;
+        $data = unserialize(io_readFile($file, false));
+        if ((!$data['status']) || ($data['number'] == 0)) return; // comments are turned off
+
+        $matched = false;
+
+        // now add the comments
+        if (isset($data['comments'])) {
+            foreach ($data['comments'] as $key => $value) {
+                $matched = $this->comment_phrase_match($event->data['phrase'], $key, $data);
+                if ($matched) break;
+            }
+        }
+
+        if ($matched)
+            $event->result = true;
+    }
+
+    function comment_phrase_match($phrase, $cid, &$data, $parent = '') {
+        if (!isset($data['comments'][$cid])) return false; // comment was removed
+        $comment = $data['comments'][$cid];
+
+        if (!is_array($comment)) return false;             // corrupt datatype
+        if ($comment['parent'] != $parent) return false;   // reply to an other comment
+        if (!$comment['show']) return false;               // hidden comment
+
+        $text = utf8_strtolower($comment['raw']);
+        if (strpos($text, $phrase) !== false) {
+            return true;
+        }
+
+        if (is_array($comment['replies'])) {             // and the replies
+            foreach ($comment['replies'] as $rid) {
+                if ($this->comment_phrase_match($phrase, $rid, $data, $cid)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
