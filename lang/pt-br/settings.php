@@ -7,8 +7,10 @@
  * @author Marcus D'Alencar <marcus_dalencar@yahoo.com.br>
  * @author Sergio Evandro Motta <sergio@cisne.com.br
  * @author Juliano Marconi Lanigra <juliano.marconi@gmail.com>
+ * @author Oze Projetos <oze@oze.net.br>
  */
 $lang['automatic']             = 'seção discussão em todas as páginas por padrão';
+$lang['excluded_ns']           = 'lista de nomes para reverter a opção acima (uma expressão regular, por exemplo, <code>/(playground|wiki)/</code> )';
 $lang['allowguests']           = 'permitir comentários de usuários não registrados';
 $lang['showguests']            = 'permitir que usuários não registrados leiam os comentários';
 $lang['linkemail']             = 'adicionar link para e-mail dos usuários';
@@ -28,3 +30,4 @@ $lang['threads_formposition_o_top'] = 'acima';
 $lang['threads_formposition_o_bottom'] = 'abaixo';
 $lang['visibilityButton']      = 'Habilitar botão para alterar a visibilidade da seção da discussão';
 $lang['moderatorgroups']       = 'Lista separada por vírgulas de grupos de moderação (igual ao Gerenciador de níveis de permissão DokuWiki)';
+$lang['moderatorsnotify']      = 'Enviar e-mails de notificação dos novos comentários aos moderadores';
