@@ -5,6 +5,7 @@
  * 
  * @author Lukas Zapletal <lukas.zapletal at gmail dot com>
  * @author Jaroslav Lichtblau <jlichtblau@seznam.cz>
+ * @author Turkislav <bla@bla.bla>
  */
 $lang['automatic']             = 'diskuzní sekci na každou stránku jako výchozí';
 $lang['excluded_ns']           = 'seznam jmenných prostorů pro obrácení možnosti výše (regulární výraz např. <code>/(playground|wiki)/</code> )';
@@ -22,3 +23,4 @@ $lang['moderate']              = 'moderovat nové komentáře';
 $lang['usethreading']          = 'povolit vlákna komentářů';
 $lang['userealname']           = 'zobrazit celé jméno místo uživatelského jména pro registrované uživatele wiki';
 $lang['visibilityButton']      = 'Povolit tlačítko pro přepínání viditelnosti diskuzní sekce';
+$lang['moderatorsnotify']      = 'Upozorňovat emailem moderátory na nové komentáře';
