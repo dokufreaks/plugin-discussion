@@ -16,3 +16,5 @@ The Discussion Plugin adds the following triggers:
 The data argument is the comment array.  Developers implementing handlers for the DISCUSSION_SPAM_CHECK trigger
 should be aware that the only field assured of being present is *raw* which contains the raw user input.  Checks
 against other fields should first check for the presence of those fields.
+
+If the comment is spam the trigger handler should return true, which will prevent the message from being saved.
