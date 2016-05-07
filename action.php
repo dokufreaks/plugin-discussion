@@ -494,7 +494,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
      * @param array $comment
      * @return bool
      */
-    protected function _not_spam($comment) {
+    protected function isSpam($comment) {
         global $TEXT;
 
         $otxt = $TEXT; // set $TEXT to comment text for wordblock check
@@ -532,7 +532,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             return false; // guest comments not allowed
         }
 
-        if ($this->_not_spam($comment) === false) {
+        if ($this->isSpam($comment)) {
             return false;
         }
 
@@ -636,7 +636,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
 
         if ($raw) {
             $comment['raw'] = $raw;
-            if ($this->_not_spam($comment) === false) {
+            if ($this->isSpam($comment)) {
                 return false;
             }
         }
