@@ -489,14 +489,12 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     }
 
     /**
-     * Adds a new comment and then displays all comments
+     * Checks for blocking conditions which would prevent this comment from being saved.
      *
      * @param array $comment
-     * @param string $parent
      * @return bool
      */
-    protected function _add($comment, $parent) {
-        global $ID;
+    protected function _not_spam($comment) {
         global $TEXT;
 
         $otxt = $TEXT; // set $TEXT to comment text for wordblock check
@@ -508,13 +506,35 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             return false;
         }
 
+        $TEXT = $otxt; // restore global $TEXT
+
+        if (trigger_event('DISCUSSION_SPAM_CHECK', $comment)) {
+            msg($this->getLang('wordblock'), -1);
+            return false; // Comment identified as spam
+        }
+
+        return true;
+    }
+
+    /**
+     * Adds a new comment and then displays all comments
+     *
+     * @param array $comment
+     * @param string $parent
+     * @return bool
+     */
+    protected function _add($comment, $parent) {
+        global $ID;
+
         if ((!$this->getConf('allowguests'))
-                && ($comment['user']['id'] != $_SERVER['REMOTE_USER'])
+            && ($comment['user']['id'] != $_SERVER['REMOTE_USER'])
         ) {
             return false; // guest comments not allowed
         }
 
-        $TEXT = $otxt; // restore global $TEXT
+        if ($this->_not_spam($comment) === false) {
+            return false;
+        }
 
         // get discussion meta file name
         $file = metaFN($ID, '.comments');
@@ -615,18 +635,10 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         if(!$cids) return false; // do nothing if we get no comment id
 
         if ($raw) {
-            global $TEXT;
-
-            $otxt = $TEXT; // set $TEXT to comment text for wordblock check
-            $TEXT = $raw;
-
-            // spamcheck against the DokuWiki blacklist
-            if (checkwordblock()) {
-                msg($this->getLang('wordblock'), -1);
+            $comment['raw'] = $raw;
+            if ($this->_not_spam($comment) === false) {
                 return false;
             }
-
-            $TEXT = $otxt; // restore global $TEXT
         }
 
         // get discussion meta file name
