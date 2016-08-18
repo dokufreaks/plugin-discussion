@@ -325,7 +325,6 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
      */
     public function comments(Doku_Event $event, $param) {
         if ($event->data != 'show') return; // nothing to do for us
-
         $cid  = $_REQUEST['cid'];
         if(!$cid) {
             $cid = $_REQUEST['reply'];
@@ -335,7 +334,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                 $this->_show(NULL, $cid);
                 break;
             default:
-                $this->_show($cid);
+                $this->_show($cid, NULL);
                 break;
         }
     }
@@ -400,25 +399,32 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     /**
      * Shows all comments of the current page
      */
-    protected function _show($reply = null, $edit = null) {
+    protected function _show($reply, $edit) {
         global $ID;
         global $INFO;
 
         // get .comments meta file name
         $file = metaFN($ID, '.comments');
 
+        // No comments for nonexistent pages
         if (!$INFO['exists']) return false;
-        if (!@file_exists($file) && !$this->isDiscussionEnabled()) return false;
+
+        // No comments for logged-out users if `showguests` is off.
         if (!$_SERVER['REMOTE_USER'] && !$this->getConf('showguests')) return false;
 
-        // load data
+        // If data exists, load it.
         if (@file_exists($file)) {
             $data = unserialize(io_readFile($file, false));
             if (!$data['status']) return false; // comments are turned off
-        } elseif (!@file_exists($file) && $this->isDiscussionEnabled() && $INFO['exists']) {
-            // set status to show the comment form
+        } elseif ($this->isDiscussionEnabled() && $INFO['exists']) {
+            // Else, global settings.
             $data['status'] = 1;
             $data['number'] = 0;
+        }
+
+	if (isset($INFO, $INFO['meta'], $INFO['meta']['plugin_discussion'], $INFO['meta']['plugin_discussion']['status'])) {
+            $data['status'] = $INFO['meta']['plugin_discussion']['status'];
+            if(!$data['status']) return false;
         }
 
         // show discussion wrapper only on certain circumstances
