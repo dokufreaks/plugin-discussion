@@ -76,6 +76,7 @@ function discussion_ajax_preview() {
             $preview.html(data);
             $preview.show();
             $preview.css('visibility', 'visible');
+            $preview.css('display', 'inline');
         }, 'html');
 }
 
