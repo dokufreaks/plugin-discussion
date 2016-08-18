@@ -33,6 +33,13 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
      */
     public function register(Doku_Event_Handler $contr) {
         $contr->register_hook(
+                'TPL_PAGEINFO_RENDER',
+                'BEFORE',
+                $this,
+                'handle_pageinfo_render',
+                array()
+                );
+        $contr->register_hook(
                 'ACTION_ACT_PREPROCESS',
                 'BEFORE',
                 $this,
@@ -109,6 +116,11 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                 'handle_toc_render',
                 array()
                 );
+    }
+
+    public function handle_pageinfo_render(Doku_Event $event, $params) {
+      $s_r = $this->status_reason();
+      $event->data['pre'] = 'Discussions on this page are ' . $s_r['msg'] . ' - ' . $event->data['pre'];
     }
 
     /**
@@ -396,6 +408,35 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         }
     }
 
+    private function status_reason() {
+        global $ID;
+        global $INFO;
+        $file = metaFN($ID, '.comments');
+
+        if (!$INFO['exists']) return Array(msg => 'disabled because it does not exist', status => 0);
+        if (!$_SERVER['REMOTE_USER'] && !$this->getConf('showguests')) return Array(msg => 'disabled because you are not logged in.', status => 0);
+        if (isset($INFO, $INFO['meta'], $INFO['meta']['plugin_discussion'], $INFO['meta']['plugin_discussion']['status'])) {
+          switch($INFO['meta']['plugin_discussion']['status']) {
+            case 0: return Array(msg => 'disabled via setting in page content', status => 0);
+            case 1: return Array(msg => 'enabled via setting in page content', status => 1);
+            case 2: return Array(msg => 'closed via setting in page content', status => 2);
+          }
+        }
+        if (@file_exists($file)) {
+            $data = unserialize(io_readFile($file, false));
+            switch($data['status']) {
+            case 0: return Array(msg => 'disabled via the moderator panel', status => 0);
+            case 1: return Array(msg => 'enabled via the moderator panel', status => 1);
+            case 2: return Array(msg => 'closed via the moderator panel', status => 2);
+            }
+        }
+        if($this->isDiscussionEnabled()) {
+          return Array(msg => 'enabled via the global default', status => 1);
+        } else {
+          return Array(msg => 'disabled via the global default', status => 0);
+        }
+    }
+
     /**
      * Shows all comments of the current page
      */
@@ -403,29 +444,17 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         global $ID;
         global $INFO;
 
+        $status = $this->status_reason()['status'];
+        if(!$status) return false;
+
         // get .comments meta file name
         $file = metaFN($ID, '.comments');
-
-        // No comments for nonexistent pages
-        if (!$INFO['exists']) return false;
-
-        // No comments for logged-out users if `showguests` is off.
-        if (!$_SERVER['REMOTE_USER'] && !$this->getConf('showguests')) return false;
-
-        // If data exists, load it.
         if (@file_exists($file)) {
             $data = unserialize(io_readFile($file, false));
-            if (!$data['status']) return false; // comments are turned off
-        } elseif ($this->isDiscussionEnabled() && $INFO['exists']) {
-            // Else, global settings.
-            $data['status'] = 1;
-            $data['number'] = 0;
+        } else {
+            $data['count'] = 0;
         }
-
-	if (isset($INFO, $INFO['meta'], $INFO['meta']['plugin_discussion'], $INFO['meta']['plugin_discussion']['status'])) {
-            $data['status'] = $INFO['meta']['plugin_discussion']['status'];
-            if(!$data['status']) return false;
-        }
+        $data['status'] = $status;
 
         // show discussion wrapper only on certain circumstances
         $cnt = count($data['comments']);
@@ -464,9 +493,9 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             ptln('</div>', 2); // level2 hfeed
             ptln('</div>'); // comment_wrapper
         }
-        
+
         // check for toggle print configuration
-        if($this->getConf('visibilityButton')) {           
+        if($this->getConf('visibilityButton')) {
             // print the hide/show discussion section button
             $this->_print_toggle_button();
         }
@@ -531,7 +560,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             io_saveFile($file, serialize($data));
         } else {
             $data = unserialize(io_readFile($file, false));
-            if ($data['status'] != 1) return false; // comments off or closed
+            if ($this->status_reason()['status'] != 1) return false; // comments off or closed
         }
 
         if ($comment['date']['created']) {
@@ -849,7 +878,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             ptln('<div class="comment_buttons">', 6);
 
             // show reply button?
-            if (($data['status'] == 1) && !$reply && $comment['show']
+            if (($this->status_reason()['status'] == 1) && !$reply && $comment['show']
                     && ($this->getConf('allowguests') || $_SERVER['REMOTE_USER']) && $this->getConf('usethreading')
             ) {
                 $this->_button($cid, $this->getLang('btn_reply'), 'reply', true);
@@ -939,7 +968,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         ptln('<input type="submit" id="discussion__btn_toggle_visibility" title="Toggle Visibiliy" class="button" value="'.$this->getLang('toggle_display').'">');
         ptln('</div>');
     }
-    
+
     /**
      * Outputs the comment form
      */
@@ -1426,24 +1455,21 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     protected function _hasDiscussion(&$title) {
         global $ID;
 
+        $num = 0;
+
         $cfile = metaFN($ID, '.comments');
-
-        if (!@file_exists($cfile)) {
-            if ($this->isDiscussionEnabled()) {
-                return true;
-            } else {
-                return false;
-            }
+        if (@file_exists($cfile)) {
+          $comments = unserialize(io_readFile($cfile, false));
+          if ($comments['title']) {
+              $title = hsc($comments['title']);
+          }
+          $num = $comments['number'];
         }
 
-        $comments = unserialize(io_readFile($cfile, false));
+        $status = $this->status_reason()['status'];
 
-        if ($comments['title']) {
-            $title = hsc($comments['title']);
-        }
-        $num = $comments['number'];
-        if ((!$comments['status']) || (($comments['status'] == 2) && (!$num))) return false;
-        else return true;
+        // I.e., discussions are open; or they're 'closed' but comments exist.
+        return $status == 1 || ($status == 2 && $num);
     }
 
     /**
@@ -1599,13 +1625,13 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
      * @param $param
      */
     public function idx_add_discussion(Doku_Event $event, $param) {
+        $status = $this->status_reason()['status'];
+        if ($status == 0) return;
 
         // get .comments meta file name
         $file = metaFN($event->data[$param['id']], '.comments');
-
         if (!@file_exists($file)) return;
         $data = unserialize(io_readFile($file, false));
-        if ((!$data['status']) || ($data['number'] == 0)) return; // comments are turned off
 
         // now add the comments
         if (isset($data['comments'])) {
@@ -1618,12 +1644,12 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     function ft_phrase_match(Doku_Event $event, $param) {
         if ($event->result === true) return;
 
-        // get .comments meta file name
-        $file = metaFN($event->data['id'], '.comments');
+        $status = $this->status_reason()['status'];
+        if ($status == 0) return;
 
+        $file = metaFN($event->data['id'], '.comments');
         if (!@file_exists($file)) return;
         $data = unserialize(io_readFile($file, false));
-        if ((!$data['status']) || ($data['number'] == 0)) return; // comments are turned off
 
         $matched = false;
 
@@ -1663,7 +1689,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
     }
 
     /**
-     * Saves the current comment status and title in the .comments file
+     * Saves the current comment title in the .comments file
      *
      * @param Doku_Event $event
      * @param $param
@@ -1673,15 +1699,11 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
 
         $meta = $event->data['current'];
         $file = metaFN($ID, '.comments');
-        $status = ($this->isDiscussionEnabled() ? 1 : 0);
+        $status = $this->status_reason()['status'];
+
         $title = NULL;
         if (isset($meta['plugin_discussion'])) {
-            $status = $meta['plugin_discussion']['status'];
             $title = $meta['plugin_discussion']['title'];
-        } else if ($status == 1) {
-            // Don't enable comments when automatic comments are on - this already happens automatically
-            // and if comments are turned off in the admin this only updates the .comments file
-            return;
         }
 
         if ($status || @file_exists($file)) {
@@ -1690,9 +1712,8 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                 $data = unserialize(io_readFile($file, false));
             }
 
-            if (!array_key_exists('title', $data) || $data['title'] !== $title || !isset($data['status']) || $data['status'] !== $status) {
+            if (!array_key_exists('title', $data) || $data['title'] !== $title) {
                 $data['title']  = $title;
-                $data['status'] = $status;
                 if (!isset($data['number']))
                     $data['number'] = 0;
                 io_saveFile($file, serialize($data));
