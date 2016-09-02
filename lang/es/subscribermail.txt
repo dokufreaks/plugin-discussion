@@ -14,5 +14,5 @@ Comentario:
 Para quitar tu suscripción de esta página, accede al wiki y pulsa sobre este enlace:
 @UNSUBSCRIBE@
 --
-Este e-mail fue generado por DokuWiki en
+Este e-mail fue generado automáticamente en
 @DOKUWIKIURL@
