@@ -1,0 +1,18 @@
+Hei!
+
+En ny kommentar er lagt til på siden @pages@ i @TITEL@ wiki.
+
+Dato:   @DATE@
+Navn:   @NAME@
+URL:    @COMMENTURL@
+
+Kommentar:
+--------------------------------------------------------
+@TEXT@
+--------------------------------------------------------
+
+For å avslutte dette abonnementet klikk:
+@UNSUBSCRIBE@
+
+--
+Denne e-posten ble generert av DokuWiki hos @DOKUWIKIURL@
