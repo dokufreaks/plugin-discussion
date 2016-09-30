@@ -2,10 +2,13 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * 
+ *
  * @author Danny Buckhof <daniel.raknes@hotmail.no>
+ * @author Arne Hanssen <arne.hanssen@getmail.no>
  */
 $lang['encoding']              = 'utf-8';
+$lang['direction']             = 'ltr';
+$lang['menu']                  = 'Godkjenn diskusjoner';
 $lang['discussion']            = 'Diskusjon';
 $lang['comment']               = 'Kommentar';
 $lang['comments']              = 'Kommentarer';
@@ -15,7 +18,7 @@ $lang['url']                   = 'Webside';
 $lang['address']               = 'Adresse';
 $lang['date']                  = 'Dato';
 $lang['entercomment']          = 'Sett inn din kommentar';
-$lang['wikisyntax']            = 'Wiki syntax er tillatt';
+$lang['wikisyntax']            = 'Wikisyntaks er tillatt';
 $lang['older']                 = 'Eldre diskusjoner';
 $lang['newer']                 = 'Nyere diskusjoner';
 $lang['btn_reply']             = 'Svar';
