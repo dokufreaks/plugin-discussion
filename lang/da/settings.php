@@ -2,9 +2,10 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * 
+ *
  * @author Esther Brunner <wikidesign@gmail.com>
  * @author Jens Hyllegaard <jens.hyllegaard@gmail.com>
+ * @author Jacob Palm <mail@jacobpalm.dk>
  */
 $lang['automatic']             = 'diskussion på alle sider som standard';
 $lang['allowguests']           = 'tillad kommentarer fra anonyme brugere';
@@ -26,3 +27,4 @@ $lang['threads_formposition_o_top'] = 'top';
 $lang['threads_formposition_o_bottom'] = 'bund';
 $lang['visibilityButton']      = 'Aktiver knap til at skifte synligheden for diskussionssektionen';
 $lang['moderatorgroups']       = 'Komma-separeret liste over moderatorgrupper (svarer til DokuWiki manager rettighedsniveau)';
+$lang['moderatorsnotify']      = 'Send e-mail notifikationer omkring nye kommentarer til moderatorer';

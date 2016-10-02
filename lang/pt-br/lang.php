@@ -5,14 +5,16 @@
  * 
  * @author Sidnei Neves <sidnei@sidnei.org>
  * @author Juliano Marconi Lanigra <juliano.marconi@gmail.com>
+ * @author Oze Projetos <oze@oze.net.br>
  */
 $lang['encoding']              = 'utf-8';
 $lang['direction']             = 'ltr';
-$lang['menu']                  = 'Moderate Discussions';
+$lang['menu']                  = 'Discussões Moderadas';
 $lang['discussion']            = 'Discussão';
 $lang['comment']               = 'Comentário';
 $lang['comments']              = 'Comentários';
 $lang['nocomments']            = 'Comentários';
+$lang['threads']               = 'Discussões';
 $lang['url']                   = 'Website';
 $lang['address']               = 'Endereço';
 $lang['date']                  = 'Data';

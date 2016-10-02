@@ -1,0 +1,9 @@
+Hei!
+
+Du er nå i ferd med å abonnere på kommentarer på siden @PAGE@ i @TITTLE@ wiki.
+
+For å bekrefte dette abbonementet må du åpne følgende lenke:
+@SUBSCRIBE@
+
+--
+Denne meldingen ble generert av DokuWiki hos @DOKUWIKIURL@
