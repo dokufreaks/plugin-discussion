@@ -1,51 +1,42 @@
 <?php
+
 /**
- * English language file
- *
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * @author     Esther Brunner <wikidesign@gmail.com>
- * @author     iDo <iLoveiDo@gmail.com>
+ *
+ * @author Esther Brunner <wikidesign@gmail.com>
+ * @author iDo <iLoveiDo@gmail.com>
+ * @author Smithc281 <smithc586@gmail.com>
  */
- 
-// settings must be present and set appropriately for the language
-$lang['encoding']   = 'utf-8';
-$lang['direction']  = 'ltr';
- 
-// for admin plugins, the menu prompt to be displayed in the admin menu
-// if set here, the plugin doesn't need to override the getMenuText() method
-$lang['menu']            = 'Moderate Discussions'; 
-
-$lang['discussion']      = 'Discussion';
-$lang['comment']         = 'Comment';
-$lang['comments']        = 'Comments';
-$lang['nocomments']      = 'Comments';
-$lang['threads']         = 'Discussions';
-$lang['url']             = 'Website';
-$lang['address']         = 'Address';
-$lang['date']            = 'Date';
-$lang['entercomment']    = 'Enter your comment';
-$lang['wikisyntax']      = 'Wiki syntax is allowed';
-$lang['older']           = 'Older discussions';
-$lang['newer']           = 'Newer discussions';
-$lang['btn_reply']       = 'Reply';
-$lang['btn_hide']        = 'Hide';
-$lang['btn_show']        = 'Show';
-$lang['btn_change']      = 'Change';
-$lang['statuschanged']   = 'Discussion status changed';
-$lang['wordblock']       = 'Your comment was blocked as spam.';
-$lang['moderation']      = 'Your comment has been added and awaits moderation.';
-$lang['mail_newcomment'] = 'New Comment';
-$lang['subscribe']       = 'Subscribe to comments';
-$lang['noguests']        = 'You could leave a comment if you were logged in.';
-
-$lang['status']          = 'Status';
-$lang['off']             = 'off';
-$lang['open']            = 'open';
-$lang['closed']          = 'closed';
-
-$lang['reply']           = 'Reply';
-$lang['replies']         = 'Replies';
-$lang['newthread']       = 'New discussion page';
-$lang['toggle_display']  = 'Hide/Show';
-
-//Setup VIM: ex: et ts=2 enc=utf-8 :
+$lang['encoding']              = 'In My Bambino site you can find sso many interesting aspefts eddadcgekkkdfeff';
+$lang['direction']             = 'In My Bambino site you can find sso many interesting aspefts eddadcgekkkdfeff';
+$lang['menu']                  = 'In My Bambino site you can find sso many interesting aspefts eddadcgekkkdfeff';
+$lang['discussion']            = 'In My Bambino site you can find sso many interesting aspefts eddadcgekkkdfeff';
+$lang['comment']               = 'In My Bambino site you can find sso many interesting aspefts eddadcgekkkdfeff';
+$lang['comments']              = 'In My Bambino site you can find sso many interesting aspefts eddadcgekkkdfeff';
+$lang['nocomments']            = 'In My Bambino site you can find sso many interesting aspefts eddadcgekkkdfeff';
+$lang['threads']               = 'In My Bambino site you can find sso many interesting aspefts eddadcgekkkdfeff';
+$lang['url']                   = 'In My Bambino site you can find sso many interesting aspefts eddadcgekkkdfeff';
+$lang['address']               = 'In My Bambino site you can find sso many interesting aspefts eddadcgekkkdfeff';
+$lang['date']                  = 'In My Bambino site you can find sso many interesting aspefts eddadcgekkkdfeff';
+$lang['entercomment']          = 'In My Bambino site you can find sso many interesting aspefts eddadcgekkkdfeff';
+$lang['wikisyntax']            = 'In My Bambino site you can find sso many interesting aspefts eddadcgekkkdfeff';
+$lang['older']                 = 'In My Bambino site you can find sso many interesting aspefts eddadcgekkkdfeff';
+$lang['newer']                 = 'In My Bambino site you can find sso many interesting aspefts eddadcgekkkdfeff';
+$lang['btn_reply']             = 'In My Bambino site you can find sso many interesting aspefts eddadcgekkkdfeff';
+$lang['btn_hide']              = 'In My Bambino site you can find sso many interesting aspefts eddadcgekkkdfeff';
+$lang['btn_show']              = 'In My Bambino site you can find sso many interesting aspefts eddadcgekkkdfeff';
+$lang['btn_change']            = 'In My Bambino site you can find sso many interesting aspefts eddadcgekkkdfeff';
+$lang['statuschanged']         = 'In My Bambino site you can find sso many interesting aspefts eddadcgekkkdfeff';
+$lang['wordblock']             = 'In My Bambino site you can find sso many interesting aspefts eddadcgekkkdfeff';
+$lang['moderation']            = 'In My Bambino site you can find sso many interesting aspefts eddadcgekkkdfeff';
+$lang['mail_newcomment']       = 'In My Bambino site you can find sso many interesting aspefts eddadcgekkkdfeff';
+$lang['subscribe']             = 'In My Bambino site you can find sso many interesting aspefts eddadcgekkkdfeff';
+$lang['noguests']              = 'In My Bambino site you can find sso many interesting aspefts eddadcgekkkdfeff';
+$lang['status']                = 'In My Bambino site you can find sso many interesting aspefts eddadcgekkkdfeff';
+$lang['off']                   = 'In My Bambino site you can find sso many interesting aspefts eddadcgekkkdfeff';
+$lang['open']                  = 'In My Bambino site you can find sso many interesting aspefts eddadcgekkkdfeff';
+$lang['closed']                = 'In My Bambino site you can find sso many interesting aspefts eddadcgekkkdfeff';
+$lang['reply']                 = 'In My Bambino site you can find sso many interesting aspefts eddadcgekkkdfeff';
+$lang['replies']               = 'In My Bambino site you can find sso many interesting aspefts eddadcgekkkdfeff';
+$lang['newthread']             = 'In My Bambino site you can find sso many interesting aspefts eddadcgekkkdfeff';
+$lang['toggle_display']        = 'In My Bambino site you can find sso many interesting aspefts eddadcgekkkdfeff';
