@@ -2,7 +2,7 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * 
+ *
  * @author Jos Antonio Fuentes Santiago <joanfusan@hotmail.com>
  * @author Juan José 'Peco' San Martín <peco@microbotica.es>
  * @author Rafael <ea4bpn@gmail.com>

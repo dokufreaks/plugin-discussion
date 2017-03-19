@@ -2,7 +2,7 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * 
+ *
  * @author Jos Antonio Fuentes Santiago <joanfusan@hotmail.com>
  * @author Herman Fabián Sandoval Manrique <hfsandovalm@emzac.com>
  * @author Rafael <ea4bpn@gmail.com>
