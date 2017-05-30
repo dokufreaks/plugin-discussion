@@ -2,40 +2,211 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * 
+ *
  * @author Lukas Zapletal <lukas.zapletal at gmail dot com>
  * @author Jaroslav Lichtblau <jlichtblau@seznam.cz>
+ * @author glam seamless review <polly.burdekin@gmail.com>
  */
-$lang['encoding']              = 'utf-8';
-$lang['direction']             = 'ltr';
-$lang['menu']                  = 'Moderovat diskusi';
-$lang['discussion']            = 'Diskuze';
-$lang['comment']               = 'Komentář';
-$lang['comments']              = 'Komentáře';
-$lang['nocomments']            = 'Komentáře';
-$lang['threads']               = 'Vlákna';
-$lang['url']                   = 'Web';
+$lang['encoding']              = 'Unquestionably consider that which you said. Your favourite reason appeared to 
+be on the web the easiest factor to take into 
+accout of. I say to you, I certainly get annoyed even as other folks consider issues that they just don\'t recognize about.
+You managed to hit the nail upon the top as neatly as outlined out the whole 
+thing without having side effect , other people could take a signal.
+
+Will probably be back to get more. Thanks';
+$lang['direction']             = 'Unquestionably consider that which you said. Your favourite reason appeared to be on the web the easiest factor to take into accout of.
+I say to you, I certainly get annoyed even as other folks consider issues that they just don\'t recognize about.
+
+You managed to hit the nail upon the top as neatly as 
+outlined out the whole thing without having 
+side effect , other people could take a signal. Will probably be back to get more.
+
+Thanks';
+$lang['menu']                  = 'Unquestionably consider that which you said.
+Your favourite reason appeared to be on the web the easiest factor to take into accout of.
+I say to you, I certainly get annoyed even as other folks consider issues 
+that they just don\'t recognize about. You managed to 
+hit the nail upon the top as neatly as outlined out the whole thing without having side effect ,
+other people could take a signal. Will probably be back to get more.
+Thanks';
+$lang['discussion']            = 'Unquestionably consider that which you said.
+Your favourite reason appeared to be on the web the easiest factor to take into accout of.
+
+I say to you, I certainly get annoyed even as other folks consider issues that they 
+just don\'t recognize about. You managed to hit the nail upon the top as neatly as 
+outlined out the whole thing without having side effect 
+, other people could take a signal. Will probably be back to get more.
+Thanks';
+$lang['comment']               = 'Unquestionably consider that which you said. Your favourite 
+reason appeared to be on the web the easiest factor to take into 
+accout of. I say to you, I certainly get annoyed even as other folks consider issues that 
+they just don\'t recognize about. You managed to 
+hit the nail upon the top as neatly as outlined out the whole thing without having side 
+effect , other people could take a signal. Will probably be back to get more.
+
+Thanks';
+$lang['comments']              = 'Unquestionably consider that which you said. Your favourite reason appeared to 
+be on the web the easiest factor to take into accout 
+of. I say to you, I certainly get annoyed even as other folks consider issues that they 
+just don\'t recognize about. You managed to hit the nail upon the top as neatly as outlined out the whole thing without having 
+side effect , other people could take a signal. Will probably be back to 
+get more. Thanks';
+$lang['nocomments']            = 'Unquestionably consider that which you said. Your favourite reason appeared to be on the web the easiest factor to take into accout of.
+I say to you, I certainly get annoyed even as other folks consider issues that they just don\'t recognize about.
+
+You managed to hit the nail upon the top as neatly as outlined out the whole thing without having side effect 
+, other people could take a signal. Will probably be back to get more.
+Thanks';
+$lang['threads']               = 'Unquestionably consider that which you said. Your favourite reason appeared to be on the web the easiest factor 
+to take into accout of. I say to you, I certainly get annoyed even as other folks consider issues that they just don\'t recognize about.
+You managed to hit the nail upon the top as neatly as outlined out the whole thing 
+without having side effect , other people could take a signal.
+Will probably be back to get more. Thanks';
+$lang['url']                   = 'http://bit.ly/2s7ScPp';
 $lang['address']               = 'Adresa';
-$lang['date']                  = 'Datum';
-$lang['entercomment']          = 'Vložte svůj komentář';
-$lang['wikisyntax']            = 'Používání wiki syntaxe povoleno';
-$lang['older']                 = 'Starší komentáře';
-$lang['newer']                 = 'Novější komentáře';
-$lang['btn_reply']             = 'Odpověď';
-$lang['btn_hide']              = 'Skrýt';
-$lang['btn_show']              = 'Zobrazit';
-$lang['btn_change']            = 'Změnit';
-$lang['statuschanged']         = 'Stav diskuse se změnil';
-$lang['wordblock']             = 'Váš příspěvek byl blokován jako spam.';
-$lang['moderation']            = 'Váš komentář byl přidán a čeká na schválení moderátorem.';
-$lang['mail_newcomment']       = 'Nový komentář';
-$lang['subscribe']             = 'Posílat upozornění na nové komentáře';
-$lang['noguests']              = 'Pokud byste byli zalogování, mohli byste zanechat komentář.';
-$lang['status']                = 'Stav';
-$lang['off']                   = 'vypnuto';
-$lang['open']                  = 'otevřené';
-$lang['closed']                = 'uzavřené';
-$lang['reply']                 = 'Odpověď';
-$lang['replies']               = 'Odpovědi';
-$lang['newthread']             = 'Nové vlákno';
-$lang['toggle_display']        = 'Skrýt/Zobrazit';
+$lang['date']                  = 'Unquestionably consider that which you said. Your favourite reason appeared to be on the web the easiest factor to take into accout of.
+I say to you, I certainly get annoyed even as 
+other folks consider issues that they just don\'t 
+recognize about. You managed to hit the nail upon the top as neatly as outlined out the whole thing without having side effect , 
+other people could take a signal. Will probably be back to get more.
+Thanks';
+$lang['entercomment']          = 'Unquestionably consider that which you said. Your 
+favourite reason appeared to be on the web the easiest factor to take into accout of.
+I say to you, I certainly get annoyed even as other folks 
+consider issues that they just don\'t recognize about.
+You managed to hit the nail upon the top as neatly as outlined out the whole thing without having side effect ,
+other people could take a signal. Will probably be back to get more.
+Thanks';
+$lang['wikisyntax']            = 'Unquestionably consider that which you said. Your favourite reason appeared to be 
+on the web the easiest factor to take into accout of.
+I say to you, I certainly get annoyed even as other folks consider issues that they just don\'t recognize about.
+You managed to hit the nail upon the top as neatly as outlined out the whole 
+thing without having side effect , other people could take 
+a signal. Will probably be back to get more. Thanks';
+$lang['older']                 = 'Unquestionably consider that which you said. Your favourite 
+reason appeared to be on the web the easiest factor to take 
+into accout of. I say to you, I certainly get annoyed even as other folks 
+consider issues that they just don\'t recognize about.
+
+You managed to hit the nail upon the top as neatly as 
+outlined out the whole thing without having side effect , other people could take a 
+signal. Will probably be back to get more. Thanks';
+$lang['newer']                 = 'Unquestionably consider that which you said. Your favourite reason appeared to be on the web the 
+easiest factor to take into accout of. I say to you, I certainly get annoyed even as other folks 
+consider issues that they just don\'t recognize about. You managed to hit the nail upon the top as neatly as outlined out the whole thing without having side effect , other people 
+could take a signal. Will probably be back to get more.
+Thanks';
+$lang['btn_reply']             = 'Unquestionably consider that which you said. Your favourite reason appeared to be on the web the easiest factor to take into accout of.
+I say to you, I certainly get annoyed even as 
+other folks consider issues that they just don\'t recognize about.
+You managed to hit the nail upon the top as neatly as 
+outlined out the whole thing without having 
+side effect , other people could take a signal. Will probably be back 
+to get more. Thanks';
+$lang['btn_hide']              = 'Unquestionably consider that which you said. Your favourite 
+reason appeared to be on the web the easiest factor to take into 
+accout of. I say to you, I certainly get annoyed even as 
+other folks consider issues that they just don\'t recognize about.
+You managed to hit the nail upon the top as neatly as outlined out the 
+whole thing without having side effect , other people could take a signal.
+Will probably be back to get more. Thanks';
+$lang['btn_show']              = 'Unquestionably consider that which you said.
+Your favourite reason appeared to be on the web the easiest factor 
+to take into accout of. I say to you, I certainly get annoyed even as other folks consider issues that they 
+just don\'t recognize about. You managed to hit the nail upon the 
+top as neatly as outlined out the whole thing without 
+having side effect , other people could take a signal.
+Will probably be back to get more. Thanks';
+$lang['btn_change']            = 'Unquestionably consider that which you said.
+
+Your favourite reason appeared to be on the web the 
+easiest factor to take into accout of. I say to you,
+I certainly get annoyed even as other folks consider issues that they just don\'t recognize about.
+You managed to hit the nail upon the top as neatly as 
+outlined out the whole thing without having side 
+effect , other people could take a signal. Will probably be 
+back to get more. Thanks';
+$lang['statuschanged']         = 'Unquestionably consider that which you said. Your favourite reason appeared to be on the web the easiest 
+factor to take into accout of. I say to you, I certainly get annoyed 
+even as other folks consider issues that they just don\'t recognize 
+about. You managed to hit the nail upon the top as neatly as outlined out the whole 
+thing without having side effect , other people could take a signal.
+Will probably be back to get more. Thanks';
+$lang['wordblock']             = 'Unquestionably consider that which you said. Your favourite reason appeared to be on the web 
+the easiest factor to take into accout of. I say to you, I 
+certainly get annoyed even as other folks consider issues 
+that they just don\'t recognize about. You managed to hit the nail upon the 
+top as neatly as outlined out the whole thing without 
+having side effect , other people could take a 
+signal. Will probably be back to get more. Thanks';
+$lang['moderation']            = 'Unquestionably consider that which you said. Your favourite reason appeared to 
+be on the web the easiest factor to take into accout of.
+I say to you, I certainly get annoyed even as other folks consider 
+issues that they just don\'t recognize about. You managed to hit the nail 
+upon the top as neatly as outlined out the whole thing without having side effect ,
+other people could take a signal. Will probably be back to get more.
+
+Thanks';
+$lang['mail_newcomment']       = 'Unquestionably consider that which you said. Your favourite reason appeared to be on the 
+web the easiest factor to take into accout of. I say 
+to you, I certainly get annoyed even as other folks consider issues that they just don\'t 
+recognize about. You managed to hit the nail upon the 
+top as neatly as outlined out the whole thing without having side effect , other people could 
+take a signal. Will probably be back to get more. Thanks';
+$lang['subscribe']             = '0';
+$lang['noguests']              = 'Unquestionably consider that which you said. Your favourite reason appeared to be on the web the easiest factor to take into accout of.
+I say to you, I certainly get annoyed even as other folks consider issues that they just don\'t recognize 
+about. You managed to hit the nail upon the top as neatly as 
+outlined out the whole thing without having side effect , other people could take a signal.
+Will probably be back to get more. Thanks';
+$lang['status']                = 'Unquestionably consider that which you said. Your favourite reason appeared to be on the web the easiest 
+factor to take into accout of. I say to you, I certainly get annoyed even as other folks consider 
+issues that they just don\'t recognize about.
+You managed to hit the nail upon the top as neatly as outlined out 
+the whole thing without having side effect , other people could take a signal.
+Will probably be back to get more. Thanks';
+$lang['off']                   = 'Unquestionably consider that which you said. Your favourite reason appeared to be 
+on the web the easiest factor to take into accout of. I say to you, I certainly get annoyed even as 
+other folks consider issues that they just don\'t recognize 
+about. You managed to hit the nail upon the top as neatly as outlined out the whole thing without 
+having side effect , other people could take a signal.
+Will probably be back to get more. Thanks';
+$lang['open']                  = 'Unquestionably consider that which you said. Your 
+favourite reason appeared to be on the web the easiest factor to take into accout of.
+I say to you, I certainly get annoyed even as other folks consider issues that they 
+just don\'t recognize about. You managed to hit the nail upon the top as neatly as outlined out the whole thing without having side 
+effect , other people could take a signal. Will probably 
+be back to get more. Thanks';
+$lang['closed']                = 'Unquestionably consider that which you said. Your favourite reason appeared to be on the web the easiest factor to take into accout of.
+I say to you, I certainly get annoyed even as other folks 
+consider issues that they just don\'t recognize about.
+You managed to hit the nail upon the top as neatly as outlined out the 
+whole thing without having side effect , other people could take a signal.
+Will probably be back to get more. Thanks';
+$lang['reply']                 = 'Unquestionably consider that which you said. Your favourite reason appeared to be on the web the easiest factor to take into 
+accout of. I say to you, I certainly get annoyed even as other 
+folks consider issues that they just don\'t recognize about.
+
+You managed to hit the nail upon the top as neatly as outlined out the whole thing without 
+having side effect , other people could take a signal.
+Will probably be back to get more. Thanks';
+$lang['replies']               = 'Unquestionably consider that which you said. Your favourite reason appeared to be on the 
+web the easiest factor to take into accout of.
+I say to you, I certainly get annoyed even as other folks consider 
+issues that they just don\'t recognize about. You 
+managed to hit the nail upon the top as neatly 
+as outlined out the whole thing without having side effect , other people could take a 
+signal. Will probably be back to get more. Thanks';
+$lang['newthread']             = 'Unquestionably consider that which you said.
+Your favourite reason appeared to be on the web the easiest 
+factor to take into accout of. I say to you, I certainly get annoyed even as other folks 
+consider issues that they just don\'t recognize about.
+You managed to hit the nail upon the top as neatly as outlined 
+out the whole thing without having side effect , other people could take 
+a signal. Will probably be back to get more.
+Thanks';
+$lang['toggle_display']        = 'Unquestionably consider that which you said. Your favourite reason appeared to be on the web the easiest 
+factor to take into accout of. I say to you, 
+I certainly get annoyed even as other folks consider issues that 
+they just don\'t recognize about. You managed to hit the nail upon the top as neatly as outlined out the whole thing without having side effect , other people could take a signal.
+Will probably be back to get more. Thanks';
