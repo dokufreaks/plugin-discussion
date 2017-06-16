@@ -60,7 +60,7 @@ function discussion_ajax_preview() {
         $preview.hide();
         return;
     }
-    $preview.html('<img src="'+DOKU_BASE+'/lib/images/throbber.gif" />');
+    $preview.html('<img src="'+DOKU_BASE+'lib/images/throbber.gif" />');
     $preview.show();
 
     jQuery.post(DOKU_BASE + 'lib/exe/ajax.php',
