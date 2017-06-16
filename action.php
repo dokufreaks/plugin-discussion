@@ -1067,7 +1067,10 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
               ?>
 
               <input class="button comment_submit" id="discussion__btn_submit" type="submit" name="submit" accesskey="s" value="<?php echo $lang['btn_save'] ?>" title="<?php echo $lang['btn_save']?> [S]" tabindex="7" />
+
+              <?php if($this->getConf('wikisyntaxok')) { ?>
               <input class="button comment_preview_button" id="discussion__btn_preview" type="button" name="preview" accesskey="p" value="<?php echo $lang['btn_preview'] ?>" title="<?php echo $lang['btn_preview']?> [P]" />
+              <?php } ?>
 
         <?php if((!$_SERVER['REMOTE_USER'] || $_SERVER['REMOTE_USER'] && !$conf['subscribers']) && $this->getConf('subscribe')) { ?>
               <div class="comment_subscribe">
