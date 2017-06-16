@@ -825,10 +825,10 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         $head .= '</span>, '.
             '<abbr class="published" title="'. strftime('%Y-%m-%dT%H:%M:%SZ', $created) .'">'.
             dformat($created, $conf['dformat']).'</abbr>';
-        if ($comment['edited']) {
-            $head .= ' (<abbr class="updated" title="'.
+        if ($modified) {
+            $head .= ', <abbr class="updated" title="'.
                 strftime('%Y-%m-%dT%H:%M:%SZ', $modified).'">'.dformat($modified, $conf['dformat']).
-                '</abbr>)';
+                '</abbr>';
         }
         ptln($head, 8);
         ptln('</div>', 6); // class="comment_head"

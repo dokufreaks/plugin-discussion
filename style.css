@@ -66,6 +66,11 @@ div.dokuwiki .comment_head abbr.published {
   padding: 1px 0 1px 16px;
 }
 
+div.dokuwiki .comment_head abbr.updated {
+  background: transparent url(images/updated.gif) 0 1px no-repeat;
+  padding: 1px 0 1px 16px;
+}
+
 div.dokuwiki .comment_body {
   padding-top: 0.5em;
   padding-bottom: 0.5em;
