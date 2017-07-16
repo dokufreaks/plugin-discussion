@@ -1,0 +1,19 @@
+Hej!
+
+En ny kommentar har lagt till på sidan @PAGE@ på wikin @TITLE@.
+
+Datum:   @DATE@
+Namn:   @NAME@
+URL:    @COMMENTURL@
+
+Kommentar:
+--------------------------------------------------------
+@TEXT@
+--------------------------------------------------------
+
+För att sluta prenumerera klicka på följande länk:
+@UNSUBSCRIBE@
+
+--
+Detta e-brev genererades av DokuWiki av
+@DOKUWIKIURL@
