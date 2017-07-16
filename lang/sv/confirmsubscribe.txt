@@ -1,0 +1,10 @@
+Hej!
+
+Du är på gång att prenumerera på kommentarer till sidan @PAGE@ på wikin @TITLE@.
+
+För att bekräfta din prenumeration var god följ följande länk:
+@SUBSCRIBE@
+
+--
+Detta e-brev genererades av DokuWiki av
+@DOKUWIKIURL@
