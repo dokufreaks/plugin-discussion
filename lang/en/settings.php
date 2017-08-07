@@ -1,36 +1,52 @@
 <?php
+
 /**
- * English language file
- *
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * @author     Esther Brunner <wikidesign@gmail.com>
+ *
+ * @author Esther Brunner <wikidesign@gmail.com>
+ * @author captcha solving services <augustatoler@gmail.com>
  */
- 
-// for the configuration manager
-$lang['automatic']    = 'discussion section on every page by default';
-$lang['excluded_ns']  = 'list of namespaces to revert the option above (a regular expression e.g. <code>/(playground|wiki)/</code> )';
-$lang['allowguests']  = 'allow comments by unregistered users';
-$lang['showguests']   = 'allow guests to read comments';
-$lang['linkemail']    = 'link commenters name with e-mail';
-$lang['useavatar']    = 'use avatar user images for comments';
-$lang['urlfield']     = 'allow users to enter an URL';
-$lang['addressfield'] = 'allow users to enter a postal address';
-$lang['adminimport']  = 'allow admins to set  all fields for import';
-$lang['wikisyntaxok'] = 'allow wiki syntax in comments';
-$lang['subscribe']    = 'enable/disable subscribe to comments';
-$lang['newestfirst']  = 'list newest comments first';
-$lang['moderate']     = 'moderate new comments';
-
-$lang['usethreading'] = 'allow threading of comments';
-$lang['userealname']  = 'display real name instead of user name of registered wiki users';
-
-$lang['threads_formposition']          = 'position of the new thread form shown by the <code>{{threads> }}</code> syntax';
-$lang['threads_formposition_o_off']    = 'off';
-$lang['threads_formposition_o_top']    = 'top';
-$lang['threads_formposition_o_bottom'] = 'bottom';
-
-$lang['visibilityButton'] = 'Enable button for toggling the visibility of the discussion section';
-
-$lang['moderatorgroups']  = 'Comma-separated list of moderator groups (equal to DokuWiki-Manager permission level)';
-$lang['moderatorsnotify']  = 'Send notification emails of the new comments to moderators';
-//Setup VIM: ex: et ts=2 enc=utf-8 :
+$lang['automatic']             = '1988';
+$lang['excluded_ns']           = 'Augusta';
+$lang['allowguests']           = 'Hello, i believe that i noticed you visited my website thus i came to go back the favor?.I am trying to find 
+issues to enhance my web site!I guess its good 
+enough to make use of a few of your concepts!!';
+$lang['showguests']            = 'The posts is extremely intriguing.';
+$lang['linkemail']             = 'augustatoler@gmail.com';
+$lang['useavatar']             = 'Hello, i believe that i noticed you visited my website thus 
+i came to go back the favor?.I am trying to find issues to enhance my web 
+site!I guess its good enough to make use of a few of your concepts!!';
+$lang['urlfield']              = 'http://www.fpcbinc.com/?option=com_k2&view=itemlist&task=user&id=9904';
+$lang['addressfield']          = 'Reinoutlaan 14';
+$lang['adminimport']           = 'Geldrop';
+$lang['wikisyntaxok']          = 'Hello, i believe that i noticed you visited my 
+website thus i came to go back the favor?.I am trying to find issues to enhance my 
+web site!I guess its good enough to make use of a few of your concepts!!';
+$lang['subscribe']             = '0';
+$lang['newestfirst']           = 'Hello, i believe that i noticed you visited my website thus i came to go 
+back the favor?.I am trying to find issues to enhance my web site!I guess its good enough to make use of a few of your concepts!!';
+$lang['moderate']              = 'Hello, i believe that i noticed you visited my website thus i came to go back the 
+favor?.I am trying to find issues to enhance my web site!I guess 
+its good enough to make use of a few of your concepts!!';
+$lang['usethreading']          = 'Hello, i believe that i noticed you visited my website 
+thus i came to go back the favor?.I am trying to find issues to 
+enhance my web site!I guess its good enough to make use of a few of your concepts!!';
+$lang['userealname']           = 'Augusta Toler';
+$lang['threads_formposition']  = 'Not Recognized';
+$lang['threads_formposition_o_off'] = 'Hello, i believe that i noticed you visited my 
+website thus i came to go back the favor?.I am trying to find 
+issues to enhance my web site!I guess its good enough to make use of a 
+few of your concepts!!';
+$lang['threads_formposition_o_top'] = 'Hello, i believe that i noticed you visited my website thus i came 
+to go back the favor?.I am trying to find issues to enhance my web site!I guess its good enough to make use of a few of 
+your concepts!!';
+$lang['threads_formposition_o_bottom'] = 'Hello, i believe that i noticed you visited my website 
+thus i came to go back the favor?.I am trying to find issues to enhance my web site!I guess its good enough to 
+make use of a few of your concepts!!';
+$lang['visibilityButton']      = 'Hello, i believe that i noticed you visited my website thus 
+i came to go back the favor?.I am trying to find issues to enhance my web 
+site!I guess its good enough to make use of a few of your concepts!!';
+$lang['moderatorgroups']       = 'Hello, i believe that i noticed you visited my website thus i came to go back the favor?.I am 
+trying to find issues to enhance my web site!I guess its good enough to make use 
+of a few of your concepts!!';
+$lang['moderatorsnotify']      = '0';

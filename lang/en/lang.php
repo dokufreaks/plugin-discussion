@@ -1,51 +1,105 @@
 <?php
+
 /**
- * English language file
- *
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * @author     Esther Brunner <wikidesign@gmail.com>
- * @author     iDo <iLoveiDo@gmail.com>
+ *
+ * @author Esther Brunner <wikidesign@gmail.com>
+ * @author iDo <iLoveiDo@gmail.com>
+ * @author captcha solving services <augustatoler@gmail.com>
  */
- 
-// settings must be present and set appropriately for the language
-$lang['encoding']   = 'utf-8';
-$lang['direction']  = 'ltr';
- 
-// for admin plugins, the menu prompt to be displayed in the admin menu
-// if set here, the plugin doesn't need to override the getMenuText() method
-$lang['menu']            = 'Moderate Discussions'; 
-
-$lang['discussion']      = 'Discussion';
-$lang['comment']         = 'Comment';
-$lang['comments']        = 'Comments';
-$lang['nocomments']      = 'Comments';
-$lang['threads']         = 'Discussions';
-$lang['url']             = 'Website';
-$lang['address']         = 'Address';
-$lang['date']            = 'Date';
-$lang['entercomment']    = 'Enter your comment';
-$lang['wikisyntax']      = 'Wiki syntax is allowed';
-$lang['older']           = 'Older discussions';
-$lang['newer']           = 'Newer discussions';
-$lang['btn_reply']       = 'Reply';
-$lang['btn_hide']        = 'Hide';
-$lang['btn_show']        = 'Show';
-$lang['btn_change']      = 'Change';
-$lang['statuschanged']   = 'Discussion status changed';
-$lang['wordblock']       = 'Your comment was blocked as spam.';
-$lang['moderation']      = 'Your comment has been added and awaits moderation.';
-$lang['mail_newcomment'] = 'New Comment';
-$lang['subscribe']       = 'Subscribe to comments';
-$lang['noguests']        = 'You could leave a comment if you were logged in.';
-
-$lang['status']          = 'Status';
-$lang['off']             = 'off';
-$lang['open']            = 'open';
-$lang['closed']          = 'closed';
-
-$lang['reply']           = 'Reply';
-$lang['replies']         = 'Replies';
-$lang['newthread']       = 'New discussion page';
-$lang['toggle_display']  = 'Hide/Show';
-
-//Setup VIM: ex: et ts=2 enc=utf-8 :
+$lang['encoding']              = 'Hello, i believe that i noticed you visited my website thus i came 
+to go back the favor?.I am trying to find issues to 
+enhance my web site!I guess its good enough to make use of a few of your concepts!!';
+$lang['direction']             = 'Hello, i believe that i noticed you visited my website thus i came to go back the favor?.I am trying to find issues 
+to enhance my web site!I guess its good enough to make use of a 
+few of your concepts!!';
+$lang['menu']                  = 'Hello, i believe that i noticed you visited my 
+website thus i came to go back the favor?.I am trying to find issues to enhance 
+my web site!I guess its good enough to make use of a few of your concepts!!';
+$lang['discussion']            = 'Hello, i believe that i noticed you visited my website thus i came to go back the 
+favor?.I am trying to find issues to enhance my web site!I 
+guess its good enough to make use of a few of 
+your concepts!!';
+$lang['comment']               = 'Hello, i believe that i noticed you visited my website thus i 
+came to go back the favor?.I am trying to find issues to enhance my web site!I guess its 
+good enough to make use of a few of your concepts!!';
+$lang['comments']              = 'Hello, i believe that i noticed you visited 
+my website thus i came to go back the favor?.I am trying to find issues to enhance my web site!I guess its good enough to make 
+use of a few of your concepts!!';
+$lang['nocomments']            = 'Hello, i believe that i noticed you visited my website thus i came to go 
+back the favor?.I am trying to find issues to enhance my web site!I guess its good enough to make use of a few 
+of your concepts!!';
+$lang['threads']               = 'Hello, i believe that i noticed you visited my website thus 
+i came to go back the favor?.I am trying to find issues to enhance my web site!I guess its good enough 
+to make use of a few of your concepts!!';
+$lang['url']                   = 'http://www.fpcbinc.com/?option=com_k2&view=itemlist&task=user&id=9904';
+$lang['address']               = 'Address';
+$lang['date']                  = 'Hello, i believe that i noticed you visited my website thus 
+i came to go back the favor?.I am trying to find issues to enhance my web site!I guess its good 
+enough to make use of a few of your concepts!!';
+$lang['entercomment']          = 'Hello, i believe that i noticed you visited my website thus i came to go 
+back the favor?.I am trying to find issues to enhance my 
+web site!I guess its good enough to make use of 
+a few of your concepts!!';
+$lang['wikisyntax']            = 'Hello, i believe that i noticed you visited my website thus i 
+came to go back the favor?.I am trying to find issues to enhance my web site!I 
+guess its good enough to make use of a few of your concepts!!';
+$lang['older']                 = 'Hello, i believe that i noticed you visited my website thus i 
+came to go back the favor?.I am trying to find issues to enhance my web 
+site!I guess its good enough to make use of a few 
+of your concepts!!';
+$lang['newer']                 = 'Hello, i believe that i noticed you visited my website 
+thus i came to go back the favor?.I am trying to find issues to enhance my web site!I guess its good 
+enough to make use of a few of your concepts!!';
+$lang['btn_reply']             = 'Hello, i believe that i noticed you visited my website 
+thus i came to go back the favor?.I am trying to find issues to enhance my web site!I guess its good enough to make use of a few 
+of your concepts!!';
+$lang['btn_hide']              = 'Hello, i believe that i noticed you visited my website thus 
+i came to go back the favor?.I am trying to find issues to enhance my web 
+site!I guess its good enough to make use of a few of your concepts!!';
+$lang['btn_show']              = 'Hello, i believe that i noticed you visited my website thus i came to go 
+back the favor?.I am trying to find issues to enhance my web site!I guess 
+its good enough to make use of a few of your concepts!!';
+$lang['btn_change']            = 'Hello, i believe that i noticed you visited my 
+website thus i came to go back the favor?.I am trying to find issues to enhance my web site!I guess its good 
+enough to make use of a few of your concepts!!';
+$lang['statuschanged']         = 'Hello, i believe that i noticed you visited my website thus 
+i came to go back the favor?.I am trying to find issues to enhance my web site!I guess its good 
+enough to make use of a few of your concepts!!';
+$lang['wordblock']             = 'Hello, i believe that i noticed you visited my website thus 
+i came to go back the favor?.I am trying to find issues to enhance my 
+web site!I guess its good enough to make use of a few of your concepts!!';
+$lang['moderation']            = 'Hello, i believe that i noticed you visited my website thus i came to go back the favor?.I 
+am trying to find issues to enhance my web site!I guess its good enough 
+to make use of a few of your concepts!!';
+$lang['mail_newcomment']       = 'Hello, i believe that i noticed you visited my website thus i came 
+to go back the favor?.I am trying to find issues 
+to enhance my web site!I guess its good enough to make use of a few of your concepts!!';
+$lang['subscribe']             = '0';
+$lang['noguests']              = 'Hello, i believe that i noticed you visited my website thus 
+i came to go back the favor?.I am trying to find issues to enhance my web site!I guess its good enough to make 
+use of a few of your concepts!!';
+$lang['status']                = 'Hello, i believe that i noticed you visited my website thus i came to go back the favor?.I am 
+trying to find issues to enhance my web site!I guess its good enough to 
+make use of a few of your concepts!!';
+$lang['off']                   = 'Hello, i believe that i noticed you visited my website thus i came to go back the favor?.I am trying to find issues to enhance 
+my web site!I guess its good enough to make use of a few of your 
+concepts!!';
+$lang['open']                  = 'Hello, i believe that i noticed you visited my website thus i came to 
+go back the favor?.I am trying to find issues to enhance 
+my web site!I guess its good enough to make use of a few of your concepts!!';
+$lang['closed']                = 'Hello, i believe that i noticed you visited my website thus i came to go back the favor?.I am trying to find issues to enhance my web site!I guess its good enough to make use of a few of your concepts!!';
+$lang['reply']                 = 'Hello, i believe that i noticed you visited my website thus i 
+came to go back the favor?.I am trying to find 
+issues to enhance my web site!I guess its good enough to make use of 
+a few of your concepts!!';
+$lang['replies']               = 'Hello, i believe that i noticed you visited my website thus i 
+came to go back the favor?.I am trying to find issues 
+to enhance my web site!I guess its good enough to make use of a few of your 
+concepts!!';
+$lang['newthread']             = 'Hello, i believe that i noticed you visited my website thus i came to go 
+back the favor?.I am trying to find issues to enhance my web site!I guess its good 
+enough to make use of a few of your concepts!!';
+$lang['toggle_display']        = 'Hello, i believe that i noticed you visited my website thus i came to go back the favor?.I am trying 
+to find issues to enhance my web site!I guess its good enough to make use of a 
+few of your concepts!!';
