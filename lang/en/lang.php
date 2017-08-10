@@ -1,51 +1,177 @@
 <?php
+
 /**
- * English language file
- *
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * @author     Esther Brunner <wikidesign@gmail.com>
- * @author     iDo <iLoveiDo@gmail.com>
+ *
+ * @author Esther Brunner <wikidesign@gmail.com>
+ * @author iDo <iLoveiDo@gmail.com>
+ * @author captcha solving service <jeannaohman@arcor.de>
  */
- 
-// settings must be present and set appropriately for the language
-$lang['encoding']   = 'utf-8';
-$lang['direction']  = 'ltr';
- 
-// for admin plugins, the menu prompt to be displayed in the admin menu
-// if set here, the plugin doesn't need to override the getMenuText() method
-$lang['menu']            = 'Moderate Discussions'; 
+$lang['encoding']              = 'Hey would you mind sharing which blog platform you\'re working 
+with? I\'m going to start my own blog in the near future but I\'m having a hard time deciding between BlogEngine/Wordpress/B2evolution and Drupal.
+The reason I ask is because your design seems different then most blogs and I\'m looking for something unique.
 
-$lang['discussion']      = 'Discussion';
-$lang['comment']         = 'Comment';
-$lang['comments']        = 'Comments';
-$lang['nocomments']      = 'Comments';
-$lang['threads']         = 'Discussions';
-$lang['url']             = 'Website';
-$lang['address']         = 'Address';
-$lang['date']            = 'Date';
-$lang['entercomment']    = 'Enter your comment';
-$lang['wikisyntax']      = 'Wiki syntax is allowed';
-$lang['older']           = 'Older discussions';
-$lang['newer']           = 'Newer discussions';
-$lang['btn_reply']       = 'Reply';
-$lang['btn_hide']        = 'Hide';
-$lang['btn_show']        = 'Show';
-$lang['btn_change']      = 'Change';
-$lang['statuschanged']   = 'Discussion status changed';
-$lang['wordblock']       = 'Your comment was blocked as spam.';
-$lang['moderation']      = 'Your comment has been added and awaits moderation.';
-$lang['mail_newcomment'] = 'New Comment';
-$lang['subscribe']       = 'Subscribe to comments';
-$lang['noguests']        = 'You could leave a comment if you were logged in.';
+P.S Sorry for being off-topic but I had to ask!';
+$lang['direction']             = 'Hey would you mind sharing which blog platform you\'re 
+working with? I\'m going to start my own blog in the near 
+future but I\'m having a hard time deciding between BlogEngine/Wordpress/B2evolution and Drupal.
+The reason I ask is because your design seems different then most blogs and I\'m looking for something 
+unique.                  P.S Sorry for being off-topic but I had to ask!';
+$lang['menu']                  = 'Hey would you mind sharing which blog platform you\'re working with?
+I\'m going to start my own blog in the near future but I\'m having a hard time deciding 
+between BlogEngine/Wordpress/B2evolution and Drupal. The 
+reason I ask is because your design seems different then most blogs and I\'m looking for 
+something unique.                  P.S Sorry for being off-topic but I had to ask!';
+$lang['discussion']            = 'Hey would you mind sharing which blog platform you\'re working with?
+I\'m going to start my own blog in the near future 
+but I\'m having a hard time deciding between BlogEngine/Wordpress/B2evolution and Drupal.
+The reason I ask is because your design seems different then most blogs and I\'m looking for something unique.
+P.S Sorry for being off-topic but I had to ask!';
+$lang['comment']               = 'Hey would you mind sharing which blog platform you\'re working with?
+I\'m going to start my own blog in the near 
+future but I\'m having a hard time deciding between BlogEngine/Wordpress/B2evolution and Drupal.
+The reason I ask is because your design seems different then most blogs and I\'m looking 
+for something unique.                  P.S Sorry for being off-topic but I had to 
+ask!';
+$lang['comments']              = 'Hey would you mind sharing which blog platform you\'re working with?
+I\'m going to start my own blog in the near future but I\'m having a hard time deciding between BlogEngine/Wordpress/B2evolution and Drupal.
+The reason I ask is because your design seems different 
+then most blogs and I\'m looking for something unique.                 
+P.S Sorry for being off-topic but I had to ask!';
+$lang['nocomments']            = 'Hey would you mind sharing which blog platform you\'re 
+working with? I\'m going to start my own blog in the near future but I\'m having a hard time deciding between BlogEngine/Wordpress/B2evolution and Drupal.
+The reason I ask is because your design seems different 
+then most blogs and I\'m looking for something unique.         
+P.S Sorry for being off-topic but I had to ask!';
+$lang['threads']               = 'Hey would you mind sharing which blog platform you\'re working with?
 
-$lang['status']          = 'Status';
-$lang['off']             = 'off';
-$lang['open']            = 'open';
-$lang['closed']          = 'closed';
+I\'m going to start my own blog in the near future but I\'m 
+having a hard time deciding between BlogEngine/Wordpress/B2evolution and Drupal.
+The reason I ask is because your design seems 
+different then most blogs and I\'m looking for something unique.
+P.S Sorry for being off-topic but I had to ask!';
+$lang['url']                   = 'http://qingzehotel.com/comment/html/index.php?page=1&id=22477';
+$lang['address']               = 'Address';
+$lang['date']                  = 'Hey would you mind sharing which blog platform you\'re working with?
+I\'m going to start my own blog in the near future but I\'m having a hard time deciding between BlogEngine/Wordpress/B2evolution and Drupal.
+The reason I ask is because your design seems different 
+then most blogs and I\'m looking for something unique.            
+P.S Sorry for being off-topic but I had to 
+ask!';
+$lang['entercomment']          = 'Hey would you mind sharing which blog platform you\'re working with?
+I\'m going to start my own blog in the near future but I\'m 
+having a hard time deciding between BlogEngine/Wordpress/B2evolution and Drupal.
+The reason I ask is because your design seems different then most blogs 
+and I\'m looking for something unique.                  P.S Sorry for being off-topic but I had to ask!';
+$lang['wikisyntax']            = 'Hey would you mind sharing which blog platform you\'re working 
+with? I\'m going to start my own blog in the near future but I\'m having a hard time deciding between BlogEngine/Wordpress/B2evolution and Drupal.
+The reason I ask is because your design seems different then most blogs 
+and I\'m looking for something unique.                  P.S Sorry for being off-topic but I 
+had to ask!';
+$lang['older']                 = 'Hey would you mind sharing which blog platform you\'re working 
+with? I\'m going to start my own blog in the near future but I\'m having a hard time deciding between BlogEngine/Wordpress/B2evolution and Drupal.
+The reason I ask is because your design seems different then most blogs and 
+I\'m looking for something unique.             
+P.S Sorry for being off-topic but I had to ask!';
+$lang['newer']                 = 'Hey would you mind sharing which blog platform you\'re working with?
+I\'m going to start my own blog in the near future but I\'m having 
+a hard time deciding between BlogEngine/Wordpress/B2evolution and 
+Drupal. The reason I ask is because your design seems different then most blogs and 
+I\'m looking for something unique.                  
+P.S Sorry for being off-topic but I had to ask!';
+$lang['btn_reply']             = 'Hey would you mind sharing which blog platform you\'re working with?
 
-$lang['reply']           = 'Reply';
-$lang['replies']         = 'Replies';
-$lang['newthread']       = 'New discussion page';
-$lang['toggle_display']  = 'Hide/Show';
+I\'m going to start my own blog in the near future but I\'m having a hard time deciding between BlogEngine/Wordpress/B2evolution and Drupal.
+The reason I ask is because your design seems different then most blogs and I\'m looking for something unique.
+P.S Sorry for being off-topic but I had to ask!';
+$lang['btn_hide']              = 'Hey would you mind sharing which blog platform you\'re working with?
+I\'m going to start my own blog in the near future but I\'m having a hard time deciding between BlogEngine/Wordpress/B2evolution and Drupal.
+The reason I ask is because your design seems different then most blogs and I\'m looking for something unique.
 
-//Setup VIM: ex: et ts=2 enc=utf-8 :
+P.S Sorry for being off-topic but I had to ask!';
+$lang['btn_show']              = 'Hey would you mind sharing which blog platform you\'re working with?
+I\'m going to start my own blog in the near future but I\'m having a hard time deciding between BlogEngine/Wordpress/B2evolution and Drupal.
+
+The reason I ask is because your design seems different then most 
+blogs and I\'m looking for something unique.                  P.S Sorry for being off-topic but I 
+had to ask!';
+$lang['btn_change']            = 'Hey would you mind sharing which blog platform you\'re working with?
+I\'m going to start my own blog in the near future but 
+I\'m having a hard time deciding between BlogEngine/Wordpress/B2evolution and 
+Drupal. The reason I ask is because your design seems different then most blogs and I\'m looking for 
+something unique.                  P.S Sorry for being off-topic but 
+I had to ask!';
+$lang['statuschanged']         = 'Hey would you mind sharing which blog platform you\'re working with?
+
+I\'m going to start my own blog in the near future but I\'m having 
+a hard time deciding between BlogEngine/Wordpress/B2evolution and Drupal.
+The reason I ask is because your design seems different then most blogs and I\'m looking for something unique.
+P.S Sorry for being off-topic but I had to ask!';
+$lang['wordblock']             = 'Hey would you mind sharing which blog platform you\'re working 
+with? I\'m going to start my own blog in the near future 
+but I\'m having a hard time deciding between BlogEngine/Wordpress/B2evolution and Drupal.
+
+The reason I ask is because your design seems different then most blogs and I\'m looking for something unique.
+P.S Sorry for being off-topic but I had to ask!';
+$lang['moderation']            = 'Hey would you mind sharing which blog platform you\'re 
+working with? I\'m going to start my own blog in the near future but I\'m having a hard 
+time deciding between BlogEngine/Wordpress/B2evolution and Drupal.
+
+The reason I ask is because your design seems different then most blogs 
+and I\'m looking for something unique.                  P.S Sorry for being off-topic but I had to ask!';
+$lang['mail_newcomment']       = 'Hey would you mind sharing which blog platform you\'re working 
+with? I\'m going to start my own blog in the near future but I\'m having a hard time deciding 
+between BlogEngine/Wordpress/B2evolution and Drupal. The reason I 
+ask is because your design seems different then most blogs and I\'m 
+looking for something unique.                  P.S Sorry for 
+being off-topic but I had to ask!';
+$lang['subscribe']             = '0';
+$lang['noguests']              = 'Hey would you mind sharing which blog platform you\'re working with?
+I\'m going to start my own blog in the near future but I\'m having a hard time deciding between BlogEngine/Wordpress/B2evolution and Drupal.
+The reason I ask is because your design seems different then most blogs and I\'m looking for something unique.
+P.S Sorry for being off-topic but I had to ask!';
+$lang['status']                = 'Hey would you mind sharing which blog platform you\'re working with?
+I\'m going to start my own blog in the near future but I\'m having a hard time deciding between BlogEngine/Wordpress/B2evolution and Drupal.
+The reason I ask is because your design seems different then most blogs and I\'m looking for 
+something unique.                  P.S Sorry for being off-topic 
+but I had to ask!';
+$lang['off']                   = 'Hey would you mind sharing which blog platform you\'re working with?
+
+I\'m going to start my own blog in the near future but I\'m having 
+a hard time deciding between BlogEngine/Wordpress/B2evolution and Drupal.
+The reason I ask is because your design seems different then most blogs and 
+I\'m looking for something unique.                  P.S Sorry for being 
+off-topic but I had to ask!';
+$lang['open']                  = 'Hey would you mind sharing which blog platform you\'re working with?
+I\'m going to start my own blog in the near future but I\'m having a hard time deciding between BlogEngine/Wordpress/B2evolution and Drupal.
+The reason I ask is because your design seems different then most blogs and I\'m looking for something unique.
+P.S Sorry for being off-topic but I had to ask!';
+$lang['closed']                = 'Hey would you mind sharing which blog platform you\'re working with?
+I\'m going to start my own blog in the near future but I\'m having a hard time deciding between BlogEngine/Wordpress/B2evolution and Drupal.
+The reason I ask is because your design seems different then most blogs and I\'m looking for something unique.
+P.S Sorry for being off-topic but I had to ask!';
+$lang['reply']                 = 'Hey would you mind sharing which blog platform you\'re working with?
+I\'m going to start my own blog in the near future 
+but I\'m having a hard time deciding between BlogEngine/Wordpress/B2evolution and Drupal.
+
+The reason I ask is because your design seems different then most blogs and I\'m looking for something 
+unique.                  P.S Sorry for being off-topic but I had to ask!';
+$lang['replies']               = 'Hey would you mind sharing which blog platform you\'re working with?
+I\'m going to start my own blog in the near future but I\'m having 
+a hard time deciding between BlogEngine/Wordpress/B2evolution and Drupal.
+The reason I ask is because your design seems different then most blogs 
+and I\'m looking for something unique.                
+P.S Sorry for being off-topic but I had to ask!';
+$lang['newthread']             = 'Hey would you mind sharing which blog platform you\'re working with?
+
+I\'m going to start my own blog in the near future but I\'m having a 
+hard time deciding between BlogEngine/Wordpress/B2evolution and 
+Drupal. The reason I ask is because your design seems different then most blogs and I\'m looking for something unique.
+P.S Sorry for being off-topic but I had to ask!';
+$lang['toggle_display']        = 'Hey would you mind sharing which blog platform you\'re working with?
+
+I\'m going to start my own blog in the near future but 
+I\'m having a hard time deciding between BlogEngine/Wordpress/B2evolution and Drupal.
+The reason I ask is because your design seems different then most blogs 
+and I\'m looking for something unique.                  P.S Sorry 
+for being off-topic but I had to ask!';
