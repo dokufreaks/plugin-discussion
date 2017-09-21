@@ -1,0 +1,10 @@
+Ciao!
+
+Stai per sottoscrivere i commenti alla pagina @PAGE@ del wiki @TITLE@.
+
+Per confermare la sottoscrizione si prega di seguire questo link:
+@SUBSCRIBE@
+
+--
+Questa mail è stata generata dal DokuWiki 
+@DOKUWIKIURL@
