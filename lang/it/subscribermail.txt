@@ -1,6 +1,6 @@
 Ciao!
 
-Un nuovo commento è stato aggiunto alla pagina @PAGE@ nel wiki: @TITLE@
+Un nuovo commento è stato aggiunto alla pagina @PAGE@ nel wiki @TITLE@
 
 Data:   @DATE@
 Nome:   @NAME@
@@ -16,5 +16,5 @@ e quindi vai a questo indirizzo:
 @UNSUBSCRIBE@
 
 --
-questa mail è  stata generata dal DokuWiki 
+Questa mail è stata generata dal DokuWiki 
 @DOKUWIKIURL@
