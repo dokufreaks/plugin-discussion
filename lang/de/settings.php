@@ -2,14 +2,15 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * 
+ *
+ * @author F. Mueller-Donath <j.felix@mueller-donath.de>
  * @author Esther Brunner <wikidesign@gmail.com>
  * @author Dominik Eckelmann <deckelmann@gmail.com>
  * @author Matthias Schulte <dokuwiki@lupo49.de>
  * @author Padhie <develop@padhie.de>
  */
 $lang['automatic']             = 'Standardmäßig Diskussionen auf allen Seiten';
-$lang['excluded_ns']           = 'Liste von Namespaces für die sich oben befindlichen Optionen (ein Beispiel eines regulären Ausdrucks: <code>/(playground|wiki)/</code> )';
+$lang['excluded_ns']           = 'Liste von Namensräumen in denen keine Diskussionen angezeigt werden sollen (wenn <code>automatic = true</code>, regulärer Ausdruck, z.B.: <code>/(playground|wiki)/</code>)';
 $lang['allowguests']           = 'Kommentare von Gästen erlauben';
 $lang['showguests']            = 'Erlaube Gästen Kommentare zu lesen';
 $lang['linkemail']             = 'Name mit E-Mail verlinken';
@@ -29,4 +30,4 @@ $lang['threads_formposition_o_top'] = 'oben';
 $lang['threads_formposition_o_bottom'] = 'unten';
 $lang['visibilityButton']      = 'Schaltfläche anzeigen, mit der der Discussion-Abschnitt aus-/eingeblendet werden kann';
 $lang['moderatorgroups']       = 'Komma-separierte Liste mit Moderatoren-Gruppen (gleichzusetzen mit der Berechtigung eines DokuWiki-Managers)';
-$lang['moderatorsnotify']      = 'Sende eine Hinweisemail an Moderatoren bei neuem Kommentar';
+$lang['moderatorsnotify']      = 'Sende eine Benachrichtigungsemail an Moderatoren bei neuem Kommentar';
