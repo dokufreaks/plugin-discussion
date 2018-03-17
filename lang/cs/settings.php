@@ -2,25 +2,66 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * 
+ *
+ * @author best ellipticals reviews <onaellsworth@zoho.com>
  * @author Lukas Zapletal <lukas.zapletal at gmail dot com>
  * @author Jaroslav Lichtblau <jlichtblau@seznam.cz>
  * @author Turkislav <bla@bla.bla>
  */
-$lang['automatic']             = 'diskuzní sekci na každou stránku jako výchozí';
-$lang['excluded_ns']           = 'seznam jmenných prostorů pro obrácení možnosti výše (regulární výraz např. <code>/(playground|wiki)/</code> )';
-$lang['allowguests']           = 'povolit komentáře neregistrovaným';
-$lang['showguests']            = 'povolit hostům číst komentáře';
-$lang['linkemail']             = 'linkovat jména komentujících s e-maily';
-$lang['useavatar']             = 'použit avatar obrázky';
-$lang['urlfield']              = 'povolit uživatelům vložit URL';
-$lang['addressfield']          = 'povolit uživatelům vložit poštovní adresu';
-$lang['adminimport']           = 'povolit administrátorům nastavit všechna pole pro import';
-$lang['wikisyntaxok']          = 'povolit wiki syntax v komentářích';
-$lang['subscribe']             = 'povolit/zakázat odběr komentářů';
-$lang['newestfirst']           = 'vypisovat nejdříve nejnovější komentáře';
-$lang['moderate']              = 'moderovat nové komentáře';
-$lang['usethreading']          = 'povolit vlákna komentářů';
-$lang['userealname']           = 'zobrazit celé jméno místo uživatelského jména pro registrované uživatele wiki';
-$lang['visibilityButton']      = 'Povolit tlačítko pro přepínání viditelnosti diskuzní sekce';
-$lang['moderatorsnotify']      = 'Upozorňovat emailem moderátory na nové komentáře';
+$lang['automatic']             = '1988';
+$lang['excluded_ns']           = 'Ona';
+$lang['allowguests']           = 'Hi, I think your blog might be having browser compatibility issues.
+
+When I look at your website in Safari, it looks fine but when opening in Internet Explorer, it has some overlapping.
+I just wanted to give you a quick heads up! Other then that, great blog!';
+$lang['showguests']            = 'Thanks, this website is very helpful.';
+$lang['linkemail']             = 'onaellsworth@zoho.com';
+$lang['useavatar']             = 'Hi, I think your blog might be having browser compatibility issues.
+
+When I look at your website in Safari, it looks fine but when opening in Internet Explorer, it has some 
+overlapping. I just wanted to give you a quick heads up!
+Other then that, great blog!';
+$lang['urlfield']              = 'http://www.historyforhire.net/__media__/js/netsoltrademark.php?d=topelliptical60482.blogzag.com%2F2471454%2Fbest-ellipticals-reviews-in-2018';
+$lang['addressfield']          = 'Soeterstraat 88';
+$lang['adminimport']           = 'Reek';
+$lang['wikisyntaxok']          = 'Hi, I think your blog might be having browser compatibility issues.
+
+When I look at your website in Safari, it looks fine but when opening in Internet Explorer, it 
+has some overlapping. I just wanted to give you a quick 
+heads up! Other then that, great blog!';
+$lang['subscribe']             = '0';
+$lang['newestfirst']           = 'Hi, I think your blog might be having browser compatibility issues.
+When I look at your website in Safari, it looks fine but when opening in Internet Explorer, it has some overlapping.
+I just wanted to give you a quick heads up!
+Other then that, great blog!';
+$lang['moderate']              = 'Hi, I think your blog might be having browser compatibility issues.
+When I look at your website in Safari, it looks fine but when opening in Internet Explorer, it has some overlapping.
+I just wanted to give you a quick heads up!
+Other then that, great blog!';
+$lang['usethreading']          = 'Hi, I think your blog might be having browser compatibility issues.
+When I look at your website in Safari, it looks fine but when opening in Internet Explorer, it has some overlapping.
+I just wanted to give you a quick heads up! Other then that, great blog!';
+$lang['userealname']           = 'Ona Ellsworth';
+$lang['threads_formposition']  = '-2|Error - No Subscription Detected';
+$lang['threads_formposition_o_off'] = 'Hi, I think your blog might be having browser compatibility issues.
+When I look at your website in Safari, it looks fine but when opening in Internet 
+Explorer, it has some overlapping. I just wanted to give you a quick heads up!
+Other then that, great blog!';
+$lang['threads_formposition_o_top'] = 'Hi, I think your blog might be having browser compatibility issues.
+When I look at your website in Safari, it looks fine but when opening in Internet Explorer,
+it has some overlapping. I just wanted to give 
+you a quick heads up! Other then that, great 
+blog!';
+$lang['threads_formposition_o_bottom'] = 'Hi, I think your blog might be having browser compatibility issues.
+When I look at your website in Safari, it looks fine but when opening in Internet Explorer, it has some overlapping.
+I just wanted to give you a quick heads up! Other then that,
+great blog!';
+$lang['visibilityButton']      = 'Hi, I think your blog might be having browser compatibility issues.
+When I look at your website in Safari, it looks fine but when opening in Internet Explorer, it has some overlapping.
+I just wanted to give you a quick heads up! Other then that, 
+great blog!';
+$lang['moderatorgroups']       = 'Hi, I think your blog might be having browser compatibility issues.
+When I look at your website in Safari, it looks fine but when opening in Internet Explorer, it has some 
+overlapping. I just wanted to give you a quick heads up!
+Other then that, great blog!';
+$lang['moderatorsnotify']      = '0';
