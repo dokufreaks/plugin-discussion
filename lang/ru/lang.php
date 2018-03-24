@@ -2,11 +2,10 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * 
+ *
  * @author Mike Lykov <lykov.myu@mgsm.ru>
  * @author Maxim Maximov <mxmv@@mail.ru>
  * @author Aleksandr Selivanov <alexgearbox@gmail.com>
- * @author Aleksandr Selivanov <alexgearbox@yandex.ru>
  */
 $lang['encoding']              = 'utf-8';
 $lang['direction']             = 'ltr';

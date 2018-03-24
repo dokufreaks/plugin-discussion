@@ -2,11 +2,11 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * 
+ *
+ * @author Yuriy Skalko <yuriy.skalko@gmail.com>
  * @author Mike Lykov <lykov.myu@mgsm.ru>
  * @author Aleksandr Selivanov <alexgearbox@gmail.com>
  * @author JSBmanD <JSBmanD@gmail.com>
- * @author Aleksandr Selivanov <alexgearbox@yandex.ru>
  * @author Vitaly Filatenko <kot@hacktest.net>
  * @author RainbowSpike <1@2.ru>
  */
@@ -31,4 +31,4 @@ $lang['threads_formposition_o_top'] = 'вверху';
 $lang['threads_formposition_o_bottom'] = 'внизу';
 $lang['visibilityButton']      = 'Включить кнопку для переключения видимости секции обсуждений';
 $lang['moderatorgroups']       = 'Разделённый запятыми список групп модераторов (equal to DokuWiki-Manager permission level)';
-$lang['moderatorsnotify']      = 'Посылать модераторам е-майл о новых комментариях?';
+$lang['moderatorsnotify']      = 'Посылать модераторам уведомления о новых комментариях?';
