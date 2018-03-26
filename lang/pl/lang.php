@@ -2,15 +2,19 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * 
+ *
+ * @author Wojciech Lichota <wojciech@lichota.pl>
  * @author Esther Brunner <wikidesign@gmail.com> (in English)
  * @author Mati <mackosa@wp.pl>
  */
+$lang['encoding']              = 'utf-8';
+$lang['direction']             = 'od lewej do prawej';
 $lang['menu']                  = 'Moderuj dyskusje';
 $lang['discussion']            = 'Dyskusja';
 $lang['comment']               = 'Skomentuj';
 $lang['comments']              = 'Komentarze';
 $lang['nocomments']            = 'Komentarz';
+$lang['threads']               = 'Dyskusje';
 $lang['url']                   = 'Strona';
 $lang['address']               = 'Adres';
 $lang['date']                  = 'Data';
@@ -29,6 +33,7 @@ $lang['mail_newcomment']       = 'Nowy komentarz';
 $lang['subscribe']             = 'Subskrybuj komentarze';
 $lang['noguests']              = 'Możesz pozostawić komentarz, jeżeli się zalogujesz.';
 $lang['status']                = 'Status';
+$lang['off']                   = 'wyłączony';
 $lang['open']                  = 'otwarte';
 $lang['closed']                = 'zamknięte';
 $lang['reply']                 = 'Odpowiedz';
