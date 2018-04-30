@@ -2,17 +2,20 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * 
+ *
+ * @author Domingo Redal <docxml@gmail.com>
  * @author Jos Antonio Fuentes Santiago <joanfusan@hotmail.com>
  * @author Juan José 'Peco' San Martín <peco@microbotica.es>
  * @author Rafael <ea4bpn@gmail.com>
  */
 $lang['encoding']              = 'utf-8';
+$lang['direction']             = 'de izquierda a derecha';
 $lang['menu']                  = 'Moderar discusión';
 $lang['discussion']            = 'Discusión';
 $lang['comment']               = 'Comentario';
 $lang['comments']              = 'Comentarios';
 $lang['nocomments']            = 'Comentarios';
+$lang['threads']               = 'Discusiones';
 $lang['url']                   = 'Sitio web';
 $lang['address']               = 'Dirección';
 $lang['date']                  = 'Fecha';

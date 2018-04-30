@@ -2,12 +2,14 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * 
+ *
+ * @author Domingo Redal <docxml@gmail.com>
  * @author Jos Antonio Fuentes Santiago <joanfusan@hotmail.com>
  * @author Herman Fabián Sandoval Manrique <hfsandovalm@emzac.com>
  * @author Rafael <ea4bpn@gmail.com>
  */
 $lang['automatic']             = 'mostrar predeterminada la sección de discusión en cada página';
+$lang['excluded_ns']           = 'lista de espacios de nombres para revertir la opción anterior (una expresión regular, por ejemplo <code>/(playground|wiki)/</code>)';
 $lang['allowguests']           = 'permitir los comentarios a los usuarios no registrados';
 $lang['showguests']            = 'permitir a los invitados leer comentarios';
 $lang['linkemail']             = 'enlazar el nombre de los comentaristas con su e-mail';
@@ -19,9 +21,12 @@ $lang['wikisyntaxok']          = 'permitir sintaxis wiki en comentarios';
 $lang['subscribe']             = 'activar/desactivar la suscripción a comentarios';
 $lang['newestfirst']           = 'listar nuevos comentarios primero';
 $lang['moderate']              = 'moderar nuevos comentarios';
+$lang['usethreading']          = 'permitir el enhebrado de comentarios';
 $lang['userealname']           = 'mostrar nombre real en lugar del nombre de usuario registrado';
 $lang['threads_formposition']  = 'posición del formulario del nuevo post';
+$lang['threads_formposition_o_off'] = 'apagado';
 $lang['threads_formposition_o_top'] = 'superior';
 $lang['threads_formposition_o_bottom'] = 'inferior';
 $lang['visibilityButton']      = 'Activar botón de visibilidad de la sección de discussion';
 $lang['moderatorgroups']       = 'Lista separada por comas de grupos de moderadores (lo mismo que el nivel de permisos en el gestor de DokuWiki)';
+$lang['moderatorsnotify']      = 'Enviar correos electrónicos de notificación con los nuevos comentarios a los moderadores';
