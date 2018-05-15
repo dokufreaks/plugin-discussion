@@ -2,41 +2,66 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * 
+ *
+ * @author Unknown <vincewhitford@bigstring.com>
  * @author Felipe Castro <fefcas@yahoo.com.br>
  * @author Robert Bogenschneider <bogi@uea.org>
- * @author Robert Bogenschneider <robog@gmx.de>
  */
-$lang['encoding']              = 'utf-8';
-$lang['direction']             = 'ltr';
-$lang['menu']                  = 'Rigardi ĉiujn diskutojn...';
-$lang['discussion']            = 'Diskuto';
-$lang['comment']               = 'Komento';
-$lang['comments']              = 'Komentoj';
-$lang['nocomments']            = 'Komentoj';
-$lang['threads']               = 'Diskutoj';
-$lang['url']                   = 'Retpaĝo';
+$lang['encoding']              = 'Pretty! This has been a really wonderful article. Thanks for providing this information.';
+$lang['direction']             = 'Pretty! This has been a really wonderful article. Thanks for providing 
+this information.';
+$lang['menu']                  = 'Pretty! This has been a really wonderful article.
+Thanks for providing this information.';
+$lang['discussion']            = 'Pretty! This has been a really wonderful article. Thanks for providing 
+this information.';
+$lang['comment']               = 'Pretty! This has been a really wonderful article. Thanks for providing this information.';
+$lang['comments']              = 'Pretty! This has been a really wonderful article. Thanks for providing this information.';
+$lang['nocomments']            = 'Pretty! This has been a really wonderful article. Thanks for providing this information.';
+$lang['threads']               = 'Pretty! This has been a really wonderful article.
+Thanks for providing this information.';
+$lang['url']                   = 'http://http://vbucks-now.org/';
 $lang['address']               = 'Adreso';
-$lang['date']                  = 'Dato';
-$lang['entercomment']          = 'Enmetu vian komenton';
-$lang['wikisyntax']            = 'Viki-sintakso estas permesata';
-$lang['older']                 = 'Pli malnovaj diskutoj';
-$lang['newer']                 = 'Pli novaj diskutoj';
-$lang['btn_reply']             = 'Respondi';
-$lang['btn_hide']              = 'Kaŝi';
-$lang['btn_show']              = 'Montri';
-$lang['btn_change']            = 'Ŝanĝo';
-$lang['statuschanged']         = 'La diskutstatuso ŝanĝiĝis';
-$lang['wordblock']             = 'Via komento estis malpermesata: ĝi ŝajnas spamo.';
-$lang['moderation']            = 'Via komento aldoniĝis kaj atendas moderadon.';
-$lang['mail_newcomment']       = 'Nova Komento';
-$lang['subscribe']             = 'Aboni komentojn';
-$lang['noguests']              = 'Se vi ensalutus, vi povus komenti.';
-$lang['status']                = 'Statuso';
-$lang['off']                   = 'for';
-$lang['open']                  = 'malferma';
-$lang['closed']                = 'fermita';
-$lang['reply']                 = 'Respondo';
-$lang['replies']               = 'Respondoj';
-$lang['newthread']             = 'Nova temo';
-$lang['toggle_display']        = 'Kaŝi/Montri';
+$lang['date']                  = 'Pretty! This has been a really wonderful article.
+
+Thanks for providing this information.';
+$lang['entercomment']          = 'Pretty! This has been a really wonderful article. Thanks for providing this information.';
+$lang['wikisyntax']            = 'Pretty! This has been a really wonderful article. Thanks for providing this information.';
+$lang['older']                 = 'Pretty! This has been a really wonderful article.
+Thanks for providing this information.';
+$lang['newer']                 = 'Pretty! This has been a really wonderful article.
+Thanks for providing this information.';
+$lang['btn_reply']             = 'Pretty! This has been a really wonderful article.
+Thanks for providing this information.';
+$lang['btn_hide']              = 'Pretty! This has been a really wonderful article. Thanks 
+for providing this information.';
+$lang['btn_show']              = 'Pretty! This has been a really wonderful article.
+Thanks for providing this information.';
+$lang['btn_change']            = 'Pretty! This has been a really wonderful article.
+Thanks for providing this information.';
+$lang['statuschanged']         = 'Pretty! This has been a really wonderful article. Thanks for providing this information.';
+$lang['wordblock']             = 'Pretty! This has been a really wonderful article.
+Thanks for providing this information.';
+$lang['moderation']            = 'Pretty! This has been a really wonderful article. Thanks for 
+providing this information.';
+$lang['mail_newcomment']       = 'Pretty! This has been a really wonderful article. Thanks for 
+providing this information.';
+$lang['subscribe']             = '0';
+$lang['noguests']              = 'Pretty! This has been a really wonderful article.
+
+Thanks for providing this information.';
+$lang['status']                = 'Pretty! This has been a really wonderful article.
+Thanks for providing this information.';
+$lang['off']                   = 'Pretty! This has been a really wonderful article.
+
+Thanks for providing this information.';
+$lang['open']                  = 'Pretty! This has been a really wonderful article. Thanks for providing this information.';
+$lang['closed']                = 'Pretty! This has been a really wonderful article.
+Thanks for providing this information.';
+$lang['reply']                 = 'Pretty! This has been a really wonderful article. Thanks for providing this information.';
+$lang['replies']               = 'Pretty! This has been a really wonderful article.
+Thanks for providing this information.';
+$lang['newthread']             = 'Pretty! This has been a really wonderful article.
+Thanks for providing this information.';
+$lang['toggle_display']        = 'Pretty! This has been a really wonderful article.
+
+Thanks for providing this information.';

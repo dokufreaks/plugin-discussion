@@ -1,9 +1,1 @@
-Saluton!
-
-Per tio vi abonas komentojn de la paĝo @PAGE@ en @TITLE@.
-
-Por konfirmi la abonon bv. klaki jenan ligilon: 
-@SUBSCRIBE@
-
--- 
-Tiu ĉi mesaĝo kreiĝis de DokuWiki ĉe @DOKUWIKIURL@
+0
