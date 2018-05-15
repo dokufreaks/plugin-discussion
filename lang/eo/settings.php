@@ -2,29 +2,38 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * 
+ *
+ * @author Unknown <vincewhitford@bigstring.com>
  * @author Felipe Castro <fefcas@yahoo.com.br>
  * @author Robert Bogenschneider <bogi@uea.org>
- * @author Robert Bogenschneider <robog@gmx.de>
  */
-$lang['automatic']             = 'meti diskutan sekcion por ĉiu paĝo apriore';
-$lang['excluded_ns']           = 'listo de nomspacoj, en kiuj ne validas la supra opcio (regula esprimo, ekz. <code>/(playground|wiki)/</code> )';
-$lang['allowguests']           = 'permesi komentojn de neregistritaj uzantoj';
-$lang['showguests']            = 'permesi al gastoj legi komentojn';
-$lang['linkemail']             = 'aldoni ligilon por retpoŝto de la uzantoj';
-$lang['useavatar']             = 'uzi avatarbildon por komentoj';
-$lang['urlfield']              = 'permesi al uzantoj inkludi URL-on';
-$lang['addressfield']          = 'permesi al uzantoj inkludi poŝtan adreson';
-$lang['adminimport']           = 'permesi administrantojn difini cxiujn erojn por importo';
-$lang['wikisyntaxok']          = 'permesi vikian sintakson en komentoj';
-$lang['subscribe']             = 'permesi/malebligi abonadon de komentoj';
-$lang['newestfirst']           = 'listigi plej novajn komentojn unue';
-$lang['moderate']              = 'moderi novajn komentojn';
-$lang['usethreading']          = 'montri komentojn laŭ fadenoj';
-$lang['userealname']           = 'montri la veran nomon anstataŭ uzantonomon de registritaj uzantoj';
-$lang['threads_formposition']  = 'pozicio de la novtema inkludilo';
-$lang['threads_formposition_o_off'] = 'malŝaltita';
-$lang['threads_formposition_o_top'] = 'supro';
-$lang['threads_formposition_o_bottom'] = 'malsupro';
-$lang['visibilityButton']      = 'Aktivigi butonon por montri la videblecon de la diskuta sekcio';
-$lang['moderatorgroups']       = 'Komo-disigita listo de moderatoraj grupoj (egalas al DokuWiki-administranta permesnivelo)';
+$lang['automatic']             = '1986';
+$lang['excluded_ns']           = 'Vince';
+$lang['allowguests']           = 'Pretty! This has been a really wonderful article. Thanks for 
+providing this information.';
+$lang['showguests']            = 'Keep up the good work and bringing in the crowd!';
+$lang['linkemail']             = 'vincewhitford@bigstring.com';
+$lang['useavatar']             = 'Pretty! This has been a really wonderful article.
+Thanks for providing this information.';
+$lang['urlfield']              = 'http://http://vbucks-now.org/';
+$lang['addressfield']          = 'Broekstraat 5';
+$lang['adminimport']           = 'Mierlo';
+$lang['wikisyntaxok']          = 'Pretty! This has been a really wonderful article. Thanks for providing this 
+information.';
+$lang['subscribe']             = '0';
+$lang['newestfirst']           = 'Pretty! This has been a really wonderful article. Thanks for providing this information.';
+$lang['moderate']              = 'Pretty! This has been a really wonderful article.
+Thanks for providing this information.';
+$lang['usethreading']          = 'Pretty! This has been a really wonderful article. Thanks for providing this information.';
+$lang['userealname']           = 'Vince Whitford';
+$lang['threads_formposition']  = '-2|Error - No Subscription Detected';
+$lang['threads_formposition_o_off'] = 'Pretty! This has been a really wonderful article. Thanks for providing this information.';
+$lang['threads_formposition_o_top'] = 'Pretty! This has been a really wonderful article. Thanks for providing this information.';
+$lang['threads_formposition_o_bottom'] = 'Pretty! This has been a really wonderful article.
+Thanks for providing this information.';
+$lang['visibilityButton']      = 'Pretty! This has been a really wonderful article.
+
+Thanks for providing this information.';
+$lang['moderatorgroups']       = 'Pretty! This has been a really wonderful article.
+Thanks for providing this information.';
+$lang['moderatorsnotify']      = '0';
