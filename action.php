@@ -285,7 +285,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                             msg($lang['regbadmail'], -1);
                             return;
                         } else {
-                            $comment['user']['id'] = 'test'.hsc($_REQUEST['user']);
+                            $comment['user']['id'] = 'GUEST: '.hsc($_REQUEST['name']);
                             $comment['user']['name'] = hsc($_REQUEST['name']);
                             $comment['user']['mail'] = hsc($_REQUEST['mail']);
                         }
