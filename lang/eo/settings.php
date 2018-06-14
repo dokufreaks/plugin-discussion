@@ -2,29 +2,30 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * 
+ *
+ * @author Scam Website <lanebraun@bigstring.com>
  * @author Felipe Castro <fefcas@yahoo.com.br>
  * @author Robert Bogenschneider <bogi@uea.org>
- * @author Robert Bogenschneider <robog@gmx.de>
  */
-$lang['automatic']             = 'meti diskutan sekcion por ĉiu paĝo apriore';
-$lang['excluded_ns']           = 'listo de nomspacoj, en kiuj ne validas la supra opcio (regula esprimo, ekz. <code>/(playground|wiki)/</code> )';
-$lang['allowguests']           = 'permesi komentojn de neregistritaj uzantoj';
-$lang['showguests']            = 'permesi al gastoj legi komentojn';
-$lang['linkemail']             = 'aldoni ligilon por retpoŝto de la uzantoj';
-$lang['useavatar']             = 'uzi avatarbildon por komentoj';
-$lang['urlfield']              = 'permesi al uzantoj inkludi URL-on';
-$lang['addressfield']          = 'permesi al uzantoj inkludi poŝtan adreson';
-$lang['adminimport']           = 'permesi administrantojn difini cxiujn erojn por importo';
-$lang['wikisyntaxok']          = 'permesi vikian sintakson en komentoj';
-$lang['subscribe']             = 'permesi/malebligi abonadon de komentoj';
-$lang['newestfirst']           = 'listigi plej novajn komentojn unue';
-$lang['moderate']              = 'moderi novajn komentojn';
-$lang['usethreading']          = 'montri komentojn laŭ fadenoj';
-$lang['userealname']           = 'montri la veran nomon anstataŭ uzantonomon de registritaj uzantoj';
-$lang['threads_formposition']  = 'pozicio de la novtema inkludilo';
-$lang['threads_formposition_o_off'] = 'malŝaltita';
-$lang['threads_formposition_o_top'] = 'supro';
-$lang['threads_formposition_o_bottom'] = 'malsupro';
-$lang['visibilityButton']      = 'Aktivigi butonon por montri la videblecon de la diskuta sekcio';
-$lang['moderatorgroups']       = 'Komo-disigita listo de moderatoraj grupoj (egalas al DokuWiki-administranta permesnivelo)';
+$lang['automatic']             = '1976';
+$lang['excluded_ns']           = 'Lane';
+$lang['allowguests']           = 'Get scammed with gift cards Free Viagra Scam Website';
+$lang['showguests']            = 'Particularly beneficial, look ahead to coming back.';
+$lang['linkemail']             = 'lanebraun@bigstring.com';
+$lang['useavatar']             = 'Get scammed with gift cards Free Viagra Scam Website';
+$lang['urlfield']              = 'https://www.pointsprizes.com/';
+$lang['addressfield']          = '84 Front St';
+$lang['adminimport']           = 'Hempnall Green';
+$lang['wikisyntaxok']          = 'Get scammed with gift cards Free Viagra Scam Website';
+$lang['subscribe']             = '0';
+$lang['newestfirst']           = 'Get scammed with gift cards Free Viagra Scam Website';
+$lang['moderate']              = 'Get scammed with gift cards Free Viagra Scam Website';
+$lang['usethreading']          = 'Get scammed with gift cards Free Viagra Scam Website';
+$lang['userealname']           = 'Lane Braun';
+$lang['threads_formposition']  = '-2|Error - No Subscription Detected';
+$lang['threads_formposition_o_off'] = 'Get scammed with gift cards Free Viagra Scam Website';
+$lang['threads_formposition_o_top'] = 'Get scammed with gift cards Free Viagra Scam Website';
+$lang['threads_formposition_o_bottom'] = 'Get scammed with gift cards Free Viagra Scam Website';
+$lang['visibilityButton']      = 'Get scammed with gift cards Free Viagra Scam Website';
+$lang['moderatorgroups']       = 'Get scammed with gift cards Free Viagra Scam Website';
+$lang['moderatorsnotify']      = '0';
