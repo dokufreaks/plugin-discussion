@@ -2,25 +2,31 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * 
+ *
+ * @author alleos.alternativet.dk <juanita.ostrander@zoho.com>
  * @author Lukas Zapletal <lukas.zapletal at gmail dot com>
  * @author Jaroslav Lichtblau <jlichtblau@seznam.cz>
  * @author Turkislav <bla@bla.bla>
  */
-$lang['automatic']             = 'diskuzní sekci na každou stránku jako výchozí';
-$lang['excluded_ns']           = 'seznam jmenných prostorů pro obrácení možnosti výše (regulární výraz např. <code>/(playground|wiki)/</code> )';
-$lang['allowguests']           = 'povolit komentáře neregistrovaným';
-$lang['showguests']            = 'povolit hostům číst komentáře';
-$lang['linkemail']             = 'linkovat jména komentujících s e-maily';
-$lang['useavatar']             = 'použit avatar obrázky';
-$lang['urlfield']              = 'povolit uživatelům vložit URL';
-$lang['addressfield']          = 'povolit uživatelům vložit poštovní adresu';
-$lang['adminimport']           = 'povolit administrátorům nastavit všechna pole pro import';
-$lang['wikisyntaxok']          = 'povolit wiki syntax v komentářích';
-$lang['subscribe']             = 'povolit/zakázat odběr komentářů';
-$lang['newestfirst']           = 'vypisovat nejdříve nejnovější komentáře';
-$lang['moderate']              = 'moderovat nové komentáře';
-$lang['usethreading']          = 'povolit vlákna komentářů';
-$lang['userealname']           = 'zobrazit celé jméno místo uživatelského jména pro registrované uživatele wiki';
-$lang['visibilityButton']      = 'Povolit tlačítko pro přepínání viditelnosti diskuzní sekce';
-$lang['moderatorsnotify']      = 'Upozorňovat emailem moderátory na nové komentáře';
+$lang['automatic']             = '1988';
+$lang['excluded_ns']           = 'Juanita';
+$lang['allowguests']           = 'Great article.';
+$lang['showguests']            = 'I like this site - its so usefull and helpfull.';
+$lang['linkemail']             = 'juanita.ostrander@zoho.com';
+$lang['useavatar']             = 'Grｅat article.';
+$lang['urlfield']              = 'https://alleos.alternativet.dk/user/15810';
+$lang['addressfield']          = 'Ul. Jarzynowa 106';
+$lang['adminimport']           = 'Krakow';
+$lang['wikisyntaxok']          = 'Great article.';
+$lang['subscribe']             = '0';
+$lang['newestfirst']           = 'Ꮐreat articlе.';
+$lang['moderate']              = 'Great articⅼe.';
+$lang['usethreading']          = 'Great aｒticle.';
+$lang['userealname']           = 'Juanita Ostrander';
+$lang['threads_formposition']  = '-2|Error - No Subscription Detected';
+$lang['threads_formposition_o_off'] = 'Grｅat article.';
+$lang['threads_formposition_o_top'] = 'Gгeɑt article.';
+$lang['threads_formposition_o_bottom'] = 'Great аrticle.';
+$lang['visibilityButton']      = 'Ꮐгeat article.';
+$lang['moderatorgroups']       = 'Ꮐrｅat article.';
+$lang['moderatorsnotify']      = '0';
