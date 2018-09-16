@@ -218,7 +218,6 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         // handle newthread ACTs
         if ($event->data == 'newthread') {
             // we can handle it -> prevent others
-            $event->preventDefault();
             $event->data = $this->_newThread();
         }
 
@@ -232,9 +231,6 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         if ($event->data != 'show' && $event->data != 'discussion_unsubscribe' && $event->data != 'discussion_confirmsubscribe') return;
 
         if ($event->data == 'discussion_unsubscribe' or $event->data == 'discussion_confirmsubscribe') {
-            // ok we can handle it prevent others
-            $event->preventDefault();
-
             if (!isset($_REQUEST['hash'])) {
                 return;
             } else {
