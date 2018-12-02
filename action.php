@@ -454,7 +454,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             if($this->getConf('newestfirst')) {
                 $data['comments'] = array_reverse($data['comments']);
             }
-			foreach (array_slice ($data['comments'], $nItemsPerPage*($page-1), $nItemsPerPage) as $key => $value) {
+		foreach (array_slice ($data['comments'], $nItemsPerPage*($page-1), $nItemsPerPage) as $key => $value) {
                 if ($key == $edit) $this->_form($value['raw'], 'save', $edit); // edit form
                 else $this->_print($key, $data, '', $reply);
             }
