@@ -435,7 +435,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         // How many items to list per page
 		$nItemsPerPage = 20;
         // amount of comments made
-		$comment_count = $data['comments'] && count($data['comments']);
+		$comment_count = count($data['comments']); //gives an error in php 7.2
 		// How many pages will there be
 		$max_pages = ceil($comment_count / $nItemsPerPage);
 		// What page are we currently on?
