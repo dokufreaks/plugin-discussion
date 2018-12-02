@@ -431,7 +431,54 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
             ptln('</a></h2>', 2);
             ptln('<div class="level2 hfeed">', 2);
         }
-
+        
+        // How many items to list per page
+		$nItemsPerPage = 20;
+        // amount of comments made
+		$comment_count = $data['comments'] && count($data['comments']);
+		// How many pages will there be
+		$max_pages = ceil($comment_count / $nItemsPerPage);
+		// What page are we currently on?
+		$page = min($max_pages, filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, array(
+			'options' => array(
+            'default'   => 1,
+            'min_range' => 1,
+			),
+		)));
+        // now display the comments
+        if (isset($data['comments'])) {
+            if (!$this->getConf('usethreading')) {
+                $data['comments'] = $this->_flattenThreads($data['comments']);
+                uasort($data['comments'], '_sortCallback');
+            }
+            if($this->getConf('newestfirst')) {
+                $data['comments'] = array_reverse($data['comments']);
+            }
+			foreach (array_slice ($data['comments'], $nItemsPerPage*($page-1), $nItemsPerPage) as $key => $value) {
+                if ($key == $edit) $this->_form($value['raw'], 'save', $edit); // edit form
+                else $this->_print($key, $data, '', $reply);
+            }
+        }
+		// Previous Button
+		$previous  = '';
+		$previous  .= '<div>';
+		if($_GET['page'] > 1)
+		$previous .= '<a href="?&page='.($_GET['page']-1).'">';
+		$previous .= 'Previous';
+		$previous .= '</a>';
+		// Next Button
+		$next  = '';
+		if($_GET['page'] < $max_pages)
+		$next .= '<a href="?&page='. ($_GET['page']+1).'">';
+		$next .= ' Next';
+		$next .= '</a>';
+		// Comments Amount
+		$comment_amount  = '';
+		$comment_amount .= '<span> ' .$comment_count.' Comments</span></div>';
+		// Call the data
+		echo $previous;
+		echo $next;
+		echo $comment_amount;
         // now display the comments
         if (isset($data['comments'])) {
             if (!$this->getConf('usethreading')) {
