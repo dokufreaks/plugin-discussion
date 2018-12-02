@@ -433,16 +433,16 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         }
         
         // How many items to list per page
-		$nItemsPerPage = 20;
+	$nItemsPerPage = 50;
         // amount of comments made
-		$comment_count = count($data['comments']); //gives an error in php 7.2
-		// How many pages will there be
-		$max_pages = ceil($comment_count / $nItemsPerPage);
-		// What page are we currently on?
-		$page = min($max_pages, filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, array(
-			'options' => array(
-            'default'   => 1,
-            'min_range' => 1,
+	$comment_count = count($data['comments']);
+	// How many pages will there be
+	$max_pages = ceil($comment_count / $nItemsPerPage);
+	// What page are we currently on?
+	$page = min($max_pages, filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, array(
+		'options' => array(
+           	'default'   => 1,
+        	'min_range' => 1,
 			),
 		)));
         // now display the comments
@@ -459,26 +459,30 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
                 else $this->_print($key, $data, '', $reply);
             }
         }
-		// Previous Button
-		$previous  = '';
-		$previous  .= '<div>';
-		if($_GET['page'] > 1)
-		$previous .= '<a href="?&page='.($_GET['page']-1).'">';
-		$previous .= 'Previous';
-		$previous .= '</a>';
-		// Next Button
-		$next  = '';
-		if($_GET['page'] < $max_pages)
-		$next .= '<a href="?&page='. ($_GET['page']+1).'">';
-		$next .= ' Next';
-		$next .= '</a>';
-		// Comments Amount
-		$comment_amount  = '';
-		$comment_amount .= '<span> ' .$comment_count.' Comments</span></div>';
-		// Call the data
-		echo $previous;
-		echo $next;
-		echo $comment_amount;
+	// Previous Button
+	$previous  = '';
+	$previous  .= '<div>';
+	if($_GET['page'] > 1)
+	$previous .= '<a href="?&page='.($_GET['page']-1).'">';
+	$previous .= 'Previous';
+	$previous .= '</a>';
+	// Next Button
+	$next  = '';
+	if($_GET['page'] < $max_pages)
+	if($_GET['page'] == 0) //the page=1 url doesn't show up at first so need to count from 2 at the beginning
+	$next .= '<a href="?&page='. ($_GET['page']+2).'">';
+	else
+	$next .= '<a href="?&page='. ($_GET['page']+1).'">';
+	$next .= ' Next';
+	$next .= '</a>';
+	// Comments Amount
+	$comment_amount  = '';
+	$comment_amount .= '<span> '.$comment_count.' Comments</span></div>';
+	// Call the data
+	echo $previous;
+	echo $next;
+	echo $comment_amount;
+	   
         // now display the comments
         if (isset($data['comments'])) {
             if (!$this->getConf('usethreading')) {
