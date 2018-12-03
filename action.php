@@ -475,9 +475,13 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
 	$next .= '<a href="?&page='. ($_GET['page']+1).'">';
 	$next .= ' Next';
 	$next .= '</a>';
+	// Page Amount
+	$page_amount  = '';
+	$page_amount .= '<span> ' .$max_pages.' Pages</span></div>';
 	// Call the data
 	echo $previous;
 	echo $next;
+	echo $page_amount;
 	   
         // now display the comments
         if (isset($data['comments'])) {
