@@ -459,22 +459,19 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         }
 	// Previous Button
 	$previous  = '';
-	if($_GET['page'] > 1){
+	if($_GET['page'] > 1)
 	$previous .= '<a href="?&page='.($_GET['page']-1).'">';
 	$previous .= 'Previous';
 	$previous .= '</a>';
-	}
 	// Next Button
 	$next  = '';
-	if($_GET['page'] < $max_pages){
+	if($_GET['page'] < $max_pages)
 	if($_GET['page'] == 0){ //the page=1 url doesn't show up at first so need to count from 2 at the beginning
 	$next .= '<a href="?&page='. ($_GET['page']+2).'">';
-	}else{
+	else
 	$next .= '<a href="?&page='. ($_GET['page']+1).'">';
-	}
 	$next .= ' Next';
 	$next .= '</a>';
-	}
 	// Comment Amount
 	$comment_amount  = '';
 	$comment_amount .= '<span> ' .$cnt.' Comments</span>';
