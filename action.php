@@ -466,7 +466,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
 	// Next Button
 	$next  = '';
 	if($_GET['page'] < $max_pages)
-	if($_GET['page'] == 0){ //the page=1 url doesn't show up at first so need to count from 2 at the beginning
+	if($_GET['page'] == 0)//the page=1 url doesn't show up at first so need to count from 2 at the beginning
 	$next .= '<a href="?&page='. ($_GET['page']+2).'">';
 	else
 	$next .= '<a href="?&page='. ($_GET['page']+1).'">';
