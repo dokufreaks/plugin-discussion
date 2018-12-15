@@ -459,31 +459,30 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         }
 	// Previous Button
 	$previous  = '';
-	$previous  .= '<div>';
-	if($_GET['page'] > 1)
+	if($_GET['page'] > 1){
 	$previous .= '<a href="?&page='.($_GET['page']-1).'">';
 	$previous .= 'Previous';
 	$previous .= '</a>';
+	}
 	// Next Button
 	$next  = '';
-	if($_GET['page'] < $max_pages)
-	if($_GET['page'] == 0) //the page=1 url doesn't show up at first so need to count from 2 at the beginning
+	if($_GET['page'] < $max_pages){
+	if($_GET['page'] == 0){ //the page=1 url doesn't show up at first so need to count from 2 at the beginning
 	$next .= '<a href="?&page='. ($_GET['page']+2).'">';
-	else
+	}else{
 	$next .= '<a href="?&page='. ($_GET['page']+1).'">';
+	}
 	$next .= ' Next';
 	$next .= '</a>';
+	}
 	// Comment Amount
 	$comment_amount  = '';
 	$comment_amount .= '<span> ' .$cnt.' Comments</span>';
 	// Page Amount
 	$page_amount  = '';
-	$page_amount .= '<span> ' .$max_pages.' Pages</span></div>';
+	$page_amount .= '<span> ' .$max_pages.' Pages</span>';
 	// Call the data
-	echo $previous;
-	echo $next;
-	echo $comment_amount;
-	echo $page_amount;
+	echo '<div id="media_pagination">'.$previous, $next, $page_amount.'</div>'.NL;
 	   
         // now display the comments
         if (isset($data['comments'])) {
