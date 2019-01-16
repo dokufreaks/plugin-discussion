@@ -1,0 +1,10 @@
+Dobry den!
+
+Chcete sa prihlasit na odber komentarov stranky @PAGE@ s titulkom @TITLE@ wiki.
+
+Na potvrdenie odberu prosim kliknite na tento link:
+@SUBSCRIBE@
+
+--
+Tento e-mail bol generovany systemom DokuWiki na adrese
+@DOKUWIKIURL@
