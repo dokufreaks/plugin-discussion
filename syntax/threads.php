@@ -1,3 +1,4 @@
+
 <?php
 /**
  * Discussion Plugin, threads component: displays a list of recently active discussions
@@ -62,13 +63,15 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
 
         // Identify the count/skipempty flag and remove it before passing it to pagelist
         foreach($flags as $key => $flag) {
-            if(substr($flag, 0, 5) == "count") {
+            if (substr($flag, 0, 5) == "count") {
                 $tmp = explode('=', $flag);
                 $customFlags['count'] = $tmp[1];
                 unset($flags[$key]);
-            }
-            if(substr($flag, 0, 9) == "skipempty") {
+            } elseif (substr($flag, 0, 9) == "skipempty") {
                 $customFlags['skipempty'] = true;
+                unset($flags[$key]);
+            } elseif (substr($flag, 0, 15) == "nonewthreadform") {
+                $customFlags['nonewthreadform'] = true;
                 unset($flags[$key]);
             }
         }
@@ -98,6 +101,7 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
         list($ns, $flags, $refine, $customFlags) = $data;
         $count = $customFlags['count'];
         $skipEmpty = $customFlags['skipempty'];
+        $noNewThreadForm = $customFlags['nonewthreadform'];
         $i = 0;
 
         $pages = array();
@@ -117,7 +121,9 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
         if (!$pages) {
             if ((auth_quickaclcheck($ns.':*') >= AUTH_CREATE) && ($mode == 'xhtml')) {
                 $renderer->info['cache'] = false;
-                $renderer->doc .= $this->_newThreadForm($ns);
+                if ($noNewThreadForm !== true) {
+                    $renderer->doc .= $this->_newThreadForm($ns);
+                }
             }
             return true; // nothing to display
         } 
@@ -128,9 +134,12 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
             $renderer->info['cache'] = false;
 
             // show form to start a new discussion thread?
-            $perm_create = (auth_quickaclcheck($ns.':*') >= AUTH_CREATE);
-            if ($perm_create && ($this->getConf('threads_formposition') == 'top'))
-                $renderer->doc .= $this->_newThreadForm($ns);
+            if ($noNewThreadForm !== true) {
+                $perm_create = (auth_quickaclcheck($ns.':*') >= AUTH_CREATE);
+                if ($perm_create && ($this->getConf('threads_formposition') == 'top')) {
+                    $renderer->doc .= $this->_newThreadForm($ns);
+                }
+            }
 
             // let Pagelist Plugin do the work for us
             /** @var $pagelist helper_plugin_pagelist */
@@ -152,8 +161,11 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
             $renderer->doc .= $pagelist->finishList();
 
             // show form to start a new discussion thread?
-            if ($perm_create && ($this->getConf('threads_formposition') == 'bottom'))
-                $renderer->doc .= $this->_newThreadForm($ns);
+            if ($noNewThreadForm !== true) {
+                if ($perm_create && ($this->getConf('threads_formposition') == 'bottom')) {
+                    $renderer->doc .= $this->_newThreadForm($ns);
+                }
+            }
 
             return true;
 
