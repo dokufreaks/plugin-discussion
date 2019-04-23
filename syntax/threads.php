@@ -1,4 +1,3 @@
-
 <?php
 /**
  * Discussion Plugin, threads component: displays a list of recently active discussions
