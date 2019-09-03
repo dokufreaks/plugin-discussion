@@ -1,51 +1,284 @@
 <?php
+
 /**
  * English language file
  *
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * @author     Esther Brunner <wikidesign@gmail.com>
- * @author     iDo <iLoveiDo@gmail.com>
+ *
+ * @author generic viagra <elimatheny@gmail.com>
+ * @author Esther Brunner <wikidesign@gmail.com>
+ * @author iDo <iLoveiDo@gmail.com>
  */
- 
-// settings must be present and set appropriately for the language
-$lang['encoding']   = 'utf-8';
-$lang['direction']  = 'ltr';
- 
-// for admin plugins, the menu prompt to be displayed in the admin menu
-// if set here, the plugin doesn't need to override the getMenuText() method
-$lang['menu']            = 'Moderate Discussions'; 
+$lang['encoding']              = 'buy generic viagra 
+generic viagra 100mg
+buy sildenafil online 
 
-$lang['discussion']      = 'Discussion';
-$lang['comment']         = 'Comment';
-$lang['comments']        = 'Comments';
-$lang['nocomments']      = 'Comments';
-$lang['threads']         = 'Discussions';
-$lang['url']             = 'Website';
-$lang['address']         = 'Address';
-$lang['date']            = 'Date';
-$lang['entercomment']    = 'Enter your comment';
-$lang['wikisyntax']      = 'Wiki syntax is allowed';
-$lang['older']           = 'Older discussions';
-$lang['newer']           = 'Newer discussions';
-$lang['btn_reply']       = 'Reply';
-$lang['btn_hide']        = 'Hide';
-$lang['btn_show']        = 'Show';
-$lang['btn_change']      = 'Change';
-$lang['statuschanged']   = 'Discussion status changed';
-$lang['wordblock']       = 'Your comment was blocked as spam.';
-$lang['moderation']      = 'Your comment has been added and awaits moderation.';
-$lang['mail_newcomment'] = 'New Comment';
-$lang['subscribe']       = 'Subscribe to comments';
-$lang['noguests']        = 'You could leave a comment if you were logged in.';
+http://www.genericviagrakart.com/generic-viagra.aspx 
+buy generic viagra
 
-$lang['status']          = 'Status';
-$lang['off']             = 'off';
-$lang['open']            = 'open';
-$lang['closed']          = 'closed';
+http://www.genericviagrakart.com/sildenafil-citrate.aspx 
+sildenafil dosage';
+$lang['direction']             = 'buy generic viagra 
+generic viagra 100mg
+buy sildenafil online 
 
-$lang['reply']           = 'Reply';
-$lang['replies']         = 'Replies';
-$lang['newthread']       = 'New discussion page';
-$lang['toggle_display']  = 'Hide/Show';
+http://www.genericviagrakart.com/generic-viagra.aspx 
+buy generic viagra
 
-//Setup VIM: ex: et ts=2 enc=utf-8 :
+http://www.genericviagrakart.com/sildenafil-citrate.aspx 
+sildenafil dosage';
+$lang['menu']                  = 'buy generic viagra 
+generic viagra 100mg
+buy sildenafil online 
+
+http://www.genericviagrakart.com/generic-viagra.aspx 
+buy generic viagra
+
+http://www.genericviagrakart.com/sildenafil-citrate.aspx 
+sildenafil dosage';
+$lang['discussion']            = 'buy generic viagra 
+generic viagra 100mg
+buy sildenafil online 
+
+http://www.genericviagrakart.com/generic-viagra.aspx 
+buy generic viagra
+
+http://www.genericviagrakart.com/sildenafil-citrate.aspx 
+sildenafil dosage';
+$lang['comment']               = 'buy generic viagra 
+generic viagra 100mg
+buy sildenafil online 
+
+http://www.genericviagrakart.com/generic-viagra.aspx 
+buy generic viagra
+
+http://www.genericviagrakart.com/sildenafil-citrate.aspx 
+sildenafil dosage';
+$lang['comments']              = 'buy generic viagra 
+generic viagra 100mg
+buy sildenafil online 
+
+http://www.genericviagrakart.com/generic-viagra.aspx 
+buy generic viagra
+
+http://www.genericviagrakart.com/sildenafil-citrate.aspx 
+sildenafil dosage';
+$lang['nocomments']            = 'buy generic viagra 
+generic viagra 100mg
+buy sildenafil online 
+
+http://www.genericviagrakart.com/generic-viagra.aspx 
+buy generic viagra
+
+http://www.genericviagrakart.com/sildenafil-citrate.aspx 
+sildenafil dosage';
+$lang['threads']               = 'buy generic viagra 
+generic viagra 100mg
+buy sildenafil online 
+
+http://www.genericviagrakart.com/generic-viagra.aspx 
+buy generic viagra
+
+http://www.genericviagrakart.com/sildenafil-citrate.aspx 
+sildenafil dosage';
+$lang['url']                   = 'http://www.genericviagrakart.com/';
+$lang['address']               = 'Address';
+$lang['date']                  = 'buy generic viagra 
+generic viagra 100mg
+buy sildenafil online 
+
+http://www.genericviagrakart.com/generic-viagra.aspx 
+buy generic viagra
+
+http://www.genericviagrakart.com/sildenafil-citrate.aspx 
+sildenafil dosage';
+$lang['entercomment']          = 'buy generic viagra 
+generic viagra 100mg
+buy sildenafil online 
+
+http://www.genericviagrakart.com/generic-viagra.aspx 
+buy generic viagra
+
+http://www.genericviagrakart.com/sildenafil-citrate.aspx 
+sildenafil dosage';
+$lang['wikisyntax']            = 'buy generic viagra 
+generic viagra 100mg
+buy sildenafil online 
+
+http://www.genericviagrakart.com/generic-viagra.aspx 
+buy generic viagra
+
+http://www.genericviagrakart.com/sildenafil-citrate.aspx 
+sildenafil dosage';
+$lang['older']                 = 'buy generic viagra 
+generic viagra 100mg
+buy sildenafil online 
+
+http://www.genericviagrakart.com/generic-viagra.aspx 
+buy generic viagra
+
+http://www.genericviagrakart.com/sildenafil-citrate.aspx 
+sildenafil dosage';
+$lang['newer']                 = 'buy generic viagra 
+generic viagra 100mg
+buy sildenafil online 
+
+http://www.genericviagrakart.com/generic-viagra.aspx 
+buy generic viagra
+
+http://www.genericviagrakart.com/sildenafil-citrate.aspx 
+sildenafil dosage';
+$lang['btn_reply']             = 'buy generic viagra 
+generic viagra 100mg
+buy sildenafil online 
+
+http://www.genericviagrakart.com/generic-viagra.aspx 
+buy generic viagra
+
+http://www.genericviagrakart.com/sildenafil-citrate.aspx 
+sildenafil dosage';
+$lang['btn_hide']              = 'buy generic viagra 
+generic viagra 100mg
+buy sildenafil online 
+
+http://www.genericviagrakart.com/generic-viagra.aspx 
+buy generic viagra
+
+http://www.genericviagrakart.com/sildenafil-citrate.aspx 
+sildenafil dosage';
+$lang['btn_show']              = 'buy generic viagra 
+generic viagra 100mg
+buy sildenafil online 
+
+http://www.genericviagrakart.com/generic-viagra.aspx 
+buy generic viagra
+
+http://www.genericviagrakart.com/sildenafil-citrate.aspx 
+sildenafil dosage';
+$lang['btn_change']            = 'buy generic viagra 
+generic viagra 100mg
+buy sildenafil online 
+
+http://www.genericviagrakart.com/generic-viagra.aspx 
+buy generic viagra
+
+http://www.genericviagrakart.com/sildenafil-citrate.aspx 
+sildenafil dosage';
+$lang['statuschanged']         = 'buy generic viagra 
+generic viagra 100mg
+buy sildenafil online 
+
+http://www.genericviagrakart.com/generic-viagra.aspx 
+buy generic viagra
+
+http://www.genericviagrakart.com/sildenafil-citrate.aspx 
+sildenafil dosage';
+$lang['wordblock']             = 'buy generic viagra 
+generic viagra 100mg
+buy sildenafil online 
+
+http://www.genericviagrakart.com/generic-viagra.aspx 
+buy generic viagra
+
+http://www.genericviagrakart.com/sildenafil-citrate.aspx 
+sildenafil dosage';
+$lang['moderation']            = 'buy generic viagra 
+generic viagra 100mg
+buy sildenafil online 
+
+http://www.genericviagrakart.com/generic-viagra.aspx 
+buy generic viagra
+
+http://www.genericviagrakart.com/sildenafil-citrate.aspx 
+sildenafil dosage';
+$lang['mail_newcomment']       = 'buy generic viagra 
+generic viagra 100mg
+buy sildenafil online 
+
+http://www.genericviagrakart.com/generic-viagra.aspx 
+buy generic viagra
+
+http://www.genericviagrakart.com/sildenafil-citrate.aspx 
+sildenafil dosage';
+$lang['subscribe']             = '0';
+$lang['noguests']              = 'buy generic viagra 
+generic viagra 100mg
+buy sildenafil online 
+
+http://www.genericviagrakart.com/generic-viagra.aspx 
+buy generic viagra
+
+http://www.genericviagrakart.com/sildenafil-citrate.aspx 
+sildenafil dosage';
+$lang['status']                = 'buy generic viagra 
+generic viagra 100mg
+buy sildenafil online 
+
+http://www.genericviagrakart.com/generic-viagra.aspx 
+buy generic viagra
+
+http://www.genericviagrakart.com/sildenafil-citrate.aspx 
+sildenafil dosage';
+$lang['off']                   = 'buy generic viagra 
+generic viagra 100mg
+buy sildenafil online 
+
+http://www.genericviagrakart.com/generic-viagra.aspx 
+buy generic viagra
+
+http://www.genericviagrakart.com/sildenafil-citrate.aspx 
+sildenafil dosage';
+$lang['open']                  = 'buy generic viagra 
+generic viagra 100mg
+buy sildenafil online 
+
+http://www.genericviagrakart.com/generic-viagra.aspx 
+buy generic viagra
+
+http://www.genericviagrakart.com/sildenafil-citrate.aspx 
+sildenafil dosage';
+$lang['closed']                = 'buy generic viagra 
+generic viagra 100mg
+buy sildenafil online 
+
+http://www.genericviagrakart.com/generic-viagra.aspx 
+buy generic viagra
+
+http://www.genericviagrakart.com/sildenafil-citrate.aspx 
+sildenafil dosage';
+$lang['reply']                 = 'buy generic viagra 
+generic viagra 100mg
+buy sildenafil online 
+
+http://www.genericviagrakart.com/generic-viagra.aspx 
+buy generic viagra
+
+http://www.genericviagrakart.com/sildenafil-citrate.aspx 
+sildenafil dosage';
+$lang['replies']               = 'buy generic viagra 
+generic viagra 100mg
+buy sildenafil online 
+
+http://www.genericviagrakart.com/generic-viagra.aspx 
+buy generic viagra
+
+http://www.genericviagrakart.com/sildenafil-citrate.aspx 
+sildenafil dosage';
+$lang['newthread']             = 'buy generic viagra 
+generic viagra 100mg
+buy sildenafil online 
+
+http://www.genericviagrakart.com/generic-viagra.aspx 
+buy generic viagra
+
+http://www.genericviagrakart.com/sildenafil-citrate.aspx 
+sildenafil dosage';
+$lang['toggle_display']        = 'buy generic viagra 
+generic viagra 100mg
+buy sildenafil online 
+
+http://www.genericviagrakart.com/generic-viagra.aspx 
+buy generic viagra
+
+http://www.genericviagrakart.com/sildenafil-citrate.aspx 
+sildenafil dosage';
