@@ -375,7 +375,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
         if($this->getConf('excluded_ns') == '') {
             $isNamespaceExcluded = false;
         } else {
-            $isNamespaceExcluded = preg_match($this->getConf('excluded_ns'), $INFO['namespace']);
+            $isNamespaceExcluded = preg_match("/".$this->getConf('excluded_ns')."/", $INFO['namespace']);
         }
 
         if($this->getConf('automatic')) {
