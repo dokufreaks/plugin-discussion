@@ -2,27 +2,78 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * 
+ *
+ * @author living <kendallhowton@t-online.de>
  * @author Norbert Csík <norbert.csik@gmail.com>
  * @author Mátyás Jani <jzombi@gmail.com>
  */
-$lang['automatic']             = 'hozzászólások bekapcsolása alapértelmezettként minden oldalon';
-$lang['allowguests']           = 'nem regisztrált felhasználók kommentelhetnek';
-$lang['showguests']            = 'vendégek olvashatják a kommenteket';
-$lang['linkemail']             = 'legyen hivatkozás a hozzászóló e-mail címével a néven';
-$lang['useavatar']             = 'használjon avatar képeket a hozzászólásoknál';
-$lang['urlfield']              = 'felhasználók megadhatnak egy weboldalt';
-$lang['addressfield']          = 'felhasználók megadhatják a címüket';
-$lang['adminimport']           = 'adminok hozzászóláskor minden mezőt külön megadhatnak';
-$lang['wikisyntaxok']          = 'wiki szintaxis engedélyezése kommentekben';
-$lang['subscribe']             = 'kommentekre feliratkozás engedélyezése';
-$lang['newestfirst']           = 'újabb hozzászólásokat mutassa fölül';
-$lang['moderate']              = 'új kommentek moderálása';
-$lang['usethreading']          = 'kommentek szálakba rendezése';
-$lang['userealname']           = 'valódi név megjelenítése felhasználói név helyett regisztrált felhasználóknál';
-$lang['threads_formposition']  = 'új szál form pozíciója';
-$lang['threads_formposition_o_off'] = 'kikapcsolva';
-$lang['threads_formposition_o_top'] = 'fölül';
-$lang['threads_formposition_o_bottom'] = 'alul';
-$lang['visibilityButton']      = 'hozzászólások elrejtése/megjelenítése gomb bekapcsolása';
-$lang['moderatorgroups']       = 'Moderátor csoportok vesszővel elválasztott listája (megegyezik a DokuWiki-Manager hozzáférési szinttel)';
+$lang['automatic']             = '1981';
+$lang['excluded_ns']           = 'Kendall';
+$lang['allowguests']           = 'With havin so much content do you ever run into any problems 
+of plagorism or copyright violation? My blog has a lot of exclusive content I\'ve 
+either authored myself or outsourced but it seems a lot 
+of it is popping it up all over the web without my permission. Do you know any 
+techniques to help protect against content from being ripped off?
+
+I\'d genuinely appreciate it.';
+$lang['showguests']            = 'Great internet site! It looks very good! Maintain the excellent work!';
+$lang['linkemail']             = 'kendallhowton@t-online.de';
+$lang['useavatar']             = 'With havin so much content do you ever run into any problems of plagorism or copyright violation? My blog has a lot of exclusive content I\'ve either 
+authored myself or outsourced but it seems a lot of it is popping it up all 
+over the web without my permission. Do you know any techniques 
+to help protect against content from being ripped off? I\'d genuinely appreciate it.';
+$lang['urlfield']              = 'http://www.balancehealthcare.com';
+$lang['addressfield']          = 'Sur Les Tailles 1';
+$lang['adminimport']           = 'Finnevaux';
+$lang['wikisyntaxok']          = 'With havin so much content do you ever run into any 
+problems of plagorism or copyright violation? My 
+blog has a lot of exclusive content I\'ve either authored myself or 
+outsourced but it seems a lot of it is popping it 
+up all over the web without my permission. Do you know any techniques to 
+help protect against content from being ripped off?
+I\'d genuinely appreciate it.';
+$lang['subscribe']             = '0';
+$lang['newestfirst']           = 'With havin so much content do you ever run into 
+any problems of plagorism or copyright violation? My 
+blog has a lot of exclusive content I\'ve either authored myself or outsourced but it 
+seems a lot of it is popping it up all over the web without my permission. Do you know any techniques 
+to help protect against content from being ripped off?
+I\'d genuinely appreciate it.';
+$lang['moderate']              = 'With havin so much content do you ever run into any problems of plagorism or copyright violation? My blog has a lot 
+of exclusive content I\'ve either authored myself or outsourced but 
+it seems a lot of it is popping it up all over the web without my permission. Do you know any techniques to help 
+protect against content from being ripped off?
+I\'d genuinely appreciate it.';
+$lang['usethreading']          = 'With havin so much content do you ever run into any problems of 
+plagorism or copyright violation? My blog has a lot of exclusive content 
+I\'ve either authored myself or outsourced but it seems a lot of it is popping it up all over the web without my permission. Do you know any techniques to help protect against content 
+from being ripped off? I\'d genuinely appreciate it.';
+$lang['userealname']           = 'Kendall Howton';
+$lang['threads_formposition']  = '.';
+$lang['threads_formposition_o_off'] = 'With havin so much content do you ever run into any 
+problems of plagorism or copyright violation? My blog has a lot of exclusive content I\'ve either 
+authored myself or outsourced but it seems a lot of it is popping it up all over the 
+web without my permission. Do you know any techniques to help 
+protect against content from being ripped off?
+
+I\'d genuinely appreciate it.';
+$lang['threads_formposition_o_top'] = 'With havin so much content do you ever run into any problems of plagorism or copyright violation? My blog has a lot of exclusive content I\'ve 
+either authored myself or outsourced but it seems a lot of it is popping it up all over the web without my 
+permission. Do you know any techniques to help protect against content from being ripped off?
+I\'d genuinely appreciate it.';
+$lang['threads_formposition_o_bottom'] = 'With havin so much content do you ever run into 
+any problems of plagorism or copyright violation? My blog has a lot of exclusive content I\'ve either 
+authored myself or outsourced but it seems a lot of it is popping it up all over the web without my permission. Do you know 
+any techniques to help protect against content from being ripped off?
+I\'d genuinely appreciate it.';
+$lang['visibilityButton']      = 'With havin so much content do you ever run into any problems of plagorism or copyright 
+violation? My blog has a lot of exclusive content I\'ve either authored myself or outsourced 
+but it seems a lot of it is popping it up all over the web without my permission. Do you know any techniques to help protect against 
+content from being ripped off? I\'d genuinely appreciate 
+it.';
+$lang['moderatorgroups']       = 'With havin so much content do you ever run into any problems of plagorism 
+or copyright violation? My blog has a lot of exclusive 
+content I\'ve either authored myself or outsourced but it seems a lot 
+of it is popping it up all over the web without my permission. Do you know any techniques 
+to help protect against content from being ripped off? I\'d genuinely appreciate it.';
+$lang['moderatorsnotify']      = '0';
