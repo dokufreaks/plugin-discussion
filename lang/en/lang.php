@@ -1,51 +1,68 @@
 <?php
+
 /**
  * English language file
  *
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * @author     Esther Brunner <wikidesign@gmail.com>
- * @author     iDo <iLoveiDo@gmail.com>
+ *
+ * @author living <osvaldo_tribolet@googlemail.com>
+ * @author Esther Brunner <wikidesign@gmail.com>
+ * @author iDo <iLoveiDo@gmail.com>
  */
- 
-// settings must be present and set appropriately for the language
-$lang['encoding']   = 'utf-8';
-$lang['direction']  = 'ltr';
- 
-// for admin plugins, the menu prompt to be displayed in the admin menu
-// if set here, the plugin doesn't need to override the getMenuText() method
-$lang['menu']            = 'Moderate Discussions'; 
-
-$lang['discussion']      = 'Discussion';
-$lang['comment']         = 'Comment';
-$lang['comments']        = 'Comments';
-$lang['nocomments']      = 'Comments';
-$lang['threads']         = 'Discussions';
-$lang['url']             = 'Website';
-$lang['address']         = 'Address';
-$lang['date']            = 'Date';
-$lang['entercomment']    = 'Enter your comment';
-$lang['wikisyntax']      = 'Wiki syntax is allowed';
-$lang['older']           = 'Older discussions';
-$lang['newer']           = 'Newer discussions';
-$lang['btn_reply']       = 'Reply';
-$lang['btn_hide']        = 'Hide';
-$lang['btn_show']        = 'Show';
-$lang['btn_change']      = 'Change';
-$lang['statuschanged']   = 'Discussion status changed';
-$lang['wordblock']       = 'Your comment was blocked as spam.';
-$lang['moderation']      = 'Your comment has been added and awaits moderation.';
-$lang['mail_newcomment'] = 'New Comment';
-$lang['subscribe']       = 'Subscribe to comments';
-$lang['noguests']        = 'You could leave a comment if you were logged in.';
-
-$lang['status']          = 'Status';
-$lang['off']             = 'off';
-$lang['open']            = 'open';
-$lang['closed']          = 'closed';
-
-$lang['reply']           = 'Reply';
-$lang['replies']         = 'Replies';
-$lang['newthread']       = 'New discussion page';
-$lang['toggle_display']  = 'Hide/Show';
-
-//Setup VIM: ex: et ts=2 enc=utf-8 :
+$lang['encoding']              = 'Hi there, its good paragraph concerning media print, we all 
+understand media is a great source of information.';
+$lang['direction']             = 'Hi there, its good paragraph concerning media print,
+we all understand media is a great source of information.';
+$lang['menu']                  = 'Hi there, its good paragraph concerning media print, we all understand media is a 
+great source of information.';
+$lang['discussion']            = 'Hi there, its good paragraph concerning media print, we 
+all understand media is a great source of information.';
+$lang['comment']               = 'Hi there, its good paragraph concerning media print, we all understand media is a great source of information.';
+$lang['comments']              = 'Hi there, its good paragraph concerning media print, we all understand media is a great source of information.';
+$lang['nocomments']            = 'Hi there, its good paragraph concerning media print, we all understand media 
+is a great source of information.';
+$lang['threads']               = 'Hi there, its good paragraph concerning media print, we all understand media is a 
+great source of information.';
+$lang['url']                   = 'http://settlementhealth.org';
+$lang['address']               = 'Address';
+$lang['date']                  = 'Hi there, its good paragraph concerning media print, we all understand media is a great source of information.';
+$lang['entercomment']          = 'Hi there, its good paragraph concerning media print, we 
+all understand media is a great source of information.';
+$lang['wikisyntax']            = 'Hi there, its good paragraph concerning media print, we all understand media is a great source of 
+information.';
+$lang['older']                 = 'Hi there, its good paragraph concerning media print, 
+we all understand media is a great source of information.';
+$lang['newer']                 = 'Hi there, its good paragraph concerning media print, we all understand media is a great source of 
+information.';
+$lang['btn_reply']             = 'Hi there, its good paragraph concerning media print, we all understand media 
+is a great source of information.';
+$lang['btn_hide']              = 'Hi there, its good paragraph concerning media print, we all understand media is a great source 
+of information.';
+$lang['btn_show']              = 'Hi there, its good paragraph concerning media print, we all understand media is a great 
+source of information.';
+$lang['btn_change']            = 'Hi there, its good paragraph concerning media print, we 
+all understand media is a great source of information.';
+$lang['statuschanged']         = 'Hi there, its good paragraph concerning media print, we all understand 
+media is a great source of information.';
+$lang['wordblock']             = 'Hi there, its good paragraph concerning media print, we all understand media is a great source of information.';
+$lang['moderation']            = 'Hi there, its good paragraph concerning media print, we all understand media is a great source of information.';
+$lang['mail_newcomment']       = 'Hi there, its good paragraph concerning media print, we 
+all understand media is a great source of information.';
+$lang['subscribe']             = '0';
+$lang['noguests']              = 'Hi there, its good paragraph concerning media print, we all understand media is a great source of information.';
+$lang['status']                = 'Hi there, its good paragraph concerning media print, we all understand media is a 
+great source of information.';
+$lang['off']                   = 'Hi there, its good paragraph concerning media 
+print, we all understand media is a great source of information.';
+$lang['open']                  = 'Hi there, its good paragraph concerning media 
+print, we all understand media is a great source of information.';
+$lang['closed']                = 'Hi there, its good paragraph concerning media print, 
+we all understand media is a great source of information.';
+$lang['reply']                 = 'Hi there, its good paragraph concerning media print, we all understand media is a great source 
+of information.';
+$lang['replies']               = 'Hi there, its good paragraph concerning media print, we all understand media 
+is a great source of information.';
+$lang['newthread']             = 'Hi there, its good paragraph concerning media print, we 
+all understand media is a great source of information.';
+$lang['toggle_display']        = 'Hi there, its good paragraph concerning media print, we all understand media 
+is a great source of information.';
