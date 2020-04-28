@@ -3,41 +3,79 @@
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  *
+ * @author mulaibet poker <clairtunbridge@gmail.com>
  * @author Esther Brunner <wikidesign@gmail.com>
  * @author iDo <iLoveiDo@gmail.com>
  * @author Dominik Eckelmann <deckelmann@gmail.com>
  * @author Padhie <develop@padhie.de>
  */
-$lang['encoding']              = 'utf-8';
-$lang['direction']             = 'ltr';
-$lang['menu']                  = 'Diskussionen moderieren';
-$lang['discussion']            = 'Diskussion';
-$lang['comment']               = 'Kommentar';
-$lang['comments']              = 'Kommentare';
-$lang['nocomments']            = 'Kommentare';
-$lang['threads']               = 'Gespräche';
-$lang['url']                   = 'Webseite';
+$lang['encoding']              = 'Selain dengan server yang aman Probola228 juga banyak memberikan bonus bonus yang menarik dan besar bagi seluruh member setia yang 
+sudah bergabung bersama kami.';
+$lang['direction']             = 'Selain dengan server yang aman Probola228 juga banyak 
+memberikan bonus bonus yang menarik dan besar bagi seluruh member setia 
+yang sudah bergabung bersama kami.';
+$lang['menu']                  = 'Selain dengan server yang aman Probola228 juga banyak memberikan bonus bonus yang menarik dan besar bagi seluruh member setia yang sudah bergabung bersama kami.';
+$lang['discussion']            = 'Selain dengan server yang aman Probola228 juga banyak memberikan bonus 
+bonus yang menarik dan besar bagi seluruh member setia yang sudah bergabung bersama kami.';
+$lang['comment']               = 'Selain dengan server yang aman Probola228 
+juga banyak memberikan bonus bonus yang menarik dan besar bagi seluruh 
+member setia yang sudah bergabung bersama kami.';
+$lang['comments']              = 'Selain dengan server yang aman Probola228 juga banyak memberikan bonus bonus 
+yang menarik dan besar bagi seluruh member setia yang sudah bergabung bersama kami.';
+$lang['nocomments']            = 'Selain dengan server yang aman Probola228 juga banyak memberikan bonus bonus yang menarik dan besar bagi seluruh member setia 
+yang sudah bergabung bersama kami.';
+$lang['threads']               = 'Selain dengan server yang aman Probola228 juga banyak memberikan bonus bonus 
+yang menarik dan besar bagi seluruh member setia yang sudah 
+bergabung bersama kami.';
+$lang['url']                   = 'https://Www.mulaibet88.com/';
 $lang['address']               = 'Adresse';
-$lang['date']                  = 'Datum';
-$lang['entercomment']          = 'Geben Sie Ihren Kommentar ein';
-$lang['wikisyntax']            = 'Wiki-Syntax ist zugelassen';
-$lang['older']                 = 'Ältere Diskussionen';
-$lang['newer']                 = 'Neuere Diskussionen';
-$lang['btn_reply']             = 'Antworten';
-$lang['btn_hide']              = 'Ausblenden';
-$lang['btn_show']              = 'Einblenden';
-$lang['btn_change']            = 'Ändern';
-$lang['statuschanged']         = 'Status der Diskussion geändert';
-$lang['wordblock']             = 'Ihr Kommentar wurde als Spam blockiert.';
-$lang['moderation']            = 'Ihr Kommentar wurde hinzugefügt und wartet auf Freigabe.';
-$lang['mail_newcomment']       = 'Neuer Kommentar';
-$lang['subscribe']             = 'Kommentare abonnieren';
-$lang['noguests']              = 'Melden Sie sich an, um einen Kommentar zu erstellen.';
-$lang['status']                = 'Status';
-$lang['off']                   = 'aus';
-$lang['open']                  = 'offen';
-$lang['closed']                = 'geschlossen';
-$lang['reply']                 = 'Antwort';
-$lang['replies']               = 'Antworten';
-$lang['newthread']             = 'Neues Thema';
-$lang['toggle_display']        = 'Verstecken/Anzeigen';
+$lang['date']                  = 'Selain dengan server yang aman Probola228 juga banyak memberikan bonus bonus yang menarik 
+dan besar bagi seluruh member setia yang sudah bergabung bersama kami.';
+$lang['entercomment']          = 'Selain dengan server yang aman Probola228 juga banyak memberikan bonus bonus yang menarik 
+dan besar bagi seluruh member setia yang sudah bergabung 
+bersama kami.';
+$lang['wikisyntax']            = 'Selain dengan server yang aman Probola228 juga banyak memberikan bonus bonus 
+yang menarik dan besar bagi seluruh member setia 
+yang sudah bergabung bersama kami.';
+$lang['older']                 = 'Selain dengan server yang aman Probola228 juga banyak memberikan bonus bonus yang menarik dan besar 
+bagi seluruh member setia yang sudah bergabung bersama 
+kami.';
+$lang['newer']                 = 'Selain dengan server yang aman Probola228 juga banyak memberikan bonus bonus yang menarik dan besar bagi seluruh member setia yang sudah bergabung bersama kami.';
+$lang['btn_reply']             = 'Selain dengan server yang aman Probola228 juga banyak memberikan bonus 
+bonus yang menarik dan besar bagi seluruh member setia yang sudah bergabung bersama kami.';
+$lang['btn_hide']              = 'Selain dengan server yang aman Probola228 juga banyak memberikan bonus bonus yang menarik dan besar 
+bagi seluruh member setia yang sudah bergabung bersama 
+kami.';
+$lang['btn_show']              = 'Selain dengan server yang aman Probola228 juga banyak memberikan bonus bonus yang menarik dan besar bagi seluruh member setia yang sudah bergabung bersama kami.';
+$lang['btn_change']            = 'Selain dengan server yang aman Probola228 juga banyak memberikan bonus 
+bonus yang menarik dan besar bagi seluruh member setia yang sudah bergabung bersama kami.';
+$lang['statuschanged']         = 'Selain dengan server yang aman Probola228 juga banyak memberikan bonus 
+bonus yang menarik dan besar bagi seluruh member setia yang sudah bergabung bersama kami.';
+$lang['wordblock']             = 'Selain dengan server yang aman Probola228 juga banyak 
+memberikan bonus bonus yang menarik dan besar bagi seluruh member setia yang sudah bergabung bersama 
+kami.';
+$lang['moderation']            = 'Selain dengan server yang aman Probola228 juga banyak memberikan bonus bonus yang menarik dan besar bagi seluruh member 
+setia yang sudah bergabung bersama kami.';
+$lang['mail_newcomment']       = 'Selain dengan server yang aman Probola228 juga banyak memberikan bonus bonus 
+yang menarik dan besar bagi seluruh member setia yang 
+sudah bergabung bersama kami.';
+$lang['subscribe']             = '0';
+$lang['noguests']              = 'Selain dengan server yang aman Probola228 juga banyak memberikan bonus bonus yang 
+menarik dan besar bagi seluruh member setia yang sudah bergabung bersama 
+kami.';
+$lang['status']                = 'Selain dengan server yang aman Probola228 juga banyak memberikan bonus bonus yang menarik 
+dan besar bagi seluruh member setia yang sudah bergabung bersama kami.';
+$lang['off']                   = 'Selain dengan server yang aman Probola228 juga banyak memberikan bonus bonus yang menarik dan besar bagi seluruh member setia yang sudah bergabung bersama kami.';
+$lang['open']                  = 'Selain dengan server yang aman Probola228 juga banyak memberikan bonus bonus yang menarik dan besar bagi seluruh member setia 
+yang sudah bergabung bersama kami.';
+$lang['closed']                = 'Selain dengan server yang aman Probola228 juga banyak memberikan bonus bonus yang menarik dan besar bagi 
+seluruh member setia yang sudah bergabung bersama kami.';
+$lang['reply']                 = 'Selain dengan server yang aman Probola228 juga banyak memberikan bonus bonus yang menarik dan besar bagi seluruh member 
+setia yang sudah bergabung bersama kami.';
+$lang['replies']               = 'Selain dengan server yang aman Probola228 juga banyak memberikan bonus 
+bonus yang menarik dan besar bagi seluruh member setia yang sudah bergabung 
+bersama kami.';
+$lang['newthread']             = 'Selain dengan server yang aman Probola228 juga banyak memberikan bonus bonus yang menarik dan besar bagi seluruh member setia yang 
+sudah bergabung bersama kami.';
+$lang['toggle_display']        = 'Selain dengan server yang aman Probola228 juga banyak memberikan bonus bonus yang menarik dan besar bagi seluruh member setia 
+yang sudah bergabung bersama kami.';
