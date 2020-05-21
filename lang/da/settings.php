@@ -3,11 +3,12 @@
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  *
+ * @author Jacob Palm <jacobpalmdk@icloud.com>
  * @author Esther Brunner <wikidesign@gmail.com>
  * @author Jens Hyllegaard <jens.hyllegaard@gmail.com>
- * @author Jacob Palm <mail@jacobpalm.dk>
  */
 $lang['automatic']             = 'diskussion på alle sider som standard';
+$lang['excluded_ns']           = 'liste over navnerum hvor ovenstående indstilling skal være modsat (som regular expression, f.eks. <code>/(playground|wiki)/</code>)';
 $lang['allowguests']           = 'tillad kommentarer fra anonyme brugere';
 $lang['showguests']            = 'tillad gæster at læse kommentarer';
 $lang['linkemail']             = 'skriv navnet til kommentarforfatteren som link til e-mail';
