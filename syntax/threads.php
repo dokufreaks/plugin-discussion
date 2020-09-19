@@ -119,7 +119,7 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
 
         if (!$pages) {
             if ((auth_quickaclcheck($ns.':*') >= AUTH_CREATE) && ($mode == 'xhtml')) {
-                $renderer->info['cache'] = false;
+                $renderer->nocache();
                 if ($noNewThreadForm !== true) {
                     $renderer->doc .= $this->_newThreadForm($ns);
                 }
@@ -130,7 +130,7 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
         if ($mode == 'xhtml') {
             /** @var $renderer Doku_Renderer_xhtml */
             // prevent caching to ensure content is always fresh
-            $renderer->info['cache'] = false;
+            $renderer->nocache();
 
             // show form to start a new discussion thread?
             if ($noNewThreadForm !== true) {
