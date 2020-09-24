@@ -1738,15 +1738,19 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
  * @return int
  */
 function _sortCallback($a, $b) {
-    if (is_array($a['date'])) { // new format
+    if (is_array($a['date'])) {
+        // new format
         $createdA  = $a['date']['created'];
-    } else {                         // old format
+    } else {
+        // old format
         $createdA  = $a['date'];
     }
 
-    if (is_array($b['date'])) { // new format
+    if (is_array($b['date'])) {
+        // new format
         $createdB  = $b['date']['created'];
-    } else {                         // old format
+    } else {
+        // old format
         $createdB  = $b['date'];
     }
 
