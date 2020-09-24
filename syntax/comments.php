@@ -9,9 +9,6 @@
  * @author  Dave Lawson <dlawson@masterytech.com>
  */
 
-// must be run within Dokuwiki
-if(!defined('DOKU_INC')) die();
-
 /**
  * All DokuWiki plugins to extend the parser/rendering mechanism
  * need to inherit from this class
