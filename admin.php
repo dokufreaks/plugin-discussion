@@ -4,9 +4,6 @@
  * @author     Esther Brunner <wikidesign@gmail.com>
  */
 
-// must be run within Dokuwiki
-if (!defined('DOKU_INC')) die();
-
 /**
  * Class admin_plugin_discussion
  */

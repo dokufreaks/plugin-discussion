@@ -4,9 +4,6 @@
  * @author     Esther Brunner <wikidesign@gmail.com>
  */
 
-// must be run within Dokuwiki
-if (!defined('DOKU_INC')) die();
-
 /**
  * Class action_plugin_discussion
  */
@@ -1740,24 +1737,24 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin{
  * @param $b
  * @return int
  */
-    function _sortCallback($a, $b) {
-        if (is_array($a['date'])) { // new format
-            $createdA  = $a['date']['created'];
-        } else {                         // old format
-            $createdA  = $a['date'];
-        }
-
-        if (is_array($b['date'])) { // new format
-            $createdB  = $b['date']['created'];
-        } else {                         // old format
-            $createdB  = $b['date'];
-        }
-
-        if ($createdA == $createdB) {
-            return 0;
-        } else {
-            return ($createdA < $createdB) ? -1 : 1;
-        }
+function _sortCallback($a, $b) {
+    if (is_array($a['date'])) { // new format
+        $createdA  = $a['date']['created'];
+    } else {                         // old format
+        $createdA  = $a['date'];
     }
+
+    if (is_array($b['date'])) { // new format
+        $createdB  = $b['date']['created'];
+    } else {                         // old format
+        $createdB  = $b['date'];
+    }
+
+    if ($createdA == $createdB) {
+        return 0;
+    } else {
+        return ($createdA < $createdB) ? -1 : 1;
+    }
+}
 
 // vim:ts=4:sw=4:et:enc=utf-8:
