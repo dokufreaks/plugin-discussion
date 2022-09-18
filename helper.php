@@ -169,19 +169,16 @@ class helper_plugin_discussion extends DokuWiki_Plugin
      * Note: also used for content by Feed Plugin
      *
      * @param string $ns
-     * @param int|null $num
+     * @param int|null $num number of comment per page
      * @return array
      */
     public function getComments($ns, $num = null)
     {
-        global $conf;
+        global $conf, $INPUT;
 
-        $first = $_REQUEST['first'];
-        if (!is_numeric($first)) {
-            $first = 0;
-        }
+        $first = $INPUT->int('first');
 
-        if ((!$num) || (!is_numeric($num))) {
+        if (!$num || !is_numeric($num)) {
             $num = $conf['recent'];
         }
 
@@ -223,10 +220,20 @@ class helper_plugin_discussion extends DokuWiki_Plugin
      *
      * don't call directly
      *
-     * @param string $line
-     * @param string $ns
-     * @param array $seen
-     * @return array|false
+     * @param string $line comment changelog line
+     * @param string $ns namespace (or id) to filter
+     * @param array $seen array to cache seen pages
+     * @return array|false with
+     *  'type' => string,
+     *  'extra' => string comment id,
+     *  'id' => string page id,
+     *  'perm' => int ACL permission
+     *  'file' => string file path of wiki page
+     *  'exists' => bool wiki page exists
+     *  'name' => string name of user
+     *  'desc' => string text of comment
+     *  'anchor' => string
+     *
      * @see getRecentComments()
      * @author Andreas Gohr <andi@splitbrain.org>
      * @author Ben Coburn <btcoburn@silicodon.net>
@@ -302,18 +309,20 @@ class helper_plugin_discussion extends DokuWiki_Plugin
     }
 
     /**
-     * @return bool
+     * Check if current user is member of the moderator groups
+     *
+     * @return bool is moderator?
      */
-        global $USERINFO;
     public function isDiscussionModerator()
     {
+        global $USERINFO, $INPUT;
         $groups = trim($this->getConf('moderatorgroups'));
 
         if (auth_ismanager()) {
             return true;
         }
         // Check if user is member of the moderator groups
-        if (!empty($groups) && auth_isMember($groups, $_SERVER['REMOTE_USER'], (array)$USERINFO['grps'])) {
+        if (!empty($groups) && auth_isMember($groups, $INPUT->server->str('REMOTE_USER'), (array)$USERINFO['grps'])) {
             return true;
         }
 
