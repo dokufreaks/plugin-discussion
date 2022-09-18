@@ -6,30 +6,31 @@
 
 /* ----- Settings ----- */
 
-define('DOKU_INC', realpath(dirname(__FILE__).'/../../../').'/');
-define('DISCUSSION_NS', 'discussion');
+define('DOKU_INC', realpath(dirname(__FILE__) . '/../../../') . '/');
+const DISCUSSION_NS = 'discussion';
 
 /* ----- Main ----- */
 
 // conversion script should only be run once
-if (@file_exists(dirname(__FILE__).'/convert_completed'))
-die('Conversion already completed.');
+if (@file_exists(dirname(__FILE__) . '/convert_completed')) {
+    die('Conversion already completed.');
+}
 
-require_once(DOKU_INC.'inc/init.php');
+require_once(DOKU_INC . 'inc/init.php');
 
 $files = getDiscussionPages();
-$n     = 0;
+$n = 0;
 
 foreach ($files as $file) {
     if (convertDiscussionPage($file)) {
-        echo $file['id'].'<br />';
+        echo $file['id'] . '<br />';
         $n++;
     }
 }
 
 if ($n > 0) {
-    io_saveFile(dirname(__FILE__).'/convert_completed', '');
-    echo '<br />Successfully converted '.$n.' discussion pages to new comments meta files.';
+    io_saveFile(dirname(__FILE__) . '/convert_completed', '');
+    echo '<br />Successfully converted ' . $n . ' discussion pages to new comments meta files.';
 } else {
     echo 'No discussion pages found.';
 }
@@ -39,44 +40,54 @@ if ($n > 0) {
 /**
  * returns a list of all discussion pages in the wiki
  */
-function getDiscussionPages() {
+function getDiscussionPages()
+{
     global $conf;
 
-    $data = array();
-    search($data, $conf['datadir'], 'search_discussionpages', array());
+    $data = [];
+    search($data, $conf['datadir'], 'search_discussionpages', []);
     return $data;
 }
 
 /**
  * function for the search callback
  */
-function search_discussionpages(&$data, $base, $file, $type, $lvl, $opts) {
+function search_discussionpages(&$data, $base, $file, $type, $lvl, $opts)
+{
     global $conf;
 
-    if ($type == 'd') return true; // recurse into directories
-    if (!preg_match('#'.preg_quote('/'.DISCUSSION_NS.'/', '#').'#u', $file)) return false;
-    if (!preg_match('#\.txt$#', $file)) return false;
+    // recurse into directories
+    if ($type == 'd') {
+        return true;
+    }
+    if (!preg_match('#' . preg_quote('/' . DISCUSSION_NS . '/', '#') . '#u', $file)) {
+        return false;
+    }
+    if (!preg_match('#\.txt$#', $file)) {
+        return false;
+    }
 
-    $id = pathID(str_replace(DISCUSSION_NS.'/', '', $file));
-    $data[] = array(
-            'id'  => $id,
-            'old' => $conf['datadir'].$file,
-            'new' => metaFN($id, '.comments')
-            );
+    $id = pathID(str_replace(DISCUSSION_NS . '/', '', $file));
+    $data[] = [
+        'id' => $id,
+        'old' => $conf['datadir'] . $file,
+        'new' => metaFN($id, '.comments')
+    ];
     return true;
 }
 
 /**
  * this converts individual discussion pages to .comment meta files
  */
-function convertDiscussionPage($file) {
+function convertDiscussionPage($file)
+{
 
     // read the old file
     $data = io_readFile($file['old'], false);
 
     // handle file with no comments yet
     if (trim($data) == '') {
-        io_saveFile($file['new'], serialize(array('status' => 1, 'number' => 0)));
+        io_saveFile($file['new'], serialize(['status' => 1, 'number' => 0]));
         @unlink($file['old']);
         return true;
     }
@@ -85,26 +96,29 @@ function convertDiscussionPage($file) {
     $old = explode('----', $data);
 
     // merge with possibly already existing (newer) comments
-    $comments = array();
-    if (@file_exists($file['new']))
+    $comments = [];
+    if (@file_exists($file['new'])) {
         $comments = unserialize(io_readFile($file['old'], false));
+    }
 
     // set general info
-    if (!isset($comments['status'])) $comments['status'] = 1;
+    if (!isset($comments['status'])) {
+        $comments['status'] = 1;
+    }
     $comments['number'] += count($old);
 
     foreach ($old as $comment) {
 
         // prepare comment data
         if (strpos($comment, '<sub>') !== false) {
-            $in  = '<sub>';
+            $in = '<sub>';
             $out = ':</sub>';
         } else {
-            $in  = '//';
+            $in = '//';
             $out = ': //';
         }
-        list($meta, $raw)  = array_pad(explode($out, $comment, 2),2, '');
-        $raw  = trim($raw);
+        list($meta, $raw) = array_pad(explode($out, $comment, 2), 2, '');
+        $raw = trim($raw);
 
         // skip empty comments
         if (!$raw) {
@@ -112,30 +126,32 @@ function convertDiscussionPage($file) {
             continue;
         }
 
-        list($mail, $meta) = array_pad(explode($in, $meta, 2),2, '');
-        list($name, $strd) = array_pad(explode(', ', $meta, 2),2, '');
+        list($mail, $meta) = array_pad(explode($in, $meta, 2), 2, '');
+        list($name, $strd) = array_pad(explode(', ', $meta, 2), 2, '');
         $date = strtotime($strd);
-        if ($date == -1) $date = time();
+        if ($date == -1) {
+            $date = time();
+        }
         if ($mail) {
-            list($mail) = array_pad(explode(' |', $mail, 2),2, '');
+            list($mail) = array_pad(explode(' |', $mail, 2), 2, '');
             $mail = substr(strrchr($mail, '>'), 1);
         }
-        $cid  = md5($name.$date);
+        $cid = md5($name . $date);
 
         // render comment
         $xhtml = p_render('xhtml', p_get_instructions($raw), $info);
 
         // fill in the converted comment
-        $comments['comments'][$cid] = array(
-                'user'    => array(
-                    'name' => hsc($name),
-                    'mail' => hsc($mail)),
-                'date'    => array('created' => $date),
-                'show'    => true,
-                'raw'     => $raw,
-                'xhtml'   => $xhtml,
-                'replies' => array()
-                );
+        $comments['comments'][$cid] = [
+            'user' => [
+                'name' => hsc($name),
+                'mail' => hsc($mail)],
+            'date' => ['created' => $date],
+            'show' => true,
+            'raw' => $raw,
+            'xhtml' => $xhtml,
+            'replies' => []
+        ];
     }
 
     // save the new file
@@ -146,4 +162,3 @@ function convertDiscussionPage($file) {
 
     return true;
 }
-// vim:ts=4:sw=4:et:enc=utf-8:
