@@ -4,6 +4,8 @@
  * @author     Esther Brunner <wikidesign@gmail.com>
  */
 
+use dokuwiki\Utf8\PhpString;
+
 /**
  * Class admin_plugin_discussion
  */
@@ -12,60 +14,61 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
     /**
      * @return int
      */
-    function getMenuSort() { return 200; }
+    public function getMenuSort() { return 200; }
 
     /**
      * @return bool
      */
-    function forAdminOnly() { return false; }
+    public function forAdminOnly() { return false; }
 
-    function handle() {
-        global $lang;
+    public function handle() {
+        global $lang, $INPUT;
 
-        $cid = $_REQUEST['cid'];
-        if (is_array($cid)) $cid = array_keys($cid);
-
+        $cids = $INPUT->post->arr('cid');
+        if (is_array($cids)) {
+            $cids = array_keys($cids);
+        }
         /** @var action_plugin_discussion $action */
-        $action =& plugin_load('action', 'discussion');
+        $action = plugin_load('action', 'discussion');
         if (!$action) return; // couldn't load action plugin component
 
-        switch ($_REQUEST['comment']) {
+        switch ($INPUT->post->str('comment')) {
             case $lang['btn_delete']:
-                $action->save($cid, '');
+                $action->save($cids, '');
                 break;
 
             case $this->getLang('btn_show'):
-                $action->save($cid, '', 'show');
+                $action->save($cids, '', 'show');
                 break;
 
             case $this->getLang('btn_hide'):
-                $action->save($cid, '', 'hide');
+                $action->save($cids, '', 'hide');
                 break;
 
             case $this->getLang('btn_change'):
-                $this->_changeStatus($_REQUEST['status']);
+                $this->changeStatus($INPUT->post->str('status'));
                 break;
         }
     }
 
-    function html() {
-        global $conf;
+    public function html() {
+        global $conf, $INPUT;
 
-        $first = $_REQUEST['first'];
-        if (!is_numeric($first)) $first = 0;
-        $num = ($conf['recent']) ? $conf['recent'] : 20;
+        $first = $INPUT->int('first');
+
+        $num = $conf['recent'] ?: 20;
 
         ptln('<h1>'.$this->getLang('menu').'</h1>');
 
-        $threads = $this->_getThreads();
+        $threads = $this->getThreads();
 
         // slice the needed chunk of discussion pages
-        $more = ((count($threads) > ($first + $num)) ? true : false);
+        $isMore = count($threads) > ($first + $num);
         $threads = array_slice($threads, $first, $num);
 
         foreach ($threads as $thread) {
-            $comments = $this->_getComments($thread);
-            $this->_threadHead($thread);
+            $comments = $this->getComments($thread);
+            $this->threadHead($thread);
             if ($comments === false) {
                 ptln('</div>', 6); // class="level2"
                 continue;
@@ -75,10 +78,10 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
             ptln('<div class="no">', 10);
             ptln('<input type="hidden" name="do" value="admin" />', 10);
             ptln('<input type="hidden" name="page" value="discussion" />', 10);
-            echo html_buildlist($comments, 'admin_discussion', array($this, '_commentItem'), array($this, '_li_comment'));
-            $this->_actionButtons($thread['id']);
+            echo html_buildlist($comments, 'admin_discussion', [$this, 'commentItem'], [$this, 'liComment']);
+            $this->actionButtons();
         }
-        $this->_browseDiscussionLinks($more, $first, $num);
+        $this->browseDiscussionLinks($isMore, $first, $num);
 
     }
 
@@ -87,17 +90,15 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
      *
      * @return array
      */
-    function _getThreads() {
+    protected function getThreads() {
         global $conf;
 
-        require_once(DOKU_INC.'inc/search.php');
-
         // returns the list of pages in the given namespace and it's subspaces
-        $items = array();
-        search($items, $conf['datadir'], 'search_allpages', array());
+        $items = [];
+        search($items, $conf['datadir'], 'search_allpages', []);
 
         // add pages with comments to result
-        $result = array();
+        $result = [];
         foreach ($items as $item) {
             $id = $item['id'];
 
@@ -106,15 +107,15 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
             if (!@file_exists($file)) continue; // skip if no comments file
 
             $date = filemtime($file);
-            $result[] = array(
+            $result[] = [
                     'id'   => $id,
                     'file' => $file,
                     'date' => $date,
-                    );
+            ];
         }
 
         // finally sort by time of last comment
-        usort($result, array('admin_plugin_discussion', '_threadCmp'));
+        usort($result, ['admin_plugin_discussion', 'threadCmp']);
 
         return $result;
     }
@@ -130,11 +131,15 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
      * @param array $b
      * @return int
      */
-    function _threadCmp($a, $b) {
+    protected function threadCmp($a, $b) {
         if ($a['date'] == $b['date']) {
             return strcmp($a['id'], $b['id']);
         }
-        return ($a['date'] < $b['date']) ? 1 : -1;
+        if ($a['date'] < $b['date']) {
+            return 1;
+        } else {
+            return -1;
+        }
     }
 
     /**
@@ -143,14 +148,14 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
      * @param array $thread
      * @return bool
      */
-    function _threadHead($thread) {
+    protected function threadHead($thread) {
         $id = $thread['id'];
 
-        $labels = array(
+        $labels = [
             0 => $this->getLang('off'),
             1 => $this->getLang('open'),
             2 => $this->getLang('closed')
-        );
+        ];
         $title = p_get_metadata($id, 'title');
         if (!$title) {
             $title = $id;
@@ -162,7 +167,7 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
         ptln('<input type="hidden" name="page" value="discussion" />', 10);
         ptln($this->getLang('status').': <select name="status" size="1">', 10);
         foreach ($labels as $key => $label) {
-            $selected = (($key == $thread['status']) ? ' selected="selected"' : '');
+            $selected = ($key == $thread['status'] ? ' selected="selected"' : '');
             ptln('<option value="'.$key.'"'.$selected.'>'.$label.'</option>', 12);
         }
         ptln('</select> ', 10);
@@ -177,10 +182,15 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
     /**
      * Returns the full comments data for a given wiki page
      *
-     * @param array $thread
+     * @param array $thread by reference with:
+     *  'id' => string,
+     *  'file' => string file location of .comments metadata file
+     *  'status' => int
+     *  'number' => int number of visible comments
+     *
      * @return array|bool
      */
-    function _getComments(&$thread) {
+    protected function getComments(&$thread) {
         $id = $thread['id'];
 
         if (!$thread['file']) {
@@ -195,9 +205,9 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
         if (!$data['status']) return false;   // comments are turned off
         if (!$data['comments']) return false; // no comments
 
-        $result = array();
+        $result = [];
         foreach ($data['comments'] as $cid => $comment) {
-            $this->_addComment($cid, $data, $result);
+            $this->addComment($cid, $data, $result);
         }
 
         if (empty($result)) {
@@ -210,16 +220,18 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
     /**
      * Recursive function to add the comment hierarchy to the result
      *
-     * @param string $cid
-     * @param array  $data
-     * @param array  $result
-     * @param string $parent
-     * @param int    $level
+     * @param string $cid comment id of current comment
+     * @param array  $data array with all comments by reference
+     * @param array  $result array with all comments by reference enhanced with level
+     * @param string $parent comment id of parent or empty
+     * @param int    $level level of current comment, higher is deeper
      */
-    function _addComment($cid, &$data, &$result, $parent = '', $level = 1) {
+    protected function addComment($cid, &$data, &$result, $parent = '', $level = 1) {
         if (!is_array($data['comments'][$cid])) return; // corrupt datatype
+
         $comment = $data['comments'][$cid];
-        if ($comment['parent'] != $parent) return;      // answer to another comment
+        // handle only replies to given parent comment
+        if ($comment['parent'] != $parent) return;
 
         // okay, add the comment to the result
         $comment['id'] = $cid;
@@ -229,18 +241,18 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
         // check answers to this comment
         if (count($comment['replies'])) {
             foreach ($comment['replies'] as $rid) {
-                $this->_addComment($rid, $data, $result, $cid, $level + 1);
+                $this->addComment($rid, $data, $result, $cid, $level + 1);
             }
         }
     }
 
     /**
-     * Checkbox and info about a comment item
+     * Returns html of checkbox and info about a comment item
      *
-     * @param array $comment
-     * @return string
+     * @param array $comment array with comment data
+     * @return string html of checkbox and info
      */
-    function _commentItem($comment) {
+    public function commentItem($comment) {
         global $conf;
 
         // prepare variables
@@ -257,8 +269,8 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
             $created  = $comment['date'];
         }
         $abstract = preg_replace('/\s+?/', ' ', strip_tags($comment['xhtml']));
-        if (utf8_strlen($abstract) > 160) {
-            $abstract = utf8_substr($abstract, 0, 160).'...';
+        if (PhpString::strlen($abstract) > 160) {
+            $abstract = PhpString::substr($abstract, 0, 160).'...';
         }
 
         return '<input type="checkbox" name="cid['.$comment['id'].']" value="1" /> '.
@@ -267,23 +279,20 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
     }
 
     /**
-     * list item tag
+     * Returns html of list item openings tag
      *
      * @param array $comment
      * @return string
      */
-    function _li_comment($comment) {
-        $show = ($comment['show'] ? '' : ' hidden');
-        return '<li class="level'.$comment['level'].$show.'">';
+    public function liComment($comment) {
+        $showclass = ($comment['show'] ? '' : ' hidden');
+        return '<li class="level'.$comment['level'].$showclass.'">';
     }
 
     /**
      * Show buttons to bulk remove, hide or show comments
-     *
-     * @param string $id
-     * @return bool
      */
-    function _actionButtons($id) {
+    protected function actionButtons() {
         global $lang;
 
         ptln('<div class="comment_buttons">', 12);
@@ -294,26 +303,24 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
         ptln('</div>', 10); // class="no"
         ptln('</form>', 8);
         ptln('</div>', 6); // class="level2"
-        return true;
     }
 
     /**
      * Displays links to older newer discussions
      *
-     * @param bool $more
-     * @param int  $first
-     * @param int  $num
-     * @return bool
+     * @param bool $isMore whether there are more pages needed
+     * @param int  $first first entry on this page
+     * @param int  $num number of entries per page
      */
-    function _browseDiscussionLinks($more, $first, $num) {
+    protected function browseDiscussionLinks($isMore, $first, $num) {
         global $ID;
 
-        if (($first == 0) && (!$more)) return true;
+        if ($first == 0 && !$isMore) return;
 
-        $params = array('do' => 'admin', 'page' => 'discussion');
+        $params = ['do' => 'admin', 'page' => 'discussion'];
         $last = $first+$num;
         ptln('<div class="level1">', 8);
-        $ret = '';
+        $return = '';
         if ($first > 0) {
             $first -= $num;
             if ($first < 0) {
@@ -321,33 +328,31 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
             }
             $params['first'] = $first;
             ptln('<p class="centeralign">', 8);
-            $ret = '<a href="'.wl($ID, $params).'" class="wikilink1">&lt;&lt; '.$this->getLang('newer').'</a>';
-            if ($more) {
-                $ret .= ' | ';
+            $return = '<a href="'.wl($ID, $params).'" class="wikilink1">&lt;&lt; '.$this->getLang('newer').'</a>';
+            if ($isMore) {
+                $return .= ' | ';
             } else {
-                ptln($ret, 10);
+                ptln($return, 10);
                 ptln('</p>', 8);
             }
-        } else if ($more) {
+        } else if ($isMore) {
             ptln('<p class="centeralign">', 8);
         }
-        if ($more) {
+        if ($isMore) {
             $params['first'] = $last;
-            $ret .= '<a href="'.wl($ID, $params).'" class="wikilink1">'.$this->getLang('older').' &gt;&gt;</a>';
-            ptln($ret, 10);
+            $return .= '<a href="'.wl($ID, $params).'" class="wikilink1">'.$this->getLang('older').' &gt;&gt;</a>';
+            ptln($return, 10);
             ptln('</p>', 8);
         }
         ptln('</div>', 6); // class="level1"
-        return true;
     }
 
     /**
-     * Changes the status of a comment
+     * Changes the status of a comment section
      *
-     * @param $new
-     * @return bool
+     * @param int $new 0=disabled, 1=enabled, 2=closed
      */
-    function _changeStatus($new) {
+    protected function changeStatus($new) {
         global $ID;
 
         // get discussion meta file name
@@ -355,19 +360,18 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
         $data = unserialize(io_readFile($file, false));
 
         $old = $data['status'];
-        if ($old == $new) return true;
+        if ($old == $new) {
+            return;
+        }
 
         // save the comment metadata file
         $data['status'] = $new;
         io_saveFile($file, serialize($data));
 
         // look for ~~DISCUSSION~~ command in page file and change it accordingly
-        $patterns = array('~~DISCUSSION:off\2~~', '~~DISCUSSION\2~~', '~~DISCUSSION:closed\2~~');
+        $patterns = ['~~DISCUSSION:off\2~~', '~~DISCUSSION\2~~', '~~DISCUSSION:closed\2~~'];
         $replace = $patterns[$new];
         $wiki = preg_replace('/~~DISCUSSION([\w:]*)(\|?.*?)~~/', $replace, rawWiki($ID));
         saveWikiText($ID, $wiki, $this->getLang('statuschanged'), true);
-
-        return true;
     }
 }
-// vim:ts=4:sw=4:et:enc=utf-8:
