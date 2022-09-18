@@ -64,11 +64,13 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
     /**
      * Returns the link to the discussion section of a page
      *
-     * @param string $id
-     * @param null|int $num
+     * @param string $id page id
+     * @param string $col column name, used if more columns needed per plugin
+     * @param string $class class name per cell set by reference
+     * @param null|int $num number of visible comments -- internally used, not by pagelist plugin
      * @return string
      */
-    public function td($id, $num = null) {
+    public function td($id, $col = null, &$class=null, $num = null) {
         $section = '#discussion__section';
 
         if (!isset($num)) {
@@ -138,7 +140,7 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
                     'user'     => $meta['creator'],
                     'desc'     => $meta['description']['abstract'],
                     'num'      => $number,
-                    'comments' => $this->td($id, $number),
+                    'comments' => $this->td($id, null, $class, $number),
                     'status'   => $status,
                     'perm'     => $perm,
                     'exists'   => true,
