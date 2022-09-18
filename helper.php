@@ -12,7 +12,7 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
     /**
      * @return array
      */
-    function getMethods() {
+    public function getMethods() {
         $result = array();
         $result[] = array(
                 'name'   => 'th',
@@ -43,6 +43,12 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
                     'number (optional)' => 'integer'),
                 'return' => array('pages' => 'array'),
                 );
+        $result[] = array(
+                'name' => 'isDiscussionModerator',
+                'desc' => 'check if current user is member of moderator groups',
+                'params' => array(),
+                'return' => array('isModerator' => 'boolean')
+        );
         return $result;
     }
 
@@ -51,7 +57,7 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
      *
      * @return string
      */
-    function th() {
+    public function th() {
         return $this->getLang('discussion');
     }
 
@@ -62,7 +68,7 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
      * @param null|int $num
      * @return string
      */
-    function td($id, $num = null) {
+    public function td($id, $num = null) {
         $section = '#discussion__section';
 
         if (!isset($num)) {
@@ -94,7 +100,7 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
      * @param string|bool $skipEmpty
      * @return array
      */
-    function getThreads($ns, $num = null, $skipEmpty = false) {
+    public function getThreads($ns, $num = null, $skipEmpty = false) {
         global $conf;
 
         require_once(DOKU_INC.'inc/search.php');
@@ -156,7 +162,7 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
      * @param int|null $num
      * @return array
      */
-    function getComments($ns, $num = NULL) {
+    public function getComments($ns, $num = NULL) {
         global $conf;
 
         $first  = $_REQUEST['first'];
@@ -209,7 +215,7 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
      * @param array  $seen
      * @return array|bool
      */
-    function _handleRecentComment($line, $ns, &$seen) {
+    protected function _handleRecentComment($line, $ns, &$seen) {
         if (empty($line)) return false;  //skip empty lines
 
         // split the line into parts
@@ -279,7 +285,7 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
     /**
      * @return bool
      */
-    function isDiscussionMod() {
+    public function isDiscussionModerator() {
         global $USERINFO;
         $groups = trim($this->getConf('moderatorgroups'));
 
