@@ -10,9 +10,9 @@ function isBlank(s) {
         return true;
     }
 
-    for (var i = 0; i < s.length; i++) {
-        var c = s.charAt(i);
-        if ((c !== ' ') && (c !== '\n') && (c !== '\t')) {
+    for (let i = 0; i < s.length; i++) {
+        let c = s.charAt(i);
+        if (c !== ' ' && c !== '\n' && c !== '\t') {
             return false;
         }
     }
@@ -52,10 +52,10 @@ function validate(form) {
  * @author Michael Klier <chi@chimeric.de>
  */
 function discussion_ajax_preview() {
-    var $textarea = jQuery('#discussion__comment_text');
-    var comment = $textarea.val();
+    let $textarea = jQuery('#discussion__comment_text');
+    let comment = $textarea.val();
 
-    var $preview = jQuery('#discussion__comment_preview');
+    let $preview = jQuery('#discussion__comment_preview');
     if (!comment) {
         $preview.hide();
         return;
