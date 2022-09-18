@@ -16,11 +16,6 @@ if (@file_exists(dirname(__FILE__).'/convert_completed'))
 die('Conversion already completed.');
 
 require_once(DOKU_INC.'inc/init.php');
-require_once(DOKU_INC.'inc/common.php');
-require_once(DOKU_INC.'inc/io.php');
-require_once(DOKU_INC.'inc/search.php');
-require_once(DOKU_INC.'inc/pageutils.php');
-require_once(DOKU_INC.'inc/parserutils.php');
 
 $files = getDiscussionPages();
 $n     = 0;
@@ -108,7 +103,7 @@ function convertDiscussionPage($file) {
             $in  = '//';
             $out = ': //';
         }
-        list($meta, $raw)  = explode($out, $comment, 2);
+        list($meta, $raw)  = array_pad(explode($out, $comment, 2),2, '');
         $raw  = trim($raw);
 
         // skip empty comments
@@ -117,12 +112,12 @@ function convertDiscussionPage($file) {
             continue;
         }
 
-        list($mail, $meta) = explode($in, $meta, 2);
-        list($name, $strd) = explode(', ', $meta, 2);
+        list($mail, $meta) = array_pad(explode($in, $meta, 2),2, '');
+        list($name, $strd) = array_pad(explode(', ', $meta, 2),2, '');
         $date = strtotime($strd);
         if ($date == -1) $date = time();
         if ($mail) {
-            list($mail) = explode(' |', $mail, 2);
+            list($mail) = array_pad(explode(' |', $mail, 2),2, '');
             $mail = substr(strrchr($mail, '>'), 1);
         }
         $cid  = md5($name.$date);
