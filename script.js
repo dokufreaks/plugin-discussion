@@ -12,7 +12,7 @@ function isBlank(s){
 
   for (var i = 0; i < s.length; i++){
     var c = s.charAt(i);
-	  if ((c != ' ') && (c != '\n') && (c != '\t')){
+	  if ((c !== ' ') && (c !== '\n') && (c !== '\t')){
 	    return false;
     }
   }
@@ -32,7 +32,7 @@ function validate(form){
     } else {
         form.name.style.backgroundColor = '#fff';
     }
-    if (isBlank(form.mail.value) || form.mail.value.indexOf("@") == -1){
+    if (isBlank(form.mail.value) || form.mail.value.indexOf("@") === -1){
         form.mail.focus();
         form.mail.style.backgroundColor = '#fcc';
         return false;
@@ -87,13 +87,13 @@ jQuery(function() {
     }
 
     // init preview button
-    jQuery('#discussion__btn_preview').click(discussion_ajax_preview);
+    jQuery('#discussion__btn_preview').on('click', discussion_ajax_preview);
 
     // init field check
-    jQuery('#discussion__comment_form').submit(function() { return validate(this); });
+    jQuery('#discussion__comment_form').on('submit',function() { return validate(this); });
 
     // toggle section visibility
-    jQuery('#discussion__btn_toggle_visibility').click(function() {
+    jQuery('#discussion__btn_toggle_visibility').on('click', function() {
         jQuery('#comment_wrapper').toggle();
     });
 });
