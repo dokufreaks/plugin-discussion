@@ -9,58 +9,70 @@
 /**
  * Class syntax_plugin_discussion_threads
  */
-class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
+class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin
+{
 
     /**
      * Syntax Type
      *
      * @return string
      */
-    public function getType() { return 'substition'; }
+    public function getType()
+    {
+        return 'substition';
+    }
 
     /**
      * Paragraph Type
      *
-     * @see Doku_Handler_Block
      * @return string
+     * @see Doku_Handler_Block
      */
-    public function getPType() { return 'block'; }
+    public function getPType()
+    {
+        return 'block';
+    }
 
     /**
      * Sort for applying this mode
      *
      * @return int
      */
-    public function getSort() { return 306; }
+    public function getSort()
+    {
+        return 306;
+    }
 
     /**
      * @param string $mode
      */
-    public function connectTo($mode) {
+    public function connectTo($mode)
+    {
         $this->Lexer->addSpecialPattern('\{\{threads>.+?\}\}', $mode, 'plugin_discussion_threads');
     }
 
     /**
      * Handler to prepare matched data for the rendering process
      *
-     * @param   string       $match   The text matched by the patterns
-     * @param   int          $state   The lexer state for the match
-     * @param   int          $pos     The character position of the matched text
-     * @param   Doku_Handler $handler The Doku_Handler object
+     * @param string $match The text matched by the patterns
+     * @param int $state The lexer state for the match
+     * @param int $pos The character position of the matched text
+     * @param Doku_Handler $handler The Doku_Handler object
      * @return  array Return an array with all data you want to use in render
      */
-    public function handle($match, $state, $pos, Doku_Handler $handler) {
+    public function handle($match, $state, $pos, Doku_Handler $handler)
+    {
         global $ID;
         $customFlags = array();
 
         $match = substr($match, 10, -2); // strip {{threads> from start and }} from end
-        list($match, $flags) = array_pad(explode('&', $match, 2),2, '');
+        list($match, $flags) = array_pad(explode('&', $match, 2), 2, '');
         $flags = explode('&', $flags);
 
         // Identify the count/skipempty flag and remove it before passing it to pagelist
-        foreach($flags as $key => $flag) {
+        foreach ($flags as $key => $flag) {
             if (substr($flag, 0, 5) == "count") {
-                $tmp = array_pad(explode('=', $flag, 2),2, 0);
+                $tmp = array_pad(explode('=', $flag, 2), 2, 0);
                 $customFlags['count'] = $tmp[1];
                 unset($flags[$key]);
             } elseif (substr($flag, 0, 9) == "skipempty") {
@@ -73,10 +85,10 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
         }
 
         // Ignore params if invalid values have been passed
-        if(!array_key_exists('count', $customFlags) || $customFlags['count'] <= 0 || !is_numeric($customFlags['count'])) {
+        if (!array_key_exists('count', $customFlags) || $customFlags['count'] <= 0 || !is_numeric($customFlags['count'])) {
             $customFlags['count'] = 0;
         }
-        if(!array_key_exists('skipempty', $customFlags) && !$customFlags['skipempty']) {
+        if (!array_key_exists('skipempty', $customFlags) && !$customFlags['skipempty']) {
             $customFlags['skipempty'] = false;
         }
 
@@ -101,7 +113,8 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
      * @param array $data data created by handler()
      * @return boolean rendered correctly?
      */
-    public function render($format, Doku_Renderer $renderer, $data) {
+    public function render($format, Doku_Renderer $renderer, $data)
+    {
         list($ns, $flags, $refine, $customFlags) = $data;
         $count = $customFlags['count'];
         $skipEmpty = $customFlags['skipempty'];
@@ -125,7 +138,7 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
         }
 
         if (!$pages) {
-            if (auth_quickaclcheck($ns.':*') >= AUTH_CREATE && $format == 'xhtml') {
+            if (auth_quickaclcheck($ns . ':*') >= AUTH_CREATE && $format == 'xhtml') {
                 $renderer->nocache();
                 if ($noNewThreadForm !== true) {
                     $renderer->doc .= $this->newThreadForm($ns);
@@ -141,7 +154,7 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
 
             // show form to start a new discussion thread?
             if ($noNewThreadForm !== true) {
-                $hasCreatePermission = auth_quickaclcheck($ns.':*') >= AUTH_CREATE;
+                $hasCreatePermission = auth_quickaclcheck($ns . ':*') >= AUTH_CREATE;
                 if ($hasCreatePermission && $this->getConf('threads_formposition') == 'top') {
                     $renderer->doc .= $this->newThreadForm($ns);
                 }
@@ -157,11 +170,11 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
             $pagelist->setFlags($flags);
             $pagelist->startList();
             foreach ($pages as $page) {
-                $page['class'] = 'discussion_status'.$page['status'];
+                $page['class'] = 'discussion_status' . $page['status'];
                 $pagelist->addPage($page);
 
                 $i++;
-                if($count > 0 && $i >= $count) {
+                if ($count > 0 && $i >= $count) {
                     // Only display the n discussion threads specified by the count flag
                     break;
                 }
@@ -197,7 +210,8 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin {
      * @param string $ns
      * @return string html
      */
-    protected function newThreadForm($ns) {
+    protected function newThreadForm($ns)
+    {
         global $ID;
         global $lang;
 
