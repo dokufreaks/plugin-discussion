@@ -91,9 +91,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
      * Preview Comments
      *
      * @param Doku_Event $event
-     * @param $params
      * @author Michael Klier <chi@chimeric.de>
-     *
      */
     public function ajaxPreviewComments(Doku_Event $event)
     {
@@ -116,9 +114,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
      * Adds a TOC item if a discussion exists
      *
      * @param Doku_Event $event
-     * @param $params
      * @author Michael Klier <chi@chimeric.de>
-     *
      */
     public function addDiscussionToTOC(Doku_Event $event)
     {
@@ -137,9 +133,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
      * Modify Toolbar for use with discussion plugin
      *
      * @param Doku_Event $event
-     * @param $param
      * @author Michael Klier <chi@chimeric.de>
-     *
      */
     public function modifyToolbar(Doku_Event $event)
     {
@@ -153,6 +147,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
                 if ($btn['type'] == 'signature') continue;
                 if ($btn['type'] == 'linkwiz') continue;
                 if ($btn['type'] == 'NewTable') continue; //skip button for Edittable Plugin
+                //FIXME does nothing. Checks for '=' on toplevel, but today it are special buttons and a picker with subarray
                 if (isset($btn['open']) && preg_match("/=+?/", $btn['open'])) continue;
 
                 $toolbar[] = $btn;
@@ -165,9 +160,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
      * Dirty workaround to add a toolbar to the discussion plugin
      *
      * @param Doku_Event $event
-     * @param $param
      * @author Michael Klier <chi@chimeric.de>
-     *
      */
     public function addToolbarToCommentfield(Doku_Event $event)
     {
@@ -190,8 +183,6 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
      * Handles comment actions, dispatches data processing routines
      *
      * @param Doku_Event $event
-     * @param $param
-     * @return void
      */
     public function handleCommentActions(Doku_Event $event)
     {
@@ -249,65 +240,67 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
 
             }
             return;
-        } else {
-            // do the data processing for comments
-            $cid = $INPUT->str('cid');
-            switch ($INPUT->str('comment')) {
-                case 'add':
-                    if (empty($INPUT->str('text'))) return; // don't add empty comments
+        }
 
-                    if ($INPUT->server->has('REMOTE_USER') && !$this->getConf('adminimport')) {
-                        $comment['user']['id'] = $INPUT->server->str('REMOTE_USER');
-                        $comment['user']['name'] = $INFO['userinfo']['name'];
-                        $comment['user']['mail'] = $INFO['userinfo']['mail'];
-                    } elseif (($INPUT->server->has('REMOTE_USER') && $this->getConf('adminimport') && $this->helper->isDiscussionMod())
-                        || !$INPUT->server->has('REMOTE_USER')) {
-                        // don't add anonymous comments
-                        if (empty($INPUT->str('name')) or empty($INPUT->str('mail'))) {
-                            return;
-                        }
+        // do the data processing for comments
+        $cid = $INPUT->str('cid');
+        switch ($INPUT->str('comment')) {
+            case 'add':
+                if (empty($INPUT->str('text'))) return; // don't add empty comments
 
-                        if (!mail_isvalid($INPUT->str('mail'))) {
-                            msg($lang['regbadmail'], -1);
-                            return;
-                        } else {
-                            $comment['user']['id'] = 'test' . hsc($INPUT->str('user'));
-                            $comment['user']['name'] = hsc($INPUT->str('name'));
-                            $comment['user']['mail'] = hsc($INPUT->str('mail'));
-                        }
+                if ($INPUT->server->has('REMOTE_USER') && !$this->getConf('adminimport')) {
+                    $comment['user']['id'] = $INPUT->server->str('REMOTE_USER');
+                    $comment['user']['name'] = $INFO['userinfo']['name'];
+                    $comment['user']['mail'] = $INFO['userinfo']['mail'];
+                } elseif (($INPUT->server->has('REMOTE_USER') && $this->getConf('adminimport') && $this->helper->isDiscussionMod())
+                    || !$INPUT->server->has('REMOTE_USER')) {
+                    // don't add anonymous comments
+                    if (empty($INPUT->str('name')) or empty($INPUT->str('mail'))) {
+                        return;
                     }
-                    $comment['user']['address'] = ($this->getConf('addressfield')) ? hsc($INPUT->str('address')) : '';
-                    $comment['user']['url'] = ($this->getConf('urlfield')) ? $this->checkURL($INPUT->str('url')) : '';
-                    $comment['subscribe'] = ($this->getConf('subscribe')) ? $INPUT->has('subscribe') : '';
-                    $comment['date'] = ['created' => $INPUT->str('date')];
-                    $comment['raw'] = cleanText($INPUT->str('text'));
-                    $reply = $INPUT->str('reply');
-                    if ($this->getConf('moderate') && !$this->helper->isDiscussionMod()) {
-                        $comment['show'] = false;
+
+                    if (!mail_isvalid($INPUT->str('mail'))) {
+                        msg($lang['regbadmail'], -1);
+                        return;
                     } else {
-                        $comment['show'] = true;
+                        $comment['user']['id'] = 'test' . hsc($INPUT->str('user'));
+                        $comment['user']['name'] = hsc($INPUT->str('name'));
+                        $comment['user']['mail'] = hsc($INPUT->str('mail'));
                     }
-                    $this->add($comment, $reply);
-                    break;
+                }
+                $comment['user']['address'] = ($this->getConf('addressfield')) ? hsc($INPUT->str('address')) : '';
+                $comment['user']['url'] = ($this->getConf('urlfield')) ? $this->checkURL($INPUT->str('url')) : '';
+                $comment['subscribe'] = ($this->getConf('subscribe')) ? $INPUT->has('subscribe') : '';
+                $comment['date'] = ['created' => $INPUT->str('date')];
+                $comment['raw'] = cleanText($INPUT->str('text'));
+                $reply = $INPUT->str('reply');
+                if ($this->getConf('moderate') && !$this->helper->isDiscussionMod()) {
+                    $comment['show'] = false;
+                } else {
+                    $comment['show'] = true;
+                }
+                $this->add($comment, $reply);
+                break;
 
-                case 'save':
-                    $raw = cleanText($INPUT->str('text'));
-                    $this->save([$cid], $raw);
-                    break;
+            case 'save':
+                $raw = cleanText($INPUT->str('text'));
+                $this->save([$cid], $raw);
+                break;
 
-                case 'delete':
-                    $this->save([$cid], '');
-                    break;
+            case 'delete':
+                $this->save([$cid], '');
+                break;
 
-                case 'toogle':
-                    $this->save([$cid], '', 'toogle');
-                    break;
-            }
+            case 'toogle':
+                $this->save([$cid], '', 'toogle');
+                break;
         }
     }
 
     /**
      * Main function; dispatches the visual comment actions
+     *
+     * @param Doku_Event $event
      */
     public function renderCommentsSection(Doku_Event $event)
     {
@@ -332,6 +325,8 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
 
     /**
      * Redirects browser to given comment anchor
+     *
+     * @param string $cid comment id
      */
     protected function redirect($cid)
     {
@@ -362,7 +357,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
     /**
      * Checks config settings to enable/disable discussions
      *
-     * @return bool
+     * @return bool true if enabled
      */
     public function isDiscussionEnabled()
     {
@@ -415,7 +410,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
             if (!$data['status']) {
                 return;
             }
-        } elseif (!@file_exists($file) && $this->isDiscussionEnabled() && $INFO['exists']) {
+        } elseif (!@file_exists($file) && $this->isDiscussionEnabled()) {
             // set status to show the comment form
             $data['status'] = 1;
             $data['number'] = 0;
@@ -463,7 +458,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
 
         // comment form shown on the end, if no comment form of $reply or $edit is requested before
         if ($data['status'] == 1 && (!$reply || !$this->getConf('usethreading')) && !$edit) {
-            $this->showCommentForm('');
+            $this->showCommentForm('', 'add');
         }
 
         if ($show) {
@@ -933,12 +928,12 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
     }
 
     /**
-     *
+     * Show the replies to the given comment
      *
      * @param string $cid comment id
      * @param array $data array with all comments by reference
-     * @param string $reply
-     * @param bool $isVisible
+     * @param string $reply comment id on which the user requested a reply
+     * @param bool $isVisible is marked as visible by reference
      */
     protected function showReplies($cid, &$data, $reply, &$isVisible)
     {
@@ -998,8 +993,12 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
 
     /**
      * Outputs the comment form
+     *
+     * @param string $raw the existing comment text in case of edit
+     * @param string $act action 'add' or 'save'
+     * @param string|null $cid comment id to be responded to or null
      */
-    protected function showCommentForm($raw = '', $act = 'add', $cid = null)
+    protected function showCommentForm($raw, $act, $cid = null)
     {
         global $lang, $conf, $ID, $INPUT;
 
@@ -1622,7 +1621,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
     }
 
     /**
-     * Checks if the CAPTCHA string submitted is valid
+     * Checks if the CAPTCHA string submitted is valid, modifies action if needed
      */
     protected function captchaCheck()
     {
@@ -1643,7 +1642,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
     }
 
     /**
-     * checks if the submitted reCAPTCHA string is valid
+     * checks if the submitted reCAPTCHA string is valid, modifies action if needed
      *
      * @author Adrian Schlegel <adrian@liip.ch>
      */
@@ -1674,7 +1673,6 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
      * to the index whenever there has been a change that concerns the index content.
      *
      * @param Doku_Event $event
-     * @param $param
      */
     public function addIndexVersion(Doku_Event $event)
     {
@@ -1712,8 +1710,6 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
      * Checks if the phrase occurs in the comments and return event result true if matching
      *
      * @param Doku_Event $event
-     * @param $param
-     * @return void
      */
     public function fulltextPhraseMatchInComments(Doku_Event $event)
     {
@@ -1781,7 +1777,6 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
      * Saves the current comment status and title from metadata into the .comments file
      *
      * @param Doku_Event $event
-     * @param $param
      */
     public function update_comment_status(Doku_Event $event)
     {
