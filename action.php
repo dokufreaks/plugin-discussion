@@ -366,14 +366,13 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
      */
     public function isDiscussionEnabled()
     {
-        global $INFO;
+        global $ID;
 
         if ($this->getConf('excluded_ns') == '') {
             $isNamespaceExcluded = false;
         } else {
-            global $ID;
             $ns = getNS($ID); // $INFO['namespace'] is not yet available, if used in update_comment_status()
-            $isNamespaceExcluded = preg_match($this->getConf('excluded_ns'), $INFO['namespace']);
+            $isNamespaceExcluded = preg_match($this->getConf('excluded_ns'), $ns);
         }
 
         if ($this->getConf('automatic')) {
