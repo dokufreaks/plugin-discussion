@@ -793,7 +793,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
         }
 
         // print the actual comment
-        $this->showComment($cid, $data, $parent, $reply, $isVisible, $hidden);
+        $this->showComment($cid, $data, $reply, $isVisible, $hidden);
         // replies to this comment entry?
         $this->showReplies($cid, $data, $reply, $isVisible);
         // reply form
@@ -804,13 +804,12 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
      * Print the comment
      *
      * @param string $cid comment id
-     * @param array $data array with all comments by reference
-     * @param string $parent comment id of parent
+     * @param array $data array with all comments
      * @param string $reply comment id on which the user requested a reply
      * @param bool $isVisible is marked as visible
      * @param string $hidden extra class, for the admin only hidden view
      */
-    protected function showComment($cid, &$data, $parent, $reply, $isVisible, $hidden)
+    protected function showComment($cid, $data, $reply, $isVisible, $hidden)
     {
         global $conf, $lang, $HIGH, $INPUT;
         $comment = $data['comments'][$cid];
