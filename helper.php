@@ -7,48 +7,50 @@
 /**
  * Class helper_plugin_discussion
  */
-class helper_plugin_discussion extends DokuWiki_Plugin {
+class helper_plugin_discussion extends DokuWiki_Plugin
+{
 
     /**
      * @return array
      */
-    public function getMethods() {
-        $result = array();
-        $result[] = array(
-                'name'   => 'th',
-                'desc'   => 'returns the header of the comments column for pagelist',
-                'return' => array('header' => 'string'),
-                );
-        $result[] = array(
-                'name'   => 'td',
-                'desc'   => 'returns the link to the discussion section with number of comments',
-                'params' => array(
-                    'id' => 'string',
-                    'number of comments (optional)' => 'integer'),
-                'return' => array('link' => 'string'),
-                );
-        $result[] = array(
-                'name'   => 'getThreads',
-                'desc'   => 'returns pages with discussion sections, sorted by recent comments',
-                'params' => array(
-                    'namespace' => 'string',
-                    'number (optional)' => 'integer'),
-                'return' => array('pages' => 'array'),
-                );
-        $result[] = array(
-                'name'   => 'getComments',
-                'desc'   => 'returns recently added or edited comments individually',
-                'params' => array(
-                    'namespace' => 'string',
-                    'number (optional)' => 'integer'),
-                'return' => array('pages' => 'array'),
-                );
-        $result[] = array(
-                'name' => 'isDiscussionModerator',
-                'desc' => 'check if current user is member of moderator groups',
-                'params' => array(),
-                'return' => array('isModerator' => 'boolean')
-        );
+    public function getMethods()
+    {
+        $result = [];
+        $result[] = [
+            'name' => 'th',
+            'desc' => 'returns the header of the comments column for pagelist',
+            'return' => ['header' => 'string'],
+        ];
+        $result[] = [
+            'name' => 'td',
+            'desc' => 'returns the link to the discussion section with number of comments',
+            'params' => [
+                'id' => 'string',
+                'number of comments (optional)' => 'integer'],
+            'return' => ['link' => 'string'],
+        ];
+        $result[] = [
+            'name' => 'getThreads',
+            'desc' => 'returns pages with discussion sections, sorted by recent comments',
+            'params' => [
+                'namespace' => 'string',
+                'number (optional)' => 'integer'],
+            'return' => ['pages' => 'array'],
+        ];
+        $result[] = [
+            'name' => 'getComments',
+            'desc' => 'returns recently added or edited comments individually',
+            'params' => [
+                'namespace' => 'string',
+                'number (optional)' => 'integer'],
+            'return' => ['pages' => 'array'],
+        ];
+        $result[] = [
+            'name' => 'isDiscussionModerator',
+            'desc' => 'check if current user is member of moderator groups',
+            'params' => [],
+            'return' => ['isModerator' => 'boolean']
+        ];
         return $result;
     }
 
@@ -57,7 +59,8 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
      *
      * @return string
      */
-    public function th() {
+    public function th()
+    {
         return $this->getLang('discussion');
     }
 
@@ -70,7 +73,8 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
      * @param null|int $num number of visible comments -- internally used, not by pagelist plugin
      * @return string
      */
-    public function td($id, $col = null, &$class=null, $num = null) {
+    public function td($id, $col = null, &$class = null, $num = null)
+    {
         $section = '#discussion__section';
 
         if (!isset($num)) {
@@ -78,19 +82,22 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
             $comments = unserialize(io_readFile($cfile, false));
 
             $num = $comments['number'];
-            if ((!$comments['status']) || (($comments['status'] == 2) && (!$num))) return '';
+            if (!$comments['status'] || ($comments['status'] == 2 && !$num)) {
+                return '';
+            }
         }
 
         if ($num == 0) {
-            $comment = '0&nbsp;'.$this->getLang('nocomments');
+            $comment = '0&nbsp;' . $this->getLang('nocomments');
         } elseif ($num == 1) {
-            $comment = '1&nbsp;'.$this->getLang('comment');
+            $comment = '1&nbsp;' . $this->getLang('comment');
         } else {
-            $comment = $num.'&nbsp;'.$this->getLang('comments');
+            $comment = $num . '&nbsp;' . $this->getLang('comments');
         }
 
-        return '<a href="'.wl($id).$section.'" class="wikilink1" title="'.$id.$section.'">'.
-            $comment.'</a>';
+        return '<a href="' . wl($id) . $section . '" class="wikilink1" title="' . $id . $section . '">'
+            . $comment
+            . '</a>';
     }
 
     /**
@@ -102,21 +109,20 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
      * @param string|bool $skipEmpty
      * @return array
      */
-    public function getThreads($ns, $num = null, $skipEmpty = false) {
+    public function getThreads($ns, $num = null, $skipEmpty = false)
+    {
         global $conf;
 
-        require_once(DOKU_INC.'inc/search.php');
-
-        $dir = $conf['datadir'].utf8_encodeFN(($ns ? '/'.str_replace(':', '/', $ns): ''));
+        $dir = $conf['datadir'] . utf8_encodeFN(($ns ? '/' . str_replace(':', '/', $ns) : ''));
 
         // returns the list of pages in the given namespace and it's subspaces
-        $items = array();
-        search($items, $dir, 'search_allpages', array());
+        $items = [];
+        search($items, $dir, 'search_allpages', []);
 
         // add pages with comments to result
-        $result = array();
+        $result = [];
         foreach ($items as $item) {
-            $id   = ($ns ? $ns.':' : '').$item['id'];
+            $id = ($ns ? $ns . ':' : '') . $item['id'];
 
             // some checks
             $perm = auth_quickaclcheck($id);
@@ -127,31 +133,33 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
             $status = $data['status'];
             $number = $data['number'];
 
-            if (!$status || (($status == 2) && (!$number))) continue; // skip if comments are off or closed without comments
-            if($skipEmpty == 'y' && $number == 0) continue; // skip if discussion is empty and flag is set
+            if (!$status || ($status == 2 && !$number)) continue; // skip if comments are off or closed without comments
+            if ($skipEmpty == 'y' && $number == 0) continue; // skip if discussion is empty and flag is set
 
             $date = filemtime($file);
             $meta = p_get_metadata($id);
-            $result[$date.'_'.$id] = array(
-                    'id'       => $id,
-                    'file'     => $file,
-                    'title'    => $meta['title'],
-                    'date'     => $date,
-                    'user'     => $meta['creator'],
-                    'desc'     => $meta['description']['abstract'],
-                    'num'      => $number,
-                    'comments' => $this->td($id, null, $class, $number),
-                    'status'   => $status,
-                    'perm'     => $perm,
-                    'exists'   => true,
-                    'anchor'   => 'discussion__section',
-                    );
+            $result[$date . '_' . $id] = [
+                'id' => $id,
+                'file' => $file,
+                'title' => $meta['title'],
+                'date' => $date,
+                'user' => $meta['creator'],
+                'desc' => $meta['description']['abstract'],
+                'num' => $number,
+                'comments' => $this->td($id, null, $class, $number),
+                'status' => $status,
+                'perm' => $perm,
+                'exists' => true,
+                'anchor' => 'discussion__section',
+            ];
         }
 
         // finally sort by time of last comment
         krsort($result);
 
-        if (is_numeric($num)) $result = array_slice($result, 0, $num);
+        if (is_numeric($num)) {
+            $result = array_slice($result, 0, $num);
+        }
 
         return $result;
     }
@@ -164,29 +172,37 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
      * @param int|null $num
      * @return array
      */
-    public function getComments($ns, $num = NULL) {
+    public function getComments($ns, $num = null)
+    {
         global $conf;
 
-        $first  = $_REQUEST['first'];
-        if (!is_numeric($first)) $first = 0;
+        $first = $_REQUEST['first'];
+        if (!is_numeric($first)) {
+            $first = 0;
+        }
 
-        if ((!$num) || (!is_numeric($num))) $num = $conf['recent'];
+        if ((!$num) || (!is_numeric($num))) {
+            $num = $conf['recent'];
+        }
 
-        $result = array();
-        $count  = 0;
+        $result = [];
+        $count = 0;
 
-        if (!@file_exists($conf['metadir'].'/_comments.changes')) return $result;
+        if (!@file_exists($conf['metadir'] . '/_comments.changes')) {
+            return $result;
+        }
 
         // read all recent changes. (kept short)
-        $lines = file($conf['metadir'].'/_comments.changes');
+        $lines = file($conf['metadir'] . '/_comments.changes');
 
-        $seen = array(); //caches seen pages in order to skip them
+        $seen = []; //caches seen pages in order to skip them
         // handle lines
         $line_num = count($lines);
         for ($i = ($line_num - 1); $i >= 0; $i--) {
-            $rec = $this->_handleRecentComment($lines[$i], $ns, $seen);
+            $rec = $this->handleRecentComment($lines[$i], $ns, $seen);
             if ($rec !== false) {
                 if (--$first >= 0) continue; // skip first entries
+
                 $result[$rec['date']] = $rec;
                 $count++;
                 // break when we have enough entries
@@ -207,25 +223,26 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
      *
      * don't call directly
      *
+     * @param string $line
+     * @param string $ns
+     * @param array $seen
+     * @return array|false
      * @see getRecentComments()
      * @author Andreas Gohr <andi@splitbrain.org>
      * @author Ben Coburn <btcoburn@silicodon.net>
      * @author Esther Brunner <wikidesign@gmail.com>
      *
-     * @param string $line
-     * @param string $ns
-     * @param array  $seen
-     * @return array|bool
      */
-    protected function _handleRecentComment($line, $ns, &$seen) {
+    protected function handleRecentComment($line, $ns, &$seen)
+    {
         if (empty($line)) return false;  //skip empty lines
 
         // split the line into parts
         $recent = parseChangelogLine($line);
         if ($recent === false) return false;
 
-        $cid     = $recent['extra'];
-        $fullcid = $recent['id'].'#'.$recent['extra'];
+        $cid = $recent['extra'];
+        $fullcid = $recent['id'] . '#' . $recent['extra'];
 
         // skip seen ones
         if (isset($seen[$fullcid])) return false;
@@ -241,7 +258,7 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
         if ($recent['type'] === 'hc') return false;
 
         // filter namespace or id
-        if (($ns) && (strpos($recent['id'].':', $ns.':') !== 0)) return false;
+        if ($ns && strpos($recent['id'] . ':', $ns . ':') !== 0) return false;
 
         // check ACL
         $recent['perm'] = auth_quickaclcheck($recent['id']);
@@ -261,7 +278,7 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
 
         $parent_id = $cid;
         // Check for the comment and all parents if they exist and are visible.
-        do  {
+        do {
             $tcid = $parent_id;
 
             // check if the comment still exists
@@ -279,7 +296,7 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
             $recent['name'] = $data['comments'][$cid]['name'];
         }
         $recent['desc'] = strip_tags($data['comments'][$cid]['xhtml']);
-        $recent['anchor'] = 'comment_'.$cid;
+        $recent['anchor'] = 'comment_' . $cid;
 
         return $recent;
     }
@@ -287,15 +304,19 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
     /**
      * @return bool
      */
-    public function isDiscussionModerator() {
         global $USERINFO;
+    public function isDiscussionModerator()
+    {
         $groups = trim($this->getConf('moderatorgroups'));
 
-        if(auth_ismanager()) return true;
+        if (auth_ismanager()) {
+            return true;
+        }
         // Check if user is member of the moderator groups
-        if(!empty($groups) && auth_isMember($groups, $_SERVER['REMOTE_USER'], (array)$USERINFO['grps'])) return true;
+        if (!empty($groups) && auth_isMember($groups, $_SERVER['REMOTE_USER'], (array)$USERINFO['grps'])) {
+            return true;
+        }
 
         return false;
     }
 }
-// vim:ts=4:sw=4:et:enc=utf-8:
