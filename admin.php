@@ -9,19 +9,27 @@ use dokuwiki\Utf8\PhpString;
 /**
  * Class admin_plugin_discussion
  */
-class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
+class admin_plugin_discussion extends DokuWiki_Admin_Plugin
+{
 
     /**
      * @return int
      */
-    public function getMenuSort() { return 200; }
+    public function getMenuSort()
+    {
+        return 200;
+    }
 
     /**
      * @return bool
      */
-    public function forAdminOnly() { return false; }
+    public function forAdminOnly()
+    {
+        return false;
+    }
 
-    public function handle() {
+    public function handle()
+    {
         global $lang, $INPUT;
 
         $cids = $INPUT->post->arr('cid');
@@ -51,14 +59,15 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
         }
     }
 
-    public function html() {
+    public function html()
+    {
         global $conf, $INPUT;
 
         $first = $INPUT->int('first');
 
         $num = $conf['recent'] ?: 20;
 
-        ptln('<h1>'.$this->getLang('menu').'</h1>');
+        ptln('<h1>' . $this->getLang('menu') . '</h1>');
 
         $threads = $this->getThreads();
 
@@ -74,7 +83,7 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
                 continue;
             }
 
-            ptln('<form method="post" action="'.wl($thread['id']).'">', 8);
+            ptln('<form method="post" action="' . wl($thread['id']) . '">', 8);
             ptln('<div class="no">', 10);
             ptln('<input type="hidden" name="do" value="admin" />', 10);
             ptln('<input type="hidden" name="page" value="discussion" />', 10);
@@ -90,7 +99,8 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
      *
      * @return array
      */
-    protected function getThreads() {
+    protected function getThreads()
+    {
         global $conf;
 
         // returns the list of pages in the given namespace and it's subspaces
@@ -108,9 +118,9 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
 
             $date = filemtime($file);
             $result[] = [
-                    'id'   => $id,
-                    'file' => $file,
-                    'date' => $date,
+                'id' => $id,
+                'file' => $file,
+                'date' => $date,
             ];
         }
 
@@ -131,7 +141,8 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
      * @param array $b
      * @return int
      */
-    protected function threadCmp($a, $b) {
+    protected function threadCmp($a, $b)
+    {
         if ($a['date'] == $b['date']) {
             return strcmp($a['id'], $b['id']);
         }
@@ -148,7 +159,8 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
      * @param array $thread
      * @return bool
      */
-    protected function threadHead($thread) {
+    protected function threadHead($thread)
+    {
         $id = $thread['id'];
 
         $labels = [
@@ -160,22 +172,22 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
         if (!$title) {
             $title = $id;
         }
-        ptln('<h2 name="'.$id.'" id="'.$id.'">'.hsc($title).'</h2>', 6);
-        ptln('<form method="post" action="'.wl($id).'">', 6);
+        ptln('<h2 name="' . $id . '" id="' . $id . '">' . hsc($title) . '</h2>', 6);
+        ptln('<form method="post" action="' . wl($id) . '">', 6);
         ptln('<div class="mediaright">', 8);
         ptln('<input type="hidden" name="do" value="admin" />', 10);
         ptln('<input type="hidden" name="page" value="discussion" />', 10);
-        ptln($this->getLang('status').': <select name="status" size="1">', 10);
+        ptln($this->getLang('status') . ': <select name="status" size="1">', 10);
         foreach ($labels as $key => $label) {
             $selected = ($key == $thread['status'] ? ' selected="selected"' : '');
-            ptln('<option value="'.$key.'"'.$selected.'>'.$label.'</option>', 12);
+            ptln('<option value="' . $key . '"' . $selected . '>' . $label . '</option>', 12);
         }
         ptln('</select> ', 10);
-        ptln('<input type="submit" class="button" name="comment" value="'.$this->getLang('btn_change').'" class"button" title="'.$this->getLang('btn_change').'" />', 10);
+        ptln('<input type="submit" class="button" name="comment" value="' . $this->getLang('btn_change') . '" class"button" title="' . $this->getLang('btn_change') . '" />', 10);
         ptln('</div>', 8);
         ptln('</form>', 6);
         ptln('<div class="level2">', 6);
-        ptln('<a href="'.wl($id).'" class="wikilink1">'.$id.'</a> ', 8);
+        ptln('<a href="' . wl($id) . '" class="wikilink1">' . $id . '</a> ', 8);
         return true;
     }
 
@@ -190,7 +202,8 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
      *
      * @return array|bool
      */
-    protected function getComments(&$thread) {
+    protected function getComments(&$thread)
+    {
         $id = $thread['id'];
 
         if (!$thread['file']) {
@@ -221,12 +234,13 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
      * Recursive function to add the comment hierarchy to the result
      *
      * @param string $cid comment id of current comment
-     * @param array  $data array with all comments by reference
-     * @param array  $result array with all comments by reference enhanced with level
+     * @param array $data array with all comments by reference
+     * @param array $result array with all comments by reference enhanced with level
      * @param string $parent comment id of parent or empty
-     * @param int    $level level of current comment, higher is deeper
+     * @param int $level level of current comment, higher is deeper
      */
-    protected function addComment($cid, &$data, &$result, $parent = '', $level = 1) {
+    protected function addComment($cid, &$data, &$result, $parent = '', $level = 1)
+    {
         if (!is_array($data['comments'][$cid])) return; // corrupt datatype
 
         $comment = $data['comments'][$cid];
@@ -252,30 +266,31 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
      * @param array $comment array with comment data
      * @return string html of checkbox and info
      */
-    public function commentItem($comment) {
+    public function commentItem($comment)
+    {
         global $conf;
 
         // prepare variables
         if (is_array($comment['user'])) { // new format
-            $name    = $comment['user']['name'];
-            $mail    = $comment['user']['mail'];
-        } else {                         // old format
-            $name    = $comment['name'];
-            $mail    = $comment['mail'];
+            $name = $comment['user']['name'];
+            $mail = $comment['user']['mail'];
+        } else {                          // old format
+            $name = $comment['name'];
+            $mail = $comment['mail'];
         }
         if (is_array($comment['date'])) { // new format
-            $created  = $comment['date']['created'];
-        } else {                         // old format
-            $created  = $comment['date'];
+            $created = $comment['date']['created'];
+        } else {                          // old format
+            $created = $comment['date'];
         }
         $abstract = preg_replace('/\s+?/', ' ', strip_tags($comment['xhtml']));
         if (PhpString::strlen($abstract) > 160) {
-            $abstract = PhpString::substr($abstract, 0, 160).'...';
+            $abstract = PhpString::substr($abstract, 0, 160) . '...';
         }
 
-        return '<input type="checkbox" name="cid['.$comment['id'].']" value="1" /> '.
-            $this->email($mail, $name, 'email').', '.strftime($conf['dformat'], $created).': '.
-            '<span class="abstract">'.$abstract.'</span>';
+        return '<input type="checkbox" name="cid[' . $comment['id'] . ']" value="1" /> ' .
+            $this->email($mail, $name, 'email') . ', ' . strftime($conf['dformat'], $created) . ': ' .
+            '<span class="abstract">' . $abstract . '</span>';
     }
 
     /**
@@ -284,21 +299,23 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
      * @param array $comment
      * @return string
      */
-    public function liComment($comment) {
+    public function liComment($comment)
+    {
         $showclass = ($comment['show'] ? '' : ' hidden');
-        return '<li class="level'.$comment['level'].$showclass.'">';
+        return '<li class="level' . $comment['level'] . $showclass . '">';
     }
 
     /**
      * Show buttons to bulk remove, hide or show comments
      */
-    protected function actionButtons() {
+    protected function actionButtons()
+    {
         global $lang;
 
         ptln('<div class="comment_buttons">', 12);
-        ptln('<input type="submit" name="comment" value="'.$this->getLang('btn_show').'" class="button" title="'.$this->getLang('btn_show').'" />', 14);
-        ptln('<input type="submit" name="comment" value="'.$this->getLang('btn_hide').'" class="button" title="'.$this->getLang('btn_hide').'" />', 14);
-        ptln('<input type="submit" name="comment" value="'.$lang['btn_delete'].'" class="button" title="'.$lang['btn_delete'].'" />', 14);
+        ptln('<input type="submit" name="comment" value="' . $this->getLang('btn_show') . '" class="button" title="' . $this->getLang('btn_show') . '" />', 14);
+        ptln('<input type="submit" name="comment" value="' . $this->getLang('btn_hide') . '" class="button" title="' . $this->getLang('btn_hide') . '" />', 14);
+        ptln('<input type="submit" name="comment" value="' . $lang['btn_delete'] . '" class="button" title="' . $lang['btn_delete'] . '" />', 14);
         ptln('</div>', 12); // class="comment_buttons"
         ptln('</div>', 10); // class="no"
         ptln('</form>', 8);
@@ -309,16 +326,17 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
      * Displays links to older newer discussions
      *
      * @param bool $isMore whether there are more pages needed
-     * @param int  $first first entry on this page
-     * @param int  $num number of entries per page
+     * @param int $first first entry on this page
+     * @param int $num number of entries per page
      */
-    protected function browseDiscussionLinks($isMore, $first, $num) {
+    protected function browseDiscussionLinks($isMore, $first, $num)
+    {
         global $ID;
 
         if ($first == 0 && !$isMore) return;
 
         $params = ['do' => 'admin', 'page' => 'discussion'];
-        $last = $first+$num;
+        $last = $first + $num;
         ptln('<div class="level1">', 8);
         $return = '';
         if ($first > 0) {
@@ -328,19 +346,19 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
             }
             $params['first'] = $first;
             ptln('<p class="centeralign">', 8);
-            $return = '<a href="'.wl($ID, $params).'" class="wikilink1">&lt;&lt; '.$this->getLang('newer').'</a>';
+            $return = '<a href="' . wl($ID, $params) . '" class="wikilink1">&lt;&lt; ' . $this->getLang('newer') . '</a>';
             if ($isMore) {
                 $return .= ' | ';
             } else {
                 ptln($return, 10);
                 ptln('</p>', 8);
             }
-        } else if ($isMore) {
+        } elseif ($isMore) {
             ptln('<p class="centeralign">', 8);
         }
         if ($isMore) {
             $params['first'] = $last;
-            $return .= '<a href="'.wl($ID, $params).'" class="wikilink1">'.$this->getLang('older').' &gt;&gt;</a>';
+            $return .= '<a href="' . wl($ID, $params) . '" class="wikilink1">' . $this->getLang('older') . ' &gt;&gt;</a>';
             ptln($return, 10);
             ptln('</p>', 8);
         }
@@ -352,7 +370,8 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin {
      *
      * @param int $new 0=disabled, 1=enabled, 2=closed
      */
-    protected function changeStatus($new) {
+    protected function changeStatus($new)
+    {
         global $ID;
 
         // get discussion meta file name
