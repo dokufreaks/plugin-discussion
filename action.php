@@ -252,7 +252,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
                     $comment['user']['id'] = $INPUT->server->str('REMOTE_USER');
                     $comment['user']['name'] = $INFO['userinfo']['name'];
                     $comment['user']['mail'] = $INFO['userinfo']['mail'];
-                } elseif (($INPUT->server->has('REMOTE_USER') && $this->getConf('adminimport') && $this->helper->isDiscussionMod())
+                } elseif (($INPUT->server->has('REMOTE_USER') && $this->getConf('adminimport') && $this->helper->isDiscussionModerator())
                     || !$INPUT->server->has('REMOTE_USER')) {
                     // don't add anonymous comments
                     if (empty($INPUT->str('name')) or empty($INPUT->str('mail'))) {
@@ -274,7 +274,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
                 $comment['date'] = ['created' => $INPUT->str('date')];
                 $comment['raw'] = cleanText($INPUT->str('text'));
                 $reply = $INPUT->str('reply');
-                if ($this->getConf('moderate') && !$this->helper->isDiscussionMod()) {
+                if ($this->getConf('moderate') && !$this->helper->isDiscussionModerator()) {
                     $comment['show'] = false;
                 } else {
                     $comment['show'] = true;
@@ -335,7 +335,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
 
         if ($ACT !== 'show') return;
 
-        if ($this->getConf('moderate') && !$this->helper->isDiscussionMod()) {
+        if ($this->getConf('moderate') && !$this->helper->isDiscussionModerator()) {
             msg($this->getLang('moderation'), 1);
             @session_start();
             global $MSG;
@@ -671,7 +671,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
             }
 
             // someone else was trying to edit our comment -> abort
-            if ($user != $INPUT->server->str('REMOTE_USER') && !$this->helper->isDiscussionMod()) {
+            if ($user != $INPUT->server->str('REMOTE_USER') && !$this->helper->isDiscussionModerator()) {
                 return false;
             }
 
@@ -783,7 +783,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
 
         // comment hidden
         if (!$comment['show']) {
-            if ($this->helper->isDiscussionMod()) {
+            if ($this->helper->isDiscussionModerator()) {
                 $hidden = ' comment_hidden';
             } else {
                 return;
@@ -900,7 +900,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
             }
 
             // show edit, show/hide and delete button?
-            if (($user == $INPUT->server->str('REMOTE_USER') && $user != '') || $this->helper->isDiscussionMod()) {
+            if (($user == $INPUT->server->str('REMOTE_USER') && $user != '') || $this->helper->isDiscussionModerator()) {
                 $this->showButton($cid, $lang['btn_secedit'], 'edit', true);
                 $label = ($comment['show'] ? $this->getLang('btn_hide') : $this->getLang('btn_show'));
                 $this->showButton($cid, $label, 'toogle');
@@ -1031,7 +1031,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
                         <input type="hidden" name="reply" value="<?php echo $cid ?>"/>
                         <?php
                         // for guest/adminimport: show name, e-mail and subscribe to comments fields
-                        if (!$INPUT->server->has('REMOTE_USER') or ($this->getConf('adminimport') && $this->helper->isDiscussionMod())) {
+                        if (!$INPUT->server->has('REMOTE_USER') or ($this->getConf('adminimport') && $this->helper->isDiscussionModerator())) {
                             ?>
                             <input type="hidden" name="user" value="<?php echo clientIP() ?>"/>
                             <div class="comment_name">
@@ -1082,7 +1082,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
                         }
 
                         // allow setting the comment date
-                        if ($this->getConf('adminimport') && ($this->helper->isDiscussionMod())) {
+                        if ($this->getConf('adminimport') && ($this->helper->isDiscussionModerator())) {
                             ?>
                             <div class="comment_date">
                                 <label class="block" for="discussion__comment_date">
