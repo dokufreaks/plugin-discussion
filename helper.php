@@ -103,7 +103,7 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
 
         // returns the list of pages in the given namespace and it's subspaces
         $items = array();
-		$opts = array('depth' => 0, 'skipacl' => true);
+		$opts = array('depth' => 0, 'skipacl' => true); //acl are check after
 		search($items, $conf['datadir']."/".$dir , 'search_allpages', $opts);
 
         // add pages with comments to result
