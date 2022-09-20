@@ -99,11 +99,11 @@ class helper_plugin_discussion extends DokuWiki_Plugin {
 
         require_once(DOKU_INC.'inc/search.php');
 
-        $dir = $conf['datadir'].utf8_encodeFN(($ns ? '/'.str_replace(':', '/', $ns): ''));
+		$dir = utf8_encodeFN(str_replace(':', '/', $ns));
 
         // returns the list of pages in the given namespace and it's subspaces
         $items = array();
-        search($items, $dir, 'search_allpages', array());
+        search($items, $conf['datadir'] , 'search_allpages', array(), $dir);
 
         // add pages with comments to result
         $result = array();
