@@ -781,19 +781,13 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
             return;
         }
 
-        // comment hidden
-        if (!$comment['show']) {
-            if ($this->helper->isDiscussionModerator()) {
-                $hidden = ' comment_hidden';
-            } else {
-                return;
-            }
-        } else {
-            $hidden = '';
+        // comment hidden, only shown for moderators
+        if (!$comment['show'] && !$this->helper->isDiscussionModerator()) {
+            return;
         }
 
         // print the actual comment
-        $this->showComment($cid, $data, $reply, $isVisible, $hidden);
+        $this->showComment($cid, $data, $reply, $isVisible);
         // replies to this comment entry?
         $this->showReplies($cid, $data, $reply, $isVisible);
         // reply form
@@ -806,16 +800,20 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
      * @param string $cid comment id
      * @param array $data array with all comments
      * @param string $reply comment id on which the user requested a reply
-     * @param bool $isVisible is marked as visible
-     * @param string $hidden extra class, for the admin only hidden view
+     * @param bool $isVisible (grand)parent is marked as visible
      */
-    protected function showComment($cid, $data, $reply, $isVisible, $hidden)
+    protected function showComment($cid, $data, $reply, $isVisible)
     {
         global $conf, $lang, $HIGH, $INPUT;
         $comment = $data['comments'][$cid];
 
+        //only moderators can arrive here if hidden
+        $hiddenclass = '';
+        if (!$comment['show'] || !$isVisible) {
+            $hiddenclass = ' comment_hidden';
+        }
         // comment head with date and user data
-        ptln('<div class="hentry' . $hidden . '">', 4);
+        ptln('<div class="hentry' . $hiddenclass . '">', 4);
         ptln('<div class="comment_head">', 6);
         ptln('<a name="comment_' . $cid . '" id="comment_' . $cid . '"></a>', 8);
         $head = '<span class="vcard author">';
