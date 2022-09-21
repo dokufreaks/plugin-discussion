@@ -113,16 +113,19 @@ class helper_plugin_discussion extends DokuWiki_Plugin
     {
         global $conf;
 
-        $dir = $conf['datadir'] . utf8_encodeFN(($ns ? '/' . str_replace(':', '/', $ns) : ''));
-
         // returns the list of pages in the given namespace and it's subspaces
+        $dir =  utf8_encodeFN(str_replace(':', '/', $ns));
+        $opts = [
+            'depth' => 0, // 0=all
+            'skipacl' => true // is checked later
+        ];
         $items = [];
-        search($items, $dir, 'search_allpages', []);
+        search($items, $conf['datadir'], 'search_allpages', $opts, $dir);
 
         // add pages with comments to result
         $result = [];
         foreach ($items as $item) {
-            $id = ($ns ? $ns . ':' : '') . $item['id'];
+            $id = $item['id'];
 
             // some checks
             $perm = auth_quickaclcheck($id);
@@ -134,7 +137,7 @@ class helper_plugin_discussion extends DokuWiki_Plugin
             $number = $data['number'];
 
             if (!$status || ($status == 2 && !$number)) continue; // skip if comments are off or closed without comments
-            if ($skipEmpty == 'y' && $number == 0) continue; // skip if discussion is empty and flag is set
+            if ($skipEmpty && $number == 0) continue; // skip if discussion is empty and flag is set
 
             $date = filemtime($file);
             $meta = p_get_metadata($id);
