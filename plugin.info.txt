@@ -1,5 +1,5 @@
 base   discussion
-author Michael Hamann, Gerrit Uitslag, Gina Häussge, Christopher Smith, Michael Klier, Esther Brunner, Matthias Schulte
+author Michael Hamann, Gerrit Uitslag, Gina Häussge, Christopher Smith, Michael Klier, Esther Brunner, Matthias Schulte, Clay Dowling
 email  michael@content-space.de
 date   2021-12-31
 name   discussion plugin
