@@ -215,8 +215,8 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin
 
         $thread['status'] = $data['status'];
         $thread['number'] = $data['number'];
-        if (!$data['status']) return false;   // comments are turned off
-        if (!$data['comments']) return false; // no comments
+        if (empty($data['status'])) return false;   // comments are turned off
+        if (empty($data['comments'])) return false; // no comments
 
         $result = [];
         foreach ($data['comments'] as $cid => $comment) {
@@ -241,7 +241,7 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin
      */
     protected function addComment($cid, &$data, &$result, $parent = '', $level = 1)
     {
-        if (!is_array($data['comments'][$cid])) return; // corrupt datatype
+        if (!isset($data['comments'][$cid]) || !is_array($data['comments'][$cid])) return; // corrupt datatype
 
         $comment = $data['comments'][$cid];
         // handle only replies to given parent comment

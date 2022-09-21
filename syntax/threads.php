@@ -63,7 +63,11 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin
     public function handle($match, $state, $pos, Doku_Handler $handler)
     {
         global $ID;
-        $customFlags = array();
+        $customFlags = [
+            'count' => 0,
+            'skipempty' => false,
+            'nonewthreadform' => false
+        ];
 
         $match = substr($match, 10, -2); // strip {{threads> from start and }} from end
         list($match, $flags) = array_pad(explode('&', $match, 2), 2, '');
@@ -72,8 +76,10 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin
         // Identify the count/skipempty flag and remove it before passing it to pagelist
         foreach ($flags as $key => $flag) {
             if (substr($flag, 0, 5) == "count") {
-                $tmp = array_pad(explode('=', $flag, 2), 2, 0);
-                $customFlags['count'] = $tmp[1];
+                list(,$cnt) = array_pad(explode('=', $flag, 2), 2, 0);
+                if(is_numeric($cnt) && $cnt > 0) {
+                    $customFlags['count'] = $cnt;
+                }
                 unset($flags[$key]);
             } elseif (substr($flag, 0, 9) == "skipempty") {
                 $customFlags['skipempty'] = true;
@@ -82,14 +88,6 @@ class syntax_plugin_discussion_threads extends DokuWiki_Syntax_Plugin
                 $customFlags['nonewthreadform'] = true;
                 unset($flags[$key]);
             }
-        }
-
-        // Ignore params if invalid values have been passed
-        if (!array_key_exists('count', $customFlags) || $customFlags['count'] <= 0 || !is_numeric($customFlags['count'])) {
-            $customFlags['count'] = 0;
-        }
-        if (!array_key_exists('skipempty', $customFlags) && !$customFlags['skipempty']) {
-            $customFlags['skipempty'] = false;
         }
 
         list($ns, $refine) = array_pad(explode(' ', $match, 2), 2, '');

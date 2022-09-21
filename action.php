@@ -15,7 +15,7 @@ use dokuwiki\Utf8\PhpString;
  * array = [
  *  'status' => int whether comments are 0=disabled/1=open/2=closed,
  *  'number' => int number of visible comments,
- *  'title' => string alternative title for discussion section
+ *  'title' => string|null alternative title for discussion section
  *  'comments' => [
  *      '<cid>'=> [
  *          'cid' => string comment id - long random string
@@ -121,7 +121,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
         global $ACT;
         if ($this->hasDiscussion($title) && $event->data && $ACT != 'admin') {
             $tocitem = ['hid' => 'discussion__section',
-                'title' => $this->getLang('discussion'),
+                'title' => $title ?: $this->getLang('discussion'),
                 'type' => 'ul',
                 'level' => 1];
 
@@ -430,7 +430,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
             || $this->getConf('allowguests') || $INPUT->server->has('REMOTE_USER')) {
             $show = true;
             // section title
-            $title = ($data['title'] ? hsc($data['title']) : $this->getLang('discussion'));
+            $title = (!empty($data['title']) ? hsc($data['title']) : $this->getLang('discussion'));
             ptln('<div class="comment_wrapper" id="comment_wrapper">'); // the id value is used for visibility toggling the section
             ptln('<h2><a name="discussion__section" id="discussion__section">', 2);
             ptln($title, 4);
@@ -563,7 +563,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
 
         $cid = md5($comment['user']['id'] . $date); // create a unique id
 
-        if (!is_array($data['comments'][$parent])) {
+        if (!isset($data['comments'][$parent]) || !is_array($data['comments'][$parent])) {
             $parent = null; // invalid parent comment
         }
 
@@ -1499,8 +1499,8 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
     /**
      * Finds out whether there is a discussion section for the current page
      *
-     * @param string $title
-     * @return bool
+     * @param string $title set to title from metadata or empty string
+     * @return bool discussion section is shown?
      */
     protected function hasDiscussion(&$title)
     {
@@ -1516,13 +1516,12 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
             }
         }
 
-        $comments = unserialize(io_readFile($file, false));
+        $data = unserialize(io_readFile($file, false));
 
-        if ($comments['title']) {
-            $title = hsc($comments['title']);
-        }
-        $num = $comments['number'];
-        if (!$comments['status'] || ($comments['status'] == 2 && $num == 0)) {
+        $title = $data['title'] ?? '';
+
+        $num = $data['number'];
+        if (!$data['status'] || ($data['status'] == 2 && $num == 0)) {
             //disabled, or closed and no comments
             return false;
         } else {
