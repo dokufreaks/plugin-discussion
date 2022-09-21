@@ -263,7 +263,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
                         msg($lang['regbadmail'], -1);
                         return;
                     } else {
-                        $comment['user']['id'] = 'test' . hsc($INPUT->str('user'));
+                        $comment['user']['id'] = ''; //prevent overlap with loggedin users, before: 'test<ipadress>'
                         $comment['user']['name'] = hsc($INPUT->str('name'));
                         $comment['user']['mail'] = hsc($INPUT->str('mail'));
                     }
@@ -842,7 +842,13 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
 
         // show username or real name?
         if (!$this->getConf('userealname') && $user) {
-            $showname = $user;
+            //not logged-in users have currently username set to '', but before 'test<Ipaddress>'
+            if(substr($user, 0,4) === 'test'
+                && (strpos($user, ':', 4) !== false || strpos($user, '.', 4) !== false)) {
+                $showname = $name;
+            } else {
+                $showname = $user;
+            }
         } else {
             $showname = $name;
         }
@@ -1031,7 +1037,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
                         // for guest/adminimport: show name, e-mail and subscribe to comments fields
                         if (!$INPUT->server->has('REMOTE_USER') or ($this->getConf('adminimport') && $this->helper->isDiscussionModerator())) {
                             ?>
-                            <input type="hidden" name="user" value="<?php echo clientIP() ?>"/>
+                            <input type="hidden" name="user" value=""/>
                             <div class="comment_name">
                                 <label class="block" for="discussion__comment_name">
                                     <span><?php echo $lang['fullname'] ?>:</span>
