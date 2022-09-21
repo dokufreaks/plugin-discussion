@@ -1,6 +1,6 @@
 div.dokuwiki div.comment_wrapper {
   background-color: __background_alt__;
-  margin: 0;
+  margin: 2.4em 0em 0em 0em;
   padding: 0.5em 0.5em 1.5em 0.5em;
   clear: both;
 }
