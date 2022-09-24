@@ -139,7 +139,17 @@ class helper_plugin_discussion extends DokuWiki_Plugin
             if (!$status || ($status == 2 && !$number)) continue; // skip if comments are off or closed without comments
             if ($skipEmpty && $number == 0) continue; // skip if discussion is empty and flag is set
 
-            $date = filemtime($file);
+            //new comments are added to the end of array
+            $date = false;
+            if(isset($data['comments'])) {
+                $latestcomment = end($data['comments']);
+                $date = $latestcomment['date']['created'] ?? false;
+            }
+            //e.g. if no comments
+            if(!$date) {
+                $date = filemtime($file);
+            }
+
             $meta = p_get_metadata($id);
             $result[$date . '_' . $id] = [
                 'id' => $id,
