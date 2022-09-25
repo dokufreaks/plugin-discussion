@@ -154,7 +154,7 @@ class helper_plugin_discussion extends DokuWiki_Plugin
             $result[$date . '_' . $id] = [
                 'id' => $id,
                 'file' => $file,
-                'title' => $meta['title'],
+                'title' => $meta['title'] ?? '',
                 'date' => $date,
                 'user' => $meta['creator'],
                 'desc' => $meta['description']['abstract'],
