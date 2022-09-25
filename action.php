@@ -80,7 +80,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
         $controller->register_hook('FULLTEXT_SNIPPET_CREATE', 'BEFORE', $this, 'addCommentsToIndex', ['id' => 'id', 'text' => 'text']);
         $controller->register_hook('INDEXER_VERSION_GET', 'BEFORE', $this, 'addIndexVersion', []);
         $controller->register_hook('FULLTEXT_PHRASE_MATCH', 'AFTER', $this, 'fulltextPhraseMatchInComments', []);
-        $controller->register_hook('PARSER_METADATA_RENDER', 'AFTER', $this, 'update_comment_status', []);
+        $controller->register_hook('PARSER_METADATA_RENDER', 'AFTER', $this, 'updateCommentStatusFromMetadata', []);
         $controller->register_hook('TPL_METAHEADER_OUTPUT', 'BEFORE', $this, 'addToolbarToCommentfield', []);
         $controller->register_hook('TOOLBAR_DEFINE', 'AFTER', $this, 'modifyToolbar', []);
         $controller->register_hook('AJAX_CALL_UNKNOWN', 'BEFORE', $this, 'ajaxPreviewComments', []);
@@ -414,6 +414,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
             // set status to show the comment form
             $data['status'] = 1;
             $data['number'] = 0;
+            $data['title'] = null;
         }
 
         // show discussion wrapper only on certain circumstances
@@ -541,7 +542,11 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
 
         // create comments file if it doesn't exist yet
         if (!@file_exists($file)) {
-            $data = ['status' => 1, 'number' => 0];
+            $data = [
+                'status' => 1,
+                'number' => 0,
+                'title' => null
+            ];
             io_saveFile($file, serialize($data));
         } else {
             $data = unserialize(io_readFile($file, false));
@@ -1784,30 +1789,36 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
      *
      * @param Doku_Event $event
      */
-    public function update_comment_status(Doku_Event $event)
+    public function updateCommentStatusFromMetadata(Doku_Event $event)
     {
         global $ID;
 
         $meta = $event->data['current'];
+
         $file = metaFN($ID, '.comments');
-        $status = ($this->isDiscussionEnabled() ? 1 : 0);
+        $configurationStatus = ($this->isDiscussionEnabled() ? 1 : 0); // 0=off, 1=enabled
         $title = null;
         if (isset($meta['plugin_discussion'])) {
-            $status = $meta['plugin_discussion']['status']; // 0, 1 or 2
+            $status = (int) $meta['plugin_discussion']['status']; // 0=off, 1=enabled or 2=closed
             $title = $meta['plugin_discussion']['title'];
-        } elseif ($status == 1) {
-            // Don't enable comments when automatic comments are on - this already happens automatically
-            // and if comments are turned off in the admin this only updates the .comments file
-            return;
+
+            // do we have metadata that differs from general config?
+            $saveNeededFromMetadata = $configurationStatus !== $status || ($status > 0 && $title);
+        } else {
+            $status = $configurationStatus;
+            $saveNeededFromMetadata = false;
         }
 
-        if ($status || @file_exists($file)) {
+        // if .comment file exists always update it with latest status
+        if ($saveNeededFromMetadata || file_exists($file)) {
+
             $data = [];
             if (@file_exists($file)) {
                 $data = unserialize(io_readFile($file, false));
             }
 
             if (!array_key_exists('title', $data) || $data['title'] !== $title || !isset($data['status']) || $data['status'] !== $status) {
+                //title can be only set from metadata
                 $data['title'] = $title;
                 $data['status'] = $status;
                 if (!isset($data['number'])) {
