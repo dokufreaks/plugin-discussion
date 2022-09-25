@@ -1183,6 +1183,10 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
 
         $anchor = ($jump ? '#discussion__comment_form' : '');
 
+        $submitClass = '';
+        if($act === 'delete') {
+            $submitClass = ' dcs_confirmdelete';
+        }
         ?>
         <form class="button discussion__<?php echo $act ?>" method="get" action="<?php echo script() . $anchor ?>">
             <div class="no">
@@ -1190,7 +1194,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
                 <input type="hidden" name="do" value="show"/>
                 <input type="hidden" name="comment" value="<?php echo $act ?>"/>
                 <input type="hidden" name="cid" value="<?php echo $cid ?>"/>
-                <input type="submit" value="<?php echo $label ?>" class="button" title="<?php echo $label ?>"/>
+                <input type="submit" value="<?php echo $label ?>" class="button<?php echo $submitClass ?>" title="<?php echo $label ?>"/>
             </div>
         </form>
         <?php

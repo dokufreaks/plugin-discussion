@@ -94,6 +94,11 @@ jQuery(function () {
         return validate(this);
     });
 
+    //confirm delete actions
+    jQuery('input.dcs_confirmdelete').on('click', function () {
+        return confirm(LANG.plugins.discussion.confirmdelete);
+    });
+
     // toggle section visibility
     jQuery('#discussion__btn_toggle_visibility').on('click', function () {
         jQuery('#comment_wrapper').toggle();
