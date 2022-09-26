@@ -169,6 +169,8 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin
      */
     protected function threadHead($thread)
     {
+        global $lang;
+
         $id = $thread['id'];
 
         $labels = [
@@ -180,9 +182,10 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin
         if (!$title) {
             $title = $id;
         }
+        $align = $lang['direction'] === 'rtl' ? 'left' : 'right';
         echo '<h2 name="' . $id . '" id="' . $id . '">' . hsc($title) . '</h2>'
             . '<form method="post" action="' . wl($id) . '">'
-            . '<div class="mediaright">'
+            . '<div class="media' . $align . '">'
             . '<input type="hidden" name="do" value="admin" />'
             . '<input type="hidden" name="page" value="discussion" />'
             . '<input type="hidden" name="sectok" value="' . getSecurityToken() . '" />'
