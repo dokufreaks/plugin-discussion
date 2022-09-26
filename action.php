@@ -866,7 +866,8 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
             $user_data['name'] = $name;
             $user_data['user'] = $user;
             $user_data['mail'] = $mail;
-            $avatar = $this->avatar->getXHTML($user_data, $name, 'left');
+            $align = $lang['direction'] === 'ltr' ? 'left' : 'right';
+            $avatar = $this->avatar->getXHTML($user_data, $name, $align);
             if ($avatar) {
                 $head .= $avatar;
             }
@@ -981,11 +982,15 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
      */
     protected function getWidthStyle()
     {
+        global $lang;
+
         if (is_null($this->style)) {
+            $side = $lang['direction'] === 'ltr' ? 'left' : 'right';
+
             if ($this->useAvatar()) {
-                $this->style = ' style="margin-left: ' . ($this->avatar->getConf('size') + 14) . 'px;"';
+                $this->style = ' style="margin-' . $side . ': ' . ($this->avatar->getConf('size') + 14) . 'px;"';
             } else {
-                $this->style = ' style="margin-left: 20px;"';
+                $this->style = ' style="margin-' . $side . ': 20px;"';
             }
         }
         return $this->style;
@@ -996,7 +1001,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
      */
     protected function showDiscussionToggleButton()
     {
-        ptln('<div id="toggle_button" class="toggle_button" style="text-align: right;">');
+        ptln('<div id="toggle_button" class="toggle_button">');
         ptln('<input type="submit" id="discussion__btn_toggle_visibility" title="Toggle Visibiliy" class="button"'
             . 'value="' . $this->getLang('toggle_display') . '">');
         ptln('</div>');

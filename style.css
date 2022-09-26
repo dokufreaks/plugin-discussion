@@ -104,6 +104,9 @@ div.dokuwiki div.comment_buttons {
   margin-top: -21px;
   padding-bottom: 1em;
 }
+[dir=rtl] div.dokuwiki div.comment_buttons {
+    float: left;
+}
 
 div.dokuwiki div.comment_buttons input.button {
   border: 1px solid __border__;
@@ -116,7 +119,9 @@ div.dokuwiki div.comment_buttons input.button {
 
 div.dokuwiki div.toggle_button {
   text-align: right;
-
+}
+[dir=rtl] div.dokuwiki div.toggle_button {
+  text-align: left;
 }
 
 div.dokuwiki div.toggle_button input.button {
