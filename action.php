@@ -1153,20 +1153,22 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
                         <input class="button comment_submit" id="discussion__btn_submit" type="submit" name="submit"
                                accesskey="s" value="<?php echo $lang['btn_save'] ?>"
                                title="<?php echo $lang['btn_save'] ?> [S]" tabindex="7"/>
+                        <?php
+                        //if enabled, let not logged-in users subscribe, and logged-in only if no page-subcriptions are used
+                        if ((!$INPUT->server->has('REMOTE_USER')
+                                || $INPUT->server->has('REMOTE_USER') && !$conf['subscribers'])
+                            && $this->getConf('subscribe')) { ?>
+                            <label class="nowrap" for="discussion__comment_subscribe">
+                                <input type="checkbox" id="discussion__comment_subscribe" name="subscribe"
+                                       tabindex="6"/>
+                                <span><?php echo $this->getLang('subscribe') ?></span>
+                            </label>
+                        <?php } ?>
                         <input class="button comment_preview_button" id="discussion__btn_preview" type="button"
                                name="preview" accesskey="p" value="<?php echo $lang['btn_preview'] ?>"
                                title="<?php echo $lang['btn_preview'] ?> [P]"/>
-
-                        <?php if ((!$INPUT->server->has('REMOTE_USER')
-                                || $INPUT->server->has('REMOTE_USER') && !$conf['subscribers'])
-                                && $this->getConf('subscribe')) { ?>
-                            <div class="comment_subscribe">
-                                <input type="checkbox" id="discussion__comment_subscribe" name="subscribe"
-                                       tabindex="6"/>
-                                <label class="block" for="discussion__comment_subscribe">
-                                    <span><?php echo $this->getLang('subscribe') ?></span>
-                                </label>
-                            </div>
+                        <?php if ($cid) { ?>
+                            <a class="button comment_cancel" href="<?php echo wl($ID) . '#comment_' . $cid ?>" ><?php echo $lang['btn_cancel'] ?></a>
                         <?php } ?>
 
                         <div class="clearer"></div>

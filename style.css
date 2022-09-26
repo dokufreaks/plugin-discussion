@@ -41,7 +41,8 @@ div.dokuwiki #discussion__comment_form {
     .comment_date,
     .comment_text,
     .comment_submit,
-    .comment_preview_button {
+    .comment_preview_button,
+    .comment_cancel {
         margin: 2px;
     }
 }
@@ -90,28 +91,6 @@ div.dokuwiki .hentry {
 }
 div.dokuwiki .hentry.reply {
     background-color: darken(__background_alt__, 10%);
-}
-div.dokuwiki div.comment_subscribe {
-  float: left;
-  display: inline;
-  padding: 0 0.8em;
-}
-
-div.dokuwiki div.comment_subscribe input {
-  float: left;
-  display: inline;
-  margin-top: 0.3em;
-}
-
-div.dokuwiki div.comment_subscribe label {
-  float: left;
-  padding-left: 0.4em;
-    font-weight: normal;
-}
-
-div.dokuwiki input.comment_submit {
-  float: left;
-  display: inline;
 }
 
 div.dokuwiki div.comment_hidden {
