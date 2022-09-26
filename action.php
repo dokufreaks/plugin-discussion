@@ -39,7 +39,7 @@ use dokuwiki\Utf8\PhpString;
  *      ...
  *   ]
  *   'subscribers' => [
- *      '<mail>' => [
+ *      '<email>' => [
  *          'hash' => string unique token,
  *          'active' => bool, true if confirmed
  *          'confirmsent' => bool, true if confirmation mail is sent
@@ -120,10 +120,12 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
     {
         global $ACT;
         if ($this->hasDiscussion($title) && $event->data && $ACT != 'admin') {
-            $tocitem = ['hid' => 'discussion__section',
+            $tocitem = [
+                'hid' => 'discussion__section',
                 'title' => $title ?: $this->getLang('discussion'),
                 'type' => 'ul',
-                'level' => 1];
+                'level' => 1
+            ];
 
             $event->data[] = $tocitem;
         }
@@ -420,15 +422,16 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
         // show discussion wrapper only on certain circumstances
         if (empty($data['comments']) || !is_array($data['comments'])) {
             $cnt = 0;
-            $keys = [];
+            $cids = [];
         } else {
             $cnt = count($data['comments']);
-            $keys = array_keys($data['comments']);
+            $cids = array_keys($data['comments']);
         }
 
         $show = false;
-        if ($cnt > 1 || ($cnt == 1 && $data['comments'][$keys[0]]['show'] == 1)
-            || $this->getConf('allowguests') || $INPUT->server->has('REMOTE_USER')) {
+        if ($cnt > 1 || ($cnt == 1 && $data['comments'][$cids[0]]['show'] == 1)
+            || $this->getConf('allowguests')
+            || $INPUT->server->has('REMOTE_USER')) {
             $show = true;
             // section title
             $title = (!empty($data['title']) ? hsc($data['title']) : $this->getLang('discussion'));
@@ -588,7 +591,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
 
         if ($comment['subscribe']) {
             $mail = $comment['user']['mail'];
-            if ($data['subscribers']) {
+            if (isset($data['subscribers'])) {
                 if (!$data['subscribers'][$mail]) {
                     $data['subscribers'][$mail]['hash'] = md5($mail . mt_rand());
                     $data['subscribers'][$mail]['active'] = false;
