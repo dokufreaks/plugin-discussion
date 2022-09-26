@@ -22,8 +22,7 @@ div.dokuwiki div.comment_preview {
 }
 
 div.dokuwiki div.comment_form {
-  margin-top: 1.5em;
-  padding-top: 0.5em;
+  padding-top: 1em;
   clear: both;
 }
 
@@ -39,8 +38,11 @@ div.dokuwiki #discussion__comment_form {
     .comment_mail,
     .comment_url,
     .comment_address,
-    .comment_date {
-        margin: 2px 0;
+    .comment_date,
+    .comment_text,
+    .comment_submit,
+    .comment_preview_button {
+        margin: 2px;
     }
 }
 
@@ -76,10 +78,19 @@ div.dokuwiki .comment_body {
   padding-bottom: 0.5em;
   border-bottom: 1px dotted __border__;
 }
-
 div.dokuwiki div.comment_replies {
+    background-color: __background_alt__;
 }
-
+div.dokuwiki div.comment_replies.reply {
+    background-color: darken(__background_alt__, 10%);
+}
+div.dokuwiki .hentry {
+    padding: 0 2px;
+    background-color: __background_alt__;
+}
+div.dokuwiki .hentry.reply {
+    background-color: darken(__background_alt__, 10%);
+}
 div.dokuwiki div.comment_subscribe {
   float: left;
   display: inline;

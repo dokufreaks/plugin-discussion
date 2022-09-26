@@ -813,12 +813,15 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
         $comment = $data['comments'][$cid];
 
         //only moderators can arrive here if hidden
-        $hiddenclass = '';
+        $class = '';
         if (!$comment['show'] || !$isVisible) {
-            $hiddenclass = ' comment_hidden';
+            $class = ' comment_hidden';
+        }
+        if($cid === $reply) {
+            $class .= ' reply';
         }
         // comment head with date and user data
-        ptln('<div class="hentry' . $hiddenclass . '">', 4);
+        ptln('<div class="hentry' . $class . '">', 4);
         ptln('<div class="comment_head">', 6);
         ptln('<a name="comment_' . $cid . '" id="comment_' . $cid . '"></a>', 8);
         $head = '<span class="vcard author">';
@@ -929,7 +932,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
     protected function showReplyForm($cid, $reply)
     {
         if ($this->getConf('usethreading') && $reply == $cid) {
-            ptln('<div class="comment_replies">', 4);
+            ptln('<div class="comment_replies reply">', 4);
             $this->showCommentForm('', 'add', $cid);
             ptln('</div>', 4); // class="comment_replies"
         }
