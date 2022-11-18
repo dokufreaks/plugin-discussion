@@ -1546,7 +1546,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
 
         $title = $data['title'] ?? '';
 
-        $num = $data['number'];
+        $num = $data['number'] ?? 0;
         if (!$data['status'] || ($data['status'] == 2 && $num == 0)) {
             //disabled, or closed and no comments
             return false;
