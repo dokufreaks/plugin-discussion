@@ -6,14 +6,14 @@
  * @author     Esther Brunner <wikidesign@gmail.com>
  * @author     iDo <iLoveiDo@gmail.com>
  */
- 
+
 // settings must be present and set appropriately for the language
 $lang['encoding']   = 'utf-8';
 $lang['direction']  = 'ltr';
- 
+
 // for admin plugins, the menu prompt to be displayed in the admin menu
 // if set here, the plugin doesn't need to override the getMenuText() method
-$lang['menu']            = 'Moderate Discussions'; 
+$lang['menu']            = 'Moderate Discussions';
 
 $lang['discussion']      = 'Discussion';
 $lang['comment']         = 'Comment';
@@ -47,5 +47,4 @@ $lang['reply']           = 'Reply';
 $lang['replies']         = 'Replies';
 $lang['newthread']       = 'New discussion page';
 $lang['toggle_display']  = 'Hide/Show';
-
-//Setup VIM: ex: et ts=2 enc=utf-8 :
+$lang['js']['confirmdelete'] = 'Are you sure you want to delete this comment and its replies?';
