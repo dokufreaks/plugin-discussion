@@ -1,0 +1,19 @@
+Xin chào!
+
+Một bình luận mới đã được thêm vào trang @PAGE@ trong wiki @TITLE@ .
+
+Ngày: @DATE@
+Tên: @NAME@
+URL: @COMMENTURL@
+
+Nhận xét:
+--------------------------------------------------------
+@TEXT@
+--------------------------------------------------------
+
+Để hủy đăng ký, nhấp vào liên kết này:
+@UNSUBSCRIBE@
+
+--
+Thư này được tạo bởi DokuWiki tại
+@DOKUWIKIURL@

@@ -1,0 +1,10 @@
+Xin chào!
+
+Bạn sắp đăng ký theo dõi nhận xét comment của trang @PAGE@ trong wiki @TITLE@ .
+
+Để xác nhận đăng ký của bạn, vui lòng theo các liên kết này:
+@SUBSCRIBE@
+
+--
+Thư này được tạo bởi DokuWiki tại
+@DOKUWIKIURL@
