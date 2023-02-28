@@ -2,7 +2,8 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * 
+ *
+ * @author Gerrit <klapinklapin@gmail.com>
  * @author Erwin Moller <erwin@darwine.nl>
  * @author mprins <mprins@users.sf.net>
  * @author Mijndert <mijndert@mijndertstuij.nl>
@@ -40,3 +41,4 @@ $lang['reply']                 = 'Reactie';
 $lang['replies']               = 'Reacties';
 $lang['newthread']             = 'Nieuwe discussiepagina';
 $lang['toggle_display']        = 'Verberg / Laat zien';
+$lang['js']['confirmdelete']   = 'Weet je zeker dat je deze opmerking en zijn reacties wilt verwijderen?';
