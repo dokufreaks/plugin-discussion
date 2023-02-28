@@ -2,7 +2,7 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * 
+ *
  * @author Erwin Moller <erwin@darwine.nl>
  * @author mprins <mprins@users.sf.net>
  * @author Mijndert <mijndert@mijndertstuij.nl>
