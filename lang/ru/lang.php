@@ -3,17 +3,17 @@
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  *
+ * @author Aleksandr Selivanov <alexgearbox@yandex.ru>
  * @author Mike Lykov <lykov.myu@mgsm.ru>
  * @author Maxim Maximov <mxmv@@mail.ru>
- * @author Aleksandr Selivanov <alexgearbox@gmail.com>
  */
 $lang['encoding']              = 'utf-8';
 $lang['direction']             = 'ltr';
 $lang['menu']                  = 'Управление обсуждениями';
 $lang['discussion']            = 'Обсуждение';
 $lang['comment']               = 'Комментарий';
-$lang['comments']              = 'комментариев (-я)';
-$lang['nocomments']            = 'комментариев (-я)';
+$lang['comments']              = 'комментариев(-я)';
+$lang['nocomments']            = 'комментариев(-я)';
 $lang['threads']               = 'Обсуждения';
 $lang['url']                   = 'Веб-сайт';
 $lang['address']               = 'Адрес';
@@ -40,3 +40,4 @@ $lang['reply']                 = 'Ответ';
 $lang['replies']               = 'Ответы';
 $lang['newthread']             = 'Новая ветка';
 $lang['toggle_display']        = 'Скрыть/Показать';
+$lang['js']['confirmdelete']   = 'Действительно удалить этот комментарий и ответы на него?';
