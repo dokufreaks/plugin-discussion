@@ -1,6 +1,6 @@
-Bonjour!
+Bonjour !
 
-Un nouveau commentaire a été ajouté à la page @PAGE@ dans le wiki @TITLE@.
+Un nouveau commentaire a été ajouté sur la page @PAGE@ du wiki @TITLE@.
 
 Date:   @DATE@
 Nom:    @NAME@
@@ -11,7 +11,7 @@ Commentaire:
 @TEXT@
 --------------------------------------------------------
 
-Pour vous désinscrire de cette page connectez vous au wiki puis cliquez sur ce lien:
+Pour vous désinscrire, onnectez vous au wiki puis cliquez sur ce lien :
 @UNSUBSCRIBE@
 
 -- 

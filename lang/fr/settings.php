@@ -2,7 +2,7 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * 
+ *
  * @author Damien Raude-Morvan <drazzib@drazzib.com>
  * @author Raphael Wils <info@r-wils.fr>
  * @author Benjamin HKB <http://benjamin.hkb.free.fr>
