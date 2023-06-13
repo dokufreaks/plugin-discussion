@@ -1,4 +1,5 @@
-Bonjour!
+Bonjour !
+
 Vous êtes sur le point de souscrire aux commentaires de la page @PAGE@ du wiki @TITLE@.
 
 Pour confirmer votre souscription, merci de suivre ce lien :

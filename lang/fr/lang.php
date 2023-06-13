@@ -2,7 +2,8 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * 
+ *
+ * @author Schplurtz le Déboulonné <schplurtz@laposte.net>
  * @author Raphael Wils <info@r-wils.fr>
  * @author Bellière Ludovic <xrogaan@gmail.com>
  * @author Benjamin HKB <http://benjamin.hkb.free.fr>
@@ -15,9 +16,9 @@ $lang['encoding']              = 'utf-8';
 $lang['direction']             = 'ltr';
 $lang['menu']                  = 'Discussions modérées';
 $lang['discussion']            = 'Discussion';
-$lang['comment']               = 'Commentaire';
-$lang['comments']              = 'Commentaires';
-$lang['nocomments']            = 'Pas de commentaires';
+$lang['comment']               = 'commentaire';
+$lang['comments']              = 'commentaires';
+$lang['nocomments']            = 'commentaire';
 $lang['threads']               = 'Discussions';
 $lang['url']                   = 'Site web';
 $lang['address']               = 'Adresse';
@@ -44,3 +45,4 @@ $lang['reply']                 = 'Réponse';
 $lang['replies']               = 'Réponses';
 $lang['newthread']             = 'Nouvelle discussion';
 $lang['toggle_display']        = 'Cacher/Voir';
+$lang['js']['confirmdelete']   = 'Êtes vous certain de vouloir supprimer ce commentaire et ses réponses ?';
