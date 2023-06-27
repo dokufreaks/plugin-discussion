@@ -953,7 +953,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
     protected function showReplies($cid, &$data, $reply, &$isVisible)
     {
         $comment = $data['comments'][$cid];
-        if (!count($comment['replies'])) {
+        if (!empty($comment['replies'])) {
             return;
         }
         ptln('<div class="comment_replies"' . $this->getWidthStyle() . '>', 4);
