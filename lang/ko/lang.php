@@ -3,6 +3,7 @@
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  *
+ * @author take <take@ruu.kr>
  * @author Kwangseob Kim<mrkwangseob@gmail.com>
  * @author Myeongjin <aranet100@gmail.com>
  */
@@ -39,3 +40,4 @@ $lang['reply']                 = '댓글';
 $lang['replies']               = '댓글';
 $lang['newthread']             = '새 토론 문서';
 $lang['toggle_display']        = '숨기기/보이기';
+$lang['js']['confirmdelete']   = '이 댓글과 댓글의 답변을 삭제하시겠습니까?';
