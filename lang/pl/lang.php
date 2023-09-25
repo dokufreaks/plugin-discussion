@@ -3,6 +3,7 @@
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  *
+ * @author Marek Adamski <fevbew@wp.pl>
  * @author Wojciech Lichota <wojciech@lichota.pl>
  * @author Esther Brunner <wikidesign@gmail.com> (in English)
  * @author Mati <mackosa@wp.pl>
@@ -40,3 +41,4 @@ $lang['reply']                 = 'Odpowiedz';
 $lang['replies']               = 'Odpowiedzi';
 $lang['newthread']             = 'Nowy wątek';
 $lang['toggle_display']        = 'Ukryj/Pokaż';
+$lang['js']['confirmdelete']   = 'Czy na pewno chcesz usunąć ten komentarz i odpowiedzi na niego?';
