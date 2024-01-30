@@ -81,7 +81,7 @@ class helper_plugin_discussion extends DokuWiki_Plugin
             $cfile = metaFN($id, '.comments');
             $comments = unserialize(io_readFile($cfile, false));
 
-            $num = is_array($comments) ? $comments['number'] : null;
+            $num = $comments['number'] ?? null;
             if ($num === null || !$comments['status'] || ($comments['status'] == 2 && !$num)) {
                 return '';
             }
