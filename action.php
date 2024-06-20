@@ -441,7 +441,56 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
             ptln('</a></h2>', 2);
             ptln('<div class="level2 hfeed">', 2);
         }
-
+        
+        // How many items to list per page
+	$nItemsPerPage = 50;
+	// How many pages will there be
+	$max_pages = ceil($cnt / $nItemsPerPage);
+	// What page are we currently on?
+	$page = min($max_pages, filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT, array(
+		'options' => array(
+           	'default'   => 1,
+        	'min_range' => 1,
+		),
+	)));
+        // now display the comments
+        if (isset($data['comments'])) {
+            if (!$this->getConf('usethreading')) {
+                $data['comments'] = $this->_flattenThreads($data['comments']);
+                uasort($data['comments'], '_sortCallback');
+            }
+            if($this->getConf('newestfirst')) {
+                $data['comments'] = array_reverse($data['comments']);
+            }
+		foreach (array_slice ($data['comments'], $nItemsPerPage*($page-1), $nItemsPerPage) as $key => $value) {
+                if ($key == $edit) $this->_form($value['raw'], 'save', $edit); // edit form
+                else $this->_print($key, $data, '', $reply);
+            }
+        }
+	// Previous Button
+	$previous  = '';
+	if($_GET['page'] > 1)
+	$previous .= '<a href="?&page='.($_GET['page']-1).'">';
+	$previous .= 'Previous';
+	$previous .= '</a>';
+	// Next Button
+	$next  = '';
+	if($_GET['page'] < $max_pages)
+	if($_GET['page'] == 0)//the page=1 url doesn't show up at first so need to count from 2 at the beginning
+	$next .= '<a href="?&page='. ($_GET['page']+2).'">';
+	else
+	$next .= '<a href="?&page='. ($_GET['page']+1).'">';
+	$next .= ' Next';
+	$next .= '</a>';
+	// Comment Amount
+	$comment_amount  = '';
+	$comment_amount .= '<span> ' .$cnt.' Comments</span>';
+	// Page Amount
+	$page_amount  = '';
+	$page_amount .= '<span> ' .$max_pages.' Pages</span>';
+	// Call the data
+	echo '<div id="media_pagination">'.$previous, $next, $page_amount.'</div>'.NL;
+	   
         // now display the comments
         if (isset($data['comments'])) {
             if (!$this->getConf('usethreading')) {
