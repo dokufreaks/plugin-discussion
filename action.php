@@ -1411,9 +1411,13 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
                         }
                     }
                     $bccs = array_unique($bccs);
-                    // notify the users
-                    $mailer->bcc(implode(',', $bccs));
-                    $mailer->send();
+                    // notify the users if any were found
+		            if (count($bccs) > 0) {
+	                    $mailer->bcc(implode(',', $bccs));
+			            $mailer->send();
+		            } else {
+			            dbglog("moderatorgroups field set, but no valid users or groups found. Not sending email.");
+		            }
                 }
             }
         }
