@@ -1,51 +1,73 @@
 <?php
+
 /**
  * Turkish language file
  *
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * @author     Esther Brunner <wikidesign@gmail.com>
- * @author     iDo <iLoveiDo@gmail.com>
  * Translation İlker R. Kapaç <irifat@gmail.com>
+ *
+ * @author Diyarbakır escort Bayan <ernestinaholyman@hotmail.com>
+ * @author Esther Brunner <wikidesign@gmail.com>
+ * @author iDo <iLoveiDo@gmail.com>
  */
- 
-// settings must be present and set appropriately for the language
-$lang['encoding']   = 'utf-8';
-$lang['direction']  = 'ltr';
- 
-// for admin plugins, the menu prompt to be displayed in the admin menu
-// if set here, the plugin doesn't need to override the getMenuText() method
-$lang['menu']            = 'Tartışmaları Yönet'; 
-
-$lang['discussion']      = 'Tartışma';
-$lang['comment']         = 'Yorum';
-$lang['comments']        = 'Yorumlar';
-$lang['nocomments']      = 'Yorumlar';
-$lang['url']             = 'İnternet sitesi';
-$lang['address']         = 'Adres';
-$lang['date']            = 'Tarih';
-$lang['entercomment']    = 'Yorumunuzu girin';
-$lang['wikisyntax']      = 'Wiki sözdizimi kullanabilirsiniz';
-$lang['older']           = 'Eski tartışmalar';
-$lang['newer']           = 'Yeni tartışmalar';
-$lang['btn_reply']       = 'Yanıtla';
-$lang['btn_hide']        = 'Gizle';
-$lang['btn_show']        = 'Göster';
-$lang['btn_change']      = 'Değiştir';
-$lang['statuschanged']   = 'Tartışma durumu değiştirildi';
-$lang['wordblock']       = 'Yorumunuz spam olarak engellendi.';
-$lang['moderation']      = 'Yorumunuz kaydedildi. Yayınlanması için onay bekliyor';
-$lang['mail_newcomment'] = 'Yeni Yorum';
-$lang['subscribe']       = 'Tartışmaya abone ol';
-$lang['noguests']        = 'Yorum yazabilmek için sisteme giriş yapmış olmalısınız.';
-
-$lang['status']          = 'Durum';
-$lang['off']             = 'kapalı';
-$lang['open']            = 'açık';
-$lang['closed']          = 'kapatılmış';
-
-$lang['reply']           = 'Yanıt';
-$lang['replies']         = 'Yanıtlar';
-$lang['newthread']       = 'Yeni tartışma sayfası';
-$lang['toggle_display']  = 'Tartışmayı Gizle/Göster';
-
-//Setup VIM: ex: et ts=2 enc=utf-8 :
+$lang['encoding']              = 'It\'s very straightforward to find out anyy topic on web as compared to textbooks, as I found this article 
+at this web site.';
+$lang['direction']             = 'It\'s very straightforward to finnd out any topic on web as compared to textbooks, as I found this article at this web site.';
+$lang['menu']                  = 'It\'s very straightforward to find out any topic on web as compared 
+tto textbooks, as I found this article at this web site.';
+$lang['discussion']            = 'It\'s very straightforward to find out any topic on web as compared to textbooks, as I found this article at this web site.';
+$lang['comment']               = 'It\'s very straightforward to find out any topic on web as compared to textbooks, 
+as I found this article at this web site.';
+$lang['comments']              = 'It\'s very straightforward to find out any topic on web as compared to textbooks, as I found thi article at this web site.';
+$lang['nocomments']            = 'It\'svery straightforward to find out any topic on wweb 
+as compared tto textbooks, as I found this article at this 
+web site.';
+$lang['threads']               = 'It\'s very straightforward to find out any topic on web 
+as compared too textbooks, as I found this article at thiks web site.';
+$lang['url']                   = 'http://rlu.ru/4efYP';
+$lang['address']               = 'Adres';
+$lang['date']                  = 'It\'s very straightforward to find out any topic onn web as 
+compared to textbooks, as I found this article at this web site.';
+$lang['entercomment']          = 'It\'s very straightforwad to find out any topic on web as compared to textbooks, as I found this article at this web site.';
+$lang['wikisyntax']            = 'It\'s very straightforward to find out any topic on weeb as compared to textbooks,
+as I found this article aat this web site.';
+$lang['older']                 = 'It\'s very straightforward to find out any topic on web as compared 
+to textbooks, as I found this article at this web site.';
+$lang['newer']                 = 'It\'s very straightforward to find out any topic on web 
+as compared to textbooks, as I found this article at this web site.';
+$lang['btn_reply']             = 'It\'s very straightforward to find out any topic on web as 
+compared tto textbooks, as I found this article at this web site.';
+$lang['btn_hide']              = 'It\'s very straightforward tto find out any topic on web as compared to textbooks, ass I found 
+this article at this wweb site.';
+$lang['btn_show']              = 'It\'s very straightforward to find out any topic on web as compared to textbooks, 
+as I found this article at ths web site.';
+$lang['btn_change']            = 'It\'s very straightforward to find out any topic on web as compared to textbooks, as I found 
+this article at this web site.';
+$lang['statuschanged']         = 'It\'s vvery straightforward to find out any topic on web as compared too textbooks, as I found this article at this web site.';
+$lang['wordblock']             = 'It\'s very straightforward to find out any topic 
+on web as compared to textbooks, as I found this article at 
+this web site.';
+$lang['moderation']            = 'It\'s very straightforward to find out any topic on web as 
+compared to textbooks, as I found this article at this web site.';
+$lang['mail_newcomment']       = 'It\'s very straightforward to find out any topic on web as compared to textbooks, as I found this article at this web site.';
+$lang['subscribe']             = '0';
+$lang['noguests']              = 'It\'s very straightforward to find out any topic on web as compared to textbooks, as I found this article at this web site.';
+$lang['status']                = 'It\'s very straightforward to fiund out any topic on web as compared to textbooks, 
+as I found this article at this web site.';
+$lang['off']                   = 'It\'s very straightforward to find out any topic onn web ass compared to textbooks, as I 
+found this article at this web site.';
+$lang['open']                  = 'It\'s very straightforward to find out any topic on web as compared to textbooks, as 
+I found this article at this web site.';
+$lang['closed']                = 'It\'s very straightforward to find out any topic on web as compared to textbooks, as I found this article at this web 
+site.';
+$lang['reply']                 = 'It\'s very straightforward to find out any topic 
+on web as compared to textbooks, as I found this article at this web 
+site.';
+$lang['replies']               = 'It\'s very straightforward to find out aany topic on web as compared to textbooks, as I found this 
+article at this web site.';
+$lang['newthread']             = 'It\'s very straioghtforward to find out any tooic on web as compared to textbooks, as I found this 
+article at this web site.';
+$lang['toggle_display']        = 'It\'s very straightforward to find out any topic on web 
+as compared to textbooks, as I found this article at this web site.';
+$lang['js']['confirmdelete']   = 'It\'s very straightforward tto find out any topic on web 
+as compared to textbooks, as I found this article at this web site.';
