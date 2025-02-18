@@ -8,6 +8,8 @@ use dokuwiki\Extension\Event;
 use dokuwiki\Subscriptions\SubscriberManager;
 use dokuwiki\Utf8\PhpString;
 
+include_once 'lptln.php';
+
 /**
  * Class action_plugin_discussion
  *
@@ -435,11 +437,11 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
             $show = true;
             // section title
             $title = (!empty($data['title']) ? hsc($data['title']) : $this->getLang('discussion'));
-            ptln('<div class="comment_wrapper" id="comment_wrapper">'); // the id value is used for visibility toggling the section
-            ptln('<h2><a name="discussion__section" id="discussion__section">', 2);
-            ptln($title, 4);
-            ptln('</a></h2>', 2);
-            ptln('<div class="level2 hfeed">', 2);
+            lptln('<div class="comment_wrapper" id="comment_wrapper">'); // the id value is used for visibility toggling the section
+            lptln('<h2><a name="discussion__section" id="discussion__section">', 2);
+            lptln($title, 4);
+            lptln('</a></h2>', 2);
+            lptln('<div class="level2 hfeed">', 2);
         }
 
         // now display the comments
@@ -466,8 +468,8 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
         }
 
         if ($show) {
-            ptln('</div>', 2); // level2 hfeed
-            ptln('</div>'); // comment_wrapper
+            lptln('</div>', 2); // level2 hfeed
+            lptln('</div>'); // comment_wrapper
         }
 
         // check for toggle print configuration
@@ -824,9 +826,9 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
             $class .= ' reply';
         }
         // comment head with date and user data
-        ptln('<div class="hentry' . $class . '">', 4);
-        ptln('<div class="comment_head">', 6);
-        ptln('<a name="comment_' . $cid . '" id="comment_' . $cid . '"></a>', 8);
+        lptln('<div class="hentry' . $class . '">', 4);
+        lptln('<div class="comment_head">', 6);
+        lptln('<a name="comment_' . $cid . '" id="comment_' . $cid . '"></a>', 8);
         $head = '<span class="vcard author">';
 
         // prepare variables
@@ -895,17 +897,17 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
                 strftime('%Y-%m-%dT%H:%M:%SZ', $modified) . '">' . dformat($modified, $conf['dformat']) .
                 '</abbr>';
         }
-        ptln($head, 8);
-        ptln('</div>', 6); // class="comment_head"
+        lptln($head, 8);
+        lptln('</div>', 6); // class="comment_head"
 
         // main comment content
-        ptln('<div class="comment_body entry-content"' .
+        lptln('<div class="comment_body entry-content"' .
             ($this->useAvatar() ? $this->getWidthStyle() : '') . '>', 6);
         echo ($HIGH ? html_hilight($comment['xhtml'], $HIGH) : $comment['xhtml']) . DOKU_LF;
-        ptln('</div>', 6); // class="comment_body"
+        lptln('</div>', 6); // class="comment_body"
 
         if ($isVisible) {
-            ptln('<div class="comment_buttons">', 6);
+            lptln('<div class="comment_buttons">', 6);
 
             // show reply button?
             if ($data['status'] == 1 && !$reply && $comment['show']
@@ -922,9 +924,9 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
                 $this->showButton($cid, $label, 'toogle');
                 $this->showButton($cid, $lang['btn_delete'], 'delete');
             }
-            ptln('</div>', 6); // class="comment_buttons"
+            lptln('</div>', 6); // class="comment_buttons"
         }
-        ptln('</div>', 4); // class="hentry"
+        lptln('</div>', 4); // class="hentry"
     }
 
     /**
@@ -936,9 +938,9 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
     protected function showReplyForm($cid, $reply)
     {
         if ($this->getConf('usethreading') && $reply == $cid) {
-            ptln('<div class="comment_replies reply">', 4);
+            lptln('<div class="comment_replies reply">', 4);
             $this->showCommentForm('', 'add', $cid);
-            ptln('</div>', 4); // class="comment_replies"
+            lptln('</div>', 4); // class="comment_replies"
         }
     }
 
@@ -956,12 +958,12 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
         if (!empty($comment['replies'])) {
             return;
         }
-        ptln('<div class="comment_replies"' . $this->getWidthStyle() . '>', 4);
+        lptln('<div class="comment_replies"' . $this->getWidthStyle() . '>', 4);
         $isVisible = ($comment['show'] && $isVisible);
         foreach ($comment['replies'] as $rid) {
             $this->showCommentWithReplies($rid, $data, $cid, $reply, $isVisible);
         }
-        ptln('</div>', 4);
+        lptln('</div>', 4);
     }
 
     /**
@@ -1004,10 +1006,10 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
      */
     protected function showDiscussionToggleButton()
     {
-        ptln('<div id="toggle_button" class="toggle_button">');
-        ptln('<input type="submit" id="discussion__btn_toggle_visibility" title="Toggle Visibiliy" class="button"'
+        lptln('<div id="toggle_button" class="toggle_button">');
+        lptln('<input type="submit" id="discussion__btn_toggle_visibility" title="Toggle Visibiliy" class="button"'
             . 'value="' . $this->getLang('toggle_display') . '">');
-        ptln('</div>');
+        lptln('</div>');
     }
 
     /**
