@@ -1,20 +1,19 @@
-Dobry den,
+Dobrý den,
 
-komentar byl pridan na strance @PAGE@ s titulkem @TITLE@ wiki.
+na stránku @PAGE@ ve wiki @TITLE@ byl přidán nový komentář.
 
-Datum: 	@DATE@
-Jmeno: 	@NAME@
+Datum:   @DATE@
+Jméno:   @NAME@
 URL:    @COMMENTURL@
 
-Komentar:
+Komentář:
 --------------------------------------------------------
 @TEXT@
 --------------------------------------------------------
 
-Pokud se chcete odregistrovat od zasilani informaci prihlaste
-se na dane strance a pote kliknete na tento link:
+Chcete-li se odhlásit z odběru, přihlaste se na dané stránce a poté klikněte na tento odkaz:
 @UNSUBSCRIBE@
 
 --
-E-mail generovan systemem DokuWiki na adrese
+Tento mail byl vygenerován DokuWiki na adrese
 @DOKUWIKIURL@

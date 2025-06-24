@@ -2,7 +2,8 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * 
+ *
+ * @author Petr Kajzar <petr.kajzar@centrum.cz>
  * @author Lukas Zapletal <lukas.zapletal at gmail dot com>
  * @author Jaroslav Lichtblau <jlichtblau@seznam.cz>
  */
@@ -39,3 +40,4 @@ $lang['reply']                 = 'Odpověď';
 $lang['replies']               = 'Odpovědi';
 $lang['newthread']             = 'Nové vlákno';
 $lang['toggle_display']        = 'Skrýt/Zobrazit';
+$lang['js']['confirmdelete']   = 'Jste si jistí, že chcete tento komentář včetně odpovědí smazat?';
