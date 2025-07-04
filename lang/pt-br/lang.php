@@ -2,7 +2,8 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * 
+ *
+ * @author Thalles <dokuwiki@thall.es>
  * @author Sidnei Neves <sidnei@sidnei.org>
  * @author Juliano Marconi Lanigra <juliano.marconi@gmail.com>
  * @author Oze Projetos <oze@oze.net.br>
@@ -40,3 +41,4 @@ $lang['reply']                 = 'Responder';
 $lang['replies']               = 'Respostas';
 $lang['newthread']             = 'Nova discussão';
 $lang['toggle_display']        = 'Ocultar/Mostrar';
+$lang['js']['confirmdelete']   = 'Tem certeza de que deseja excluir este comentário e suas respostas?';
