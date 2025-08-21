@@ -6,6 +6,8 @@
 
 use dokuwiki\Utf8\PhpString;
 
+include_once 'lptln.php';
+
 /**
  * Class admin_plugin_discussion
  */
@@ -71,7 +73,7 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin
 
         $num = $conf['recent'] ?: 20;
 
-        ptln('<h1>' . $this->getLang('menu') . '</h1>');
+        lptln('<h1>' . $this->getLang('menu') . '</h1>');
 
         $threads = $this->getThreads();
 
@@ -83,20 +85,20 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin
             $comments = $this->getComments($thread);
             $this->threadHead($thread);
             if ($comments === false) {
-                ptln('</div>', 6); // class="level2"
+                lptln('</div>', 6); // class="level2"
                 continue;
             }
 
-            ptln('<form method="post" action="' . wl($thread['id']) . '">', 8);
-            ptln('<div class="no">', 10);
-            ptln('<input type="hidden" name="do" value="admin" />', 10);
-            ptln('<input type="hidden" name="page" value="discussion" />', 10);
-            ptln('<input type="hidden" name="sectok" value="'.getSecurityToken().'" />', 10);
+            lptln('<form method="post" action="' . wl($thread['id']) . '">', 8);
+            lptln('<div class="no">', 10);
+            lptln('<input type="hidden" name="do" value="admin" />', 10);
+            lptln('<input type="hidden" name="page" value="discussion" />', 10);
+            lptln('<input type="hidden" name="sectok" value="'.getSecurityToken().'" />', 10);
             echo html_buildlist($comments, 'admin_discussion', [$this, 'commentItem'], [$this, 'liComment']);
             $this->actionButtons();
-            ptln('</div>', 10); // class="no"
-            ptln('</form>', 8);
-            ptln('</div>', 6); // class="level2"
+            lptln('</div>', 10); // class="no"
+            lptln('</form>', 8);
+            lptln('</div>', 6); // class="level2"
         }
         $this->browseDiscussionLinks($isMore, $first, $num);
 
@@ -330,11 +332,11 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin
     {
         global $lang;
 
-        ptln('<div class="comment_buttons">', 12);
-        ptln('<input type="submit" name="comment" value="' . $this->getLang('btn_show') . '" class="button" title="' . $this->getLang('btn_show') . '" />', 14);
-        ptln('<input type="submit" name="comment" value="' . $this->getLang('btn_hide') . '" class="button" title="' . $this->getLang('btn_hide') . '" />', 14);
-        ptln('<input type="submit" name="comment" value="' . $lang['btn_delete'] . '" class="button" title="' . $lang['btn_delete'] . '" />', 14);
-        ptln('</div>', 12); // class="comment_buttons"
+        lptln('<div class="comment_buttons">', 12);
+        lptln('<input type="submit" name="comment" value="' . $this->getLang('btn_show') . '" class="button" title="' . $this->getLang('btn_show') . '" />', 14);
+        lptln('<input type="submit" name="comment" value="' . $this->getLang('btn_hide') . '" class="button" title="' . $this->getLang('btn_hide') . '" />', 14);
+        lptln('<input type="submit" name="comment" value="' . $lang['btn_delete'] . '" class="button" title="' . $lang['btn_delete'] . '" />', 14);
+        lptln('</div>', 12); // class="comment_buttons"
     }
 
     /**
@@ -352,7 +354,7 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin
 
         $params = ['do' => 'admin', 'page' => 'discussion'];
         $last = $first + $num;
-        ptln('<div class="level1">', 8);
+        lptln('<div class="level1">', 8);
         $return = '';
         if ($first > 0) {
             $first -= $num;
@@ -360,24 +362,24 @@ class admin_plugin_discussion extends DokuWiki_Admin_Plugin
                 $first = 0;
             }
             $params['first'] = $first;
-            ptln('<p class="centeralign">', 8);
+            lptln('<p class="centeralign">', 8);
             $return = '<a href="' . wl($ID, $params) . '" class="wikilink1">&lt;&lt; ' . $this->getLang('newer') . '</a>';
             if ($isMore) {
                 $return .= ' | ';
             } else {
-                ptln($return, 10);
-                ptln('</p>', 8);
+                lptln($return, 10);
+                lptln('</p>', 8);
             }
         } elseif ($isMore) {
-            ptln('<p class="centeralign">', 8);
+            lptln('<p class="centeralign">', 8);
         }
         if ($isMore) {
             $params['first'] = $last;
             $return .= '<a href="' . wl($ID, $params) . '" class="wikilink1">' . $this->getLang('older') . ' &gt;&gt;</a>';
-            ptln($return, 10);
-            ptln('</p>', 8);
+            lptln($return, 10);
+            lptln('</p>', 8);
         }
-        ptln('</div>', 6); // class="level1"
+        lptln('</div>', 6); // class="level1"
     }
 
     /**
