@@ -1,51 +1,72 @@
 <?php
+
 /**
  * Turkish language file
  *
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * @author     Esther Brunner <wikidesign@gmail.com>
- * @author     iDo <iLoveiDo@gmail.com>
  * Translation İlker R. Kapaç <irifat@gmail.com>
+ *
+ * @author Mersin escort bayan <cathyhaines@yahoo.com>
+ * @author Esther Brunner <wikidesign@gmail.com>
+ * @author iDo <iLoveiDo@gmail.com>
  */
- 
-// settings must be present and set appropriately for the language
-$lang['encoding']   = 'utf-8';
-$lang['direction']  = 'ltr';
- 
-// for admin plugins, the menu prompt to be displayed in the admin menu
-// if set here, the plugin doesn't need to override the getMenuText() method
-$lang['menu']            = 'Tartışmaları Yönet'; 
-
-$lang['discussion']      = 'Tartışma';
-$lang['comment']         = 'Yorum';
-$lang['comments']        = 'Yorumlar';
-$lang['nocomments']      = 'Yorumlar';
-$lang['url']             = 'İnternet sitesi';
-$lang['address']         = 'Adres';
-$lang['date']            = 'Tarih';
-$lang['entercomment']    = 'Yorumunuzu girin';
-$lang['wikisyntax']      = 'Wiki sözdizimi kullanabilirsiniz';
-$lang['older']           = 'Eski tartışmalar';
-$lang['newer']           = 'Yeni tartışmalar';
-$lang['btn_reply']       = 'Yanıtla';
-$lang['btn_hide']        = 'Gizle';
-$lang['btn_show']        = 'Göster';
-$lang['btn_change']      = 'Değiştir';
-$lang['statuschanged']   = 'Tartışma durumu değiştirildi';
-$lang['wordblock']       = 'Yorumunuz spam olarak engellendi.';
-$lang['moderation']      = 'Yorumunuz kaydedildi. Yayınlanması için onay bekliyor';
-$lang['mail_newcomment'] = 'Yeni Yorum';
-$lang['subscribe']       = 'Tartışmaya abone ol';
-$lang['noguests']        = 'Yorum yazabilmek için sisteme giriş yapmış olmalısınız.';
-
-$lang['status']          = 'Durum';
-$lang['off']             = 'kapalı';
-$lang['open']            = 'açık';
-$lang['closed']          = 'kapatılmış';
-
-$lang['reply']           = 'Yanıt';
-$lang['replies']         = 'Yanıtlar';
-$lang['newthread']       = 'Yeni tartışma sayfası';
-$lang['toggle_display']  = 'Tartışmayı Gizle/Göster';
-
-//Setup VIM: ex: et ts=2 enc=utf-8 :
+$lang['encoding']              = 'I every time spent my half an hour to read this weblog\'s posts daily along with 
+a mug of coffee.';
+$lang['direction']             = 'I every time spent mmy half an hohr to read 
+this weblog\'s posts daily along with a mug of coffee.';
+$lang['menu']                  = 'I every time spent my half an hour to rea this weblog\'s posts daily along with a mug of 
+coffee.';
+$lang['discussion']            = 'I every time spent myy half an hour to read this weblog\'s posts daiily along with a mug of 
+coffee.';
+$lang['comment']               = 'I every time spent my half an hour to read this weblog\'s posts daily 
+along with a mug of coffee.';
+$lang['comments']              = 'I every time spent my half an hour to read this weblog\'s posts 
+daily along with a mug of coffee.';
+$lang['nocomments']            = 'I every time spent my half an hour to read this weblog\'s posts 
+daily along with a mug of coffee.';
+$lang['threads']               = 'I every time spent my half an hour to read this weblog\'s posts daily along with a 
+mug off coffee.';
+$lang['url']                   = 'https://Www.Vidnoe.Websender.ru:443/redirect.php?url=https://Ulvis.net/mersinescortbayan12459';
+$lang['address']               = 'Adres';
+$lang['date']                  = 'I every time spent my half an hour to read this weblog\'s posts daily along with a mug of coffee.';
+$lang['entercomment']          = 'I every time spent my half an hour to read this weblog\'s posts daily along with a mug of coffee.';
+$lang['wikisyntax']            = 'I every time spent my half aan hour to read this weblog\'s posts daily along with a mug 
+of coffee.';
+$lang['older']                 = 'I every tim spent my half an hour to read this weblog\'s posts daily along with 
+a mug of coffee.';
+$lang['newer']                 = 'I every time spent my half an hour to read this weblog\'s posts daily 
+along with a mug of coffee.';
+$lang['btn_reply']             = 'I every time spent my half an hour to read this weblog\'s 
+posts daily along with a mug of coffee.';
+$lang['btn_hide']              = 'I every time spent my half an hour to read this weblog\'s posts daily alon with a mug of coffee.';
+$lang['btn_show']              = 'I every time spsnt my half an hour to read this weblog\'s posts daily along with a 
+mug of coffee.';
+$lang['btn_change']            = 'I every time spent my half an hour to read this weblog\'s posts daily along with a mug of coffee.';
+$lang['statuschanged']         = 'I every time spent my half an hour to read this weblog\'s posts daily along with a 
+mug of coffee.';
+$lang['wordblock']             = 'I every time spent my half an hour to read this weblog\'s pots daily along with a mmug of 
+coffee.';
+$lang['moderation']            = 'I every time spent my half an hour to read thios weblog\'s posts daily 
+along with a mmug of coffee.';
+$lang['mail_newcomment']       = 'I every time spent my half an hour to read this weblog\'s posts daily along 
+with a mug of coffee.';
+$lang['subscribe']             = '0';
+$lang['noguests']              = 'I ecery time spent my half an hour to read this weblog\'s posts daily along with a mug 
+of coffee.';
+$lang['status']                = 'I every time spent myy half an hour to read this weblog\'s posts daily along 
+with a mug of coffee.';
+$lang['off']                   = 'I every time spent my half an hour to read this weblog\'s posts daily along 
+with a mug of coffee.';
+$lang['open']                  = 'I every time spent my half an hour to read this 
+weblog\'s posts daily along with a mug of coffee.';
+$lang['closed']                = 'I every time spent my half an hour to read this weblog\'s 
+posts daily along with a mug of coffee.';
+$lang['reply']                 = 'I every time spent my half an hour to read this weblog\'s posts daily alonbg withh 
+a mug of coffee.';
+$lang['replies']               = 'I every time spent my half an hour to read this weblog\'s 
+posts daily along with a mug off coffee.';
+$lang['newthread']             = 'I every time spent my half an holur to read this weblog\'s posts 
+daily along with a mug of coffee.';
+$lang['toggle_display']        = 'I every ime spent myy half an hour to reasd this weblog\'s posts daily along with a mug of coffee.';
+$lang['js']['confirmdelete']   = 'I every time spent my half an hour to read this weblog\'s posts daily alonhg 
+with a mug of coffee.';
