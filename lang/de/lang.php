@@ -3,6 +3,7 @@
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  *
+ * @author Andreas Heil <aeheil@gmail.com>
  * @author Esther Brunner <wikidesign@gmail.com>
  * @author iDo <iLoveiDo@gmail.com>
  * @author Dominik Eckelmann <deckelmann@gmail.com>
@@ -41,3 +42,4 @@ $lang['reply']                 = 'Antwort';
 $lang['replies']               = 'Antworten';
 $lang['newthread']             = 'Neues Thema';
 $lang['toggle_display']        = 'Verstecken/Anzeigen';
+$lang['js']['confirmdelete']   = 'Sind Sie sicher, dass Sie diesen Kommentar und alle zugehörigen Antworten löschen  wollen?';
