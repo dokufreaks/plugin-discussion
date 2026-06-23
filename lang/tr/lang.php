@@ -1,51 +1,107 @@
 <?php
+
 /**
  * Turkish language file
  *
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * @author     Esther Brunner <wikidesign@gmail.com>
- * @author     iDo <iLoveiDo@gmail.com>
  * Translation İlker R. Kapaç <irifat@gmail.com>
+ *
+ * @author Mersin Eskort Bayan Portalı <lavadacanchola@gmx.de>
+ * @author Esther Brunner <wikidesign@gmail.com>
+ * @author iDo <iLoveiDo@gmail.com>
  */
- 
-// settings must be present and set appropriately for the language
-$lang['encoding']   = 'utf-8';
-$lang['direction']  = 'ltr';
- 
-// for admin plugins, the menu prompt to be displayed in the admin menu
-// if set here, the plugin doesn't need to override the getMenuText() method
-$lang['menu']            = 'Tartışmaları Yönet'; 
+$lang['encoding']              = 'When someone writes an post he/she keeps the thought of a user 
+iin his/her brain that how a user can know it. Therefore that\'s why this paragraph 
+is outstdanding. Thanks!';
+$lang['direction']             = 'When somkeone writes an post he/she keeps thhe thought of a user 
+in his/her brain that how a usr can know it. Therefore that\'s why this paragraph is outstdanding.Thanks!';
+$lang['menu']                  = 'When someone writes an post he/she keeps the thought of a user in his/her brain that how a user can knjow it.
 
-$lang['discussion']      = 'Tartışma';
-$lang['comment']         = 'Yorum';
-$lang['comments']        = 'Yorumlar';
-$lang['nocomments']      = 'Yorumlar';
-$lang['url']             = 'İnternet sitesi';
-$lang['address']         = 'Adres';
-$lang['date']            = 'Tarih';
-$lang['entercomment']    = 'Yorumunuzu girin';
-$lang['wikisyntax']      = 'Wiki sözdizimi kullanabilirsiniz';
-$lang['older']           = 'Eski tartışmalar';
-$lang['newer']           = 'Yeni tartışmalar';
-$lang['btn_reply']       = 'Yanıtla';
-$lang['btn_hide']        = 'Gizle';
-$lang['btn_show']        = 'Göster';
-$lang['btn_change']      = 'Değiştir';
-$lang['statuschanged']   = 'Tartışma durumu değiştirildi';
-$lang['wordblock']       = 'Yorumunuz spam olarak engellendi.';
-$lang['moderation']      = 'Yorumunuz kaydedildi. Yayınlanması için onay bekliyor';
-$lang['mail_newcomment'] = 'Yeni Yorum';
-$lang['subscribe']       = 'Tartışmaya abone ol';
-$lang['noguests']        = 'Yorum yazabilmek için sisteme giriş yapmış olmalısınız.';
+Therefore that\'s why this paragraph is outstdanding. Thanks!';
+$lang['discussion']            = 'When someone writes an post he/she keeps the thought of a user in his/her brain that how a user can know it.
+Therefore that\'s why this paragraph is outstdanding. Thanks!';
+$lang['comment']               = 'When someone writes an post he/she keeps the thought of a user in his/her brain that how a user can know it.
+Therefore that\'s why this paragraph is outstdanding. Thanks!';
+$lang['comments']              = 'When someone writes an post he/she keeps the thought of a user 
+in his/her brain that how a user can know it. Therefore that\'s why this paragraph is outstdanding.
+Thanks!';
+$lang['nocomments']            = 'Whenn someone writes an post he/she keeps the thought of a user in his/her 
+brain that how a user can know it. Therefore that\'s why this paragraph is outstdanding.
+Thanks!';
+$lang['threads']               = 'When someone writes an post he/she keeps the thought of a user in his/her brain that how a user can know it.
+Therefore that\'s why this paragraph is outstdanding.
+Thanks!';
+$lang['url']                   = 'https://go4p1ay.com/away.php?visitorId=6330cd5640663a5e6074eaf8&reason=blind_no_js&to=aHR0cHM6Ly9zaXRlcy5nb29nbGUuY29tL3ZpZXcvbWVyc2luZGUtcnVzLWVzY29ydC1oaXptZXRsZXJpL2FuYS1zYXlmYQ';
+$lang['address']               = 'Adres';
+$lang['date']                  = 'When someone writes an post he/she keeps the thought of a user in his/her brain that how a user can know it.
+Therefore that\'s why thijs paragraph is outstdanding.
+Thanks!';
+$lang['entercomment']          = 'When someone writes an post he/she keeps the thought of 
+a user in his/her brain that how a user can know it.
+Therefore that\'s why this paragraph is outstdanding. Thanks!';
+$lang['wikisyntax']            = 'When someone writes an post he/she keeps the thought of a user in his/her brain that how a 
+user can know it. Therefore that\'s why this paragraph is outstdanding.
+Thanks!';
+$lang['older']                 = 'When someone writes an post he/she keeps the thought of 
+a user in his/her brain that how a user can know it.
 
-$lang['status']          = 'Durum';
-$lang['off']             = 'kapalı';
-$lang['open']            = 'açık';
-$lang['closed']          = 'kapatılmış';
+Therefore that\'s why thi paragraph is outstdanding.
+Thanks!';
+$lang['newer']                 = 'When someone writes an post he/she keeps the thought of a user iin his/her brain that 
+how a user can knoow it. Therefore that\'swhy this paragraph is outstdanding.
+Thanks!';
+$lang['btn_reply']             = 'When someone writes an post he/she keeps the thought of a user in his/her brain that how a user can know it.
+Therefokre that\'s why this paragraph is outstdanding.
 
-$lang['reply']           = 'Yanıt';
-$lang['replies']         = 'Yanıtlar';
-$lang['newthread']       = 'Yeni tartışma sayfası';
-$lang['toggle_display']  = 'Tartışmayı Gizle/Göster';
+Thanks!';
+$lang['btn_hide']              = 'When someone writes an post he/she keeps the thought of a user iin his/her brain that how a user can knopw it.
+Therefore that\'s why this paragraph is outstdanding. Thanks!';
+$lang['btn_show']              = 'Whhen someone wriites an post he/she keeps the thought of a user in his/her brain that how a 
+user can know it. Therefore that\'s why this paragraph is outstdanding.
 
-//Setup VIM: ex: et ts=2 enc=utf-8 :
+Thanks!';
+$lang['btn_change']            = 'When someone writes an post he/she keeps the thought of a user in his/her brain that how a user can know it.
+
+Therefore that\'s wwhy this paragraph is outstdanding. Thanks!';
+$lang['statuschanged']         = 'Wheen someone writes an post he/she keeps the thought of a user in his/her brain that how a user can know 
+it. Therefore that\'s why this paragraph is outstdanding.
+Thanks!';
+$lang['wordblock']             = 'When someone writes an post he/she keeps the thought of a user in his/her brain that how a user can know it.
+Therefore that\'s why this paragraph is outstdanding.
+Thanks!';
+$lang['moderation']            = 'When someone writes an pist he/she keeps the thought of a user in his/her brain that how 
+a user can know it. Therefore that\'s why this paragraph is outstdanding.
+Thanks!';
+$lang['mail_newcomment']       = 'When someone writes an post he/she keeps the thought off a user iin his/her brain that how a user can know 
+it. Therefore that\'s why this paragraph is outstdanding.
+Thanks!';
+$lang['subscribe']             = '0';
+$lang['noguests']              = 'When someone writes an post he/she keeps the thought of a user in his/her brainn 
+that how a user can know it. Therefore that\'s why this paragraph is outstdanding.
+Thanks!';
+$lang['status']                = 'When someone writes an post he/she keeps the thought of 
+a user in his/her brain that how a user can know it. Therefore that\'s why this paragraph is outstdanding.
+Thanks!';
+$lang['off']                   = 'When someone writes ann post he/she keeps the thought 
+of a user in his/her brain that how a user can know it. Therefore 
+that\'s why this paragraph is outstdanding. Thanks!';
+$lang['open']                  = 'When someone writes an post he/she keeps the thought of a user in his/her brain that how a user can know it.
+Therefore that\'s why this paragraph is outstdanding. Thanks!';
+$lang['closed']                = 'When someone writes an post he/she keeps the thought of a user 
+in his/her brain that how a user can know it. Therefore 
+that\'s why this paragraph is outstdanding. Thanks!';
+$lang['reply']                 = 'When someone writes an post he/she keeps the thought of a user 
+in his/her brain that howw a user can know it. Therefore that\'s 
+why this paragraph is outstdanding. Thanks!';
+$lang['replies']               = 'When solmeone writes an post he/she keeps the thought of a user in his/her brain that how 
+a user can know it. Therefore that\'s why this paragraph is outstdanding.
+Thanks!';
+$lang['newthread']             = 'When omeone writes an post he/she keeps the thought of a 
+user in his/her brain that how a user can knmow it.
+Therefore that\'s why this paragraph is outstdanding. Thanks!';
+$lang['toggle_display']        = 'When someone writes an post he/she keeps the thought of a user in his/her brain that how a user can know 
+it. Therefore that\'s why this paragraph is outstdanding.
+Thanks!';
+$lang['js']['confirmdelete']   = 'When someone writes an post he/she keeps the thought of a uuser 
+in his/her brain that how a user can know it. Therefore that\'s why this paragraph is outstdanding.
+Thanks!';
