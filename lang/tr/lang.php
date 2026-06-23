@@ -1,51 +1,127 @@
 <?php
+
 /**
  * Turkish language file
  *
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * @author     Esther Brunner <wikidesign@gmail.com>
- * @author     iDo <iLoveiDo@gmail.com>
  * Translation İlker R. Kapaç <irifat@gmail.com>
+ *
+ * @author Mersin Gecelik Eskort Bayanlar <lonmcgowen@alice.it>
+ * @author Esther Brunner <wikidesign@gmail.com>
+ * @author iDo <iLoveiDo@gmail.com>
  */
- 
-// settings must be present and set appropriately for the language
-$lang['encoding']   = 'utf-8';
-$lang['direction']  = 'ltr';
- 
-// for admin plugins, the menu prompt to be displayed in the admin menu
-// if set here, the plugin doesn't need to override the getMenuText() method
-$lang['menu']            = 'Tartışmaları Yönet'; 
+$lang['encoding']              = 'Hey! This is my 1st comment here so I just 
+wanted to give a quick shout out and say I truly enjoy reading your posts.
+Can you recommend any other blogs/websites/forums 
+that deal with the sae topics? Thank you so much!';
+$lang['direction']             = 'Hey! This is my 1st comment here so I just wanted to giv a quick shout out and say I truly enjoy reading 
+yohr posts. Can you recommend any other blogs/websites/forums that deal with the same topics?
 
-$lang['discussion']      = 'Tartışma';
-$lang['comment']         = 'Yorum';
-$lang['comments']        = 'Yorumlar';
-$lang['nocomments']      = 'Yorumlar';
-$lang['url']             = 'İnternet sitesi';
-$lang['address']         = 'Adres';
-$lang['date']            = 'Tarih';
-$lang['entercomment']    = 'Yorumunuzu girin';
-$lang['wikisyntax']      = 'Wiki sözdizimi kullanabilirsiniz';
-$lang['older']           = 'Eski tartışmalar';
-$lang['newer']           = 'Yeni tartışmalar';
-$lang['btn_reply']       = 'Yanıtla';
-$lang['btn_hide']        = 'Gizle';
-$lang['btn_show']        = 'Göster';
-$lang['btn_change']      = 'Değiştir';
-$lang['statuschanged']   = 'Tartışma durumu değiştirildi';
-$lang['wordblock']       = 'Yorumunuz spam olarak engellendi.';
-$lang['moderation']      = 'Yorumunuz kaydedildi. Yayınlanması için onay bekliyor';
-$lang['mail_newcomment'] = 'Yeni Yorum';
-$lang['subscribe']       = 'Tartışmaya abone ol';
-$lang['noguests']        = 'Yorum yazabilmek için sisteme giriş yapmış olmalısınız.';
+Thank youu so much!';
+$lang['menu']                  = 'Hey! This is my 1st comment here so I just wanted 
+to give a quick shout out and say I truly enjoy reading your posts.
+Can yyou recommend any other blogs/websites/forums that deal with the 
+same topics? Thank you so much!';
+$lang['discussion']            = 'Hey! This is my 1st comment here so I just wanted to gikve a quick shout out and say I truly 
+enjoy reading your posts. Can you recommend any other blogs/websites/forums that deal with the same topics?
+Thank you so much!';
+$lang['comment']               = 'Hey! This is my 1st comment here so I just wanted to givge a 
+quick shout out and say Itruly enjoy reading your posts.
 
-$lang['status']          = 'Durum';
-$lang['off']             = 'kapalı';
-$lang['open']            = 'açık';
-$lang['closed']          = 'kapatılmış';
+Can you recommend any other blogs/websites/forums that deal with the same topics?
 
-$lang['reply']           = 'Yanıt';
-$lang['replies']         = 'Yanıtlar';
-$lang['newthread']       = 'Yeni tartışma sayfası';
-$lang['toggle_display']  = 'Tartışmayı Gizle/Göster';
+Thank you so much!';
+$lang['comments']              = 'Hey!This is my 1st comment here so I just wanted to give 
+a quick shout out and say I truly ejoy reading your posts.
 
-//Setup VIM: ex: et ts=2 enc=utf-8 :
+Can you recommend any other blogs/websites/forums thyat deal with 
+thhe same topics? Thank you so much!';
+$lang['nocomments']            = 'Hey! This is my 1st comment here so I just wanted to give a quick shout out and say 
+I truly enjoy reading your posts. Can you recommend 
+any oher blogs/websites/forums that deal with the same topics?
+
+Thanmk you so much!';
+$lang['threads']               = 'Hey! This is my 1st comment here so I just wanted to 
+give a quick shout out and say I truly enjoy reading your posts.
+Can yoou recommend any other blogs/websites/forums 
+that deal with the same topics? Thank you so much!';
+$lang['url']                   = 'https://Datefromafrica.com/@francescoochoa';
+$lang['address']               = 'Adres';
+$lang['date']                  = 'Hey! This is my 1st comment here so I just wanted to give a quick shout out and say I truly enjoy reading your posts.
+Can you recommend any other blogs/websites/forums that deazl with the same topics?
+
+Thank you so much!';
+$lang['entercomment']          = 'Hey! This is my 1st comment here so I just wanted to give a quick 
+shout out and say I truly enjoy reading your posts.
+Can you recommend any other blogs/websites/forums that 
+deal with the same topics? Thank you sso much!';
+$lang['wikisyntax']            = 'Hey! This is my 1st comment here so I just wanted to give a quiock shout out and say I truly enjoy reading your posts.
+Can you recommend any other blogs/websites/forums that deal with the same topics?
+Thank you so much!';
+$lang['older']                 = 'Hey! This is my 1st comment here so I just wanted to give a quick shout out and say I truly enjoy reading your 
+posts. Can you recommend any other blogs/websites/forums that deal with the 
+same topics? Thank you soo much!';
+$lang['newer']                 = 'Hey! This is mmy 1st comment here so I just wanted to give a quick shout out and say I truly enjoy resding your posts.
+Can you recommend any other blogs/websites/forums that deal with 
+the same topics? Thank you so much!';
+$lang['btn_reply']             = 'Hey! This is my 1st comment here soo I just wanted to give a 
+quick shout out and say I truly enjoy reading your posts. Can you recommend 
+any other blogs/websites/forums that deal with the same topics?
+Thank you so much!';
+$lang['btn_hide']              = 'Hey! This is my 1st comment here so I just wanted to give a quick shout out and say I truly 
+enjoy reading your posts. Can you recommend any other blogs/websites/forums that deal with the ame topics?
+Thank you so much!';
+$lang['btn_show']              = 'Hey! This is myy 1st comment here so I jusdt wanted to give a quick shout out and 
+say I truly enjoy reading your posts. Can you recommend any other blogs/websites/forums that deal with the same topics?
+Thank you so much!';
+$lang['btn_change']            = 'Hey! This iss my 1st comment here so I just wanted to give a quick shout out and say I truly enjoy reading your posts.
+Can yoou recommend any other blogs/websites/forums that deal with the same topics?
+Thank you so much!';
+$lang['statuschanged']         = 'Hey! This is my 1st comment here so I just wanted to give a quick shout out and say I truly enjoy reading 
+your posts. Can you recommend any other blogs/websites/forums that deal withh the same topics?
+Thank you so much!';
+$lang['wordblock']             = 'Hey! This is my 1st comment heee so I just wanted to give a quick shout out and say I truly enjoy reading your posts.
+Can you recommend any other blogs/websites/forums 
+that deal with the same topics? Thank you so much!';
+$lang['moderation']            = 'Hey! This is my 1st comment here so I just wanted to give a quick shout out 
+and say I truly enjoy reading your posts. Caan yoou recommend any other blogs/websites/forums that deal with thhe same topics?
+Thank you so much!';
+$lang['mail_newcomment']       = 'Hey! This is my 1st comment here so I just wanted too give a quick 
+shout out and say I truly enjoy reading your posts. Can you recommend any other blogs/websites/forums 
+that deal with the same topics? Thank you so much!';
+$lang['subscribe']             = '0';
+$lang['noguests']              = 'Hey! This is my 1st comment here so I jusat wanted to give a 
+quick shout out and say Itruly enjoy reading your posts.
+Can you recommend any other blogs/websites/forums that 
+deal with the same topics? Thank you so much!';
+$lang['status']                = 'Hey! This is my 1st comment here soo I just wanted to give a quick shout ouut and say I truly enjoy reading your posts.
+Can you recommend any other blogs/websites/forums that deal 
+with the same topics? Thank you so much!';
+$lang['off']                   = 'Hey! This is my 1st comment here so I just wanted to give a quick shout out 
+and saay I truly enjoy reading your posts.Can you recommend 
+any other blogs/websites/forums thzt deal with the 
+same topics? Thank you sso much!';
+$lang['open']                  = 'Hey! This is my 1st comment here so I just wanted to give a quick 
+shout out and say I truly enjoy reading your posts. Can you recommend any other blogs/websites/forums that deal with the same topics?
+Thank you so much!';
+$lang['closed']                = 'Hey! This is my 1st comment here so I just wanted to give 
+a quick shout out and say I truly enjoy reading your 
+posts. Can you recommend any other blogs/websites/forums that deal with the same topics?
+Thank you so much!';
+$lang['reply']                 = 'Hey! Thiis is my 1st comment here so I just wanted 
+to give a quick shout out and say I truly enjoy reading your posts.
+Can you recommend any other blogs/websites/forums that deal with 
+the same topics? Thank you so much!';
+$lang['replies']               = 'Hey! This is my 1st comment here so I just wanted to give a quick shout oout and say I truly enjoy reading your posts.
+Can you recommend any other blogs/websites/forums that deal with the same topics?
+Thank you so much!';
+$lang['newthread']             = 'Hey! This is my 1st comment here soo I just wanted to give a quick shout out and say I truly enjoy reading your posts.
+Can you recommend any other blogs/websites/forums that deal with the same 
+topics? Thank you so much!';
+$lang['toggle_display']        = 'Hey! This is my 1st comment here so I just wanted to give 
+a quick shout out and say I truly enjoy reading your 
+posts. Can you recommend any other blogs/websites/forums that deal with the 
+same topics? Thank you so much!';
+$lang['js']['confirmdelete']   = 'Hey! This is my 1st comment hete so I just wanted to give a quick shout out and say I truly enjoy reading your posts.
+Can you recommend any other blogs/websites/forums that deal with the same 
+topics? Thank you so much!';
