@@ -870,7 +870,8 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
             $user_data['user'] = $user;
             $user_data['mail'] = $mail;
             $align = $lang['direction'] === 'ltr' ? 'left' : 'right';
-            $avatar = $this->avatar->getXHTML($user_data, $name, $align);
+            $size = $this->avatar->getConf('size');
+            $avatar = $this->avatar->renderXHTML($user_data, $name, $align, $size);
             if ($avatar) {
                 $head .= $avatar;
             }
