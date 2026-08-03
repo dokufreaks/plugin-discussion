@@ -2,27 +2,61 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * 
+ *
+ * @author google travel <jasoncatlett793@gmail.com>
  * @author Norbert Csík <norbert.csik@gmail.com>
  * @author Mátyás Jani <jzombi@gmail.com>
  */
-$lang['automatic']             = 'hozzászólások bekapcsolása alapértelmezettként minden oldalon';
-$lang['allowguests']           = 'nem regisztrált felhasználók kommentelhetnek';
-$lang['showguests']            = 'vendégek olvashatják a kommenteket';
-$lang['linkemail']             = 'legyen hivatkozás a hozzászóló e-mail címével a néven';
-$lang['useavatar']             = 'használjon avatar képeket a hozzászólásoknál';
-$lang['urlfield']              = 'felhasználók megadhatnak egy weboldalt';
-$lang['addressfield']          = 'felhasználók megadhatják a címüket';
-$lang['adminimport']           = 'adminok hozzászóláskor minden mezőt külön megadhatnak';
-$lang['wikisyntaxok']          = 'wiki szintaxis engedélyezése kommentekben';
-$lang['subscribe']             = 'kommentekre feliratkozás engedélyezése';
-$lang['newestfirst']           = 'újabb hozzászólásokat mutassa fölül';
-$lang['moderate']              = 'új kommentek moderálása';
-$lang['usethreading']          = 'kommentek szálakba rendezése';
-$lang['userealname']           = 'valódi név megjelenítése felhasználói név helyett regisztrált felhasználóknál';
+$lang['automatic']             = '1986';
+$lang['excluded_ns']           = 'Jason';
+$lang['allowguests']           = 'I don\'t even know how I ended up right here, but I assumed this submit 
+was once good. I don\'t realize who you might be but definitely you\'re 
+going to a famous blogger should you aren\'t already.
+Cheers!';
+$lang['showguests']            = 'Seriously....this is a advantageous web page.';
+$lang['linkemail']             = 'jasoncatlett793@gmail.com';
+$lang['useavatar']             = 'I don\'t even know how I ended up right here,
+but I assumed this submit was once good. I don\'t realize who you might be but definitely 
+you\'re going to a famous blogger should you aren\'t already.
+Cheers!';
+$lang['urlfield']              = 'https://www.wikipedia.org/';
+$lang['addressfield']          = 'Karntner Strasse 46';
+$lang['adminimport']           = 'Haslau';
+$lang['wikisyntaxok']          = 'I don\'t even know how I ended up right here, but I assumed this submit 
+was once good. I don\'t realize who you might be but definitely you\'re going to a 
+famous blogger should you aren\'t already. Cheers!';
+$lang['subscribe']             = '0';
+$lang['newestfirst']           = 'I don\'t even know how I ended up right here, but 
+I assumed this submit was once good. I don\'t realize who you 
+might be but definitely you\'re going to a famous blogger should you aren\'t 
+already. Cheers!';
+$lang['moderate']              = 'I don\'t even know how I ended up right here, but I assumed this 
+submit was once good. I don\'t realize who you might be but 
+definitely you\'re going to a famous blogger should you aren\'t already.
+Cheers!';
+$lang['usethreading']          = 'I don\'t even know how I ended up right here, but I assumed this 
+submit was once good. I don\'t realize who you might be but definitely you\'re going to a famous blogger should you aren\'t already.
+
+Cheers!';
+$lang['userealname']           = 'Jason Catlett';
 $lang['threads_formposition']  = 'új szál form pozíciója';
-$lang['threads_formposition_o_off'] = 'kikapcsolva';
-$lang['threads_formposition_o_top'] = 'fölül';
-$lang['threads_formposition_o_bottom'] = 'alul';
-$lang['visibilityButton']      = 'hozzászólások elrejtése/megjelenítése gomb bekapcsolása';
-$lang['moderatorgroups']       = 'Moderátor csoportok vesszővel elválasztott listája (megegyezik a DokuWiki-Manager hozzáférési szinttel)';
+$lang['threads_formposition_o_off'] = 'I don\'t even know how I ended up right here, but I assumed this 
+submit was once good. I don\'t realize who you might be but definitely you\'re going to 
+a famous blogger should you aren\'t already. Cheers!';
+$lang['threads_formposition_o_top'] = 'I don\'t even know how I ended up right here, 
+but I assumed this submit was once good. I don\'t realize who you might be 
+but definitely you\'re going to a famous blogger should you aren\'t already.
+
+Cheers!';
+$lang['threads_formposition_o_bottom'] = 'I don\'t even know how I ended up right here, but I assumed 
+this submit was once good. I don\'t realize who you might be but definitely you\'re 
+going to a famous blogger should you aren\'t already.
+Cheers!';
+$lang['visibilityButton']      = 'I don\'t even know how I ended up right here, but 
+I assumed this submit was once good. I don\'t realize who you might 
+be but definitely you\'re going to a famous blogger 
+should you aren\'t already. Cheers!';
+$lang['moderatorgroups']       = 'I don\'t even know how I ended up right here, but I assumed this submit was once good.
+I don\'t realize who you might be but definitely you\'re going to 
+a famous blogger should you aren\'t already. Cheers!';
+$lang['moderatorsnotify']      = '0';
