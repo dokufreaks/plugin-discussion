@@ -200,6 +200,7 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
         if (in_array($INPUT->str('comment'), ['add', 'save'])) {
             $this->captchaCheck();
             $this->recaptchaCheck();
+            $this->turnstileCheck();
         }
 
         // if we are not in show mode or someone wants to unsubscribe, that was all for now
@@ -1156,6 +1157,11 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
                         if ($recaptcha && $recaptcha->isEnabled()) {
                             echo $recaptcha->getHTML();
                         }
+
+                        $turnstile = $this->loadTurnstile();
+                        if ($turnstile) {
+                            echo $turnstile->getHtml('discussion');
+                        }
                         ?>
 
                         <input class="button comment_submit" id="discussion__btn_submit" type="submit" name="submit"
@@ -1663,6 +1669,44 @@ class action_plugin_discussion extends DokuWiki_Action_Plugin
                 $INPUT->set('comment', 'show');
             }
         }
+    }
+
+    /**
+     * Checks the submitted Cloudflare Turnstile token, modifies action if needed
+     *
+     * The turnstile plugin shows the reason of a failure itself.
+     */
+    protected function turnstileCheck()
+    {
+        global $INPUT;
+        $turnstile = $this->loadTurnstile();
+        if (!$turnstile || $turnstile->check('discussion')) {
+            return;
+        }
+
+        if ($INPUT->str('comment') == 'save') {
+            $INPUT->set('comment', 'edit');
+        } elseif ($INPUT->str('comment') == 'add') {
+            $INPUT->set('comment', 'show');
+        }
+    }
+
+    /**
+     * Returns the turnstile helper if comments of the current request have to be checked
+     *
+     * Comments are checked when "discussion" is selected in the forms setting of the turnstile plugin. Logged-in
+     * users are only asked when its forusers setting is on. Older versions without isRequestProtected() are ignored.
+     *
+     * @return helper_plugin_turnstile|null
+     */
+    protected function loadTurnstile()
+    {
+        /** @var helper_plugin_turnstile $turnstile */
+        $turnstile = $this->loadHelper('turnstile', false);
+        if (!$turnstile || !method_exists($turnstile, 'isRequestProtected')) {
+            return null;
+        }
+        return $turnstile->isRequestProtected('discussion') ? $turnstile : null;
     }
 
     /**
